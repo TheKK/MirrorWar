@@ -1,0 +1,224 @@
+package application;
+
+import java.lang.invoke.ConstantCallSite;
+import java.util.HashSet;
+
+import javafx.scene.input.KeyEvent;
+import javafx.scene.paint.Color;
+
+public class PongGameScene extends GameScene {
+	Integer leftScore = 0;
+	Integer rightScore = 0;
+
+	public PongGameScene() {
+		final Integer UPPER_BOUND_GROUP_ID = 0;
+		final Integer LOWER_BOUND_GROUP_ID = 1;
+		final Integer RIGHT_BOUND_GROUP_ID = 2;
+		final Integer LEFT_BOUND_GROUP_ID = 3;
+		final Integer LEFT_PADDLE_GROUP_ID = 4;
+		final Integer RIGHT_PADDLE_GROUP_ID = 5;
+		final Integer BALL_GROUP_ID = 6;
+
+		final double PADDLE_X_MARGIN = 30;
+		final double PADDLE_Y_START = 30;
+		final double PADDLE_WIDTH = 30;
+		final double PADDLE_HEIGHT = 100;
+		final double PADDLE_MOVE_SPEED = 0.7;
+		
+		final double BALL_START_X = 300;
+		final double BALL_START_Y = 300;
+		final double BALL_SIZE = 25;
+		final double BALL_START_VX = 0.4;
+		final double BALL_START_VY = 0.4;
+
+		Game.setClearColor(Color.BLACK);
+		
+		TextGameNode leftScoreLable = new TextGameNode(leftScore.toString());
+		leftScoreLable.strokeColor = Color.WHITE;
+		leftScoreLable.geometry.x = 300;
+		leftScoreLable.geometry.y = 100;
+		rootNode.addChild(leftScoreLable);
+
+		TextGameNode rightScoreLabel = new TextGameNode(rightScore.toString());
+		rightScoreLabel.strokeColor = Color.WHITE;
+		rightScoreLabel.geometry.x = Game.canvasWidth() - 300;
+		rightScoreLabel.geometry.y = 100;
+		rootNode.addChild(rightScoreLabel);
+
+		GameNode leftPaddle = new RectangleGameNode(
+				PADDLE_X_MARGIN, PADDLE_Y_START,
+				PADDLE_WIDTH, PADDLE_HEIGHT,
+				Color.WHITE) {
+			boolean isMovingUp = false;
+			boolean isMovingDown = false;
+
+			{
+				addColissionGroup(LEFT_PADDLE_GROUP_ID);
+			}
+
+			@Override
+			public boolean onKeyPressed(KeyEvent event) {
+				switch (event.getCode()) {
+				case R:
+					isMovingUp = true;
+					break;
+				case F:
+					isMovingDown = true;
+					break;
+
+				default:
+					break;
+				}
+
+				return true;
+			}
+
+			@Override
+			public boolean onKeyReleased(KeyEvent event) {
+				switch (event.getCode()) {
+				case R:
+					isMovingUp = false;
+					break;
+				case F:
+					isMovingDown = false;
+					break;
+
+				default:
+					break;
+				}
+
+				return true;
+			}
+			
+			@Override
+			public void update(long elapse) {
+				vy = 0;
+				if (isMovingUp) vy -= PADDLE_MOVE_SPEED;
+				if (isMovingDown) vy += PADDLE_MOVE_SPEED;
+			}
+		};
+		rootNode.addChild(leftPaddle);
+		physicEngine.addDynamicNode(leftPaddle);
+
+		GameNode rightPaddle = new RectangleGameNode(
+				Game.canvasWidth() - PADDLE_X_MARGIN - PADDLE_WIDTH, PADDLE_Y_START,
+				PADDLE_WIDTH, PADDLE_HEIGHT,
+				Color.WHITE) {
+			boolean isMovingUp = false;
+			boolean isMovingDown = false;
+
+			{
+				addColissionGroup(RIGHT_PADDLE_GROUP_ID);
+			}
+
+			@Override
+			public boolean onKeyPressed(KeyEvent event) {
+				switch (event.getCode()) {
+				case U:
+					isMovingUp = true;
+					break;
+				case J:
+					isMovingDown = true;
+					break;
+
+				default:
+					break;
+				}
+
+				return true;
+			}
+
+			@Override
+			public boolean onKeyReleased(KeyEvent event) {
+				switch (event.getCode()) {
+				case U:
+					isMovingUp = false;
+					break;
+				case J:
+					isMovingDown = false;
+					break;
+
+				default:
+					break;
+				}
+
+				return true;
+			}
+			
+			@Override
+			public void update(long elapse) {
+				vy = 0;
+				if (isMovingUp) vy -= PADDLE_MOVE_SPEED;
+				if (isMovingDown) vy += PADDLE_MOVE_SPEED;
+			}
+		};
+		rootNode.addChild(rightPaddle);
+		physicEngine.addDynamicNode(rightPaddle);
+		
+		GameNode ball = new RectangleGameNode(BALL_START_X, BALL_START_Y, BALL_SIZE, BALL_SIZE, Color.WHITE) {
+			{
+				vx = BALL_START_VX;
+				vy = BALL_START_VY;
+				
+				addColissionGroup(BALL_GROUP_ID);
+			}
+			
+			void resetBall() {
+				geometry.x = BALL_START_X;
+				geometry.y = BALL_START_Y;
+				vx = BALL_START_VX;
+				vy = BALL_START_VY;
+			}
+
+			@Override
+			public boolean onKeyPressed(KeyEvent event) {
+				switch (event.getCode()) {
+				case W:
+					resetBall();
+					break;
+				default:
+					break;
+				}
+				return true;
+			}
+			@Override
+			public void onCollided(GameNode node, long elapse) {
+				HashSet<Integer> collisionGroups = node.colissionGroup();
+
+				if (collisionGroups.contains(LEFT_PADDLE_GROUP_ID)) vx = BALL_START_VX;
+				if (collisionGroups.contains(RIGHT_PADDLE_GROUP_ID)) vx = -BALL_START_VX;
+				if (collisionGroups.contains(UPPER_BOUND_GROUP_ID)) vy = BALL_START_VY;
+				if (collisionGroups.contains(LOWER_BOUND_GROUP_ID)) vy = -BALL_START_VY;
+
+				if (collisionGroups.contains(LEFT_BOUND_GROUP_ID)) {
+					rightScore += 1;
+					rightScoreLabel.text = rightScore.toString();
+					resetBall();
+				}
+				if (collisionGroups.contains(RIGHT_BOUND_GROUP_ID)) {
+					leftScore += 1;
+					leftScoreLable.text = leftScore.toString();
+					resetBall();
+				}
+			}
+		};
+		rootNode.addChild(ball);
+		physicEngine.addDynamicNode(ball);
+		
+		GameNode upperBound = new RectangleGameNode(0, -50, Game.canvasWidth(), 50, Color.TRANSPARENT);
+		upperBound.addColissionGroup(UPPER_BOUND_GROUP_ID);
+		physicEngine.addStaticNode(upperBound);
+
+		GameNode lowerBound = new RectangleGameNode(0, Game.canvasHeight(), Game.canvasWidth(), 50, Color.TRANSPARENT);
+		lowerBound.addColissionGroup(LOWER_BOUND_GROUP_ID);
+		physicEngine.addStaticNode(lowerBound);
+
+		GameNode rightBound = new RectangleGameNode(Game.canvasWidth(), 0, 50, Game.canvasHeight(), Color.TRANSPARENT);
+		rightBound.addColissionGroup(RIGHT_BOUND_GROUP_ID);
+		physicEngine.addStaticNode(rightBound);
+
+		GameNode leftBound = new RectangleGameNode(-50, 0, 50, Game.canvasHeight(), Color.TRANSPARENT);
+		leftBound.addColissionGroup(LEFT_BOUND_GROUP_ID);
+		physicEngine.addStaticNode(leftBound);
+	}
+}
