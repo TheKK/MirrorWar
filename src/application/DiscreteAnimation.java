@@ -14,22 +14,22 @@ public class DiscreteAnimation<T> implements Animation<T> {
 		double doubleVal;
 		boolean booleanVal;
 
-		public static <T> Variant of(T value) throws Exception {
-			Variant result = new Variant();
-			Class<?> valueClass = value.getClass();
-			
-			if (valueClass == boolean.class) {
-				result.valueType = ValueType.BOOLEAN;
-				result.booleanVal = (boolean) value;
-			} else if (valueClass == double.class) {
-				result.valueType = ValueType.DOUBLE;
-				result.doubleVal = (double) value;
-			} else {
-				throw new Exception("non support variant type: " + valueClass);
-			}
-
-			return result;
-		}
+//		public static <T> Variant of(T value) throws Exception {
+//			Variant result = new Variant();
+//			Class<?> valueClass = value.getClass();
+//			
+//			if (valueClass == boolean.class) {
+//				result.valueType = ValueType.BOOLEAN;
+//				result.booleanVal = (boolean) value;
+//			} else if (valueClass == double.class) {
+//				result.valueType = ValueType.DOUBLE;
+//				result.doubleVal = (double) value;
+//			} else {
+//				throw new Exception("non support variant type: " + valueClass);
+//			}
+//
+//			return result;
+//		}
 		
 		public Optional<Boolean> asBoolean() {
 			switch (this.valueType) {
