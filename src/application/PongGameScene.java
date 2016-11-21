@@ -4,6 +4,7 @@ import java.lang.invoke.ConstantCallSite;
 import java.util.HashSet;
 
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 
 public class PongGameScene extends GameScene {
@@ -204,6 +205,15 @@ public class PongGameScene extends GameScene {
 		};
 		rootNode.addChild(ball);
 		physicEngine.addDynamicNode(ball);
+
+		RectangleGameNode button = new RectangleGameNode(0, 0, 50, 50, Color.RED) {
+			public boolean onMousePressed(MouseEvent event) {
+				Game.setClearColor(Color.web("0xcccccc"));
+				Game.popScene();
+				return false;
+			}
+		};
+		rootNode.addChild(button);
 		
 		GameNode upperBound = new RectangleGameNode(0, -50, Game.canvasWidth(), 50, Color.TRANSPARENT);
 		upperBound.addColissionGroup(UPPER_BOUND_GROUP_ID);

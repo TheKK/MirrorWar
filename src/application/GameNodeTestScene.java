@@ -11,38 +11,42 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
-public class GameNodeTestScene extends GameScene {
-	class RotateTextGameNode extends TextGameNode {
-		double degree;
-		double radiusX, radiusY;
-		double speed;
-		
-		public RotateTextGameNode(String text, double startDegree, double radius, double speed) {
-			super(text);
+class RotateTextGameNode extends TextGameNode {
+	double degree;
+	double radiusX, radiusY;
+	double speed;
+	double x, y;
+	
+	public RotateTextGameNode(String text, double startDegree, double radius, double speed) {
+		super(text);
 
-			this.degree = startDegree;
-			this.radiusX = radius;
-			this.radiusY = radius * 0.2;
-			this.speed = speed;
-			
-			this.mouseBound.width = 50;
-			this.mouseBound.height = 50;
-		}
-
-		public void update(long elpase) {
-			degree += elpase * speed;
-			geometry.x = (int) (Math.cos(degree) * radiusX);
-			geometry.y = (int) (Math.sin(degree) * radiusY);
-			mouseBound.x = geometry.x;
-			mouseBound.y = geometry.y;
-		}
+		this.degree = startDegree;
+		this.radiusX = radius;
+		this.radiusY = radius;
+		this.speed = speed;
 		
-		public boolean onMousePressed(MouseEvent event) {
-			System.out.println("hit");
-			return true;
-		}
+		this.x = 0;
+		this.y = 0;
+		
+		this.mouseBound.width = 50;
+		this.mouseBound.height = 50;
+	}
+
+	public void update(long elpase) {
+		degree += elpase * speed;
+		geometry.x = x + (int) (Math.cos(degree) * radiusX);
+		geometry.y = y + (int) (Math.sin(degree) * radiusY);
+		mouseBound.x = geometry.x;
+		mouseBound.y = geometry.y;
 	}
 	
+	public boolean onMousePressed(MouseEvent event) {
+		System.out.println("hit");
+		return true;
+	}
+}
+	
+public class GameNodeTestScene extends GameScene {
 	TextGameNode textA;
 	
 	public GameNodeTestScene() {

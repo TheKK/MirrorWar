@@ -12,12 +12,12 @@ public class SplashGameScene extends GameScene {
 	public SplashGameScene() {
 		File file = new File("./src/application/assets/splash.png");
 		Image image = new Image(file.toURI().toString());
-		GameNode splashImage = new ImageGameNode(image);
+		GameNode splashImage = new SpriteGameNode(image);
 		splashImage.geometry.setFrame(0, 0, Game.canvasWidth(), Game.canvasHeight());
 		rootNode.addChild(splashImage);
 
 		GameNode timer = new GameNode() {
-			int life = 12000;
+			int life = 1000;
 			int currentLife = 0;
 
 			File file = new File("./src/application/assets/sega.wav");
@@ -38,7 +38,7 @@ public class SplashGameScene extends GameScene {
 				float x = (float) currentLife / 1000.f;
 				float d = (float) life / 1000.f;
 				float v = 2.5f;
-				splashImage.alpha = (2.f * x * v/ d) * ((-1 * x / d) + 1);
+				splashImage.alpha = (2.0 * x * v/ d) * ((-1 * x / d) + 1);
 			}
 		};
 		rootNode.addChild(timer);

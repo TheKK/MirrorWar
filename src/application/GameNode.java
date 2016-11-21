@@ -27,7 +27,8 @@ public abstract class GameNode {
 	public double vx = 0, vy = 0;
 	public double dampX = 0, dampY = 0;
 	
-	public double alpha = 1.0;
+	public Double alpha = 1.0;
+	public Boolean visible = true;
 	
 	private boolean isMouseEntered = false;
 	private HashSet<GameNode> enteredAreaSet = new HashSet<GameNode>();
@@ -35,6 +36,28 @@ public abstract class GameNode {
 	
 	private Optional<GameNode> parent = Optional.empty();
 	ArrayList<GameNode> children = new ArrayList<GameNode>();
+	
+	public final Optional<Rectangle2D.Double> geometryInGameWorld() {
+		if (!parent.isPresent()) {
+			return Optional.empty();
+		}
+		
+		Optional<GameNode> p = parent;
+		Rectangle2D.Double result = new Rectangle2D.Double();
+
+		result.setFrame(geometry);
+
+		// TODO Should check if this node was attached to root node
+		while (p.isPresent()) {
+			GameNode parentNode = p.get();
+			result.x += parentNode.geometry.x;
+			result.y += parentNode.geometry.y;
+			
+			p = parentNode.parent;
+		}
+		
+		return Optional.of(result);
+	}
 
 	public final boolean _onMousePressed(MouseEvent event) {
 		Point point = new Point((int) event.getX(), (int) event.getY());
@@ -259,24 +282,26 @@ public abstract class GameNode {
 	public final void _render(GraphicsContext gc) {
 		gc.save();
 		{
-			gc.setGlobalAlpha(alpha);
-			render(gc);
+			if (visible) {
+				gc.setGlobalAlpha(alpha);
+				render(gc);
 
-			gc.translate(geometry.getX(), geometry.getY());
-			children.forEach(node -> {
-				node._render(gc);
-			});
+				gc.translate(geometry.getX(), geometry.getY());
+				children.forEach(node -> {
+					node._render(gc);
+				});
+			}
 		}
 		gc.restore();
 	}
 
 	public final void _update(long elapse) {
-		this.update(elapse);
-		this.children.forEach(node -> node._update(elapse));
+		update(elapse);
+		children.forEach(node -> node._update(elapse));
 	}
 	
 	public void update(long elapse) {
-			children.forEach(node -> node.update(elapse));
+		children.forEach(node -> node.update(elapse));
 	}
 
 	public void render(GraphicsContext gc) {}

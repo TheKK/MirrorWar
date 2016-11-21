@@ -6,7 +6,21 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 
 public class BlankGameScene extends GameScene {
+	final String DEFAULT_HINT_STRING = "Press the rectangle to go to another scene";
+
 	public BlankGameScene() {
+		TextGameNode hintText = new TextGameNode(DEFAULT_HINT_STRING) {
+			{
+				strokeColor = Color.BLACK;
+			}
+
+			public boolean onMouseMoved(MouseEvent event) {
+				geometry.x = event.getX();
+				geometry.y = event.getY();
+				return false;
+			}
+		};
+
 		RectangleGameNode buttonA = new RectangleGameNode(
 				75, 75, 100, 100, Color.web("0xaabbcc")) {
 
@@ -16,10 +30,12 @@ public class BlankGameScene extends GameScene {
 			}
 			public boolean onMouseEntered(MouseEvent event) {
 				color = Color.RED;
+				hintText.text = "Boring box bouncing around";
 				return false;
 			}
 			public boolean onMouseExited(MouseEvent event) {
 				color = Color.web("0xaabbcc");
+				hintText.text = DEFAULT_HINT_STRING;
 				return false;
 			}
 		};
@@ -34,10 +50,12 @@ public class BlankGameScene extends GameScene {
 			}
 			public boolean onMouseEntered(MouseEvent event) {
 				color = Color.RED;
+				hintText.text = "Solar system (GameNode system)";
 				return false;
 			}
 			public boolean onMouseExited(MouseEvent event) {
 				color = Color.web("0xaabbcc");
+				hintText.text = DEFAULT_HINT_STRING;
 				return false;
 			}
 		};
@@ -47,15 +65,17 @@ public class BlankGameScene extends GameScene {
 				75 + 1 * 150, 75 + 0 * 100, 100, 100, Color.web("0xaabbcc")) {
 
 			public boolean onMousePressed(MouseEvent event) {
-				Game.pushScene(new PhysicTestBedGameScene());
+				Game.pushScene(new PhysicsTestBedGameScene());
 				return false;
 			}
 			public boolean onMouseEntered(MouseEvent event) {
 				color = Color.RED;
+				hintText.text = "Physics test bed";
 				return false;
 			}
 			public boolean onMouseExited(MouseEvent event) {
 				color = Color.web("0xaabbcc");
+				hintText.text = DEFAULT_HINT_STRING;
 				return false;
 			}
 		};
@@ -70,10 +90,12 @@ public class BlankGameScene extends GameScene {
 			}
 			public boolean onMouseEntered(MouseEvent event) {
 				color = Color.RED;
+				hintText.text = "The famous PONG!";
 				return false;
 			}
 			public boolean onMouseExited(MouseEvent event) {
 				color = Color.web("0xaabbcc");
+				hintText.text = DEFAULT_HINT_STRING;
 				return false;
 			}
 		};
@@ -89,10 +111,12 @@ public class BlankGameScene extends GameScene {
 			}
 			public boolean onMouseEntered(MouseEvent event) {
 				color = Color.RED;
+				hintText.text = "Enable/disable debug render";
 				return false;
 			}
 			public boolean onMouseExited(MouseEvent event) {
 				color = Color.web("0xaabbcc");
+				hintText.text = DEFAULT_HINT_STRING;
 				return false;
 			}
 		};
@@ -109,16 +133,6 @@ public class BlankGameScene extends GameScene {
 		textB.geometry.x = buttonB.geometry.x;
 		textB.geometry.y = buttonB.geometry.y - 10;
 		rootNode.addChild(textB);
-
-		TextGameNode textC = new TextGameNode("Press the rectangle to go to another scene") {
-			public boolean onMouseMoved(MouseEvent event) {
-				geometry.x = event.getX();
-				geometry.y = event.getY();
-				return false;
-			}
-		};
-		textC.strokeColor = Color.BLACK;
-		rootNode.addChild(textC);
 		
 		GameSceneCamera camera = new SimpleGameSceneCamera(0, 0, Game.width, Game.height) {
 			@Override
@@ -133,5 +147,7 @@ public class BlankGameScene extends GameScene {
 			}
 		};
 		setCamera(camera);
+
+		rootNode.addChild(hintText);
 	}
 }

@@ -5,13 +5,15 @@ import java.awt.geom.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
-public class ImageGameNode extends GameNode {
+public class SpriteGameNode extends GameNode {
 	Image image;
 	Rectangle2D.Double srcRect;
 
-	public ImageGameNode(Image image) {
+	public SpriteGameNode(Image image) {
 		this.image = image;
-		this.srcRect = new Rectangle2D.Double(0, 0, image.getWidth(), image.getHeight());
+
+		srcRect = new Rectangle2D.Double(0, 0, image.getWidth(), image.getHeight());
+		geometry.setFrame(srcRect);
 	}
 
 	@Override
