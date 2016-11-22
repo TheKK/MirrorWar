@@ -1,4 +1,4 @@
-package application;
+package gameEngine;
 
 import java.awt.Point;
 import java.awt.Rectangle;

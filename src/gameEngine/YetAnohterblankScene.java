@@ -1,4 +1,4 @@
-package application;
+package gameEngine;
 
 import java.awt.Rectangle;
 import java.util.ArrayList;

@@ -1,9 +1,10 @@
-package application;
+package gameEngine;
 
 import java.util.Optional;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 
@@ -13,10 +14,10 @@ public class CoinGameScene extends GameScene {
 
 		Game.clearColor = Color.RED;
 		
-		for (int i = 0; i < 10; ++i) {
+		for (int i = 0; i < 100; ++i) {
 			Random rng = new Random();
-			int x = rng.nextInt(400);
-			int y = rng.nextInt(400);
+			int x = -500 + rng.nextInt(1000);
+			int y = -500 + rng.nextInt(1000);
 
 			GameNode coin = new RectangleGameNode(x, y, 25, 25, Color.YELLOW);
 			coin.addColissionGroup(COIN_GROUP_ID);
@@ -27,11 +28,6 @@ public class CoinGameScene extends GameScene {
 		GameNode player = new RectangleGameNode(100, 100, 50, 50, Color.BLUE) {
 			int coins = 0;
 
-			boolean upIsPressed = false;
-			boolean downIsPressed = false;
-			boolean leftIsPressed = false;
-			boolean rightIsPressed = false;
-			
 			TextGameNode text;
 			{
 				text = new TextGameNode("0");
@@ -42,10 +38,12 @@ public class CoinGameScene extends GameScene {
 
 			@Override
 			public void update(long elapse) {
-				if (upIsPressed) this.pulseY -= 0.005/elapse;
-				if (downIsPressed) this.pulseY += 0.005/elapse;
-				if (leftIsPressed) this.pulseX -= 0.005/elapse;
-				if (rightIsPressed) this.pulseX += 0.005/elapse;
+				final double MOVE_SPEED = 0.010;
+
+				if (Game.getKeyboardState(KeyCode.UP)) this.pulseY -= MOVE_SPEED/elapse;
+				if (Game.getKeyboardState(KeyCode.DOWN)) this.pulseY += MOVE_SPEED/elapse;
+				if (Game.getKeyboardState(KeyCode.LEFT)) this.pulseX -= MOVE_SPEED/elapse;
+				if (Game.getKeyboardState(KeyCode.RIGHT)) this.pulseX += MOVE_SPEED/elapse;
 			}
 			
 			@Override
@@ -62,53 +60,9 @@ public class CoinGameScene extends GameScene {
 					text.text = coins + " !";
 				}
 			}
-			
-			@Override
-			public boolean onKeyPressed(KeyEvent event) {
-				switch (event.getCode()) {
-				case UP:
-					upIsPressed = true;
-					break;
-				case DOWN:
-					downIsPressed = true;
-					break;
-				case LEFT:
-					leftIsPressed = true;
-					break;
-				case RIGHT:
-					rightIsPressed = true;
-					break;
-				default:
-					break;
-				}
-
-				return true;
-			}
-
-			@Override
-			public boolean onKeyReleased(KeyEvent event) {
-				switch (event.getCode()) {
-				case UP:
-					upIsPressed = false;
-					break;
-				case DOWN:
-					downIsPressed = false;
-					break;
-				case LEFT:
-					leftIsPressed = false;
-					break;
-				case RIGHT:
-					rightIsPressed = false;
-					break;
-				default:
-					break;
-				}
-
-				return true;
-			}
 		};
-		player.dampX = 0.002;
-		player.dampY = 0.002;
+		player.dampX = 0.005;
+		player.dampY = 0.005;
 
 		rootNode.addChild(player);
 		physicEngine.addDynamicNode(player);

@@ -1,7 +1,8 @@
-package application;
+package gameEngine;
 
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Stack;
 
 import com.sun.glass.events.MouseEvent;
@@ -9,8 +10,10 @@ import com.sun.glass.ui.TouchInputSupport;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+import javafx.event.Event;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -22,6 +25,7 @@ public final class Game extends Application {
 
 	static double width, height;
 	static Point2D.Double mousePos = new Point2D.Double(0, 0);
+	static HashMap<KeyCode, Boolean> keyboardState = new HashMap<>();
 
 	static Canvas canvas;
 	static GraphicsContext gc;
@@ -39,6 +43,11 @@ public final class Game extends Application {
 
 		width = 800;
 		height = 450;
+		
+		// Initialize keyboard state
+		for (KeyCode key: KeyCode.values()) {
+			keyboardState.put(key, false);
+		}
 	}
 	
 	public static double canvasWidth() {
@@ -66,6 +75,10 @@ public final class Game extends Application {
 		return new Point2D.Double(mousePos.x, mousePos.y);
 	}
 	
+	public static boolean getKeyboardState(KeyCode key) {
+		return keyboardState.get(key);
+	}
+	
 	public static Color clearColor() { return clearColor; }
 	public static void setClearColor(Color color) { clearColor = color; }
 	
@@ -73,16 +86,18 @@ public final class Game extends Application {
 		canvas.setOnMouseMoved(event -> {
 			mousePos.setLocation(event.getX(), event.getY());
 
-			gameSceneStack.peek().onMouseMoved(event);
-			gameSceneStack.peek().onMouseEntered(event);
-			gameSceneStack.peek().onMouseExited(event);
+			GameScene scene = gameSceneStack.peek();
+			scene.onMouseMoved(event);
+			scene.onMouseEntered(event);
+			scene.onMouseExited(event);
 		});
 		canvas.setOnMouseDragged(event -> {
 			mousePos.setLocation(event.getX(), event.getY());
 
-			gameSceneStack.peek().onMouseMoved(event);
-			gameSceneStack.peek().onMouseEntered(event);
-			gameSceneStack.peek().onMouseExited(event);
+			GameScene scene = gameSceneStack.peek();
+			scene.onMouseMoved(event);
+			scene.onMouseEntered(event);
+			scene.onMouseExited(event);
 		});
 		canvas.setOnMousePressed(event -> {
 			gameSceneStack.peek().onMousePressed(event);
@@ -91,9 +106,11 @@ public final class Game extends Application {
 			gameSceneStack.peek().onMouseReleased(event);
 		});
 		canvas.setOnKeyPressed(event -> {
+			keyboardState.put(event.getCode(), true);
 			gameSceneStack.peek().onKeyPressed(event);
 		});
 		canvas.setOnKeyReleased(event -> {
+			keyboardState.put(event.getCode(), false);
 			gameSceneStack.peek().onKeyReleased(event);
 		});
 
@@ -140,6 +157,7 @@ public final class Game extends Application {
 
 			Scene scene = new Scene(root, width, height, Color.BLACK);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+
 			primaryStage.setScene(scene);
 			primaryStage.show();
 			

@@ -1,4 +1,4 @@
-package application;
+package gameEngine;
 
 import java.awt.geom.Point2D;
 
