@@ -5,9 +5,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Stack;
 
-import com.sun.glass.events.MouseEvent;
-import com.sun.glass.ui.TouchInputSupport;
-
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.event.Event;
@@ -17,6 +14,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 
@@ -148,6 +146,8 @@ public final class Game extends Application {
 			Canvas canvas = new Canvas();
 			canvas.setWidth(width);
 			canvas.setHeight(height);
+			canvas.setScaleX(1.5);
+			canvas.setScaleY(1.5);
 			
 			Game.canvas = canvas;
 			Game.gc = canvas.getGraphicsContext2D();

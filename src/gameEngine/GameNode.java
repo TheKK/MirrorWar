@@ -7,6 +7,7 @@ import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Optional;
+import java.util.function.Supplier;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -17,6 +18,7 @@ import javafx.scene.paint.Color;
 
 public abstract class GameNode {
 	public Rectangle2D.Double geometry = new Rectangle2D.Double(0, 0, 0, 0);
+	public double offsetX = 0, offsetY = 0;
 	public Rectangle2D.Double mouseBound = new Rectangle2D.Double(0, 0, 0, 0);
 	
 	// For physical engine
@@ -46,6 +48,8 @@ public abstract class GameNode {
 		Rectangle2D.Double result = new Rectangle2D.Double();
 
 		result.setFrame(geometry);
+		result.x += offsetX;
+		result.y += offsetY;
 
 		// TODO Should check if this node was attached to root node
 		while (p.isPresent()) {
@@ -62,8 +66,6 @@ public abstract class GameNode {
 	public final boolean _onMousePressed(MouseEvent event) {
 		Point point = new Point((int) event.getX(), (int) event.getY());
 		
-		Double d = Double.valueOf(10);
-		
 		for (int i = children.size() - 1; i >=0; i--) {
 			GameNode child = children.get(i);
 
@@ -72,30 +74,18 @@ public abstract class GameNode {
 			}
 		};
 		
-		Optional<GameNode> parent = this.parent;
-		Point2D.Double translate = new Point2D.Double(0, 0);
-		boolean result = true;
-
-		// Compute world coordinate
-		while (parent.isPresent()) {
-			translate.x += parent.get().geometry.x;
-			translate.y += parent.get().geometry.y;
-			
-			parent = parent.get().parent;
-		}
-		
-		mouseBound.x += translate.x;
-		mouseBound.y += translate.y;
-		{
+		Point2D.Double translate = getTranslationInWorld();
+		Optional<Boolean> result = operateWithTranslate(translate, () -> {
 			if (mouseBound.contains(point)) {
-				result = onMousePressed(event);
+				return Optional.of(onMousePressed(event));
+			} else {
+				return Optional.empty();
 			}
-		}
-		mouseBound.x -= translate.x;
-		mouseBound.y -= translate.y;
+		});
 		
-		return result;
+		return result.isPresent() ? result.get() : true;
 	}
+
 	public final boolean _onMouseReleased(MouseEvent event) {
 		Point point = new Point((int) event.getX(), (int) event.getY());
 		
@@ -107,29 +97,16 @@ public abstract class GameNode {
 			}
 		};
 		
-		Optional<GameNode> parent = this.parent;
-		Point2D.Double translate = new Point2D.Double(0, 0);
-		boolean result = true;
-
-		// Compute world coordinate
-		while (parent.isPresent()) {
-			translate.x += parent.get().geometry.x;
-			translate.y += parent.get().geometry.y;
-			
-			parent = parent.get().parent;
-		}
-		
-		mouseBound.x += translate.x;
-		mouseBound.y += translate.y;
-		{
+		Point2D.Double translate = getTranslationInWorld();
+		Optional<Boolean> result = operateWithTranslate(translate, () -> {
 			if (mouseBound.contains(point)) {
-				result = onMouseReleased(event);
+				return Optional.of(onMouseReleased(event));
+			} else {
+				return Optional.empty();
 			}
-		}
-		mouseBound.x -= translate.x;
-		mouseBound.y -= translate.y;
+		});
 		
-		return result;
+		return result.isPresent() ? result.get() : true;
 	}
 	public final boolean _onMouseEntered(MouseEvent event) {
 		Point point = new Point((int) event.getX(), (int) event.getY());
@@ -142,30 +119,17 @@ public abstract class GameNode {
 			}
 		};
 
-		Optional<GameNode> parent = this.parent;
-		Point2D.Double translate = new Point2D.Double(0, 0);
-		boolean result = true;
-
-		// Compute world coordinate
-		while (parent.isPresent()) {
-			translate.x += parent.get().geometry.x;
-			translate.y += parent.get().geometry.y;
-			
-			parent = parent.get().parent;
-		}
-		
-		mouseBound.x += translate.x;
-		mouseBound.y += translate.y;
-		{
+		Point2D.Double translate = getTranslationInWorld();
+		Optional<Boolean> result = operateWithTranslate(translate, () -> {
 			if (!isMouseEntered && mouseBound.contains(point)) {
 				isMouseEntered = true;
-				result = onMouseEntered(event);
+				return Optional.of(onMouseEntered(event));
+			} else {
+				return Optional.empty();
 			}
-		}
-		mouseBound.x -= translate.x;
-		mouseBound.y -= translate.y;
+		});
 		
-		return result;
+		return result.isPresent() ? result.get() : true;
 	}
 	public final boolean _onMouseExited(MouseEvent event) {
 		Point point = new Point((int) event.getX(), (int) event.getY());
@@ -178,30 +142,17 @@ public abstract class GameNode {
 			}
 		};
 		
-		Optional<GameNode> parent = this.parent;
-		Point2D.Double translate = new Point2D.Double(0, 0);
-		boolean result = true;
-
-		// Compute world coordinate
-		while (parent.isPresent()) {
-			translate.x += parent.get().geometry.x;
-			translate.y += parent.get().geometry.y;
-			
-			parent = parent.get().parent;
-		}
-		
-		mouseBound.x += translate.x;
-		mouseBound.y += translate.y;
-		{
+		Point2D.Double translate = getTranslationInWorld();
+		Optional<Boolean> result = operateWithTranslate(translate, () -> {
 			if (isMouseEntered && !mouseBound.contains(point)) {
 				isMouseEntered = false;
-				result = onMouseExited(event);
+				return Optional.of(onMouseExited(event));
+			} else {
+				return Optional.empty();
 			}
-		}
-		mouseBound.x -= translate.x;
-		mouseBound.y -= translate.y;
+		});
 		
-		return result;
+		return result.isPresent() ? result.get() : true;
 	}
 	public final boolean _onKeyPressed(KeyEvent event) {
 		for (int i = children.size() - 1; i >=0; i--) {
@@ -284,9 +235,11 @@ public abstract class GameNode {
 		{
 			if (visible) {
 				gc.setGlobalAlpha(alpha);
+				gc.translate(offsetX, offsetY);
 				render(gc);
 
-				gc.translate(geometry.getX(), geometry.getY());
+				gc.translate(geometry.x, geometry.y);
+
 				children.forEach(node -> {
 					node._render(gc);
 				});
@@ -306,16 +259,50 @@ public abstract class GameNode {
 
 	public void render(GraphicsContext gc) {}
 	public void renderDebug(GraphicsContext gc) {
-		gc.setStroke(Color.AQUA);
-		gc.strokeRect(mouseBound.x, mouseBound.y, mouseBound.width, mouseBound.height);
-
 		gc.save();
 		{
-			gc.translate(geometry.getX(), geometry.getY());
-			children.forEach(node -> {
-				node.renderDebug(gc);
-			});
+			if (visible) {
+				gc.translate(offsetX, offsetY);
+				gc.setStroke(Color.AQUA);
+				gc.strokeRect(mouseBound.x, mouseBound.y, mouseBound.width, mouseBound.height);
+
+				gc.translate(geometry.x, geometry.y);
+
+				children.forEach(node -> {
+					node.renderDebug(gc);
+				});
+			}
 		}
 		gc.restore();
+	}
+
+	public Point2D.Double getTranslationInWorld() {
+		Optional<GameNode> parent = this.parent;
+		Point2D.Double result = new Point2D.Double(offsetX, offsetY);
+
+		while (parent.isPresent()) {
+			GameNode parentVal = parent.get();
+
+			result.x += parentVal.geometry.x;
+			result.y += parentVal.geometry.y;
+			
+			parent = parentVal.parent;
+		}
+
+		return result;
+	}
+	
+	private <T> T operateWithTranslate(Point2D.Double translate, Supplier<T> op) {
+		T result;
+
+		mouseBound.x += translate.x;
+		mouseBound.y += translate.y;
+		{
+			result = op.get();
+		}
+		mouseBound.x -= translate.x;
+		mouseBound.y -= translate.y;
+		
+		return result;
 	}
 }

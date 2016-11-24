@@ -1,5 +1,5 @@
 package gameEngine;
 
-public interface Animation<T> {
+public interface Animation {
 	public void atTime(long time);
 }

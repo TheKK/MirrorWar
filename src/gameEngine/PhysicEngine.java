@@ -70,12 +70,12 @@ public final class PhysicEngine {
 
 		// Handle static and dynamic node
 		dynamicNodes.forEach(dynamicNode -> {
-			dynamicNodeTranslate.setLocation(getWorldTranslate(dynamicNode));
+			dynamicNodeTranslate.setLocation(dynamicNode.getTranslationInWorld());
 			dynamicNode.geometry.x += dynamicNodeTranslate.x;
 			dynamicNode.geometry.y += dynamicNodeTranslate.y;
 
 			staticNodes.forEach(staticNode -> {
-				staticNodeTranslate.setLocation(getWorldTranslate(staticNode));
+				staticNodeTranslate.setLocation(staticNode.getTranslationInWorld());
 				staticNode.geometry.x += staticNodeTranslate.x;
 				staticNode.geometry.y += staticNodeTranslate.y;
 				{
@@ -93,13 +93,13 @@ public final class PhysicEngine {
 		// Handle dynamic and dynamic node
 		for (int i = 0; i < dynamicNodes.size(); ++i) {
 			GameNode nodeA = dynamicNodes.get(i);
-			dynamicNodeTranslate.setLocation(getWorldTranslate(nodeA));
+			dynamicNodeTranslate.setLocation(nodeA.getTranslationInWorld());
 			nodeA.geometry.x += dynamicNodeTranslate.x;
 			nodeA.geometry.y += dynamicNodeTranslate.y;
 			{
 				for (int j = i; j < dynamicNodes.size(); ++j) {
 					GameNode nodeB = dynamicNodes.get(j);
-					staticNodeTranslate.setLocation(getWorldTranslate(nodeB));
+					staticNodeTranslate.setLocation(nodeB.getTranslationInWorld());
 					nodeB.geometry.x += staticNodeTranslate.x;
 					nodeB.geometry.y += staticNodeTranslate.y;
 					{
@@ -115,12 +115,12 @@ public final class PhysicEngine {
 
 		// Handle sensor node
 		areaNodes.forEach(sensorNode -> {
-			sensorNodeTranslate.setLocation(getWorldTranslate(sensorNode));
+			sensorNodeTranslate.setLocation(sensorNode.getTranslationInWorld());
 			sensorNode.geometry.x += sensorNodeTranslate.x;
 			sensorNode.geometry.y += sensorNodeTranslate.y;
 			{
 				staticNodes.forEach(staticNode -> {
-					staticNodeTranslate.setLocation(getWorldTranslate(staticNode));
+					staticNodeTranslate.setLocation(staticNode.getTranslationInWorld());
 					staticNode.geometry.x += staticNodeTranslate.x;
 					staticNode.geometry.y += staticNodeTranslate.y;
 					{
@@ -131,7 +131,7 @@ public final class PhysicEngine {
 				});
 
 				dynamicNodes.forEach(dynamicNode -> {
-					dynamicNodeTranslate.setLocation(getWorldTranslate(dynamicNode));
+					dynamicNodeTranslate.setLocation(dynamicNode.getTranslationInWorld());
 					dynamicNode.geometry.x += dynamicNodeTranslate.x;
 					dynamicNode.geometry.y += dynamicNodeTranslate.y;
 					{
@@ -147,43 +147,29 @@ public final class PhysicEngine {
 	}
 
 	public final void renderDebug(GraphicsContext gc) {
-		gc.setFill(Color.web("0xadff2f11"));
+		gc.setFill(Color.web("0x80008044"));
 		dynamicNodes.forEach(node -> {
 			Rectangle2D.Double r = node.geometry;
-			Point2D.Double translate = getWorldTranslate(node);
+			Point2D.Double translate = node.getTranslationInWorld();
 
 			gc.fillRect(r.x + translate.x, r.y + translate.y, r.width, r.height);
 		});
 
-		gc.setFill(Color.web("0xdaa52022"));
+		gc.setFill(Color.web("0xdaa52044"));
 		staticNodes.forEach(node -> {
 			Rectangle2D.Double r = node.geometry;
-			Point2D.Double translate = getWorldTranslate(node);
+			Point2D.Double translate = node.getTranslationInWorld();
 
 			gc.fillRect(r.x + translate.x, r.y + translate.y, r.width, r.height);
 		});
 
-		gc.setFill(Color.web("0xdd22dd22"));
+		gc.setFill(Color.web("0xdd22dd44"));
 		areaNodes.forEach(node -> {
 			Rectangle2D.Double r = node.geometry;
-			Point2D.Double translate = getWorldTranslate(node);
+			Point2D.Double translate = node.getTranslationInWorld();
 
 			gc.fillRect(r.x + translate.x, r.y + translate.y, r.width, r.height);
 		});
-	}
-
-	private Point2D.Double getWorldTranslate(GameNode node) {
-		Optional<GameNode> parent = node.parent();
-		Point2D.Double result = new Point2D.Double();
-
-		while (parent.isPresent()) {
-			result.x += parent.get().geometry.x;
-			result.y += parent.get().geometry.y;
-
-			parent = parent.get().parent();
-		}
-
-		return result;
 	}
 
 	private void doCollisionCheck(GameNode nodeA, GameNode nodeB, long elapse) {
