@@ -22,6 +22,7 @@ public final class DiscreteFuncAnimation<T> implements Animation {
 	}
 
 	public void addAnchor(long time, T value) {
+		// TODO Remove duplicate anchor with same time stamp
 		timeValueList.add(new TimeValueTuple(time, value));
 		timeValueList.sort((a, b) -> (a.time < b.time) ? 1 : -1);
 	}
@@ -34,5 +35,9 @@ public final class DiscreteFuncAnimation<T> implements Animation {
 				return;
 			}
 		}
+	}
+
+	@Override
+	public void reset() {
 	}
 }

@@ -46,7 +46,7 @@ public final class PhysicEngine {
 		areaNodes.remove(node);
 	}
 
-	public final void update(long elapse) {
+	public final void updateVelocity(long elapse) {
 		dynamicNodes.forEach(node -> {
 			node.ax = (node.fx / node.mass + worldGravityX);
 			node.ay = (node.fy / node.mass + worldGravityY);
@@ -57,25 +57,30 @@ public final class PhysicEngine {
 			node.pulseX = 0;
 			node.pulseY = 0;
 
-			node.vx += (node.ax * elapse - node.vx * node.dampX);
-			node.vy += (node.ay * elapse - node.vy * node.dampY);
-
+			node.vx = (node.vx * node.dampX) + (node.ax * elapse);
+			node.vy = (node.vy * node.dampY) + (node.ay * elapse);
+		});
+	}
+	public final void updatePosition(long elapse) {
+		dynamicNodes.forEach(node -> {
 			node.geometry.x += node.vx * elapse;
 			node.geometry.y += node.vy * elapse;
 		});
+	}
 
+	public final void handleCollisions(long elapse) {
 		final Point2D.Double dynamicNodeTranslate = new Point2D.Double();
 		final Point2D.Double staticNodeTranslate = new Point2D.Double();
 		final Point2D.Double sensorNodeTranslate = new Point2D.Double();
 
 		// Handle static and dynamic node
 		dynamicNodes.forEach(dynamicNode -> {
-			dynamicNodeTranslate.setLocation(dynamicNode.getTranslationInWorld());
+			dynamicNodeTranslate.setLocation(dynamicNode.getTranslationInScreen());
 			dynamicNode.geometry.x += dynamicNodeTranslate.x;
 			dynamicNode.geometry.y += dynamicNodeTranslate.y;
 
 			staticNodes.forEach(staticNode -> {
-				staticNodeTranslate.setLocation(staticNode.getTranslationInWorld());
+				staticNodeTranslate.setLocation(staticNode.getTranslationInScreen());
 				staticNode.geometry.x += staticNodeTranslate.x;
 				staticNode.geometry.y += staticNodeTranslate.y;
 				{
@@ -93,13 +98,13 @@ public final class PhysicEngine {
 		// Handle dynamic and dynamic node
 		for (int i = 0; i < dynamicNodes.size(); ++i) {
 			GameNode nodeA = dynamicNodes.get(i);
-			dynamicNodeTranslate.setLocation(nodeA.getTranslationInWorld());
+			dynamicNodeTranslate.setLocation(nodeA.getTranslationInScreen());
 			nodeA.geometry.x += dynamicNodeTranslate.x;
 			nodeA.geometry.y += dynamicNodeTranslate.y;
 			{
-				for (int j = i; j < dynamicNodes.size(); ++j) {
+				for (int j = i + 1; j < dynamicNodes.size(); ++j) {
 					GameNode nodeB = dynamicNodes.get(j);
-					staticNodeTranslate.setLocation(nodeB.getTranslationInWorld());
+					staticNodeTranslate.setLocation(nodeB.getTranslationInScreen());
 					nodeB.geometry.x += staticNodeTranslate.x;
 					nodeB.geometry.y += staticNodeTranslate.y;
 					{
@@ -115,12 +120,12 @@ public final class PhysicEngine {
 
 		// Handle sensor node
 		areaNodes.forEach(sensorNode -> {
-			sensorNodeTranslate.setLocation(sensorNode.getTranslationInWorld());
+			sensorNodeTranslate.setLocation(sensorNode.getTranslationInScreen());
 			sensorNode.geometry.x += sensorNodeTranslate.x;
 			sensorNode.geometry.y += sensorNodeTranslate.y;
 			{
 				staticNodes.forEach(staticNode -> {
-					staticNodeTranslate.setLocation(staticNode.getTranslationInWorld());
+					staticNodeTranslate.setLocation(staticNode.getTranslationInScreen());
 					staticNode.geometry.x += staticNodeTranslate.x;
 					staticNode.geometry.y += staticNodeTranslate.y;
 					{
@@ -131,7 +136,7 @@ public final class PhysicEngine {
 				});
 
 				dynamicNodes.forEach(dynamicNode -> {
-					dynamicNodeTranslate.setLocation(dynamicNode.getTranslationInWorld());
+					dynamicNodeTranslate.setLocation(dynamicNode.getTranslationInScreen());
 					dynamicNode.geometry.x += dynamicNodeTranslate.x;
 					dynamicNode.geometry.y += dynamicNodeTranslate.y;
 					{
@@ -150,7 +155,7 @@ public final class PhysicEngine {
 		gc.setFill(Color.web("0x80008044"));
 		dynamicNodes.forEach(node -> {
 			Rectangle2D.Double r = node.geometry;
-			Point2D.Double translate = node.getTranslationInWorld();
+			Point2D.Double translate = node.getTranslationInScreen();
 
 			gc.fillRect(r.x + translate.x, r.y + translate.y, r.width, r.height);
 		});
@@ -158,7 +163,7 @@ public final class PhysicEngine {
 		gc.setFill(Color.web("0xdaa52044"));
 		staticNodes.forEach(node -> {
 			Rectangle2D.Double r = node.geometry;
-			Point2D.Double translate = node.getTranslationInWorld();
+			Point2D.Double translate = node.getTranslationInScreen();
 
 			gc.fillRect(r.x + translate.x, r.y + translate.y, r.width, r.height);
 		});
@@ -166,7 +171,7 @@ public final class PhysicEngine {
 		gc.setFill(Color.web("0xdd22dd44"));
 		areaNodes.forEach(node -> {
 			Rectangle2D.Double r = node.geometry;
-			Point2D.Double translate = node.getTranslationInWorld();
+			Point2D.Double translate = node.getTranslationInScreen();
 
 			gc.fillRect(r.x + translate.x, r.y + translate.y, r.width, r.height);
 		});

@@ -1,23 +1,14 @@
 package gameEngine;
 
-import java.awt.geom.Rectangle2D;
-import java.awt.geom.Rectangle2D.Double;
 import java.util.Optional;
 
-public class SimpleGameSceneCamera implements GameSceneCamera {
+public class SimpleGameSceneCamera extends GameSceneCamera {
 	public Optional<GameNode> cameraTarget = Optional.empty();
-	public Rectangle2D.Double geometry = new Rectangle2D.Double();
 
 	public SimpleGameSceneCamera(double x, double y, double w, double h) {
 		geometry.setRect(x, y, w, h);
 	}
 
-	@Override
-	public Rectangle2D.Double geometry() {
-		return geometry;
-	}
-
-	@Override
 	public void update(long elapse) {
 		if (!cameraTarget.isPresent()) {
 			return;

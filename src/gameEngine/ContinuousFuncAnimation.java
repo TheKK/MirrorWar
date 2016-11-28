@@ -110,4 +110,8 @@ public class ContinuousFuncAnimation<T extends Number> implements Animation {
 		
 		return result;
 	}
+
+	@Override
+	public void reset() {
+	}
 }

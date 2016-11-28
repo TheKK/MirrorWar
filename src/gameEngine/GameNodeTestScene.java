@@ -15,7 +15,6 @@ class RotateTextGameNode extends TextGameNode {
 	double degree;
 	double radiusX, radiusY;
 	double speed;
-	double x, y;
 	
 	public RotateTextGameNode(String text, double startDegree, double radius, double speed) {
 		super(text);
@@ -25,24 +24,18 @@ class RotateTextGameNode extends TextGameNode {
 		this.radiusY = radius;
 		this.speed = speed;
 		
-		this.x = 0;
-		this.y = 0;
-		
 		this.mouseBound.width = 50;
 		this.mouseBound.height = 50;
 	}
 
 	public void update(long elpase) {
 		degree += elpase * speed;
-		geometry.x = x + (int) (Math.cos(degree) * radiusX);
-		geometry.y = y + (int) (Math.sin(degree) * radiusY);
+
+		offsetX = Math.cos(degree) * radiusX;
+		offsetY = Math.sin(degree) * radiusY;
+
 		mouseBound.x = geometry.x;
 		mouseBound.y = geometry.y;
-	}
-	
-	public boolean onMousePressed(MouseEvent event) {
-		System.out.println("hit");
-		return true;
 	}
 }
 	

@@ -3,6 +3,7 @@ package gameEngine;
 import java.lang.invoke.ConstantCallSite;
 import java.util.HashSet;
 
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
@@ -50,54 +51,14 @@ public class PongGameScene extends GameScene {
 				PADDLE_X_MARGIN, PADDLE_Y_START,
 				PADDLE_WIDTH, PADDLE_HEIGHT,
 				Color.WHITE) {
-			boolean isMovingUp = false;
-			boolean isMovingDown = false;
-
-			{
-				addColissionGroup(LEFT_PADDLE_GROUP_ID);
-			}
-
-			@Override
-			public boolean onKeyPressed(KeyEvent event) {
-				switch (event.getCode()) {
-				case R:
-					isMovingUp = true;
-					break;
-				case F:
-					isMovingDown = true;
-					break;
-
-				default:
-					break;
-				}
-
-				return true;
-			}
-
-			@Override
-			public boolean onKeyReleased(KeyEvent event) {
-				switch (event.getCode()) {
-				case R:
-					isMovingUp = false;
-					break;
-				case F:
-					isMovingDown = false;
-					break;
-
-				default:
-					break;
-				}
-
-				return true;
-			}
-			
 			@Override
 			public void update(long elapse) {
 				vy = 0;
-				if (isMovingUp) vy -= PADDLE_MOVE_SPEED;
-				if (isMovingDown) vy += PADDLE_MOVE_SPEED;
+				if (Game.getKeyboardState(KeyCode.R)) vy -= PADDLE_MOVE_SPEED;
+				if (Game.getKeyboardState(KeyCode.F)) vy += PADDLE_MOVE_SPEED;
 			}
 		};
+		leftPaddle.addColissionGroup(LEFT_PADDLE_GROUP_ID);
 		rootNode.addChild(leftPaddle);
 		physicEngine.addDynamicNode(leftPaddle);
 
@@ -105,54 +66,14 @@ public class PongGameScene extends GameScene {
 				Game.canvasWidth() - PADDLE_X_MARGIN - PADDLE_WIDTH, PADDLE_Y_START,
 				PADDLE_WIDTH, PADDLE_HEIGHT,
 				Color.WHITE) {
-			boolean isMovingUp = false;
-			boolean isMovingDown = false;
-
-			{
-				addColissionGroup(RIGHT_PADDLE_GROUP_ID);
-			}
-
-			@Override
-			public boolean onKeyPressed(KeyEvent event) {
-				switch (event.getCode()) {
-				case U:
-					isMovingUp = true;
-					break;
-				case J:
-					isMovingDown = true;
-					break;
-
-				default:
-					break;
-				}
-
-				return true;
-			}
-
-			@Override
-			public boolean onKeyReleased(KeyEvent event) {
-				switch (event.getCode()) {
-				case U:
-					isMovingUp = false;
-					break;
-				case J:
-					isMovingDown = false;
-					break;
-
-				default:
-					break;
-				}
-
-				return true;
-			}
-			
 			@Override
 			public void update(long elapse) {
 				vy = 0;
-				if (isMovingUp) vy -= PADDLE_MOVE_SPEED;
-				if (isMovingDown) vy += PADDLE_MOVE_SPEED;
+				if (Game.getKeyboardState(KeyCode.U)) vy -= PADDLE_MOVE_SPEED;
+				if (Game.getKeyboardState(KeyCode.J)) vy += PADDLE_MOVE_SPEED;
 			}
 		};
+		rightPaddle.addColissionGroup(RIGHT_PADDLE_GROUP_ID);
 		rootNode.addChild(rightPaddle);
 		physicEngine.addDynamicNode(rightPaddle);
 		

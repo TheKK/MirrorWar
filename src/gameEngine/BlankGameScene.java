@@ -9,15 +9,19 @@ public class BlankGameScene extends GameScene {
 	final String DEFAULT_HINT_STRING = "Press the rectangle to go to another scene";
 
 	public BlankGameScene() {
+		LayerGameNode rootLayer = new LayerGameNode();
+		rootNode.addChild(rootLayer);
+
 		TextGameNode hintText = new TextGameNode(DEFAULT_HINT_STRING) {
 			{
 				strokeColor = Color.BLACK;
 			}
 
-			public boolean onMouseMoved(MouseEvent event) {
-				geometry.x = event.getX();
-				geometry.y = event.getY();
-				return false;
+			public void update(long elapse) {
+				Point2D.Double mousePos = Game.getMousePos();
+
+				geometry.x = mousePos.x;
+				geometry.y = mousePos.y;
 			}
 		};
 
@@ -39,7 +43,7 @@ public class BlankGameScene extends GameScene {
 				return false;
 			}
 		};
-		rootNode.addChild(buttonA);
+		rootLayer.addChild(buttonA);
 
 		RectangleGameNode buttonB = new RectangleGameNode(
 				75, 75 + 2 * 100, 100, 100, Color.web("0xaabbcc")) {
@@ -59,7 +63,7 @@ public class BlankGameScene extends GameScene {
 				return false;
 			}
 		};
-		rootNode.addChild(buttonB);
+		rootLayer.addChild(buttonB);
 
 		RectangleGameNode buttonC = new RectangleGameNode(
 				75 + 1 * 150, 75 + 0 * 100, 100, 100, Color.web("0xaabbcc")) {
@@ -79,7 +83,7 @@ public class BlankGameScene extends GameScene {
 				return false;
 			}
 		};
-		rootNode.addChild(buttonC);
+		rootLayer.addChild(buttonC);
 
 		RectangleGameNode buttonD = new RectangleGameNode(
 				75 + 2 * 150, 75 + 1 * 100, 100, 100, Color.web("0xaabbcc")) {
@@ -99,7 +103,7 @@ public class BlankGameScene extends GameScene {
 				return false;
 			}
 		};
-		rootNode.addChild(buttonD);
+		rootLayer.addChild(buttonD);
 
 		RectangleGameNode buttonDebug = new RectangleGameNode(
 				0, 0, 50, 50, Color.web("0xaabbcc")) {
@@ -120,19 +124,19 @@ public class BlankGameScene extends GameScene {
 				return false;
 			}
 		};
-		rootNode.addChild(buttonDebug);
+		rootLayer.addChild(buttonDebug);
 		
 		TextGameNode textA = new TextGameNode("Stupid running boxes");
 		textA.strokeColor = Color.SLATEBLUE;
 		textA.geometry.x = buttonA.geometry.x;
 		textA.geometry.y = buttonA.geometry.y - 10;
-		rootNode.addChild(textA);
+		rootLayer.addChild(textA);
 
 		TextGameNode textB = new TextGameNode("Stupid running boxes");
 		textB.strokeColor = Color.SLATEBLUE;
 		textB.geometry.x = buttonB.geometry.x;
 		textB.geometry.y = buttonB.geometry.y - 10;
-		rootNode.addChild(textB);
+		rootLayer.addChild(textB);
 		
 		GameSceneCamera camera = new SimpleGameSceneCamera(0, 0, Game.width, Game.height) {
 			@Override
@@ -146,8 +150,7 @@ public class BlankGameScene extends GameScene {
 				this.geometry.y = offsetY;
 			}
 		};
-		setCamera(camera);
-
-		rootNode.addChild(hintText);
+		rootLayer.camera = camera;
+		rootLayer.addChild(hintText);
 	}
 }

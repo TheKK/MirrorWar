@@ -1,20 +1,19 @@
 package gameEngine;
 
 import java.awt.geom.Point2D;
-import java.util.ArrayList;
+import java.io.File;
 import java.util.HashMap;
 import java.util.Stack;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
-import javafx.event.Event;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.media.Media;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 
@@ -80,6 +79,18 @@ public final class Game extends Application {
 	public static Color clearColor() { return clearColor; }
 	public static void setClearColor(Color color) { clearColor = color; }
 	
+	public static Image loadImage(String path) {
+		// TODO Figure a way out to provide cache when same request arrived
+		File file = new File(path);
+		return new Image(file.toURI().toString());
+	}
+
+	public static Media loadMedia(String path) {
+		// TODO Figure a way out to provide cache when same request arrived
+		File file = new File(path);
+		return new Media(file.toURI().toString());
+	}
+	
 	private void startGameLoop() {
 		canvas.setOnMouseMoved(event -> {
 			mousePos.setLocation(event.getX(), event.getY());
@@ -122,10 +133,9 @@ public final class Game extends Application {
 					return;
 				}
 
-				long elapse = (now - prevTime) / ((long) 1000000.0);
+				long elapse = (now - prevTime) / 1000000;
 				GameScene currentGameScene = gameSceneStack.peek();
 				
-				currentGameScene.physicEngineUpdate(elapse);
 				currentGameScene.update(elapse);
 				
 				gc.setFill(clearColor);
@@ -146,8 +156,6 @@ public final class Game extends Application {
 			Canvas canvas = new Canvas();
 			canvas.setWidth(width);
 			canvas.setHeight(height);
-			canvas.setScaleX(1.5);
-			canvas.setScaleY(1.5);
 			
 			Game.canvas = canvas;
 			Game.gc = canvas.getGraphicsContext2D();

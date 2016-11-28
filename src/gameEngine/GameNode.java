@@ -1,7 +1,6 @@
 package gameEngine;
 
 import java.awt.Point;
-import java.awt.Rectangle;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
@@ -9,8 +8,6 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.function.Supplier;
 
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -27,7 +24,7 @@ public abstract class GameNode {
 	public double fx = 0, fy = 0;
 	public double ax = 0, ay = 0;
 	public double vx = 0, vy = 0;
-	public double dampX = 0, dampY = 0;
+	public double dampX = 1, dampY = 1;
 	
 	public Double alpha = 1.0;
 	public Boolean visible = true;
@@ -54,13 +51,32 @@ public abstract class GameNode {
 		// TODO Should check if this node was attached to root node
 		while (p.isPresent()) {
 			GameNode parentNode = p.get();
-			result.x += parentNode.geometry.x;
-			result.y += parentNode.geometry.y;
+			result.x += parentNode.geometry.x + parentNode.offsetX;
+			result.y += parentNode.geometry.y + parentNode.offsetY;
 			
 			p = parentNode.parent;
 		}
 		
 		return Optional.of(result);
+	}
+
+	public final boolean _onMouseMoved(MouseEvent event) {
+		Point point = new Point((int) event.getX(), (int) event.getY());
+		
+		for (int i = children.size() - 1; i >=0; i--) {
+			GameNode child = children.get(i);
+
+			if (child._onMouseMoved(event) == false) {
+				return false;
+			}
+		};
+		
+		Point2D.Double translate = getTranslationInScreen();
+		Boolean result = operateWithTranslate(translate, () -> {
+			return onMouseMoved(event);
+		});
+		
+		return result;
 	}
 
 	public final boolean _onMousePressed(MouseEvent event) {
@@ -74,7 +90,7 @@ public abstract class GameNode {
 			}
 		};
 		
-		Point2D.Double translate = getTranslationInWorld();
+		Point2D.Double translate = getTranslationInScreen();
 		Optional<Boolean> result = operateWithTranslate(translate, () -> {
 			if (mouseBound.contains(point)) {
 				return Optional.of(onMousePressed(event));
@@ -97,7 +113,7 @@ public abstract class GameNode {
 			}
 		};
 		
-		Point2D.Double translate = getTranslationInWorld();
+		Point2D.Double translate = getTranslationInScreen();
 		Optional<Boolean> result = operateWithTranslate(translate, () -> {
 			if (mouseBound.contains(point)) {
 				return Optional.of(onMouseReleased(event));
@@ -119,7 +135,7 @@ public abstract class GameNode {
 			}
 		};
 
-		Point2D.Double translate = getTranslationInWorld();
+		Point2D.Double translate = getTranslationInScreen();
 		Optional<Boolean> result = operateWithTranslate(translate, () -> {
 			if (!isMouseEntered && mouseBound.contains(point)) {
 				isMouseEntered = true;
@@ -142,7 +158,7 @@ public abstract class GameNode {
 			}
 		};
 		
-		Point2D.Double translate = getTranslationInWorld();
+		Point2D.Double translate = getTranslationInScreen();
 		Optional<Boolean> result = operateWithTranslate(translate, () -> {
 			if (isMouseEntered && !mouseBound.contains(point)) {
 				isMouseEntered = false;
@@ -208,11 +224,20 @@ public abstract class GameNode {
 	public final HashSet<Integer> colissionGroup() { return collisionGroupSet; }
 	public final void addColissionGroup(int groupId) { collisionGroupSet.add(groupId); }
 	
-	public Optional<GameNode> parent() {
+	public final Optional<GameNode> parent() {
 		return parent;
 	}
+	
+	public final boolean detachFromParent() {
+		if (parent.isPresent()) {
+			parent.get().removeChild(this);
+			return true;
+		} else {
+			return false;
+		}
+	}
 
-	public void addChild(GameNode node) {
+	public final void addChild(GameNode node) {
 		if (node.parent.isPresent()) {
 			GameNode parent = node.parent.get();
 			parent.removeChild(node);
@@ -221,7 +246,7 @@ public abstract class GameNode {
 		node.parent = Optional.of(this);
 		children.add(node);
 	}
-	public boolean removeChild(GameNode node) {
+	public final boolean removeChild(GameNode node) {
 		boolean childExists = children.remove(node);
 		if (childExists) {
 			node.parent = Optional.empty();
@@ -230,20 +255,22 @@ public abstract class GameNode {
 		return childExists;
 	}
 
-	public final void _render(GraphicsContext gc) {
+	public void _render(GraphicsContext gc) {
+		if (!visible) {
+			return;
+		}
+
 		gc.save();
 		{
-			if (visible) {
-				gc.setGlobalAlpha(alpha);
-				gc.translate(offsetX, offsetY);
-				render(gc);
+			gc.setGlobalAlpha(alpha);
+			gc.translate(offsetX, offsetY);
+			render(gc);
 
-				gc.translate(geometry.x, geometry.y);
+			gc.translate(geometry.x, geometry.y);
 
-				children.forEach(node -> {
-					node._render(gc);
-				});
-			}
+			children.forEach(node -> {
+				node._render(gc);
+			});
 		}
 		gc.restore();
 	}
@@ -253,9 +280,7 @@ public abstract class GameNode {
 		children.forEach(node -> node._update(elapse));
 	}
 	
-	public void update(long elapse) {
-		children.forEach(node -> node.update(elapse));
-	}
+	public void update(long elapse) {}
 
 	public void render(GraphicsContext gc) {}
 	public void renderDebug(GraphicsContext gc) {
@@ -276,22 +301,30 @@ public abstract class GameNode {
 		gc.restore();
 	}
 
-	public Point2D.Double getTranslationInWorld() {
+	public Point2D.Double getTranslationInScreen() {
+		Point2D.Double result = new Point2D.Double();
+
+		if (!parent.isPresent()) {
+			return result;
+		}
+
 		Optional<GameNode> parent = this.parent;
-		Point2D.Double result = new Point2D.Double(offsetX, offsetY);
+		
+		result.x = offsetX;
+		result.y = offsetY;
 
 		while (parent.isPresent()) {
 			GameNode parentVal = parent.get();
 
-			result.x += parentVal.geometry.x;
-			result.y += parentVal.geometry.y;
+			result.x += parentVal.geometry.x + parentVal.offsetX;
+			result.y += parentVal.geometry.y + parentVal.offsetY;
 			
 			parent = parentVal.parent;
 		}
 
 		return result;
 	}
-	
+
 	private <T> T operateWithTranslate(Point2D.Double translate, Supplier<T> op) {
 		T result;
 

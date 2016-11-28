@@ -29,8 +29,17 @@ public class AnimationPlayer extends GameNode {
 		}
 		
 		playedTime += elapse;
+		
+		animationsMap.values().forEach(ani -> {
+			ani.atTime(playedTime);
+		});
+
 		while (playedTime >= totalLength) {
 			playedTime -= totalLength;
+
+			animationsMap.values().forEach(ani -> {
+				ani.reset();
+			});
 			
 			// When maximumLoopCount less than zero, loop forever
 			if (maximumLoopCount >= 0) {
@@ -40,10 +49,6 @@ public class AnimationPlayer extends GameNode {
 				}
 			}
 		}
-		
-		animationsMap.values().forEach(ani -> {
-			ani.atTime(playedTime);
-		});
 	}
 	
 	public void play(long loopCount) {
@@ -51,12 +56,27 @@ public class AnimationPlayer extends GameNode {
 		isPlaying = true;
 	}
 	
+	public void playFromStart(long loopCount) {
+		playedTime = 0;
+
+		play(loopCount);
+	}
+	
+	public void pause() {
+		isPlaying = false;
+	}
+	
 	public void stop() {
+		playedTime = 0;
 		isPlaying = false;
 	}
 	
 	public boolean isPlaying() {
 		return isPlaying;
+	}
+	
+	public long totalLength() {
+		return totalLength;
 	}
 
 	public void addAnimation(String name, Animation ani) {

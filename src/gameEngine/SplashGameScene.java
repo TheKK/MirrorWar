@@ -2,45 +2,49 @@ package gameEngine;
 
 import java.io.File;
 
-import javafx.scene.canvas.GraphicsContext;
+import gameEngine.TransitionFuncs.EaseType;
+import gameEngine.TransitionFuncs.TransitionType;
 import javafx.scene.image.Image;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-import javafx.scene.media.MediaPlayer.Status;
 
 public class SplashGameScene extends GameScene {
+	final long SPLASH_DISPLAY_INTERVAL = 5000;
+	final long LOGO_FADEIN_TIME = 1500;
+	final long LOGO_FADEOUT_TIME = 3000;
+	final long SEGA_PALY_TIME = 1000;
+	
+	final String SPLASH_IMAGE_PATH = "./src/application/assets/splash.png";
+	final String SEGA_SOUND_PATH = "./src/application/assets/sega.wav";
+
 	public SplashGameScene() {
-		File file = new File("./src/application/assets/splash.png");
-		Image image = new Image(file.toURI().toString());
-		GameNode splashImage = new SpriteGameNode(image);
+		GameNode splashImage = new SpriteGameNode(Game.loadImage(SPLASH_IMAGE_PATH));
 		splashImage.geometry.setFrame(0, 0, Game.canvasWidth(), Game.canvasHeight());
 		rootNode.addChild(splashImage);
 
-		GameNode timer = new GameNode() {
-			int life = 1000;
-			int currentLife = 0;
+		MediaPlayer sega = new MediaPlayer(Game.loadMedia(SEGA_SOUND_PATH));
 
-			File file = new File("./src/application/assets/sega.wav");
-			Media media = new Media(file.toURI().toString());
-			MediaPlayer sega = new MediaPlayer(media);
+		AnimationPlayer aniPlayer = new AnimationPlayer(SPLASH_DISPLAY_INTERVAL);
+		rootNode.addChild(aniPlayer);
+		
+		ContinuousFuncAnimation<Double> logoFadeInAni = new ContinuousFuncAnimation<>((val) -> {
+			splashImage.alpha = val;
+		});
+		logoFadeInAni.addAnchor(0, 0., TransitionType.SIN, EaseType.IN_OUT);
+		logoFadeInAni.addAnchor(LOGO_FADEIN_TIME, 1., TransitionType.SIN, EaseType.IN_OUT);
+		logoFadeInAni.addAnchor(LOGO_FADEOUT_TIME, 1., TransitionType.SIN, EaseType.IN_OUT);
+		logoFadeInAni.addAnchor(SPLASH_DISPLAY_INTERVAL, 0., TransitionType.SIN, EaseType.IN_OUT);
+		
+		FunctionTriggerAnimation functionTriggerAni = new FunctionTriggerAnimation();
+		functionTriggerAni.addAnchor(SEGA_PALY_TIME, () -> {
+			sega.play();
+		});
+		functionTriggerAni.addAnchor(SPLASH_DISPLAY_INTERVAL, () -> {
+			Game.swapScene(new BlankGameScene());
+		});
 
-			@Override
-			public void update(long elapse) {
-				currentLife += elapse;
-				if (currentLife >= life) {
-					Game.swapScene(new BlankGameScene());
-				}
-				
-				if (currentLife >= 2000 && sega.getStatus() == Status.READY) {
-					sega.play();
-				}
-				
-				float x = (float) currentLife / 1000.f;
-				float d = (float) life / 1000.f;
-				float v = 2.5f;
-				splashImage.alpha = (2.0 * x * v/ d) * ((-1 * x / d) + 1);
-			}
-		};
-		rootNode.addChild(timer);
+		aniPlayer.addAnimation("logo", logoFadeInAni);
+		aniPlayer.addAnimation("sega", functionTriggerAni);
+		aniPlayer.play(1);
 	}
 }

@@ -11,6 +11,7 @@ import com.sun.media.jfxmedia.events.NewFrameEvent;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
@@ -45,6 +46,9 @@ class SayHelloNode extends RectangleGameNode {
 
 public final class PhysicsTestBedGameScene extends GameScene {
 	public PhysicsTestBedGameScene() {
+		LayerGameNode rootLayer = new LayerGameNode();
+		rootNode.addChild(rootLayer);
+
 		physicEngine.worldGravityX = 0;
 		physicEngine.worldGravityY = 0.003;
 
@@ -63,16 +67,10 @@ public final class PhysicsTestBedGameScene extends GameScene {
 				return false;
 			}
 		};
-		rootNode.addChild(button);
+		rootLayer.addChild(button);
 
 		RectangleGameNode player = new RectangleGameNode(290, 100, 50, 50, Color.GREEN) {
-			boolean upIsPressed = false;
-			boolean downIsPressed = false;
-			boolean leftIsPressed = false;
-			boolean rightIsPressed = false;
 			boolean jumpIsPressed = false;
-			
-			boolean canJump = false;
 			
 			{
 				RotateTextGameNode cooool = new RotateTextGameNode("X", 0.0, 45.0, 0.0045) {
@@ -80,48 +78,36 @@ public final class PhysicsTestBedGameScene extends GameScene {
 					public void update(long elapse) {
 						super.update(elapse);
 						
-						Rectangle2D.Double geometryInGameWorld = geometryInGameWorld().get();
-						fairyParticle.emit(geometryInGameWorld.x, geometryInGameWorld.y);
+						GameNode parent = parent().get();
+						Point2D.Double pos = new Point2D.Double(parent.geometry.x, parent.geometry.y);
+						fairyParticle.emit(pos.x + geometry.x + offsetX, pos.y + geometry.y + offsetY);
 					}
 				};
 
-				cooool.x = geometry.width / 2;
-				cooool.y = geometry.height / 2;
-				cooool.geometry = cooool.mouseBound;
-				this.addChild(cooool);
-				physicEngine.addDynamicNode(cooool);
+				cooool.geometry.x = geometry.width / 2;
+				cooool.geometry.y = geometry.height / 2;
+				addChild(cooool);
 			}
 		
 			@Override
 			public void update(long elapse) {
-				if (upIsPressed) pulseY -= 0.001;
-				if (downIsPressed) pulseY += 0.001;
-				if (leftIsPressed) pulseX -= 0.001;
-				if (rightIsPressed) pulseX += 0.001;
+				final double MOVE_SPEED = 0.005;
+
+				if (Game.getKeyboardState(KeyCode.UP)) pulseY -= MOVE_SPEED;
+				if (Game.getKeyboardState(KeyCode.DOWN)) pulseY += MOVE_SPEED;
+				if (Game.getKeyboardState(KeyCode.LEFT)) pulseX -= MOVE_SPEED;
+				if (Game.getKeyboardState(KeyCode.RIGHT)) pulseX += MOVE_SPEED;
 				
 				if (jumpIsPressed) {
 					jumpIsPressed = false;
-					pulseX -= Math.signum(physicEngine.worldGravityX) / elapse;
-					pulseY -= Math.signum(physicEngine.worldGravityY) / elapse;
+					pulseX = -Math.signum(physicEngine.worldGravityX) / elapse;
+					pulseY = -Math.signum(physicEngine.worldGravityY) / elapse;
 				}
 			}
 
 			@Override
 			public boolean onKeyPressed(KeyEvent event) {
 				switch (event.getCode()) {
-				case UP:
-					upIsPressed = true;
-					break;
-				case DOWN:
-					downIsPressed = true;
-					break;
-				case LEFT:
-					leftIsPressed = true;
-					break;
-				case RIGHT:
-					rightIsPressed = true;
-					break;
-					
 				case R:
 					double vx = physicEngine.worldGravityX;
 					double vy = physicEngine.worldGravityY;
@@ -151,64 +137,42 @@ public final class PhysicsTestBedGameScene extends GameScene {
 				}
 				return false;
 			}
-
-			@Override
-			public boolean onKeyReleased(KeyEvent event) {
-				switch (event.getCode()) {
-				case UP:
-					upIsPressed = false;
-					break;
-				case DOWN:
-					downIsPressed = false;
-					break;
-				case LEFT:
-					leftIsPressed = false;
-					break;
-				case RIGHT:
-					rightIsPressed = false;
-					break;
-
-				default:
-					break;
-				}
-				return false;
-			}
 		};
-		player.dampX = 0.04;
-		player.dampY = 0.04;
+		player.dampX = 0.90;
+		player.dampY = 0.98;
 
 		physicEngine.addDynamicNode(player);
 		
 		SimpleGameSceneCamera camera = new SimpleGameSceneCamera(0, 0, Game.width, Game.height);
 		camera.cameraTarget = Optional.of(player);
-		setCamera(camera);
+		rootLayer.camera = camera;
 		
 		GameNode floor = new RectangleGameNode(
 				200, Game.canvasHeight() / 2,
 				Game.canvasWidth() - 400, 50, Color.web("0x00ffff"));
-		rootNode.addChild(floor);
+		rootLayer.addChild(floor);
 		physicEngine.addStaticNode(floor);
 
 		GameNode celling = new RectangleGameNode(
 				200, 0,
 				Game.canvasWidth() * 3, 50, Color.web("0x00ffff"));
-		rootNode.addChild(celling);
+		rootLayer.addChild(celling);
 		physicEngine.addStaticNode(celling);
 
 		GameNode leftWall = new RectangleGameNode(
 				200, 100,
 				50, Game.canvasHeight() / 2, Color.web("0x00ffff"));
-		rootNode.addChild(leftWall);
+		rootLayer.addChild(leftWall);
 		physicEngine.addStaticNode(leftWall);
 
 		GameNode rightWall = new RectangleGameNode(
 				Game.canvasWidth() - 150, 100,
 				50, Game.canvasHeight() / 2, Color.web("0x00ffff"));
-		rootNode.addChild(rightWall);
+		rootLayer.addChild(rightWall);
 		physicEngine.addStaticNode(rightWall);
 		
 		GameNode sayHelloRectangle = new SayHelloNode();
-		rootNode.addChild(sayHelloRectangle);
+		rootLayer.addChild(sayHelloRectangle);
 		physicEngine.addAreaNode(sayHelloRectangle);
 		
 		File file = new File("./src/application/assets/sprite.png");
@@ -218,9 +182,9 @@ public final class PhysicsTestBedGameScene extends GameScene {
 		animatedSprite.addFrame(new Rectangle2D.Double(16, 0, 16, 16), 500);
 		animatedSprite.geometry.x = 300;
 		animatedSprite.geometry.y = 10;
-		rootNode.addChild(animatedSprite);
+		rootLayer.addChild(animatedSprite);
 
-		rootNode.addChild(player);
-		rootNode.addChild(fairyParticle);
+		rootLayer.addChild(player);
+		rootLayer.addChild(fairyParticle);
 	}
 }
