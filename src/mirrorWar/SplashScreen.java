@@ -1,10 +1,17 @@
-package gameEngine;
+package mirrorWar;
 
+import gameEngine.AnimationPlayer;
+import gameEngine.ContinuousFuncAnimation;
+import gameEngine.FunctionTriggerAnimation;
+import gameEngine.Game;
+import gameEngine.GameNode;
+import gameEngine.GameScene;
+import gameEngine.SpriteGameNode;
 import gameEngine.TransitionFuncs.EaseType;
 import gameEngine.TransitionFuncs.TransitionType;
 import javafx.scene.media.MediaPlayer;
 
-public class SplashGameScene extends GameScene {
+public class SplashScreen extends GameScene {
 	final long SPLASH_DISPLAY_INTERVAL = 5000;
 	final long LOGO_FADEIN_TIME = 1500;
 	final long LOGO_FADEOUT_TIME = 3000;
@@ -12,8 +19,8 @@ public class SplashGameScene extends GameScene {
 	
 	final String SPLASH_IMAGE_PATH = "./src/application/assets/splash.png";
 	final String SEGA_SOUND_PATH = "./src/application/assets/sega.wav";
-
-	public SplashGameScene() {
+	
+	public SplashScreen() {
 		GameNode splashImage = new SpriteGameNode(Game.loadImage(SPLASH_IMAGE_PATH));
 		splashImage.geometry.setFrame(0, 0, Game.canvasWidth(), Game.canvasHeight());
 		rootNode.addChild(splashImage);
@@ -36,7 +43,7 @@ public class SplashGameScene extends GameScene {
 			sega.play();
 		});
 		functionTriggerAni.addAnchor(SPLASH_DISPLAY_INTERVAL, () -> {
-			Game.swapScene(new BlankGameScene());
+			Game.swapScene(new MenuScreen());
 		});
 
 		aniPlayer.addAnimation("logo", logoFadeInAni);

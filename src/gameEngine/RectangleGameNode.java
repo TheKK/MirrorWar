@@ -1,8 +1,5 @@
 package gameEngine;
 
-import java.awt.Rectangle;
-import java.awt.geom.Rectangle2D;
-
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 

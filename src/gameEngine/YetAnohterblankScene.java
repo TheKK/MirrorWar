@@ -1,13 +1,10 @@
 package gameEngine;
 
-import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 
 public class YetAnohterblankScene extends GameScene {
 	ArrayList<SmallBox> smallBoxes = new ArrayList<SmallBox>();

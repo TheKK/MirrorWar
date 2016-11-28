@@ -5,17 +5,11 @@ import java.awt.geom.Rectangle2D;
 import java.io.File;
 import java.util.Optional;
 
-import javax.sound.sampled.LineUnavailableException;
-
-import com.sun.media.jfxmedia.events.NewFrameEvent;
-
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
 
 class SayHelloNode extends RectangleGameNode {
 	TextGameNode label = new TextGameNode("Hello");

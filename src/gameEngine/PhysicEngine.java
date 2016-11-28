@@ -1,16 +1,8 @@
 package gameEngine;
 
-import java.awt.Point;
-import java.awt.Rectangle;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
-import java.util.Optional;
-
-import javax.security.auth.login.LoginException;
-
-import com.sun.media.jfxmedia.events.NewFrameEvent;
-
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 

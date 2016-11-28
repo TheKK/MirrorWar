@@ -61,8 +61,6 @@ public abstract class GameNode {
 	}
 
 	public final boolean _onMouseMoved(MouseEvent event) {
-		Point point = new Point((int) event.getX(), (int) event.getY());
-		
 		for (int i = children.size() - 1; i >=0; i--) {
 			GameNode child = children.get(i);
 

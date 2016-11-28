@@ -26,13 +26,13 @@ public final class Game extends Application {
 
 	static Canvas canvas;
 	static GraphicsContext gc;
-	static Color clearColor = Color.web("0xcccccc");
+	public static Color clearColor = Color.web("0xcccccc");
 
 	static Class<? extends GameScene> firstGameScene;
 	static Stack<GameScene> gameSceneStack = new Stack<GameScene>();
 	
-	static boolean isClickBoundDebugMode = false;
-	static boolean isPhysicEngineDebugMode = false;
+	public static boolean isClickBoundDebugMode = false;
+	public static boolean isPhysicEngineDebugMode = false;
 	
 	public Game() {
 		assert(instance == null);

@@ -1,15 +1,12 @@
 package gameEngine;
 
 import java.io.File;
-import java.io.InputStream;
 import java.util.concurrent.ThreadLocalRandom;
 
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
-import javafx.util.Duration;
 
 class RotateTextGameNode extends TextGameNode {
 	double degree;

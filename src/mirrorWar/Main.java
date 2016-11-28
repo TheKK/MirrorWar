@@ -1,10 +1,12 @@
-package gameEngine;
+package mirrorWar;
+
+import gameEngine.Game;
 
 public class Main {
 	public static void main(String[] args) {
 		Game.isClickBoundDebugMode = true;
 		Game.isPhysicEngineDebugMode = true;
-//		Game.run(CoinGameScene.class);
-		Game.run(SplashGameScene.class);
+
+		Game.run(SplashScreen.class);
 	}
 }

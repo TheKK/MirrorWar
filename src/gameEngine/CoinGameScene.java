@@ -1,14 +1,12 @@
 package gameEngine;
 
 import java.awt.geom.Rectangle2D;
-import java.io.File;
 import java.util.Optional;
 import java.util.Random;
 
 import gameEngine.TransitionFuncs.EaseType;
 import gameEngine.TransitionFuncs.TransitionType;
 import javafx.application.Platform;
-import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 
