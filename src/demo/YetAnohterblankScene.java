@@ -1,8 +1,12 @@
-package gameEngine;
+package demo;
 
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
+import gameEngine.Game;
+import gameEngine.GameNode;
+import gameEngine.GameScene;
+import gameEngine.RectangleGameNode;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 

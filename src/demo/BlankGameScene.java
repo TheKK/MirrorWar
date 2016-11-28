@@ -1,7 +1,14 @@
-package gameEngine;
+package demo;
 
 import java.awt.geom.Point2D;
 
+import gameEngine.Game;
+import gameEngine.GameScene;
+import gameEngine.GameSceneCamera;
+import gameEngine.LayerGameNode;
+import gameEngine.RectangleGameNode;
+import gameEngine.SimpleGameSceneCamera;
+import gameEngine.TextGameNode;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 
@@ -138,7 +145,7 @@ public class BlankGameScene extends GameScene {
 		textB.geometry.y = buttonB.geometry.y - 10;
 		rootLayer.addChild(textB);
 		
-		GameSceneCamera camera = new SimpleGameSceneCamera(0, 0, Game.width, Game.height) {
+		GameSceneCamera camera = new SimpleGameSceneCamera(0, 0, Game.canvasWidth(), Game.canvasHeight()) {
 			@Override
 			public void update(long elapse) {
 				double MAGIC_OFFSET = -20;

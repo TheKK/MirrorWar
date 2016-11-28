@@ -1,7 +1,12 @@
-package gameEngine;
+package demo;
 
 import java.util.HashSet;
 
+import gameEngine.Game;
+import gameEngine.GameNode;
+import gameEngine.GameScene;
+import gameEngine.RectangleGameNode;
+import gameEngine.TextGameNode;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;

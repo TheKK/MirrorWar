@@ -4,9 +4,13 @@ import java.awt.Point;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Supplier;
+
+import com.sun.javafx.UnmodifiableArrayList;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
@@ -34,7 +38,7 @@ public abstract class GameNode {
 	private HashSet<Integer> collisionGroupSet = new HashSet<Integer>();
 	
 	private Optional<GameNode> parent = Optional.empty();
-	ArrayList<GameNode> children = new ArrayList<GameNode>();
+	private ArrayList<GameNode> children = new ArrayList<GameNode>();
 	
 	public final Optional<Rectangle2D.Double> geometryInGameWorld() {
 		if (!parent.isPresent()) {
@@ -233,6 +237,10 @@ public abstract class GameNode {
 		} else {
 			return false;
 		}
+	}
+	
+	public final List<GameNode> children() {
+		return Collections.unmodifiableList(children);
 	}
 
 	public final void addChild(GameNode node) {

@@ -1,10 +1,20 @@
-package gameEngine;
+package demo;
 
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.io.File;
 import java.util.Optional;
 
+import gameEngine.AnimatedSpriteGameNode;
+import gameEngine.Game;
+import gameEngine.GameNode;
+import gameEngine.GameScene;
+import gameEngine.LayerGameNode;
+import gameEngine.ParticleGameNode;
+import gameEngine.RectangleGameNode;
+import gameEngine.SimpleGameSceneCamera;
+import gameEngine.SpriteGameNode;
+import gameEngine.TextGameNode;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -137,7 +147,8 @@ public final class PhysicsTestBedGameScene extends GameScene {
 
 		physicEngine.addDynamicNode(player);
 		
-		SimpleGameSceneCamera camera = new SimpleGameSceneCamera(0, 0, Game.width, Game.height);
+		SimpleGameSceneCamera camera = new SimpleGameSceneCamera(
+				0, 0, Game.canvasWidth(), Game.canvasHeight());
 		camera.cameraTarget = Optional.of(player);
 		rootLayer.camera = camera;
 		

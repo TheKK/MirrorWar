@@ -1,9 +1,23 @@
-package gameEngine;
+package demo;
 
 import java.awt.geom.Rectangle2D;
 import java.util.Optional;
 import java.util.Random;
 
+import gameEngine.AnimatedSpriteGameNode;
+import gameEngine.AnimationPlayer;
+import gameEngine.ContinuousFuncAnimation;
+import gameEngine.DiscreteFuncAnimation;
+import gameEngine.FunctionTriggerAnimation;
+import gameEngine.Game;
+import gameEngine.GameNode;
+import gameEngine.GameScene;
+import gameEngine.LayerGameNode;
+import gameEngine.RectangleGameNode;
+import gameEngine.RootGameNode;
+import gameEngine.SimpleGameSceneCamera;
+import gameEngine.SpriteGameNode;
+import gameEngine.TextGameNode;
 import gameEngine.TransitionFuncs.EaseType;
 import gameEngine.TransitionFuncs.TransitionType;
 import javafx.application.Platform;
@@ -84,7 +98,7 @@ public class CoinGameScene extends GameScene {
 		AnimationPlayer aniPlayer = new AnimationPlayer(3000);
 		ContinuousFuncAnimation<Double> floatAnimation = new ContinuousFuncAnimation<>(
 				val -> {
-					for (GameNode coin: coinGroup.children) {
+					for (GameNode coin: coinGroup.children()) {
 						((Coin) coin).animatedCoinSprite.offsetY = val;
 					}
 				});
@@ -121,7 +135,7 @@ public class CoinGameScene extends GameScene {
 				exitAni.addAnchor(0, () -> {
 					text.strokeColor = Color.CHARTREUSE;
 				});
-				exitAni.addAnchor(countDownAniPlayer.totalLength, () -> { Platform.exit(); });
+				exitAni.addAnchor(countDownAniPlayer.totalLength(), () -> { Platform.exit(); });
 
 				countDownAniPlayer.addAnimation("countDown", countDownAni);
 				countDownAniPlayer.addAnimation("exit", exitAni);
@@ -155,7 +169,7 @@ public class CoinGameScene extends GameScene {
 				coins += 1;
 				text.text = coins + " !";
 				
-				if (coins >= 10 && !countDownAniPlayer.isPlaying) {
+				if (coins >= 10 && !countDownAniPlayer.isPlaying()) {
 					countDownAniPlayer.play(1);
 					cameraShakeAniPlayer.play(-1);
 				}

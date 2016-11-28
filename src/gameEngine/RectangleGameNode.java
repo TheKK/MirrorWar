@@ -4,7 +4,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
 public class RectangleGameNode extends GameNode {
-	Color color;
+	public Color color;
 
 	public RectangleGameNode(double x, double y, double w, double h, Color color) {
 		geometry.x = x;

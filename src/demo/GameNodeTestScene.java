@@ -1,8 +1,13 @@
-package gameEngine;
+package demo;
 
 import java.io.File;
 import java.util.concurrent.ThreadLocalRandom;
 
+import gameEngine.Game;
+import gameEngine.GameNode;
+import gameEngine.GameScene;
+import gameEngine.RectangleGameNode;
+import gameEngine.TextGameNode;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;

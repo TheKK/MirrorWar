@@ -1,5 +1,12 @@
-package gameEngine;
+package demo;
 
+import gameEngine.AnimationPlayer;
+import gameEngine.ContinuousFuncAnimation;
+import gameEngine.FunctionTriggerAnimation;
+import gameEngine.Game;
+import gameEngine.GameNode;
+import gameEngine.GameScene;
+import gameEngine.SpriteGameNode;
 import gameEngine.TransitionFuncs.EaseType;
 import gameEngine.TransitionFuncs.TransitionType;
 import javafx.scene.media.MediaPlayer;
