@@ -97,16 +97,16 @@ public final class Game extends Application {
 
 			GameScene scene = gameSceneStack.peek();
 			scene.onMouseMoved(event);
-			scene.onMouseEntered(event);
-			scene.onMouseExited(event);
+			scene._onMouseEntered(event);
+			scene._onMouseExited(event);
 		});
 		canvas.setOnMouseDragged(event -> {
 			mousePos.setLocation(event.getX(), event.getY());
 
 			GameScene scene = gameSceneStack.peek();
 			scene.onMouseMoved(event);
-			scene.onMouseEntered(event);
-			scene.onMouseExited(event);
+			scene._onMouseEntered(event);
+			scene._onMouseExited(event);
 		});
 		canvas.setOnMousePressed(event -> {
 			gameSceneStack.peek().onMousePressed(event);

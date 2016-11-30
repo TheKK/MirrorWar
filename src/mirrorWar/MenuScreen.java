@@ -3,6 +3,7 @@ package mirrorWar;
 import gameEngine.Game;
 import gameEngine.GameScene;
 import gameEngine.RectangleGameNode;
+import gameEngine.SpriteGameNode;
 import javafx.application.Platform;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
@@ -19,5 +20,8 @@ public class MenuScreen extends GameScene {
 			}
 		};
 		rootNode.addChild(button);
+		
+		SpriteGameNode shadow = new SpriteGameNode(Game.loadImage("./src/application/assets/animatedCoin.png"));
+		rootNode.addChild(shadow);
 	}
 }
