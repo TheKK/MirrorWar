@@ -83,12 +83,14 @@ public final class Game extends Application {
 	public static Image loadImage(String path) {
 		// TODO Figure a way out to provide cache when same request arrived
 		File file = new File(path);
+		assert(file.exists());
 		return new Image(file.toURI().toString());
 	}
 
 	public static Media loadMedia(String path) {
 		// TODO Figure a way out to provide cache when same request arrived
 		File file = new File(path);
+		assert(file.exists());
 		return new Media(file.toURI().toString());
 	}
 	
