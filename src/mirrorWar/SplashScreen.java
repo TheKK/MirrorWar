@@ -10,6 +10,7 @@ import gameEngine.SpriteGameNode;
 import gameEngine.TransitionFuncs.EaseType;
 import gameEngine.TransitionFuncs.TransitionType;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.media.MediaPlayer;
 
 public class SplashScreen extends GameScene {
@@ -45,7 +46,7 @@ public class SplashScreen extends GameScene {
 			sega.play();
 		});
 		functionTriggerAni.addAnchor(SPLASH_DISPLAY_INTERVAL, () -> {
-			Game.swapScene(new MenuScreen());
+			Game.swapScene(new MenuScene());
 		});
 
 		fadeinAniPlayer.addAnimation("logo", logoFadeInAni);
@@ -56,7 +57,14 @@ public class SplashScreen extends GameScene {
 	@Override
 	protected boolean onKeyPressed(KeyEvent event) {
 		sega.stop();
-		Game.swapScene(new MenuScreen());
+		Game.swapScene(new MenuScene());
+		return false;
+	}
+	
+	@Override
+	protected boolean onMousePressed(MouseEvent event) {
+		sega.stop();
+		Game.swapScene(new MenuScene());
 		return false;
 	}
 }

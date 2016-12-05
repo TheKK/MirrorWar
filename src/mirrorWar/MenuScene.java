@@ -7,9 +7,17 @@ import javafx.application.Platform;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 
-public class MenuScreen extends GameScene {
-	public MenuScreen() {
+public class MenuScene extends GameScene {
+	public MenuScene() {
 		Game.clearColor = Color.BLUEVIOLET;
+		
+		SpriteGameNode background = new SpriteGameNode(Game.loadImage("./src/mirrorWar/pic/miku.jpg"));
+		rootNode.addChild(background);
+		
+		SpriteGameNode title = new SpriteGameNode(Game.loadImage("./src/mirrorWar/pic/title.png"));
+		title.geometry.x = 250;
+		title.geometry.y = 50;
+		rootNode.addChild(title);
 		
 		SpriteGameNode join = new SpriteGameNode(Game.loadImage("./src/mirrorWar/pic/join.png")){
 			@Override
@@ -27,7 +35,8 @@ public class MenuScreen extends GameScene {
 		SpriteGameNode credit = new SpriteGameNode(Game.loadImage("./src/mirrorWar/pic/credit.png")){
 			@Override
 			public boolean onMouseReleased(MouseEvent event) {
-				Platform.exit();
+				GameScene cd = new CreditScene();
+				Game.pushScene(cd);
 				return true;
 			}
 		};
