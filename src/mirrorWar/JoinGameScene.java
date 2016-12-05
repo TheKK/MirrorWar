@@ -6,15 +6,19 @@ import gameEngine.GameScene;
 import gameEngine.RectangleGameNode;
 import gameEngine.SpriteGameNode;
 import gameEngine.TextGameNode;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 
 public class JoinGameScene extends GameScene {
 	private String content = "";
+	private final int width = 200;
+	private final int height = 30;
 	
 	public JoinGameScene() {
 		Game.clearColor = Color.YELLOW;
-		GameNode dialogBackgroud = new RectangleGameNode(300, 250, 200, 30, Color.WHITE);
+		GameNode dialogBackgroud = new RectangleGameNode(300, 250, width, height, Color.WHITE);
 		rootNode.addChild(dialogBackgroud);
 		
 		GameNode text = new TextGameNode(content) {
@@ -42,7 +46,24 @@ public class JoinGameScene extends GameScene {
 		text.geometry.y = 20;
 		dialogBackgroud.addChild(text);
 		
-		GameNode okBtn = new SpriteGameNode(Game.loadImage("./src/mirrorWar/pic/button_ok.png"));
+		GameNode okBtn = new SpriteGameNode(Game.loadImage("./src/mirrorWar/pic/button_ok.png")) {
+			@Override
+			protected boolean onMouseReleased(MouseEvent event) {
+				System.out.println(content);
+				return false;
+			}
+			
+			@Override
+			protected boolean onKeyPressed(KeyEvent event) {
+				if (event.getCode() == KeyCode.ENTER) {
+					System.out.println(content);
+				}
+				return true;
+			}
+		};
+		okBtn.geometry.x = width;
+		okBtn.geometry.width = 50;
+		okBtn.geometry.height = height;
 		dialogBackgroud.addChild(okBtn);
 	}
 	

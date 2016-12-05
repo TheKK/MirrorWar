@@ -193,14 +193,14 @@ public abstract class GameNode {
 		return onKeyReleased(event);
 	}
 
-	public boolean onMouseMoved(MouseEvent event) { return true; }
-	public boolean onMousePressed(MouseEvent event) { return true; }
-	public boolean onMouseReleased(MouseEvent event) { return true; }
-	public boolean onMouseEntered(MouseEvent event) { return true; }
-	public boolean onMouseExited(MouseEvent event) { return true; }
+	protected boolean onMouseMoved(MouseEvent event) { return true; }
+	protected boolean onMousePressed(MouseEvent event) { return true; }
+	protected boolean onMouseReleased(MouseEvent event) { return true; }
+	protected boolean onMouseEntered(MouseEvent event) { return true; }
+	protected boolean onMouseExited(MouseEvent event) { return true; }
 	
-	public boolean onKeyPressed(KeyEvent event) { return true; }
-	public boolean onKeyReleased(KeyEvent event) { return true; }
+	protected boolean onKeyPressed(KeyEvent event) { return true; }
+	protected boolean onKeyReleased(KeyEvent event) { return true; }
 	
 	public final void _onAreaEntered(GameNode node, long elapse) {
 		if (!enteredAreaSet.contains(node)) {
