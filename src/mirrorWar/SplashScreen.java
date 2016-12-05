@@ -13,20 +13,21 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.media.MediaPlayer;
 
 public class SplashScreen extends GameScene {
-	final long SPLASH_DISPLAY_INTERVAL = 5000;
-	final long LOGO_FADEIN_TIME = 1500;
-	final long LOGO_FADEOUT_TIME = 3000;
-	final long SEGA_PALY_TIME = 1000;
+	private final long SPLASH_DISPLAY_INTERVAL = 5000;
+	private final long LOGO_FADEIN_TIME = 1500;
+	private final long LOGO_FADEOUT_TIME = 3000;
+	private final long SEGA_PALY_TIME = 1000;
 	
-	final String SPLASH_IMAGE_PATH = "./src/application/assets/splash.png";
-	final String SEGA_SOUND_PATH = "./src/application/assets/sega.wav";
+	private final String SPLASH_IMAGE_PATH = "./src/application/assets/splash.png";
+	private final String SEGA_SOUND_PATH = "./src/application/assets/sega.wav";
+	private final MediaPlayer sega;
 	
 	public SplashScreen() {
 		GameNode splashImage = new SpriteGameNode(Game.loadImage(SPLASH_IMAGE_PATH));
 		splashImage.geometry.setFrame(0, 0, Game.canvasWidth(), Game.canvasHeight());
 		rootNode.addChild(splashImage);
 
-		MediaPlayer sega = new MediaPlayer(Game.loadMedia(SEGA_SOUND_PATH));
+		sega = new MediaPlayer(Game.loadMedia(SEGA_SOUND_PATH));
 
 		AnimationPlayer fadeinAniPlayer = new AnimationPlayer(SPLASH_DISPLAY_INTERVAL);
 		rootNode.addChild(fadeinAniPlayer);
@@ -54,6 +55,7 @@ public class SplashScreen extends GameScene {
 	
 	@Override
 	protected boolean onKeyPressed(KeyEvent event) {
+		sega.stop();
 		Game.swapScene(new MenuScreen());
 		return false;
 	}

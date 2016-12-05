@@ -19,7 +19,8 @@ import javafx.scene.Scene;
 
 public final class Game extends Application {
 	static Game instance;
-
+	
+	public static String title = "";
 	static double width, height;
 	static Point2D.Double mousePos = new Point2D.Double(0, 0);
 	static HashMap<KeyCode, Boolean> keyboardState = new HashMap<>();
@@ -167,6 +168,7 @@ public final class Game extends Application {
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 
 			primaryStage.setScene(scene);
+			primaryStage.setTitle(title);
 			primaryStage.show();
 			
 			canvas.requestFocus();

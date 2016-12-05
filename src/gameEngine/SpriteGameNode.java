@@ -14,6 +14,7 @@ public class SpriteGameNode extends GameNode {
 
 		srcRect = new Rectangle2D.Double(0, 0, image.getWidth(), image.getHeight());
 		geometry.setFrame(srcRect);
+		mouseBound = geometry;
 	}
 
 	@Override
