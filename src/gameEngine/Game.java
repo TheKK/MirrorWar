@@ -109,18 +109,18 @@ public final class Game extends Application {
 			scene._onMouseExited(event);
 		});
 		canvas.setOnMousePressed(event -> {
-			gameSceneStack.peek().onMousePressed(event);
+			gameSceneStack.peek()._onMousePressed(event);
 		});
 		canvas.setOnMouseReleased(event -> {
-			gameSceneStack.peek().onMouseReleased(event);
+			gameSceneStack.peek()._onMouseReleased(event);
 		});
 		canvas.setOnKeyPressed(event -> {
 			keyboardState.put(event.getCode(), true);
-			gameSceneStack.peek().onKeyPressed(event);
+			gameSceneStack.peek()._onKeyPressed(event);
 		});
 		canvas.setOnKeyReleased(event -> {
 			keyboardState.put(event.getCode(), false);
-			gameSceneStack.peek().onKeyReleased(event);
+			gameSceneStack.peek()._onKeyReleased(event);
 		});
 
 		new AnimationTimer() {
