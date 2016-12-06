@@ -80,7 +80,10 @@ public class JoinGameScene extends GameScene {
 				return true;
 			}
 
-			
+			@Override
+			public void update(long elapse) {
+				System.out.println(elapse);
+			}
 		};
 		okBtn.geometry.x = width;
 		okBtn.geometry.width = 50;
@@ -141,7 +144,7 @@ public class JoinGameScene extends GameScene {
 		
 		connectionTask.setOnSucceeded(state -> {
 			DangerousGlobalVariables.tcpClient = Optional.of(connectionTask.getValue());
-			waittingOtherPlayerTask.run();
+			new Thread(waittingOtherPlayerTask).start();
 		});
 		
 		waittingOtherPlayerTask.setOnSucceeded(state -> {
@@ -150,7 +153,7 @@ public class JoinGameScene extends GameScene {
 			Platform.exit();
 		});
 		
-		connectionTask.run();
+		new Thread(connectionTask).start();
 	}
 	
 	private InetSocketAddress getIp(String ip) throws UnknownHostException {
@@ -159,7 +162,7 @@ public class JoinGameScene extends GameScene {
 		Pattern pattern = Pattern.compile(IPADDRESS_PATTERN);
 		Matcher matcher = pattern.matcher(ip);
 		if (matcher.find()) {
-			InetSocketAddress ipAddr = new InetSocketAddress(ip, Constants.PORT);
+			InetSocketAddress ipAddr = new InetSocketAddress(ip, Constants.SERVER_HOST_PORT);
 			return ipAddr;
 		}
 		

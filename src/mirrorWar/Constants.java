@@ -1,5 +1,5 @@
 package mirrorWar;
 
 public class Constants {
-	public static final int PORT = 8521;
+	public static final int SERVER_HOST_PORT = 8521;
 }

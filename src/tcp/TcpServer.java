@@ -11,8 +11,6 @@ public class TcpServer {
 	private ServerSocket serverSocket = null;
 	private List<Socket> clientList = new  ArrayList<Socket>();
 	
-
-	
 	public TcpServer(int port) {
 		try {
 			serverSocket = new ServerSocket(port);
