@@ -3,16 +3,16 @@
               Any modifications will be overwritten.
               To include a user specific buildfile here, simply create one in the same
               directory with the processing instruction <?eclipse.ant.import?>
-              as the first entry and export the buildfile again. --><project basedir="." default="build" name="gameEngine">
+              as the first entry and export the buildfile again. --><project basedir="." default="build" name="MirrorWar">
     <property environment="env"/>
-    <property name="ECLIPSE_HOME" value="../../eclipse/java-neon/eclipse/"/>
+    <property name="ECLIPSE_HOME" value="C:/Users/miphix/eclipse/java-neon/eclipse/"/>
     <property name="debuglevel" value="source,lines,vars"/>
     <property name="target" value="1.8"/>
     <property name="source" value="1.8"/>
     <path id="JavaFX SDK.libraryclasspath">
-        <pathelement location="../../../../.p2/pool/plugins/org.eclipse.fx.ide.css.jfx8_2.4.0.201605112122.jar"/>
+        <pathelement location="C:/Users/miphix/.p2/pool/plugins/org.eclipse.fx.ide.css.jfx8_2.4.0.201605112122.jar"/>
     </path>
-    <path id="gameEngine.classpath">
+    <path id="MirrorWar.classpath">
         <pathelement location="bin"/>
         <path refid="JavaFX SDK.libraryclasspath"/>
     </path>
@@ -20,8 +20,6 @@
         <mkdir dir="bin"/>
         <copy includeemptydirs="false" todir="bin">
             <fileset dir="src">
-                <exclude name="**/*.launch"/>
-                <exclude name="**/*.xtend"/>
                 <exclude name="**/*.java"/>
             </fileset>
         </copy>
@@ -36,7 +34,7 @@
         <echo message="${ant.project.name}: ${ant.file}"/>
         <javac debug="true" debuglevel="${debuglevel}" destdir="bin" includeantruntime="false" source="${source}" target="${target}">
             <src path="src"/>
-            <classpath refid="gameEngine.classpath"/>
+            <classpath refid="MirrorWar.classpath"/>
         </javac>
     </target>
     <target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects"/>
@@ -53,10 +51,26 @@
         <property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter"/>
         <antcall target="build"/>
     </target>
-    <target name="Main (1)">
-        <java classname="application.Main" failonerror="true" fork="yes">
-            <jvmarg line="-Dprism.order=sw"/>
-            <classpath refid="gameEngine.classpath"/>
+    <target name="Main (3)">
+        <java classname="gameEngine.Main" failonerror="true" fork="yes">
+            <classpath refid="MirrorWar.classpath"/>
+        </java>
+    </target>
+    <target name="Main (4)">
+        <java classname="mirrorWar.Main" failonerror="true" fork="yes">
+            <jvmarg line="-ea"/>
+            <classpath refid="MirrorWar.classpath"/>
+        </java>
+    </target>
+    <target name="Main (5)">
+        <java classname="demo.Main" failonerror="true" fork="yes">
+            <classpath refid="MirrorWar.classpath"/>
+        </java>
+    </target>
+    <target name="New_configuration">
+        <java classname="sun.applet.AppletViewer" dir="." failonerror="true" fork="yes">
+            <arg line="New_configuration.html"/>
+            <classpath refid="MirrorWar.classpath"/>
         </java>
     </target>
 </project>
