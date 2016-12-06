@@ -1,17 +1,36 @@
 package mirrorWar;
 
+import java.net.InetSocketAddress;
+import java.net.UnknownHostException;
+import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import gameEngine.Game;
 import gameEngine.GameNode;
 import gameEngine.GameScene;
 import gameEngine.RectangleGameNode;
 import gameEngine.SpriteGameNode;
 import gameEngine.TextGameNode;
+import javafx.application.Platform;
+import javafx.concurrent.Task;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
+import tcp.GameMessage;
+import tcp.TcpClient;
+
+enum State {
+	USER_INPUT,
+	WAITTING_CONNECTION,
+	WAITTING_FOR_OTHER_PLAYER,
+}
 
 public class JoinGameScene extends GameScene {
+	
+	private State currentState = State.USER_INPUT;
+	
 	private String content = "";
 	private final int width = 200;
 	private final int height = 30;
@@ -49,22 +68,102 @@ public class JoinGameScene extends GameScene {
 		GameNode okBtn = new SpriteGameNode(Game.loadImage("./src/mirrorWar/pic/button_ok.png")) {
 			@Override
 			protected boolean onMouseReleased(MouseEvent event) {
-				System.out.println(content);
+				tryConnectAndWaitForOtherPlayer();
 				return false;
 			}
 			
 			@Override
 			protected boolean onKeyPressed(KeyEvent event) {
 				if (event.getCode() == KeyCode.ENTER) {
-					System.out.println(content);
+					tryConnectAndWaitForOtherPlayer();
 				}
 				return true;
 			}
+
+			
 		};
 		okBtn.geometry.x = width;
 		okBtn.geometry.width = 50;
 		okBtn.geometry.height = height;
 		dialogBackgroud.addChild(okBtn);
+	}
+	
+	private TcpClient connectToServer(String ip) {
+		try {
+			InetSocketAddress ipAddr = getIp(ip);
+			TcpClient client = new TcpClient();
+			
+			currentState = State.WAITTING_CONNECTION;
+			
+			client.coonectServer(ipAddr);
+			
+			currentState = State.WAITTING_FOR_OTHER_PLAYER;
+
+			return client;
+		} catch (UnknownHostException e) {
+			currentState = State.USER_INPUT;
+			return null;
+		}	
+	}
+	
+	private void waitForOtherPlayerToJoin() {
+		TcpClient tcpClient = DangerousGlobalVariables.tcpClient.get();
+		
+		try {
+			// This would block current thread
+			GameMessage gameMessage = tcpClient.waitForGameMessage();
+			switch (gameMessage) {
+				case GAME_START:
+					return;
+				default:
+					Platform.exit();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			Platform.exit();
+		}	
+	}
+	
+	private void tryConnectAndWaitForOtherPlayer() {
+		Task<TcpClient> connectionTask = new Task<TcpClient>() {
+			@Override
+			protected TcpClient call() throws Exception {
+				return connectToServer(content);
+			}
+		};
+		Task<Void> waittingOtherPlayerTask = new Task<Void>() {
+			@Override
+			protected Void call() throws Exception {
+				waitForOtherPlayerToJoin();
+				return null;
+			}
+		};
+		
+		connectionTask.setOnSucceeded(state -> {
+			DangerousGlobalVariables.tcpClient = Optional.of(connectionTask.getValue());
+			waittingOtherPlayerTask.run();
+		});
+		
+		waittingOtherPlayerTask.setOnSucceeded(state -> {
+			// TODO Swap scene to main game scene
+			System.out.println("game start!");
+			Platform.exit();
+		});
+		
+		connectionTask.run();
+	}
+	
+	private InetSocketAddress getIp(String ip) throws UnknownHostException {
+		final String IPADDRESS_PATTERN = "(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)";
+
+		Pattern pattern = Pattern.compile(IPADDRESS_PATTERN);
+		Matcher matcher = pattern.matcher(ip);
+		if (matcher.find()) {
+			InetSocketAddress ipAddr = new InetSocketAddress(ip, Constants.PORT);
+			return ipAddr;
+		}
+		
+		throw new UnknownHostException("IP is not true");
 	}
 	
 	private String cutOffLastWord(String str) {
@@ -79,6 +178,30 @@ public class JoinGameScene extends GameScene {
 	private void contentAppend(String str) {
 		if (content.length() < 15) {
 			content += str;
+		}
+	}
+	
+	@Override
+	protected boolean onMouseReleased(MouseEvent event) {
+		switch (currentState) {
+			case USER_INPUT:
+				return true;
+			case WAITTING_CONNECTION:
+			case WAITTING_FOR_OTHER_PLAYER:
+			default:
+				return false;
+		}
+	}
+	
+	@Override
+	protected boolean onKeyPressed(KeyEvent event) {
+		switch (currentState) {
+			case USER_INPUT:
+				return true;
+			case WAITTING_CONNECTION:
+			case WAITTING_FOR_OTHER_PLAYER:
+			default:
+				return false;
 		}
 	}
 }
