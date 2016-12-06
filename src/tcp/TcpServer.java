@@ -9,14 +9,13 @@ import java.util.List;
 
 public class TcpServer {
 	private ServerSocket serverSocket = null;
-	private final int PORT = 8521;
 	private List<Socket> clientList = new  ArrayList<Socket>();
 	
 
 	
-	public TcpServer() {
+	public TcpServer(int port) {
 		try {
-			serverSocket = new ServerSocket(PORT);
+			serverSocket = new ServerSocket(port);
 		} catch (IOException e) {
 			System.err.println("Failed to establish socket");
 		}
