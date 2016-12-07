@@ -56,5 +56,7 @@ public class MenuScene extends GameScene {
 		quit.geometry.y = 350;
 		quit.geometry.height = 50;
 		rootNode.addChild(quit);
+		
+		DangerousGlobalVariables.logger.config("In menu scene");
 	}
 }

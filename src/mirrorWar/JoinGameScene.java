@@ -116,7 +116,7 @@ public class JoinGameScene extends GameScene {
 			// This would block current thread
 			GameMessage gameMessage = tcpClient.waitForGameMessage();
 			switch (gameMessage) {
-				case GAME_START:
+				case TEAM_MATCHED:
 					return;
 				default:
 					Platform.exit();
@@ -131,21 +131,22 @@ public class JoinGameScene extends GameScene {
 	private void tryConnectAndWaitForOtherPlayer() {
 		CompletableFuture
 			.supplyAsync(() -> { return content; })
-			.thenApply(this::connectToServer)
-			.thenApply(tcpClient -> {
+			.thenApplyAsync(this::connectToServer)
+			.thenApplyAsync(tcpClient -> {
 					DangerousGlobalVariables.tcpClient = Optional.of(tcpClient);
 					return tcpClient;
 			})
-			.thenAccept(this::waitForOtherPlayerToJoin)
+			.thenAcceptAsync(this::waitForOtherPlayerToJoin)
 			.whenComplete((result, e) -> {
 				if (e == null) {
-					System.out.println("game start!");
+					DangerousGlobalVariables.logger.info("Game start");
+					MirrorWarScene mws = new MirrorWarScene();
 					
-					// TODO Do actual game play!
-					Platform.exit();
+					currentState = State.USER_INPUT;
+					Game.pushScene(mws);
 				} else {
 					// TODO Show these error message to player
-					System.err.println("error: " + e.getMessage());
+					DangerousGlobalVariables.logger.warning(e.getMessage());
 				}
 			});
 	}

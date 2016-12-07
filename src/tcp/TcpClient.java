@@ -1,12 +1,14 @@
 package tcp;
 
 import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 
 public class TcpClient {
 	private DataInputStream input = null;
+	private DataOutputStream output = null;
 	private Socket socket = new Socket();
 	
 	public void connectServer(InetSocketAddress serverIp) throws IOException {
@@ -14,6 +16,7 @@ public class TcpClient {
 		
 		socket.connect(serverIp);
 		input = new DataInputStream(socket.getInputStream());
+		output = new DataOutputStream(socket.getOutputStream());
 	}
 	
 	public GameMessage waitForGameMessage() throws IOException, WrongMessageException {
@@ -26,6 +29,10 @@ public class TcpClient {
 		}
 		
 		throw new WrongMessageException("Wrong get message: " + gmCode);
+	}
+	
+	public void sendGameMessage(GameMessage gm) throws IOException {
+		output.writeUTF(gm.toString());
 	}
 
 	public void close() {
