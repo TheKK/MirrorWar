@@ -9,17 +9,11 @@ public class TcpClient {
 	private DataInputStream input = null;
 	private Socket socket = new Socket();
 	
-	public boolean coonectServer(InetSocketAddress serverIp) {
+	public void connectServer(InetSocketAddress serverIp) throws IOException {
 		assert(serverIp != null);
 		
-		try {
-			socket.connect(serverIp);
-			input = new DataInputStream(socket.getInputStream());
-		} catch (IOException e) {
-			System.err.println("Failed to establish connection");
-			return false;
-		}
-		return true;
+		socket.connect(serverIp);
+		input = new DataInputStream(socket.getInputStream());
 	}
 	
 	public GameMessage waitForGameMessage() throws IOException, WrongMessageException {

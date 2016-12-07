@@ -1,8 +1,11 @@
 package mirrorWar;
 
+import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.UnknownHostException;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -13,7 +16,6 @@ import gameEngine.RectangleGameNode;
 import gameEngine.SpriteGameNode;
 import gameEngine.TextGameNode;
 import javafx.application.Platform;
-import javafx.concurrent.Task;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -79,11 +81,6 @@ public class JoinGameScene extends GameScene {
 				}
 				return true;
 			}
-
-			@Override
-			public void update(long elapse) {
-				System.out.println(elapse);
-			}
 		};
 		okBtn.geometry.x = width;
 		okBtn.geometry.width = 50;
@@ -98,20 +95,23 @@ public class JoinGameScene extends GameScene {
 			
 			currentState = State.WAITTING_CONNECTION;
 			
-			client.coonectServer(ipAddr);
+			client.connectServer(ipAddr);
 			
 			currentState = State.WAITTING_FOR_OTHER_PLAYER;
 
 			return client;
+
 		} catch (UnknownHostException e) {
 			currentState = State.USER_INPUT;
-			return null;
-		}	
+			throw new CompletionException(e);
+
+		} catch (IOException e) {
+			currentState = State.USER_INPUT;
+			throw new CompletionException(e);
+		}
 	}
 	
-	private void waitForOtherPlayerToJoin() {
-		TcpClient tcpClient = DangerousGlobalVariables.tcpClient.get();
-		
+	private void waitForOtherPlayerToJoin(TcpClient tcpClient) {
 		try {
 			// This would block current thread
 			GameMessage gameMessage = tcpClient.waitForGameMessage();
@@ -123,37 +123,31 @@ public class JoinGameScene extends GameScene {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			Platform.exit();
+			
+			throw new CompletionException(e);
 		}	
 	}
 	
 	private void tryConnectAndWaitForOtherPlayer() {
-		Task<TcpClient> connectionTask = new Task<TcpClient>() {
-			@Override
-			protected TcpClient call() throws Exception {
-				return connectToServer(content);
-			}
-		};
-		Task<Void> waittingOtherPlayerTask = new Task<Void>() {
-			@Override
-			protected Void call() throws Exception {
-				waitForOtherPlayerToJoin();
-				return null;
-			}
-		};
-		
-		connectionTask.setOnSucceeded(state -> {
-			DangerousGlobalVariables.tcpClient = Optional.of(connectionTask.getValue());
-			new Thread(waittingOtherPlayerTask).start();
-		});
-		
-		waittingOtherPlayerTask.setOnSucceeded(state -> {
-			// TODO Swap scene to main game scene
-			System.out.println("game start!");
-			Platform.exit();
-		});
-		
-		new Thread(connectionTask).start();
+		CompletableFuture
+			.supplyAsync(() -> { return content; })
+			.thenApply(this::connectToServer)
+			.thenApply(tcpClient -> {
+					DangerousGlobalVariables.tcpClient = Optional.of(tcpClient);
+					return tcpClient;
+			})
+			.thenAccept(this::waitForOtherPlayerToJoin)
+			.whenComplete((result, e) -> {
+				if (e == null) {
+					System.out.println("game start!");
+					
+					// TODO Do actual game play!
+					Platform.exit();
+				} else {
+					// TODO Show these error message to player
+					System.err.println("error: " + e.getMessage());
+				}
+			});
 	}
 	
 	private InetSocketAddress getIp(String ip) throws UnknownHostException {
