@@ -1,5 +1,6 @@
 package mirrorWar;
 
+import java.awt.geom.Rectangle2D;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.UnknownHostException;
@@ -9,6 +10,7 @@ import java.util.concurrent.CompletionException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import gameEngine.AnimatedSpriteGameNode;
 import gameEngine.Game;
 import gameEngine.GameNode;
 import gameEngine.GameScene;
@@ -16,6 +18,7 @@ import gameEngine.RectangleGameNode;
 import gameEngine.SpriteGameNode;
 import gameEngine.TextGameNode;
 import javafx.application.Platform;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -39,6 +42,10 @@ public class JoinGameScene extends GameScene {
 	
 	public JoinGameScene() {
 		Game.clearColor = Color.YELLOW;
+		
+		CyclicTiledBackground cyclicTileBg = createCyclicTiledBackground();
+		rootNode.addChild(cyclicTileBg);
+
 		GameNode dialogBackgroud = new RectangleGameNode(300, 250, width, height, Color.WHITE);
 		rootNode.addChild(dialogBackgroud);
 		
@@ -86,6 +93,20 @@ public class JoinGameScene extends GameScene {
 		okBtn.geometry.width = 50;
 		okBtn.geometry.height = height;
 		dialogBackgroud.addChild(okBtn);
+	}
+
+	private CyclicTiledBackground createCyclicTiledBackground() {
+		Image backgroundTileImage = Game.loadImage("./src/mirrorWar/pic/joinSceneBackgroundTile.png");
+		AnimatedSpriteGameNode backgroundTileAniSprite = new AnimatedSpriteGameNode(backgroundTileImage , 64, 64);
+		backgroundTileAniSprite.autoPlayed = true;
+		backgroundTileAniSprite.addFrame(new Rectangle2D.Double(0, 0, 64, 64), 1000);
+		backgroundTileAniSprite.addFrame(new Rectangle2D.Double(64, 0, 64, 64), 1000);
+		backgroundTileAniSprite.addFrame(new Rectangle2D.Double(0, 64, 64, 64), 1000);
+		backgroundTileAniSprite.addFrame(new Rectangle2D.Double(64, 64, 64, 64), 1000);
+		backgroundTileAniSprite.geometry.width *= 2;
+		backgroundTileAniSprite.geometry.height *= 2;
+
+		return new CyclicTiledBackground(backgroundTileAniSprite);
 	}
 	
 	private TcpClient connectToServer(String ip) {
