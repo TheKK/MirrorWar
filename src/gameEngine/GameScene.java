@@ -5,9 +5,12 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 
 public abstract class GameScene {
-	protected RootGameNode rootNode = new RootGameNode();
-	protected PhysicEngine physicEngine = new PhysicEngine();
-	
+	public RootGameNode rootNode = new RootGameNode();
+	public PhysicEngine physicEngine = new PhysicEngine();
+
+	// Put all initializations to here instead constructor
+	protected void initialize() {}
+
 	protected boolean onMouseMoved(MouseEvent event) { return true; }
 	protected boolean onMousePressed(MouseEvent event) { return true; }
 	protected boolean onMouseReleased(MouseEvent event) { return true; }
@@ -46,7 +49,7 @@ public abstract class GameScene {
 			rootNode._onKeyReleased(event);
 		}
 	}
-	
+
 	final void update(long elapse) {
 		physicEngine.updatePosition(elapse);
 		physicEngine.handleCollisions(elapse);
