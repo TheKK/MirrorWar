@@ -15,30 +15,30 @@ public final class InputOuterClass {
         (com.google.protobuf.ExtensionRegistryLite) registry);
   }
   public interface InputOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:testbed.input.Input)
+      // @@protoc_insertion_point(interface_extends:netGameNodeSDK.input.Input)
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>optional .testbed.input.Key key = 1;</code>
+     * <code>optional .netGameNodeSDK.key.Key key = 1;</code>
      */
     boolean hasKey();
     /**
-     * <code>optional .testbed.input.Key key = 1;</code>
+     * <code>optional .netGameNodeSDK.key.Key key = 1;</code>
      */
-    netGameNodeSDK.input.KeyOuterClass.Key getKey();
+    netGameNodeSDK.key.KeyOuterClass.Key getKey();
     /**
-     * <code>optional .testbed.input.Key key = 1;</code>
+     * <code>optional .netGameNodeSDK.key.Key key = 1;</code>
      */
-    netGameNodeSDK.input.KeyOuterClass.KeyOrBuilder getKeyOrBuilder();
+    netGameNodeSDK.key.KeyOuterClass.KeyOrBuilder getKeyOrBuilder();
 
     public netGameNodeSDK.input.InputOuterClass.Input.InputCase getInputCase();
   }
   /**
-   * Protobuf type {@code testbed.input.Input}
+   * Protobuf type {@code netGameNodeSDK.input.Input}
    */
   public  static final class Input extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:testbed.input.Input)
+      // @@protoc_insertion_point(message_implements:netGameNodeSDK.input.Input)
       InputOrBuilder {
     // Use Input.newBuilder() to construct.
     private Input(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
@@ -76,14 +76,14 @@ public final class InputOuterClass {
               break;
             }
             case 10: {
-              netGameNodeSDK.input.KeyOuterClass.Key.Builder subBuilder = null;
+              netGameNodeSDK.key.KeyOuterClass.Key.Builder subBuilder = null;
               if (inputCase_ == 1) {
-                subBuilder = ((netGameNodeSDK.input.KeyOuterClass.Key) input_).toBuilder();
+                subBuilder = ((netGameNodeSDK.key.KeyOuterClass.Key) input_).toBuilder();
               }
               input_ =
-                  input.readMessage(netGameNodeSDK.input.KeyOuterClass.Key.PARSER, extensionRegistry);
+                  input.readMessage(netGameNodeSDK.key.KeyOuterClass.Key.PARSER, extensionRegistry);
               if (subBuilder != null) {
-                subBuilder.mergeFrom((netGameNodeSDK.input.KeyOuterClass.Key) input_);
+                subBuilder.mergeFrom((netGameNodeSDK.key.KeyOuterClass.Key) input_);
                 input_ = subBuilder.buildPartial();
               }
               inputCase_ = 1;
@@ -103,12 +103,12 @@ public final class InputOuterClass {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return netGameNodeSDK.input.InputOuterClass.internal_static_testbed_input_Input_descriptor;
+      return netGameNodeSDK.input.InputOuterClass.internal_static_netGameNodeSDK_input_Input_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return netGameNodeSDK.input.InputOuterClass.internal_static_testbed_input_Input_fieldAccessorTable
+      return netGameNodeSDK.input.InputOuterClass.internal_static_netGameNodeSDK_input_Input_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               netGameNodeSDK.input.InputOuterClass.Input.class, netGameNodeSDK.input.InputOuterClass.Input.Builder.class);
     }
@@ -152,28 +152,28 @@ public final class InputOuterClass {
 
     public static final int KEY_FIELD_NUMBER = 1;
     /**
-     * <code>optional .testbed.input.Key key = 1;</code>
+     * <code>optional .netGameNodeSDK.key.Key key = 1;</code>
      */
     public boolean hasKey() {
       return inputCase_ == 1;
     }
     /**
-     * <code>optional .testbed.input.Key key = 1;</code>
+     * <code>optional .netGameNodeSDK.key.Key key = 1;</code>
      */
-    public netGameNodeSDK.input.KeyOuterClass.Key getKey() {
+    public netGameNodeSDK.key.KeyOuterClass.Key getKey() {
       if (inputCase_ == 1) {
-         return (netGameNodeSDK.input.KeyOuterClass.Key) input_;
+         return (netGameNodeSDK.key.KeyOuterClass.Key) input_;
       }
-      return netGameNodeSDK.input.KeyOuterClass.Key.getDefaultInstance();
+      return netGameNodeSDK.key.KeyOuterClass.Key.getDefaultInstance();
     }
     /**
-     * <code>optional .testbed.input.Key key = 1;</code>
+     * <code>optional .netGameNodeSDK.key.Key key = 1;</code>
      */
-    public netGameNodeSDK.input.KeyOuterClass.KeyOrBuilder getKeyOrBuilder() {
+    public netGameNodeSDK.key.KeyOuterClass.KeyOrBuilder getKeyOrBuilder() {
       if (inputCase_ == 1) {
-         return (netGameNodeSDK.input.KeyOuterClass.Key) input_;
+         return (netGameNodeSDK.key.KeyOuterClass.Key) input_;
       }
-      return netGameNodeSDK.input.KeyOuterClass.Key.getDefaultInstance();
+      return netGameNodeSDK.key.KeyOuterClass.Key.getDefaultInstance();
     }
 
     private byte memoizedIsInitialized = -1;
@@ -195,7 +195,7 @@ public final class InputOuterClass {
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       if (inputCase_ == 1) {
-        output.writeMessage(1, (netGameNodeSDK.input.KeyOuterClass.Key) input_);
+        output.writeMessage(1, (netGameNodeSDK.key.KeyOuterClass.Key) input_);
       }
       unknownFields.writeTo(output);
     }
@@ -207,7 +207,7 @@ public final class InputOuterClass {
       size = 0;
       if (inputCase_ == 1) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(1, (netGameNodeSDK.input.KeyOuterClass.Key) input_);
+          .computeMessageSize(1, (netGameNodeSDK.key.KeyOuterClass.Key) input_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -339,25 +339,25 @@ public final class InputOuterClass {
       return builder;
     }
     /**
-     * Protobuf type {@code testbed.input.Input}
+     * Protobuf type {@code netGameNodeSDK.input.Input}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:testbed.input.Input)
+        // @@protoc_insertion_point(builder_implements:netGameNodeSDK.input.Input)
         netGameNodeSDK.input.InputOuterClass.InputOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return netGameNodeSDK.input.InputOuterClass.internal_static_testbed_input_Input_descriptor;
+        return netGameNodeSDK.input.InputOuterClass.internal_static_netGameNodeSDK_input_Input_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return netGameNodeSDK.input.InputOuterClass.internal_static_testbed_input_Input_fieldAccessorTable
+        return netGameNodeSDK.input.InputOuterClass.internal_static_netGameNodeSDK_input_Input_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
                 netGameNodeSDK.input.InputOuterClass.Input.class, netGameNodeSDK.input.InputOuterClass.Input.Builder.class);
       }
 
-      // Construct using testbed.input.InputOuterClass.Input.newBuilder()
+      // Construct using netGameNodeSDK.input.InputOuterClass.Input.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -381,7 +381,7 @@ public final class InputOuterClass {
 
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return netGameNodeSDK.input.InputOuterClass.internal_static_testbed_input_Input_descriptor;
+        return netGameNodeSDK.input.InputOuterClass.internal_static_netGameNodeSDK_input_Input_descriptor;
       }
 
       public netGameNodeSDK.input.InputOuterClass.Input getDefaultInstanceForType() {
@@ -508,33 +508,33 @@ public final class InputOuterClass {
       private int bitField0_;
 
       private com.google.protobuf.SingleFieldBuilderV3<
-          netGameNodeSDK.input.KeyOuterClass.Key, netGameNodeSDK.input.KeyOuterClass.Key.Builder, netGameNodeSDK.input.KeyOuterClass.KeyOrBuilder> keyBuilder_;
+          netGameNodeSDK.key.KeyOuterClass.Key, netGameNodeSDK.key.KeyOuterClass.Key.Builder, netGameNodeSDK.key.KeyOuterClass.KeyOrBuilder> keyBuilder_;
       /**
-       * <code>optional .testbed.input.Key key = 1;</code>
+       * <code>optional .netGameNodeSDK.key.Key key = 1;</code>
        */
       public boolean hasKey() {
         return inputCase_ == 1;
       }
       /**
-       * <code>optional .testbed.input.Key key = 1;</code>
+       * <code>optional .netGameNodeSDK.key.Key key = 1;</code>
        */
-      public netGameNodeSDK.input.KeyOuterClass.Key getKey() {
+      public netGameNodeSDK.key.KeyOuterClass.Key getKey() {
         if (keyBuilder_ == null) {
           if (inputCase_ == 1) {
-            return (netGameNodeSDK.input.KeyOuterClass.Key) input_;
+            return (netGameNodeSDK.key.KeyOuterClass.Key) input_;
           }
-          return netGameNodeSDK.input.KeyOuterClass.Key.getDefaultInstance();
+          return netGameNodeSDK.key.KeyOuterClass.Key.getDefaultInstance();
         } else {
           if (inputCase_ == 1) {
             return keyBuilder_.getMessage();
           }
-          return netGameNodeSDK.input.KeyOuterClass.Key.getDefaultInstance();
+          return netGameNodeSDK.key.KeyOuterClass.Key.getDefaultInstance();
         }
       }
       /**
-       * <code>optional .testbed.input.Key key = 1;</code>
+       * <code>optional .netGameNodeSDK.key.Key key = 1;</code>
        */
-      public Builder setKey(netGameNodeSDK.input.KeyOuterClass.Key value) {
+      public Builder setKey(netGameNodeSDK.key.KeyOuterClass.Key value) {
         if (keyBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -548,10 +548,10 @@ public final class InputOuterClass {
         return this;
       }
       /**
-       * <code>optional .testbed.input.Key key = 1;</code>
+       * <code>optional .netGameNodeSDK.key.Key key = 1;</code>
        */
       public Builder setKey(
-          netGameNodeSDK.input.KeyOuterClass.Key.Builder builderForValue) {
+          netGameNodeSDK.key.KeyOuterClass.Key.Builder builderForValue) {
         if (keyBuilder_ == null) {
           input_ = builderForValue.build();
           onChanged();
@@ -562,13 +562,13 @@ public final class InputOuterClass {
         return this;
       }
       /**
-       * <code>optional .testbed.input.Key key = 1;</code>
+       * <code>optional .netGameNodeSDK.key.Key key = 1;</code>
        */
-      public Builder mergeKey(netGameNodeSDK.input.KeyOuterClass.Key value) {
+      public Builder mergeKey(netGameNodeSDK.key.KeyOuterClass.Key value) {
         if (keyBuilder_ == null) {
           if (inputCase_ == 1 &&
-              input_ != netGameNodeSDK.input.KeyOuterClass.Key.getDefaultInstance()) {
-            input_ = netGameNodeSDK.input.KeyOuterClass.Key.newBuilder((netGameNodeSDK.input.KeyOuterClass.Key) input_)
+              input_ != netGameNodeSDK.key.KeyOuterClass.Key.getDefaultInstance()) {
+            input_ = netGameNodeSDK.key.KeyOuterClass.Key.newBuilder((netGameNodeSDK.key.KeyOuterClass.Key) input_)
                 .mergeFrom(value).buildPartial();
           } else {
             input_ = value;
@@ -584,7 +584,7 @@ public final class InputOuterClass {
         return this;
       }
       /**
-       * <code>optional .testbed.input.Key key = 1;</code>
+       * <code>optional .netGameNodeSDK.key.Key key = 1;</code>
        */
       public Builder clearKey() {
         if (keyBuilder_ == null) {
@@ -603,37 +603,37 @@ public final class InputOuterClass {
         return this;
       }
       /**
-       * <code>optional .testbed.input.Key key = 1;</code>
+       * <code>optional .netGameNodeSDK.key.Key key = 1;</code>
        */
-      public netGameNodeSDK.input.KeyOuterClass.Key.Builder getKeyBuilder() {
+      public netGameNodeSDK.key.KeyOuterClass.Key.Builder getKeyBuilder() {
         return getKeyFieldBuilder().getBuilder();
       }
       /**
-       * <code>optional .testbed.input.Key key = 1;</code>
+       * <code>optional .netGameNodeSDK.key.Key key = 1;</code>
        */
-      public netGameNodeSDK.input.KeyOuterClass.KeyOrBuilder getKeyOrBuilder() {
+      public netGameNodeSDK.key.KeyOuterClass.KeyOrBuilder getKeyOrBuilder() {
         if ((inputCase_ == 1) && (keyBuilder_ != null)) {
           return keyBuilder_.getMessageOrBuilder();
         } else {
           if (inputCase_ == 1) {
-            return (netGameNodeSDK.input.KeyOuterClass.Key) input_;
+            return (netGameNodeSDK.key.KeyOuterClass.Key) input_;
           }
-          return netGameNodeSDK.input.KeyOuterClass.Key.getDefaultInstance();
+          return netGameNodeSDK.key.KeyOuterClass.Key.getDefaultInstance();
         }
       }
       /**
-       * <code>optional .testbed.input.Key key = 1;</code>
+       * <code>optional .netGameNodeSDK.key.Key key = 1;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          netGameNodeSDK.input.KeyOuterClass.Key, netGameNodeSDK.input.KeyOuterClass.Key.Builder, netGameNodeSDK.input.KeyOuterClass.KeyOrBuilder> 
+          netGameNodeSDK.key.KeyOuterClass.Key, netGameNodeSDK.key.KeyOuterClass.Key.Builder, netGameNodeSDK.key.KeyOuterClass.KeyOrBuilder> 
           getKeyFieldBuilder() {
         if (keyBuilder_ == null) {
           if (!(inputCase_ == 1)) {
-            input_ = netGameNodeSDK.input.KeyOuterClass.Key.getDefaultInstance();
+            input_ = netGameNodeSDK.key.KeyOuterClass.Key.getDefaultInstance();
           }
           keyBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              netGameNodeSDK.input.KeyOuterClass.Key, netGameNodeSDK.input.KeyOuterClass.Key.Builder, netGameNodeSDK.input.KeyOuterClass.KeyOrBuilder>(
-                  (netGameNodeSDK.input.KeyOuterClass.Key) input_,
+              netGameNodeSDK.key.KeyOuterClass.Key, netGameNodeSDK.key.KeyOuterClass.Key.Builder, netGameNodeSDK.key.KeyOuterClass.KeyOrBuilder>(
+                  (netGameNodeSDK.key.KeyOuterClass.Key) input_,
                   getParentForChildren(),
                   isClean());
           input_ = null;
@@ -653,10 +653,10 @@ public final class InputOuterClass {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:testbed.input.Input)
+      // @@protoc_insertion_point(builder_scope:netGameNodeSDK.input.Input)
     }
 
-    // @@protoc_insertion_point(class_scope:testbed.input.Input)
+    // @@protoc_insertion_point(class_scope:netGameNodeSDK.input.Input)
     private static final netGameNodeSDK.input.InputOuterClass.Input DEFAULT_INSTANCE;
     static {
       DEFAULT_INSTANCE = new netGameNodeSDK.input.InputOuterClass.Input();
@@ -692,7 +692,7 @@ public final class InputOuterClass {
   }
 
   public interface InputsOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:testbed.input.Inputs)
+      // @@protoc_insertion_point(interface_extends:netGameNodeSDK.input.Inputs)
       com.google.protobuf.MessageOrBuilder {
 
     /**
@@ -705,35 +705,35 @@ public final class InputOuterClass {
     int getClientId();
 
     /**
-     * <code>repeated .testbed.input.Input inputs = 2;</code>
+     * <code>repeated .netGameNodeSDK.input.Input inputs = 2;</code>
      */
     java.util.List<netGameNodeSDK.input.InputOuterClass.Input> 
         getInputsList();
     /**
-     * <code>repeated .testbed.input.Input inputs = 2;</code>
+     * <code>repeated .netGameNodeSDK.input.Input inputs = 2;</code>
      */
     netGameNodeSDK.input.InputOuterClass.Input getInputs(int index);
     /**
-     * <code>repeated .testbed.input.Input inputs = 2;</code>
+     * <code>repeated .netGameNodeSDK.input.Input inputs = 2;</code>
      */
     int getInputsCount();
     /**
-     * <code>repeated .testbed.input.Input inputs = 2;</code>
+     * <code>repeated .netGameNodeSDK.input.Input inputs = 2;</code>
      */
     java.util.List<? extends netGameNodeSDK.input.InputOuterClass.InputOrBuilder> 
         getInputsOrBuilderList();
     /**
-     * <code>repeated .testbed.input.Input inputs = 2;</code>
+     * <code>repeated .netGameNodeSDK.input.Input inputs = 2;</code>
      */
     netGameNodeSDK.input.InputOuterClass.InputOrBuilder getInputsOrBuilder(
         int index);
   }
   /**
-   * Protobuf type {@code testbed.input.Inputs}
+   * Protobuf type {@code netGameNodeSDK.input.Inputs}
    */
   public  static final class Inputs extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:testbed.input.Inputs)
+      // @@protoc_insertion_point(message_implements:netGameNodeSDK.input.Inputs)
       InputsOrBuilder {
     // Use Inputs.newBuilder() to construct.
     private Inputs(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
@@ -803,12 +803,12 @@ public final class InputOuterClass {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return netGameNodeSDK.input.InputOuterClass.internal_static_testbed_input_Inputs_descriptor;
+      return netGameNodeSDK.input.InputOuterClass.internal_static_netGameNodeSDK_input_Inputs_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return netGameNodeSDK.input.InputOuterClass.internal_static_testbed_input_Inputs_fieldAccessorTable
+      return netGameNodeSDK.input.InputOuterClass.internal_static_netGameNodeSDK_input_Inputs_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               netGameNodeSDK.input.InputOuterClass.Inputs.class, netGameNodeSDK.input.InputOuterClass.Inputs.Builder.class);
     }
@@ -832,32 +832,32 @@ public final class InputOuterClass {
     public static final int INPUTS_FIELD_NUMBER = 2;
     private java.util.List<netGameNodeSDK.input.InputOuterClass.Input> inputs_;
     /**
-     * <code>repeated .testbed.input.Input inputs = 2;</code>
+     * <code>repeated .netGameNodeSDK.input.Input inputs = 2;</code>
      */
     public java.util.List<netGameNodeSDK.input.InputOuterClass.Input> getInputsList() {
       return inputs_;
     }
     /**
-     * <code>repeated .testbed.input.Input inputs = 2;</code>
+     * <code>repeated .netGameNodeSDK.input.Input inputs = 2;</code>
      */
     public java.util.List<? extends netGameNodeSDK.input.InputOuterClass.InputOrBuilder> 
         getInputsOrBuilderList() {
       return inputs_;
     }
     /**
-     * <code>repeated .testbed.input.Input inputs = 2;</code>
+     * <code>repeated .netGameNodeSDK.input.Input inputs = 2;</code>
      */
     public int getInputsCount() {
       return inputs_.size();
     }
     /**
-     * <code>repeated .testbed.input.Input inputs = 2;</code>
+     * <code>repeated .netGameNodeSDK.input.Input inputs = 2;</code>
      */
     public netGameNodeSDK.input.InputOuterClass.Input getInputs(int index) {
       return inputs_.get(index);
     }
     /**
-     * <code>repeated .testbed.input.Input inputs = 2;</code>
+     * <code>repeated .netGameNodeSDK.input.Input inputs = 2;</code>
      */
     public netGameNodeSDK.input.InputOuterClass.InputOrBuilder getInputsOrBuilder(
         int index) {
@@ -1034,25 +1034,25 @@ public final class InputOuterClass {
       return builder;
     }
     /**
-     * Protobuf type {@code testbed.input.Inputs}
+     * Protobuf type {@code netGameNodeSDK.input.Inputs}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:testbed.input.Inputs)
+        // @@protoc_insertion_point(builder_implements:netGameNodeSDK.input.Inputs)
         netGameNodeSDK.input.InputOuterClass.InputsOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return netGameNodeSDK.input.InputOuterClass.internal_static_testbed_input_Inputs_descriptor;
+        return netGameNodeSDK.input.InputOuterClass.internal_static_netGameNodeSDK_input_Inputs_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return netGameNodeSDK.input.InputOuterClass.internal_static_testbed_input_Inputs_fieldAccessorTable
+        return netGameNodeSDK.input.InputOuterClass.internal_static_netGameNodeSDK_input_Inputs_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
                 netGameNodeSDK.input.InputOuterClass.Inputs.class, netGameNodeSDK.input.InputOuterClass.Inputs.Builder.class);
       }
 
-      // Construct using testbed.input.InputOuterClass.Inputs.newBuilder()
+      // Construct using netGameNodeSDK.input.InputOuterClass.Inputs.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -1083,7 +1083,7 @@ public final class InputOuterClass {
 
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return netGameNodeSDK.input.InputOuterClass.internal_static_testbed_input_Inputs_descriptor;
+        return netGameNodeSDK.input.InputOuterClass.internal_static_netGameNodeSDK_input_Inputs_descriptor;
       }
 
       public netGameNodeSDK.input.InputOuterClass.Inputs getDefaultInstanceForType() {
@@ -1267,7 +1267,7 @@ public final class InputOuterClass {
           netGameNodeSDK.input.InputOuterClass.Input, netGameNodeSDK.input.InputOuterClass.Input.Builder, netGameNodeSDK.input.InputOuterClass.InputOrBuilder> inputsBuilder_;
 
       /**
-       * <code>repeated .testbed.input.Input inputs = 2;</code>
+       * <code>repeated .netGameNodeSDK.input.Input inputs = 2;</code>
        */
       public java.util.List<netGameNodeSDK.input.InputOuterClass.Input> getInputsList() {
         if (inputsBuilder_ == null) {
@@ -1277,7 +1277,7 @@ public final class InputOuterClass {
         }
       }
       /**
-       * <code>repeated .testbed.input.Input inputs = 2;</code>
+       * <code>repeated .netGameNodeSDK.input.Input inputs = 2;</code>
        */
       public int getInputsCount() {
         if (inputsBuilder_ == null) {
@@ -1287,7 +1287,7 @@ public final class InputOuterClass {
         }
       }
       /**
-       * <code>repeated .testbed.input.Input inputs = 2;</code>
+       * <code>repeated .netGameNodeSDK.input.Input inputs = 2;</code>
        */
       public netGameNodeSDK.input.InputOuterClass.Input getInputs(int index) {
         if (inputsBuilder_ == null) {
@@ -1297,7 +1297,7 @@ public final class InputOuterClass {
         }
       }
       /**
-       * <code>repeated .testbed.input.Input inputs = 2;</code>
+       * <code>repeated .netGameNodeSDK.input.Input inputs = 2;</code>
        */
       public Builder setInputs(
           int index, netGameNodeSDK.input.InputOuterClass.Input value) {
@@ -1314,7 +1314,7 @@ public final class InputOuterClass {
         return this;
       }
       /**
-       * <code>repeated .testbed.input.Input inputs = 2;</code>
+       * <code>repeated .netGameNodeSDK.input.Input inputs = 2;</code>
        */
       public Builder setInputs(
           int index, netGameNodeSDK.input.InputOuterClass.Input.Builder builderForValue) {
@@ -1328,7 +1328,7 @@ public final class InputOuterClass {
         return this;
       }
       /**
-       * <code>repeated .testbed.input.Input inputs = 2;</code>
+       * <code>repeated .netGameNodeSDK.input.Input inputs = 2;</code>
        */
       public Builder addInputs(netGameNodeSDK.input.InputOuterClass.Input value) {
         if (inputsBuilder_ == null) {
@@ -1344,7 +1344,7 @@ public final class InputOuterClass {
         return this;
       }
       /**
-       * <code>repeated .testbed.input.Input inputs = 2;</code>
+       * <code>repeated .netGameNodeSDK.input.Input inputs = 2;</code>
        */
       public Builder addInputs(
           int index, netGameNodeSDK.input.InputOuterClass.Input value) {
@@ -1361,7 +1361,7 @@ public final class InputOuterClass {
         return this;
       }
       /**
-       * <code>repeated .testbed.input.Input inputs = 2;</code>
+       * <code>repeated .netGameNodeSDK.input.Input inputs = 2;</code>
        */
       public Builder addInputs(
           netGameNodeSDK.input.InputOuterClass.Input.Builder builderForValue) {
@@ -1375,7 +1375,7 @@ public final class InputOuterClass {
         return this;
       }
       /**
-       * <code>repeated .testbed.input.Input inputs = 2;</code>
+       * <code>repeated .netGameNodeSDK.input.Input inputs = 2;</code>
        */
       public Builder addInputs(
           int index, netGameNodeSDK.input.InputOuterClass.Input.Builder builderForValue) {
@@ -1389,7 +1389,7 @@ public final class InputOuterClass {
         return this;
       }
       /**
-       * <code>repeated .testbed.input.Input inputs = 2;</code>
+       * <code>repeated .netGameNodeSDK.input.Input inputs = 2;</code>
        */
       public Builder addAllInputs(
           java.lang.Iterable<? extends netGameNodeSDK.input.InputOuterClass.Input> values) {
@@ -1404,7 +1404,7 @@ public final class InputOuterClass {
         return this;
       }
       /**
-       * <code>repeated .testbed.input.Input inputs = 2;</code>
+       * <code>repeated .netGameNodeSDK.input.Input inputs = 2;</code>
        */
       public Builder clearInputs() {
         if (inputsBuilder_ == null) {
@@ -1417,7 +1417,7 @@ public final class InputOuterClass {
         return this;
       }
       /**
-       * <code>repeated .testbed.input.Input inputs = 2;</code>
+       * <code>repeated .netGameNodeSDK.input.Input inputs = 2;</code>
        */
       public Builder removeInputs(int index) {
         if (inputsBuilder_ == null) {
@@ -1430,14 +1430,14 @@ public final class InputOuterClass {
         return this;
       }
       /**
-       * <code>repeated .testbed.input.Input inputs = 2;</code>
+       * <code>repeated .netGameNodeSDK.input.Input inputs = 2;</code>
        */
       public netGameNodeSDK.input.InputOuterClass.Input.Builder getInputsBuilder(
           int index) {
         return getInputsFieldBuilder().getBuilder(index);
       }
       /**
-       * <code>repeated .testbed.input.Input inputs = 2;</code>
+       * <code>repeated .netGameNodeSDK.input.Input inputs = 2;</code>
        */
       public netGameNodeSDK.input.InputOuterClass.InputOrBuilder getInputsOrBuilder(
           int index) {
@@ -1447,7 +1447,7 @@ public final class InputOuterClass {
         }
       }
       /**
-       * <code>repeated .testbed.input.Input inputs = 2;</code>
+       * <code>repeated .netGameNodeSDK.input.Input inputs = 2;</code>
        */
       public java.util.List<? extends netGameNodeSDK.input.InputOuterClass.InputOrBuilder> 
            getInputsOrBuilderList() {
@@ -1458,14 +1458,14 @@ public final class InputOuterClass {
         }
       }
       /**
-       * <code>repeated .testbed.input.Input inputs = 2;</code>
+       * <code>repeated .netGameNodeSDK.input.Input inputs = 2;</code>
        */
       public netGameNodeSDK.input.InputOuterClass.Input.Builder addInputsBuilder() {
         return getInputsFieldBuilder().addBuilder(
             netGameNodeSDK.input.InputOuterClass.Input.getDefaultInstance());
       }
       /**
-       * <code>repeated .testbed.input.Input inputs = 2;</code>
+       * <code>repeated .netGameNodeSDK.input.Input inputs = 2;</code>
        */
       public netGameNodeSDK.input.InputOuterClass.Input.Builder addInputsBuilder(
           int index) {
@@ -1473,7 +1473,7 @@ public final class InputOuterClass {
             index, netGameNodeSDK.input.InputOuterClass.Input.getDefaultInstance());
       }
       /**
-       * <code>repeated .testbed.input.Input inputs = 2;</code>
+       * <code>repeated .netGameNodeSDK.input.Input inputs = 2;</code>
        */
       public java.util.List<netGameNodeSDK.input.InputOuterClass.Input.Builder> 
            getInputsBuilderList() {
@@ -1504,10 +1504,10 @@ public final class InputOuterClass {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:testbed.input.Inputs)
+      // @@protoc_insertion_point(builder_scope:netGameNodeSDK.input.Inputs)
     }
 
-    // @@protoc_insertion_point(class_scope:testbed.input.Inputs)
+    // @@protoc_insertion_point(class_scope:netGameNodeSDK.input.Inputs)
     private static final netGameNodeSDK.input.InputOuterClass.Inputs DEFAULT_INSTANCE;
     static {
       DEFAULT_INSTANCE = new netGameNodeSDK.input.InputOuterClass.Inputs();
@@ -1543,15 +1543,15 @@ public final class InputOuterClass {
   }
 
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_testbed_input_Input_descriptor;
+    internal_static_netGameNodeSDK_input_Input_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_testbed_input_Input_fieldAccessorTable;
+      internal_static_netGameNodeSDK_input_Input_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_testbed_input_Inputs_descriptor;
+    internal_static_netGameNodeSDK_input_Inputs_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_testbed_input_Inputs_fieldAccessorTable;
+      internal_static_netGameNodeSDK_input_Inputs_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -1561,10 +1561,11 @@ public final class InputOuterClass {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\013input.proto\022\rtestbed.input\032\tkey.proto\"" +
-      "3\n\005Input\022!\n\003key\030\001 \001(\0132\022.testbed.input.Ke" +
-      "yH\000B\007\n\005input\"@\n\006Inputs\022\020\n\010clientId\030\001 \002(\005" +
-      "\022$\n\006inputs\030\002 \003(\0132\024.testbed.input.Input"
+      "\n\013input.proto\022\024netGameNodeSDK.input\032\tkey" +
+      ".proto\"8\n\005Input\022&\n\003key\030\001 \001(\0132\027.netGameNo" +
+      "deSDK.key.KeyH\000B\007\n\005input\"G\n\006Inputs\022\020\n\010cl" +
+      "ientId\030\001 \002(\005\022+\n\006inputs\030\002 \003(\0132\033.netGameNo" +
+      "deSDK.input.Input"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -1577,21 +1578,21 @@ public final class InputOuterClass {
     com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          netGameNodeSDK.input.KeyOuterClass.getDescriptor(),
+          netGameNodeSDK.key.KeyOuterClass.getDescriptor(),
         }, assigner);
-    internal_static_testbed_input_Input_descriptor =
+    internal_static_netGameNodeSDK_input_Input_descriptor =
       getDescriptor().getMessageTypes().get(0);
-    internal_static_testbed_input_Input_fieldAccessorTable = new
+    internal_static_netGameNodeSDK_input_Input_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_testbed_input_Input_descriptor,
+        internal_static_netGameNodeSDK_input_Input_descriptor,
         new java.lang.String[] { "Key", "Input", });
-    internal_static_testbed_input_Inputs_descriptor =
+    internal_static_netGameNodeSDK_input_Inputs_descriptor =
       getDescriptor().getMessageTypes().get(1);
-    internal_static_testbed_input_Inputs_fieldAccessorTable = new
+    internal_static_netGameNodeSDK_input_Inputs_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_testbed_input_Inputs_descriptor,
+        internal_static_netGameNodeSDK_input_Inputs_descriptor,
         new java.lang.String[] { "ClientId", "Inputs", });
-    netGameNodeSDK.input.KeyOuterClass.getDescriptor();
+    netGameNodeSDK.key.KeyOuterClass.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

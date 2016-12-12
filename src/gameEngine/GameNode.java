@@ -8,6 +8,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.function.Supplier;
 
 import javafx.scene.canvas.GraphicsContext;
@@ -218,11 +219,13 @@ public abstract class GameNode {
 		}
 	}
 
+	public boolean isAreaEntred() { return !enteredAreaSet.isEmpty(); }
+	public Set<GameNode> enteredAreaSet() { return Collections.unmodifiableSet(enteredAreaSet); }
+
 	// Physics event handlers
 	public void onCollided(GameNode node, long elapse) {}
 	public void onAreaEntered(GameNode node, long elapse) {}
 	public void onAreaExited(GameNode node, long elapse) {}
-	public boolean isAreaEntred() { return !enteredAreaSet.isEmpty(); }
 
 	public final HashSet<Integer> colissionGroup() { return collisionGroupSet; }
 	public final void addColissionGroup(int groupId) { collisionGroupSet.add(groupId); }

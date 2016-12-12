@@ -27,6 +27,7 @@ import javafx.scene.paint.Color;
 import netGameNodeSDK.handshake.Handshake.ClientHandshake;
 import netGameNodeSDK.handshake.Handshake.ServerHandshake;
 import netGameNodeSDK.input.InputOuterClass.Inputs;
+import netGameNodeSDK.mirror.Mirror.MirrorState;
 import netGameNodeSDK.player.Player.PlayerState;
 import netGameNodeSDK.update.UpdateOuterClass.Update;
 import netGameNodeSDK.update.UpdateOuterClass.Updates;
@@ -38,8 +39,11 @@ public class ServerMatrixGameNode extends GameNode {
 	}
 
 	private int clientId = 0;
+	private int mirrorId = 0;
+
 	private ServerSocket serverSocket;
 	private Map<Integer, Client> clients = Collections.synchronizedMap(new HashMap<>());
+	private Map<Integer, MirrorNetGameNode> mirrors = Collections.synchronizedMap(new HashMap<>());
 
 	private DatagramSocket commandInputSocket;
 	private DatagramPacket commandPacket;
@@ -55,12 +59,36 @@ public class ServerMatrixGameNode extends GameNode {
 		setupWaitsForPlayerService();
 		setupWaitsForCommandsService();
 
+		randomlyAddMirrorToGame();
+
 		RectangleGameNode wall = new RectangleGameNode(100, 100, 9000, 30, Color.PURPLE);
 		Game.currentScene().physicEngine.addStaticNode(wall);
 	}
 
+	private void randomlyAddMirrorToGame() {
+		for (int i = 0; i < 30; ++i) {
+			double x = Math.random() * 1000;
+			double y = Math.random() * 1000;
+			int id = getUniqueMirrorId();
+
+			MirrorNetGameNode newMirror = new MirrorNetGameNode(id);
+			newMirror.serverInitialize(Game.currentScene(), false);
+
+			newMirror.geometry.x = x;
+			newMirror.geometry.y = y;
+
+			if (Math.random() * 10 >= 5) {
+				newMirror.spin();
+			}
+
+			addChild(newMirror);
+
+			mirrors.put(id, newMirror);
+		}
+	}
+
 	private void setupUpdateBoardcastingService() {
-		long fps30 = 16 * 2;
+		long fps30 = 16 * 3;
 
 		AnimationPlayer aniPlayer = new AnimationPlayer(fps30);
 		FunctionTriggerAnimation boardcastUpdateAni = new FunctionTriggerAnimation();
@@ -142,6 +170,11 @@ public class ServerMatrixGameNode extends GameNode {
 	private synchronized int getUniqueClientId() {
 		clientId += 1;
 		return clientId;
+	}
+
+	private synchronized int getUniqueMirrorId() {
+		mirrorId += 1;
+		return mirrorId;
 	}
 
 	private void waitsForPlayerRoutine() {
@@ -233,9 +266,16 @@ public class ServerMatrixGameNode extends GameNode {
 			updatesBuilder.addUpdates(update);
 		});
 
-		byte[] data = updatesBuilder.build().toByteArray();
+		mirrors.forEach((mirrorId, mirror) -> {
+			MirrorState mirrorState = mirror.getStates();
+			Update.Builder update = Update.newBuilder()
+					.setMirrorStaet(mirrorState);
+
+			updatesBuilder.addUpdates(update);
+		});
 
 		clients.forEach((clientId, client) -> {
+			byte[] data = updatesBuilder.build().toByteArray();
 			updatePacket.setSocketAddress(client.updateAddr);
 			updatePacket.setData(data);
 
@@ -249,5 +289,6 @@ public class ServerMatrixGameNode extends GameNode {
 				return;
 			}
 		});
+
 	}
 }

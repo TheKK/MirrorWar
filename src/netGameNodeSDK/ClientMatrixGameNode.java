@@ -13,6 +13,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import com.google.protobuf.InvalidProtocolBufferException;
 
@@ -20,12 +21,15 @@ import gameEngine.AnimationPlayer;
 import gameEngine.FunctionTriggerAnimation;
 import gameEngine.Game;
 import gameEngine.GameNode;
+import gameEngine.LayerGameNode;
+import gameEngine.SimpleGameSceneCamera;
 import javafx.application.Platform;
 import javafx.scene.canvas.GraphicsContext;
 import netGameNodeSDK.handshake.Handshake.ClientHandshake;
 import netGameNodeSDK.handshake.Handshake.ServerHandshake;
 import netGameNodeSDK.input.InputOuterClass.Input;
 import netGameNodeSDK.input.InputOuterClass.Inputs;
+import netGameNodeSDK.mirror.Mirror.MirrorState;
 import netGameNodeSDK.player.Player.PlayerState;
 import netGameNodeSDK.update.UpdateOuterClass.Update;
 import netGameNodeSDK.update.UpdateOuterClass.Updates;
@@ -42,10 +46,18 @@ public class ClientMatrixGameNode extends GameNode {
 	private List<Update> updateQueue = Collections.synchronizedList(new ArrayList<>());
 
 	private Map<Integer, PlayerNetGameNode> players = new HashMap<>();
+	private Map<Integer, MirrorNetGameNode> mirrors = new HashMap<>();
+
 	private int controllingPlayerId;
+
+	private LayerGameNode rootLayer;
+
 
 	public ClientMatrixGameNode(Socket serverSocket) {
 		this.serverSocket = serverSocket;
+
+		rootLayer = new LayerGameNode();
+		addChild(rootLayer);
 
 		// TODO Make this process async
 		try {
@@ -71,7 +83,7 @@ public class ClientMatrixGameNode extends GameNode {
 			updateQueue.forEach(update -> {
 
 				switch (update.getUpdateCase()) {
-				case PLAYERSTATE: {
+				case PLAYER_STATE: {
 					PlayerState playerState = update.getPlayerState();
 					int playerId = playerState.getId();
 
@@ -82,14 +94,36 @@ public class ClientMatrixGameNode extends GameNode {
 
 						if (playerId == controllingPlayerId) {
 							player.isControlling = true;
+
+							SimpleGameSceneCamera camera = new SimpleGameSceneCamera(0, 0, Game.canvasWidth(), Game.canvasHeight());
+							camera.cameraTarget = Optional.of(player);
+							rootLayer.camera = camera;
 						}
 
 						players.put(playerId, player);
 
-						addChild(player);
+						rootLayer.addChild(player);
 					}
 
 					player.clientHandleServerUpdate(playerState);
+				}
+					break;
+
+				case MIRROR_STAET: {
+					MirrorState mirrorState = update.getMirrorStaet();
+					int mirrorId = mirrorState.getId();
+
+					MirrorNetGameNode mirror = mirrors.get(mirrorId);
+					if (mirror == null) {
+						mirror = new MirrorNetGameNode(mirrorId);
+						mirror.clientInitialize(Game.currentScene());
+
+						mirrors.put(mirrorId, mirror);
+
+						rootLayer.addChild(mirror);
+					}
+
+					mirror.clientHandleServerUpdate(mirrorState);
 				}
 					break;
 

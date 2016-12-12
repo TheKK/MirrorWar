@@ -15,30 +15,43 @@ public final class UpdateOuterClass {
         (com.google.protobuf.ExtensionRegistryLite) registry);
   }
   public interface UpdateOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:testbed.update.Update)
+      // @@protoc_insertion_point(interface_extends:netGameNodeSDK.update.Update)
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>optional .testbed.player.PlayerState playerState = 1;</code>
+     * <code>optional .netGameNodeSDK.player.PlayerState player_state = 1;</code>
      */
     boolean hasPlayerState();
     /**
-     * <code>optional .testbed.player.PlayerState playerState = 1;</code>
+     * <code>optional .netGameNodeSDK.player.PlayerState player_state = 1;</code>
      */
     netGameNodeSDK.player.Player.PlayerState getPlayerState();
     /**
-     * <code>optional .testbed.player.PlayerState playerState = 1;</code>
+     * <code>optional .netGameNodeSDK.player.PlayerState player_state = 1;</code>
      */
     netGameNodeSDK.player.Player.PlayerStateOrBuilder getPlayerStateOrBuilder();
+
+    /**
+     * <code>optional .netGameNodeSDK.mirror.MirrorState mirror_staet = 2;</code>
+     */
+    boolean hasMirrorStaet();
+    /**
+     * <code>optional .netGameNodeSDK.mirror.MirrorState mirror_staet = 2;</code>
+     */
+    netGameNodeSDK.mirror.Mirror.MirrorState getMirrorStaet();
+    /**
+     * <code>optional .netGameNodeSDK.mirror.MirrorState mirror_staet = 2;</code>
+     */
+    netGameNodeSDK.mirror.Mirror.MirrorStateOrBuilder getMirrorStaetOrBuilder();
 
     public netGameNodeSDK.update.UpdateOuterClass.Update.UpdateCase getUpdateCase();
   }
   /**
-   * Protobuf type {@code testbed.update.Update}
+   * Protobuf type {@code netGameNodeSDK.update.Update}
    */
   public  static final class Update extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:testbed.update.Update)
+      // @@protoc_insertion_point(message_implements:netGameNodeSDK.update.Update)
       UpdateOrBuilder {
     // Use Update.newBuilder() to construct.
     private Update(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
@@ -89,6 +102,20 @@ public final class UpdateOuterClass {
               updateCase_ = 1;
               break;
             }
+            case 18: {
+              netGameNodeSDK.mirror.Mirror.MirrorState.Builder subBuilder = null;
+              if (updateCase_ == 2) {
+                subBuilder = ((netGameNodeSDK.mirror.Mirror.MirrorState) update_).toBuilder();
+              }
+              update_ =
+                  input.readMessage(netGameNodeSDK.mirror.Mirror.MirrorState.PARSER, extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom((netGameNodeSDK.mirror.Mirror.MirrorState) update_);
+                update_ = subBuilder.buildPartial();
+              }
+              updateCase_ = 2;
+              break;
+            }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
@@ -103,12 +130,12 @@ public final class UpdateOuterClass {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return netGameNodeSDK.update.UpdateOuterClass.internal_static_testbed_update_Update_descriptor;
+      return netGameNodeSDK.update.UpdateOuterClass.internal_static_netGameNodeSDK_update_Update_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return netGameNodeSDK.update.UpdateOuterClass.internal_static_testbed_update_Update_fieldAccessorTable
+      return netGameNodeSDK.update.UpdateOuterClass.internal_static_netGameNodeSDK_update_Update_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               netGameNodeSDK.update.UpdateOuterClass.Update.class, netGameNodeSDK.update.UpdateOuterClass.Update.Builder.class);
     }
@@ -118,7 +145,8 @@ public final class UpdateOuterClass {
     private java.lang.Object update_;
     public enum UpdateCase
         implements com.google.protobuf.Internal.EnumLite {
-      PLAYERSTATE(1),
+      PLAYER_STATE(1),
+      MIRROR_STAET(2),
       UPDATE_NOT_SET(0);
       private final int value;
       private UpdateCase(int value) {
@@ -134,7 +162,8 @@ public final class UpdateOuterClass {
 
       public static UpdateCase forNumber(int value) {
         switch (value) {
-          case 1: return PLAYERSTATE;
+          case 1: return PLAYER_STATE;
+          case 2: return MIRROR_STAET;
           case 0: return UPDATE_NOT_SET;
           default: return null;
         }
@@ -150,15 +179,15 @@ public final class UpdateOuterClass {
           updateCase_);
     }
 
-    public static final int PLAYERSTATE_FIELD_NUMBER = 1;
+    public static final int PLAYER_STATE_FIELD_NUMBER = 1;
     /**
-     * <code>optional .testbed.player.PlayerState playerState = 1;</code>
+     * <code>optional .netGameNodeSDK.player.PlayerState player_state = 1;</code>
      */
     public boolean hasPlayerState() {
       return updateCase_ == 1;
     }
     /**
-     * <code>optional .testbed.player.PlayerState playerState = 1;</code>
+     * <code>optional .netGameNodeSDK.player.PlayerState player_state = 1;</code>
      */
     public netGameNodeSDK.player.Player.PlayerState getPlayerState() {
       if (updateCase_ == 1) {
@@ -167,13 +196,39 @@ public final class UpdateOuterClass {
       return netGameNodeSDK.player.Player.PlayerState.getDefaultInstance();
     }
     /**
-     * <code>optional .testbed.player.PlayerState playerState = 1;</code>
+     * <code>optional .netGameNodeSDK.player.PlayerState player_state = 1;</code>
      */
     public netGameNodeSDK.player.Player.PlayerStateOrBuilder getPlayerStateOrBuilder() {
       if (updateCase_ == 1) {
          return (netGameNodeSDK.player.Player.PlayerState) update_;
       }
       return netGameNodeSDK.player.Player.PlayerState.getDefaultInstance();
+    }
+
+    public static final int MIRROR_STAET_FIELD_NUMBER = 2;
+    /**
+     * <code>optional .netGameNodeSDK.mirror.MirrorState mirror_staet = 2;</code>
+     */
+    public boolean hasMirrorStaet() {
+      return updateCase_ == 2;
+    }
+    /**
+     * <code>optional .netGameNodeSDK.mirror.MirrorState mirror_staet = 2;</code>
+     */
+    public netGameNodeSDK.mirror.Mirror.MirrorState getMirrorStaet() {
+      if (updateCase_ == 2) {
+         return (netGameNodeSDK.mirror.Mirror.MirrorState) update_;
+      }
+      return netGameNodeSDK.mirror.Mirror.MirrorState.getDefaultInstance();
+    }
+    /**
+     * <code>optional .netGameNodeSDK.mirror.MirrorState mirror_staet = 2;</code>
+     */
+    public netGameNodeSDK.mirror.Mirror.MirrorStateOrBuilder getMirrorStaetOrBuilder() {
+      if (updateCase_ == 2) {
+         return (netGameNodeSDK.mirror.Mirror.MirrorState) update_;
+      }
+      return netGameNodeSDK.mirror.Mirror.MirrorState.getDefaultInstance();
     }
 
     private byte memoizedIsInitialized = -1;
@@ -188,6 +243,12 @@ public final class UpdateOuterClass {
           return false;
         }
       }
+      if (hasMirrorStaet()) {
+        if (!getMirrorStaet().isInitialized()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -196,6 +257,9 @@ public final class UpdateOuterClass {
                         throws java.io.IOException {
       if (updateCase_ == 1) {
         output.writeMessage(1, (netGameNodeSDK.player.Player.PlayerState) update_);
+      }
+      if (updateCase_ == 2) {
+        output.writeMessage(2, (netGameNodeSDK.mirror.Mirror.MirrorState) update_);
       }
       unknownFields.writeTo(output);
     }
@@ -208,6 +272,10 @@ public final class UpdateOuterClass {
       if (updateCase_ == 1) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(1, (netGameNodeSDK.player.Player.PlayerState) update_);
+      }
+      if (updateCase_ == 2) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(2, (netGameNodeSDK.mirror.Mirror.MirrorState) update_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -234,6 +302,10 @@ public final class UpdateOuterClass {
           result = result && getPlayerState()
               .equals(other.getPlayerState());
           break;
+        case 2:
+          result = result && getMirrorStaet()
+              .equals(other.getMirrorStaet());
+          break;
         case 0:
         default:
       }
@@ -250,8 +322,12 @@ public final class UpdateOuterClass {
       hash = (19 * hash) + getDescriptorForType().hashCode();
       switch (updateCase_) {
         case 1:
-          hash = (37 * hash) + PLAYERSTATE_FIELD_NUMBER;
+          hash = (37 * hash) + PLAYER_STATE_FIELD_NUMBER;
           hash = (53 * hash) + getPlayerState().hashCode();
+          break;
+        case 2:
+          hash = (37 * hash) + MIRROR_STAET_FIELD_NUMBER;
+          hash = (53 * hash) + getMirrorStaet().hashCode();
           break;
         case 0:
         default:
@@ -339,25 +415,25 @@ public final class UpdateOuterClass {
       return builder;
     }
     /**
-     * Protobuf type {@code testbed.update.Update}
+     * Protobuf type {@code netGameNodeSDK.update.Update}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:testbed.update.Update)
+        // @@protoc_insertion_point(builder_implements:netGameNodeSDK.update.Update)
         netGameNodeSDK.update.UpdateOuterClass.UpdateOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return netGameNodeSDK.update.UpdateOuterClass.internal_static_testbed_update_Update_descriptor;
+        return netGameNodeSDK.update.UpdateOuterClass.internal_static_netGameNodeSDK_update_Update_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return netGameNodeSDK.update.UpdateOuterClass.internal_static_testbed_update_Update_fieldAccessorTable
+        return netGameNodeSDK.update.UpdateOuterClass.internal_static_netGameNodeSDK_update_Update_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
                 netGameNodeSDK.update.UpdateOuterClass.Update.class, netGameNodeSDK.update.UpdateOuterClass.Update.Builder.class);
       }
 
-      // Construct using testbed.update.UpdateOuterClass.Update.newBuilder()
+      // Construct using netGameNodeSDK.update.UpdateOuterClass.Update.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -381,7 +457,7 @@ public final class UpdateOuterClass {
 
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return netGameNodeSDK.update.UpdateOuterClass.internal_static_testbed_update_Update_descriptor;
+        return netGameNodeSDK.update.UpdateOuterClass.internal_static_netGameNodeSDK_update_Update_descriptor;
       }
 
       public netGameNodeSDK.update.UpdateOuterClass.Update getDefaultInstanceForType() {
@@ -405,6 +481,13 @@ public final class UpdateOuterClass {
             result.update_ = update_;
           } else {
             result.update_ = playerStateBuilder_.build();
+          }
+        }
+        if (updateCase_ == 2) {
+          if (mirrorStaetBuilder_ == null) {
+            result.update_ = update_;
+          } else {
+            result.update_ = mirrorStaetBuilder_.build();
           }
         }
         result.bitField0_ = to_bitField0_;
@@ -451,8 +534,12 @@ public final class UpdateOuterClass {
       public Builder mergeFrom(netGameNodeSDK.update.UpdateOuterClass.Update other) {
         if (other == netGameNodeSDK.update.UpdateOuterClass.Update.getDefaultInstance()) return this;
         switch (other.getUpdateCase()) {
-          case PLAYERSTATE: {
+          case PLAYER_STATE: {
             mergePlayerState(other.getPlayerState());
+            break;
+          }
+          case MIRROR_STAET: {
+            mergeMirrorStaet(other.getMirrorStaet());
             break;
           }
           case UPDATE_NOT_SET: {
@@ -467,6 +554,11 @@ public final class UpdateOuterClass {
       public final boolean isInitialized() {
         if (hasPlayerState()) {
           if (!getPlayerState().isInitialized()) {
+            return false;
+          }
+        }
+        if (hasMirrorStaet()) {
+          if (!getMirrorStaet().isInitialized()) {
             return false;
           }
         }
@@ -510,13 +602,13 @@ public final class UpdateOuterClass {
       private com.google.protobuf.SingleFieldBuilderV3<
           netGameNodeSDK.player.Player.PlayerState, netGameNodeSDK.player.Player.PlayerState.Builder, netGameNodeSDK.player.Player.PlayerStateOrBuilder> playerStateBuilder_;
       /**
-       * <code>optional .testbed.player.PlayerState playerState = 1;</code>
+       * <code>optional .netGameNodeSDK.player.PlayerState player_state = 1;</code>
        */
       public boolean hasPlayerState() {
         return updateCase_ == 1;
       }
       /**
-       * <code>optional .testbed.player.PlayerState playerState = 1;</code>
+       * <code>optional .netGameNodeSDK.player.PlayerState player_state = 1;</code>
        */
       public netGameNodeSDK.player.Player.PlayerState getPlayerState() {
         if (playerStateBuilder_ == null) {
@@ -532,7 +624,7 @@ public final class UpdateOuterClass {
         }
       }
       /**
-       * <code>optional .testbed.player.PlayerState playerState = 1;</code>
+       * <code>optional .netGameNodeSDK.player.PlayerState player_state = 1;</code>
        */
       public Builder setPlayerState(netGameNodeSDK.player.Player.PlayerState value) {
         if (playerStateBuilder_ == null) {
@@ -548,7 +640,7 @@ public final class UpdateOuterClass {
         return this;
       }
       /**
-       * <code>optional .testbed.player.PlayerState playerState = 1;</code>
+       * <code>optional .netGameNodeSDK.player.PlayerState player_state = 1;</code>
        */
       public Builder setPlayerState(
           netGameNodeSDK.player.Player.PlayerState.Builder builderForValue) {
@@ -562,7 +654,7 @@ public final class UpdateOuterClass {
         return this;
       }
       /**
-       * <code>optional .testbed.player.PlayerState playerState = 1;</code>
+       * <code>optional .netGameNodeSDK.player.PlayerState player_state = 1;</code>
        */
       public Builder mergePlayerState(netGameNodeSDK.player.Player.PlayerState value) {
         if (playerStateBuilder_ == null) {
@@ -584,7 +676,7 @@ public final class UpdateOuterClass {
         return this;
       }
       /**
-       * <code>optional .testbed.player.PlayerState playerState = 1;</code>
+       * <code>optional .netGameNodeSDK.player.PlayerState player_state = 1;</code>
        */
       public Builder clearPlayerState() {
         if (playerStateBuilder_ == null) {
@@ -603,13 +695,13 @@ public final class UpdateOuterClass {
         return this;
       }
       /**
-       * <code>optional .testbed.player.PlayerState playerState = 1;</code>
+       * <code>optional .netGameNodeSDK.player.PlayerState player_state = 1;</code>
        */
       public netGameNodeSDK.player.Player.PlayerState.Builder getPlayerStateBuilder() {
         return getPlayerStateFieldBuilder().getBuilder();
       }
       /**
-       * <code>optional .testbed.player.PlayerState playerState = 1;</code>
+       * <code>optional .netGameNodeSDK.player.PlayerState player_state = 1;</code>
        */
       public netGameNodeSDK.player.Player.PlayerStateOrBuilder getPlayerStateOrBuilder() {
         if ((updateCase_ == 1) && (playerStateBuilder_ != null)) {
@@ -622,7 +714,7 @@ public final class UpdateOuterClass {
         }
       }
       /**
-       * <code>optional .testbed.player.PlayerState playerState = 1;</code>
+       * <code>optional .netGameNodeSDK.player.PlayerState player_state = 1;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
           netGameNodeSDK.player.Player.PlayerState, netGameNodeSDK.player.Player.PlayerState.Builder, netGameNodeSDK.player.Player.PlayerStateOrBuilder> 
@@ -642,6 +734,142 @@ public final class UpdateOuterClass {
         onChanged();;
         return playerStateBuilder_;
       }
+
+      private com.google.protobuf.SingleFieldBuilderV3<
+          netGameNodeSDK.mirror.Mirror.MirrorState, netGameNodeSDK.mirror.Mirror.MirrorState.Builder, netGameNodeSDK.mirror.Mirror.MirrorStateOrBuilder> mirrorStaetBuilder_;
+      /**
+       * <code>optional .netGameNodeSDK.mirror.MirrorState mirror_staet = 2;</code>
+       */
+      public boolean hasMirrorStaet() {
+        return updateCase_ == 2;
+      }
+      /**
+       * <code>optional .netGameNodeSDK.mirror.MirrorState mirror_staet = 2;</code>
+       */
+      public netGameNodeSDK.mirror.Mirror.MirrorState getMirrorStaet() {
+        if (mirrorStaetBuilder_ == null) {
+          if (updateCase_ == 2) {
+            return (netGameNodeSDK.mirror.Mirror.MirrorState) update_;
+          }
+          return netGameNodeSDK.mirror.Mirror.MirrorState.getDefaultInstance();
+        } else {
+          if (updateCase_ == 2) {
+            return mirrorStaetBuilder_.getMessage();
+          }
+          return netGameNodeSDK.mirror.Mirror.MirrorState.getDefaultInstance();
+        }
+      }
+      /**
+       * <code>optional .netGameNodeSDK.mirror.MirrorState mirror_staet = 2;</code>
+       */
+      public Builder setMirrorStaet(netGameNodeSDK.mirror.Mirror.MirrorState value) {
+        if (mirrorStaetBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          update_ = value;
+          onChanged();
+        } else {
+          mirrorStaetBuilder_.setMessage(value);
+        }
+        updateCase_ = 2;
+        return this;
+      }
+      /**
+       * <code>optional .netGameNodeSDK.mirror.MirrorState mirror_staet = 2;</code>
+       */
+      public Builder setMirrorStaet(
+          netGameNodeSDK.mirror.Mirror.MirrorState.Builder builderForValue) {
+        if (mirrorStaetBuilder_ == null) {
+          update_ = builderForValue.build();
+          onChanged();
+        } else {
+          mirrorStaetBuilder_.setMessage(builderForValue.build());
+        }
+        updateCase_ = 2;
+        return this;
+      }
+      /**
+       * <code>optional .netGameNodeSDK.mirror.MirrorState mirror_staet = 2;</code>
+       */
+      public Builder mergeMirrorStaet(netGameNodeSDK.mirror.Mirror.MirrorState value) {
+        if (mirrorStaetBuilder_ == null) {
+          if (updateCase_ == 2 &&
+              update_ != netGameNodeSDK.mirror.Mirror.MirrorState.getDefaultInstance()) {
+            update_ = netGameNodeSDK.mirror.Mirror.MirrorState.newBuilder((netGameNodeSDK.mirror.Mirror.MirrorState) update_)
+                .mergeFrom(value).buildPartial();
+          } else {
+            update_ = value;
+          }
+          onChanged();
+        } else {
+          if (updateCase_ == 2) {
+            mirrorStaetBuilder_.mergeFrom(value);
+          }
+          mirrorStaetBuilder_.setMessage(value);
+        }
+        updateCase_ = 2;
+        return this;
+      }
+      /**
+       * <code>optional .netGameNodeSDK.mirror.MirrorState mirror_staet = 2;</code>
+       */
+      public Builder clearMirrorStaet() {
+        if (mirrorStaetBuilder_ == null) {
+          if (updateCase_ == 2) {
+            updateCase_ = 0;
+            update_ = null;
+            onChanged();
+          }
+        } else {
+          if (updateCase_ == 2) {
+            updateCase_ = 0;
+            update_ = null;
+          }
+          mirrorStaetBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>optional .netGameNodeSDK.mirror.MirrorState mirror_staet = 2;</code>
+       */
+      public netGameNodeSDK.mirror.Mirror.MirrorState.Builder getMirrorStaetBuilder() {
+        return getMirrorStaetFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>optional .netGameNodeSDK.mirror.MirrorState mirror_staet = 2;</code>
+       */
+      public netGameNodeSDK.mirror.Mirror.MirrorStateOrBuilder getMirrorStaetOrBuilder() {
+        if ((updateCase_ == 2) && (mirrorStaetBuilder_ != null)) {
+          return mirrorStaetBuilder_.getMessageOrBuilder();
+        } else {
+          if (updateCase_ == 2) {
+            return (netGameNodeSDK.mirror.Mirror.MirrorState) update_;
+          }
+          return netGameNodeSDK.mirror.Mirror.MirrorState.getDefaultInstance();
+        }
+      }
+      /**
+       * <code>optional .netGameNodeSDK.mirror.MirrorState mirror_staet = 2;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          netGameNodeSDK.mirror.Mirror.MirrorState, netGameNodeSDK.mirror.Mirror.MirrorState.Builder, netGameNodeSDK.mirror.Mirror.MirrorStateOrBuilder> 
+          getMirrorStaetFieldBuilder() {
+        if (mirrorStaetBuilder_ == null) {
+          if (!(updateCase_ == 2)) {
+            update_ = netGameNodeSDK.mirror.Mirror.MirrorState.getDefaultInstance();
+          }
+          mirrorStaetBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              netGameNodeSDK.mirror.Mirror.MirrorState, netGameNodeSDK.mirror.Mirror.MirrorState.Builder, netGameNodeSDK.mirror.Mirror.MirrorStateOrBuilder>(
+                  (netGameNodeSDK.mirror.Mirror.MirrorState) update_,
+                  getParentForChildren(),
+                  isClean());
+          update_ = null;
+        }
+        updateCase_ = 2;
+        onChanged();;
+        return mirrorStaetBuilder_;
+      }
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
         return super.setUnknownFields(unknownFields);
@@ -653,10 +881,10 @@ public final class UpdateOuterClass {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:testbed.update.Update)
+      // @@protoc_insertion_point(builder_scope:netGameNodeSDK.update.Update)
     }
 
-    // @@protoc_insertion_point(class_scope:testbed.update.Update)
+    // @@protoc_insertion_point(class_scope:netGameNodeSDK.update.Update)
     private static final netGameNodeSDK.update.UpdateOuterClass.Update DEFAULT_INSTANCE;
     static {
       DEFAULT_INSTANCE = new netGameNodeSDK.update.UpdateOuterClass.Update();
@@ -692,39 +920,39 @@ public final class UpdateOuterClass {
   }
 
   public interface UpdatesOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:testbed.update.Updates)
+      // @@protoc_insertion_point(interface_extends:netGameNodeSDK.update.Updates)
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>repeated .testbed.update.Update updates = 1;</code>
+     * <code>repeated .netGameNodeSDK.update.Update updates = 1;</code>
      */
     java.util.List<netGameNodeSDK.update.UpdateOuterClass.Update> 
         getUpdatesList();
     /**
-     * <code>repeated .testbed.update.Update updates = 1;</code>
+     * <code>repeated .netGameNodeSDK.update.Update updates = 1;</code>
      */
     netGameNodeSDK.update.UpdateOuterClass.Update getUpdates(int index);
     /**
-     * <code>repeated .testbed.update.Update updates = 1;</code>
+     * <code>repeated .netGameNodeSDK.update.Update updates = 1;</code>
      */
     int getUpdatesCount();
     /**
-     * <code>repeated .testbed.update.Update updates = 1;</code>
+     * <code>repeated .netGameNodeSDK.update.Update updates = 1;</code>
      */
     java.util.List<? extends netGameNodeSDK.update.UpdateOuterClass.UpdateOrBuilder> 
         getUpdatesOrBuilderList();
     /**
-     * <code>repeated .testbed.update.Update updates = 1;</code>
+     * <code>repeated .netGameNodeSDK.update.Update updates = 1;</code>
      */
     netGameNodeSDK.update.UpdateOuterClass.UpdateOrBuilder getUpdatesOrBuilder(
         int index);
   }
   /**
-   * Protobuf type {@code testbed.update.Updates}
+   * Protobuf type {@code netGameNodeSDK.update.Updates}
    */
   public  static final class Updates extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:testbed.update.Updates)
+      // @@protoc_insertion_point(message_implements:netGameNodeSDK.update.Updates)
       UpdatesOrBuilder {
     // Use Updates.newBuilder() to construct.
     private Updates(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
@@ -788,12 +1016,12 @@ public final class UpdateOuterClass {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return netGameNodeSDK.update.UpdateOuterClass.internal_static_testbed_update_Updates_descriptor;
+      return netGameNodeSDK.update.UpdateOuterClass.internal_static_netGameNodeSDK_update_Updates_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return netGameNodeSDK.update.UpdateOuterClass.internal_static_testbed_update_Updates_fieldAccessorTable
+      return netGameNodeSDK.update.UpdateOuterClass.internal_static_netGameNodeSDK_update_Updates_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               netGameNodeSDK.update.UpdateOuterClass.Updates.class, netGameNodeSDK.update.UpdateOuterClass.Updates.Builder.class);
     }
@@ -801,32 +1029,32 @@ public final class UpdateOuterClass {
     public static final int UPDATES_FIELD_NUMBER = 1;
     private java.util.List<netGameNodeSDK.update.UpdateOuterClass.Update> updates_;
     /**
-     * <code>repeated .testbed.update.Update updates = 1;</code>
+     * <code>repeated .netGameNodeSDK.update.Update updates = 1;</code>
      */
     public java.util.List<netGameNodeSDK.update.UpdateOuterClass.Update> getUpdatesList() {
       return updates_;
     }
     /**
-     * <code>repeated .testbed.update.Update updates = 1;</code>
+     * <code>repeated .netGameNodeSDK.update.Update updates = 1;</code>
      */
     public java.util.List<? extends netGameNodeSDK.update.UpdateOuterClass.UpdateOrBuilder> 
         getUpdatesOrBuilderList() {
       return updates_;
     }
     /**
-     * <code>repeated .testbed.update.Update updates = 1;</code>
+     * <code>repeated .netGameNodeSDK.update.Update updates = 1;</code>
      */
     public int getUpdatesCount() {
       return updates_.size();
     }
     /**
-     * <code>repeated .testbed.update.Update updates = 1;</code>
+     * <code>repeated .netGameNodeSDK.update.Update updates = 1;</code>
      */
     public netGameNodeSDK.update.UpdateOuterClass.Update getUpdates(int index) {
       return updates_.get(index);
     }
     /**
-     * <code>repeated .testbed.update.Update updates = 1;</code>
+     * <code>repeated .netGameNodeSDK.update.Update updates = 1;</code>
      */
     public netGameNodeSDK.update.UpdateOuterClass.UpdateOrBuilder getUpdatesOrBuilder(
         int index) {
@@ -983,25 +1211,25 @@ public final class UpdateOuterClass {
       return builder;
     }
     /**
-     * Protobuf type {@code testbed.update.Updates}
+     * Protobuf type {@code netGameNodeSDK.update.Updates}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:testbed.update.Updates)
+        // @@protoc_insertion_point(builder_implements:netGameNodeSDK.update.Updates)
         netGameNodeSDK.update.UpdateOuterClass.UpdatesOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return netGameNodeSDK.update.UpdateOuterClass.internal_static_testbed_update_Updates_descriptor;
+        return netGameNodeSDK.update.UpdateOuterClass.internal_static_netGameNodeSDK_update_Updates_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return netGameNodeSDK.update.UpdateOuterClass.internal_static_testbed_update_Updates_fieldAccessorTable
+        return netGameNodeSDK.update.UpdateOuterClass.internal_static_netGameNodeSDK_update_Updates_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
                 netGameNodeSDK.update.UpdateOuterClass.Updates.class, netGameNodeSDK.update.UpdateOuterClass.Updates.Builder.class);
       }
 
-      // Construct using testbed.update.UpdateOuterClass.Updates.newBuilder()
+      // Construct using netGameNodeSDK.update.UpdateOuterClass.Updates.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -1030,7 +1258,7 @@ public final class UpdateOuterClass {
 
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return netGameNodeSDK.update.UpdateOuterClass.internal_static_testbed_update_Updates_descriptor;
+        return netGameNodeSDK.update.UpdateOuterClass.internal_static_netGameNodeSDK_update_Updates_descriptor;
       }
 
       public netGameNodeSDK.update.UpdateOuterClass.Updates getDefaultInstanceForType() {
@@ -1170,7 +1398,7 @@ public final class UpdateOuterClass {
           netGameNodeSDK.update.UpdateOuterClass.Update, netGameNodeSDK.update.UpdateOuterClass.Update.Builder, netGameNodeSDK.update.UpdateOuterClass.UpdateOrBuilder> updatesBuilder_;
 
       /**
-       * <code>repeated .testbed.update.Update updates = 1;</code>
+       * <code>repeated .netGameNodeSDK.update.Update updates = 1;</code>
        */
       public java.util.List<netGameNodeSDK.update.UpdateOuterClass.Update> getUpdatesList() {
         if (updatesBuilder_ == null) {
@@ -1180,7 +1408,7 @@ public final class UpdateOuterClass {
         }
       }
       /**
-       * <code>repeated .testbed.update.Update updates = 1;</code>
+       * <code>repeated .netGameNodeSDK.update.Update updates = 1;</code>
        */
       public int getUpdatesCount() {
         if (updatesBuilder_ == null) {
@@ -1190,7 +1418,7 @@ public final class UpdateOuterClass {
         }
       }
       /**
-       * <code>repeated .testbed.update.Update updates = 1;</code>
+       * <code>repeated .netGameNodeSDK.update.Update updates = 1;</code>
        */
       public netGameNodeSDK.update.UpdateOuterClass.Update getUpdates(int index) {
         if (updatesBuilder_ == null) {
@@ -1200,7 +1428,7 @@ public final class UpdateOuterClass {
         }
       }
       /**
-       * <code>repeated .testbed.update.Update updates = 1;</code>
+       * <code>repeated .netGameNodeSDK.update.Update updates = 1;</code>
        */
       public Builder setUpdates(
           int index, netGameNodeSDK.update.UpdateOuterClass.Update value) {
@@ -1217,7 +1445,7 @@ public final class UpdateOuterClass {
         return this;
       }
       /**
-       * <code>repeated .testbed.update.Update updates = 1;</code>
+       * <code>repeated .netGameNodeSDK.update.Update updates = 1;</code>
        */
       public Builder setUpdates(
           int index, netGameNodeSDK.update.UpdateOuterClass.Update.Builder builderForValue) {
@@ -1231,7 +1459,7 @@ public final class UpdateOuterClass {
         return this;
       }
       /**
-       * <code>repeated .testbed.update.Update updates = 1;</code>
+       * <code>repeated .netGameNodeSDK.update.Update updates = 1;</code>
        */
       public Builder addUpdates(netGameNodeSDK.update.UpdateOuterClass.Update value) {
         if (updatesBuilder_ == null) {
@@ -1247,7 +1475,7 @@ public final class UpdateOuterClass {
         return this;
       }
       /**
-       * <code>repeated .testbed.update.Update updates = 1;</code>
+       * <code>repeated .netGameNodeSDK.update.Update updates = 1;</code>
        */
       public Builder addUpdates(
           int index, netGameNodeSDK.update.UpdateOuterClass.Update value) {
@@ -1264,7 +1492,7 @@ public final class UpdateOuterClass {
         return this;
       }
       /**
-       * <code>repeated .testbed.update.Update updates = 1;</code>
+       * <code>repeated .netGameNodeSDK.update.Update updates = 1;</code>
        */
       public Builder addUpdates(
           netGameNodeSDK.update.UpdateOuterClass.Update.Builder builderForValue) {
@@ -1278,7 +1506,7 @@ public final class UpdateOuterClass {
         return this;
       }
       /**
-       * <code>repeated .testbed.update.Update updates = 1;</code>
+       * <code>repeated .netGameNodeSDK.update.Update updates = 1;</code>
        */
       public Builder addUpdates(
           int index, netGameNodeSDK.update.UpdateOuterClass.Update.Builder builderForValue) {
@@ -1292,7 +1520,7 @@ public final class UpdateOuterClass {
         return this;
       }
       /**
-       * <code>repeated .testbed.update.Update updates = 1;</code>
+       * <code>repeated .netGameNodeSDK.update.Update updates = 1;</code>
        */
       public Builder addAllUpdates(
           java.lang.Iterable<? extends netGameNodeSDK.update.UpdateOuterClass.Update> values) {
@@ -1307,7 +1535,7 @@ public final class UpdateOuterClass {
         return this;
       }
       /**
-       * <code>repeated .testbed.update.Update updates = 1;</code>
+       * <code>repeated .netGameNodeSDK.update.Update updates = 1;</code>
        */
       public Builder clearUpdates() {
         if (updatesBuilder_ == null) {
@@ -1320,7 +1548,7 @@ public final class UpdateOuterClass {
         return this;
       }
       /**
-       * <code>repeated .testbed.update.Update updates = 1;</code>
+       * <code>repeated .netGameNodeSDK.update.Update updates = 1;</code>
        */
       public Builder removeUpdates(int index) {
         if (updatesBuilder_ == null) {
@@ -1333,14 +1561,14 @@ public final class UpdateOuterClass {
         return this;
       }
       /**
-       * <code>repeated .testbed.update.Update updates = 1;</code>
+       * <code>repeated .netGameNodeSDK.update.Update updates = 1;</code>
        */
       public netGameNodeSDK.update.UpdateOuterClass.Update.Builder getUpdatesBuilder(
           int index) {
         return getUpdatesFieldBuilder().getBuilder(index);
       }
       /**
-       * <code>repeated .testbed.update.Update updates = 1;</code>
+       * <code>repeated .netGameNodeSDK.update.Update updates = 1;</code>
        */
       public netGameNodeSDK.update.UpdateOuterClass.UpdateOrBuilder getUpdatesOrBuilder(
           int index) {
@@ -1350,7 +1578,7 @@ public final class UpdateOuterClass {
         }
       }
       /**
-       * <code>repeated .testbed.update.Update updates = 1;</code>
+       * <code>repeated .netGameNodeSDK.update.Update updates = 1;</code>
        */
       public java.util.List<? extends netGameNodeSDK.update.UpdateOuterClass.UpdateOrBuilder> 
            getUpdatesOrBuilderList() {
@@ -1361,14 +1589,14 @@ public final class UpdateOuterClass {
         }
       }
       /**
-       * <code>repeated .testbed.update.Update updates = 1;</code>
+       * <code>repeated .netGameNodeSDK.update.Update updates = 1;</code>
        */
       public netGameNodeSDK.update.UpdateOuterClass.Update.Builder addUpdatesBuilder() {
         return getUpdatesFieldBuilder().addBuilder(
             netGameNodeSDK.update.UpdateOuterClass.Update.getDefaultInstance());
       }
       /**
-       * <code>repeated .testbed.update.Update updates = 1;</code>
+       * <code>repeated .netGameNodeSDK.update.Update updates = 1;</code>
        */
       public netGameNodeSDK.update.UpdateOuterClass.Update.Builder addUpdatesBuilder(
           int index) {
@@ -1376,7 +1604,7 @@ public final class UpdateOuterClass {
             index, netGameNodeSDK.update.UpdateOuterClass.Update.getDefaultInstance());
       }
       /**
-       * <code>repeated .testbed.update.Update updates = 1;</code>
+       * <code>repeated .netGameNodeSDK.update.Update updates = 1;</code>
        */
       public java.util.List<netGameNodeSDK.update.UpdateOuterClass.Update.Builder> 
            getUpdatesBuilderList() {
@@ -1407,10 +1635,10 @@ public final class UpdateOuterClass {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:testbed.update.Updates)
+      // @@protoc_insertion_point(builder_scope:netGameNodeSDK.update.Updates)
     }
 
-    // @@protoc_insertion_point(class_scope:testbed.update.Updates)
+    // @@protoc_insertion_point(class_scope:netGameNodeSDK.update.Updates)
     private static final netGameNodeSDK.update.UpdateOuterClass.Updates DEFAULT_INSTANCE;
     static {
       DEFAULT_INSTANCE = new netGameNodeSDK.update.UpdateOuterClass.Updates();
@@ -1446,15 +1674,15 @@ public final class UpdateOuterClass {
   }
 
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_testbed_update_Update_descriptor;
+    internal_static_netGameNodeSDK_update_Update_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_testbed_update_Update_fieldAccessorTable;
+      internal_static_netGameNodeSDK_update_Update_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_testbed_update_Updates_descriptor;
+    internal_static_netGameNodeSDK_update_Updates_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_testbed_update_Updates_fieldAccessorTable;
+      internal_static_netGameNodeSDK_update_Updates_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -1464,11 +1692,13 @@ public final class UpdateOuterClass {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\014update.proto\022\016testbed.update\032\014player.p" +
-      "roto\"F\n\006Update\0222\n\013playerState\030\001 \001(\0132\033.te" +
-      "stbed.player.PlayerStateH\000B\010\n\006update\"2\n\007" +
-      "Updates\022\'\n\007updates\030\001 \003(\0132\026.testbed.updat" +
-      "e.Update"
+      "\n\014update.proto\022\025netGameNodeSDK.update\032\014p" +
+      "layer.proto\032\014mirror.proto\"\212\001\n\006Update\022:\n\014" +
+      "player_state\030\001 \001(\0132\".netGameNodeSDK.play" +
+      "er.PlayerStateH\000\022:\n\014mirror_staet\030\002 \001(\0132\"" +
+      ".netGameNodeSDK.mirror.MirrorStateH\000B\010\n\006" +
+      "update\"9\n\007Updates\022.\n\007updates\030\001 \003(\0132\035.net" +
+      "GameNodeSDK.update.Update"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -1482,20 +1712,22 @@ public final class UpdateOuterClass {
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           netGameNodeSDK.player.Player.getDescriptor(),
+          netGameNodeSDK.mirror.Mirror.getDescriptor(),
         }, assigner);
-    internal_static_testbed_update_Update_descriptor =
+    internal_static_netGameNodeSDK_update_Update_descriptor =
       getDescriptor().getMessageTypes().get(0);
-    internal_static_testbed_update_Update_fieldAccessorTable = new
+    internal_static_netGameNodeSDK_update_Update_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_testbed_update_Update_descriptor,
-        new java.lang.String[] { "PlayerState", "Update", });
-    internal_static_testbed_update_Updates_descriptor =
+        internal_static_netGameNodeSDK_update_Update_descriptor,
+        new java.lang.String[] { "PlayerState", "MirrorStaet", "Update", });
+    internal_static_netGameNodeSDK_update_Updates_descriptor =
       getDescriptor().getMessageTypes().get(1);
-    internal_static_testbed_update_Updates_fieldAccessorTable = new
+    internal_static_netGameNodeSDK_update_Updates_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_testbed_update_Updates_descriptor,
+        internal_static_netGameNodeSDK_update_Updates_descriptor,
         new java.lang.String[] { "Updates", });
     netGameNodeSDK.player.Player.getDescriptor();
+    netGameNodeSDK.mirror.Mirror.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

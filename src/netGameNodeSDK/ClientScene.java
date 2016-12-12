@@ -22,6 +22,7 @@ public class ClientScene extends GameScene {
 		try {
 			tcpSocket = new Socket();
 			tcpSocket.connect(Main.serverAddr);
+//			tcpSocket.connect(new InetSocketAddress("140.115.59.164", Main.serverTCPDefaultPort));
 			System.out.println("Connected to server! " + tcpSocket);
 
 		} catch (IOException e) {

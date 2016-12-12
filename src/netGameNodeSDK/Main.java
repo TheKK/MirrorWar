@@ -11,6 +11,9 @@ public class Main {
 	public static InetSocketAddress serverAddr = new InetSocketAddress("127.0.0.1", serverTCPDefaultPort);
 	public static InetSocketAddress clientAddr = new InetSocketAddress("127.0.0.1", clientUDPDefaultPort);
 
+	public static int PLAYER_COLLISION_ID = 0;
+	public static int MIRROR_COLLISION_ID = 666;
+
 	public static void main(String[] args) {
 		Game.isClickBoundDebugMode = true;
 		Game.isPhysicEngineDebugMode = true;

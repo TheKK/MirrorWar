@@ -9,10 +9,10 @@ import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import netGameNodeSDK.input.InputOuterClass.Input;
-import netGameNodeSDK.input.KeyOuterClass.Key;
-import netGameNodeSDK.input.KeyOuterClass.KeyDown;
-import netGameNodeSDK.input.KeyOuterClass.KeyType;
-import netGameNodeSDK.input.KeyOuterClass.KeyUp;
+import netGameNodeSDK.key.KeyOuterClass.Key;
+import netGameNodeSDK.key.KeyOuterClass.KeyDown;
+import netGameNodeSDK.key.KeyOuterClass.KeyType;
+import netGameNodeSDK.key.KeyOuterClass.KeyUp;
 import netGameNodeSDK.player.Player.PlayerState;
 import netGameNodeSDK.player.Player.PlayerState.Animation;
 import netGameNodeSDK.player.Player.PlayerState.Facing;
@@ -29,10 +29,16 @@ public final class PlayerNetGameNode extends NetGameNode<PlayerState, Input> {
 	private boolean leftIsPressed = false;
 	private boolean rightIsPressed = false;
 
+	private boolean spinMirrorIsPressed = false;
+
 	private Animation currentAnimation = Animation.STANDING;
 	private Facing currentFacing = Facing.RIGHT;
 
+	// Client stuff
 	private RectangleGameNode clientRect;
+
+	// Server stuff
+	private RectangleGameNode serverMirrorSpinSensor;
 
 	public PlayerNetGameNode(int id) {
 		this.id = id;
@@ -100,6 +106,10 @@ public final class PlayerNetGameNode extends NetGameNode<PlayerState, Input> {
 
 		scene.physicEngine.addDynamicNode(this);
 
+		serverMirrorSpinSensor = new RectangleGameNode(50, 10, 35, 20, Color.TRANSPARENT);
+		addChild(serverMirrorSpinSensor);
+		scene.physicEngine.addAreaNode(serverMirrorSpinSensor);
+
 		// TODO I'm not 100% sure this would work perfectly for some cases,
 		//      find some ways to solve this.
 		if (debugMode) {
@@ -127,10 +137,15 @@ public final class PlayerNetGameNode extends NetGameNode<PlayerState, Input> {
 		pulseX /= elapse;
 		pulseY /= elapse;
 
-		if (vx > 0) {
-			currentFacing = Facing.RIGHT;
-		} else if (vx < 0) {
-			currentFacing = Facing.LEFT;
+		if (spinMirrorIsPressed) {
+			spinMirrorIsPressed = false;
+
+			if (serverMirrorSpinSensor.isAreaEntred()) {
+				GameNode node = serverMirrorSpinSensor.enteredAreaSet().iterator().next();
+				if (node.colissionGroup().contains(Main.MIRROR_COLLISION_ID)) {
+					((MirrorNetGameNode) node).spin();
+				}
+			}
 		}
 
 		if (Math.abs(vx) + Math.abs(vy) >= 0.001) {
@@ -139,6 +154,16 @@ public final class PlayerNetGameNode extends NetGameNode<PlayerState, Input> {
 			currentAnimation = Animation.STANDING;
 			Image i;
 		}
+	}
+
+	private void faceRight() {
+		currentFacing = Facing.RIGHT;
+		serverMirrorSpinSensor.geometry.x = 50;
+	}
+
+	private void faceLeft() {
+		currentFacing = Facing.LEFT;
+		serverMirrorSpinSensor.geometry.x = -serverMirrorSpinSensor.geometry.width;
 	}
 
 	@Override
@@ -165,20 +190,6 @@ public final class PlayerNetGameNode extends NetGameNode<PlayerState, Input> {
 			clientRect.color = Color.BISQUE;
 			break;
 		}
-
-//		switch (update.getColor()) {
-//		case BLUE:
-//			clientRect.color = Color.BLUE;
-//			break;
-//
-//		case ORANGE:
-//			clientRect.color = Color.ORANGE;
-//			break;
-//
-//		case RED:
-//			clientRect.color = Color.RED;
-//			break;
-//		}
 	}
 
 	@Override
@@ -225,6 +236,10 @@ public final class PlayerNetGameNode extends NetGameNode<PlayerState, Input> {
 			inputQueue.add(createInputKeyDown.apply(KeyType.MOVE_RIGHT));
 			break;
 
+		case Z:
+			inputQueue.add(createInputKeyDown.apply(KeyType.SPIN_MIRROR));
+			break;
+
 		default:
 			break;
 		}
@@ -264,6 +279,10 @@ public final class PlayerNetGameNode extends NetGameNode<PlayerState, Input> {
 			inputQueue.add(createInputKeyUp.apply(KeyType.MOVE_RIGHT));
 			break;
 
+		case Z:
+			inputQueue.add(createInputKeyUp.apply(KeyType.SPIN_MIRROR));
+			break;
+
 		default:
 			break;
 		}
@@ -297,11 +316,16 @@ public final class PlayerNetGameNode extends NetGameNode<PlayerState, Input> {
 			break;
 
 		case MOVE_LEFT:
+			faceLeft();
 			leftIsPressed = true;
 			break;
 
 		case MOVE_RIGHT:
+			faceRight();
 			rightIsPressed = true;
+			break;
+
+		case SPIN_MIRROR:
 			break;
 
 		case PICK_ITEM:
@@ -328,6 +352,10 @@ public final class PlayerNetGameNode extends NetGameNode<PlayerState, Input> {
 
 		case MOVE_RIGHT:
 			rightIsPressed = false;
+			break;
+
+		case SPIN_MIRROR:
+			spinMirrorIsPressed = true;
 			break;
 
 		case PICK_ITEM:
