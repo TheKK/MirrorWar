@@ -46,11 +46,20 @@ public final class Mirror {
     double getY();
 
     /**
-     * <code>required .netGameNodeSDK.mirror.MirrorState.Direction direction = 4;</code>
+     * <code>required bool picked = 4;</code>
+     */
+    boolean hasPicked();
+    /**
+     * <code>required bool picked = 4;</code>
+     */
+    boolean getPicked();
+
+    /**
+     * <code>required .netGameNodeSDK.mirror.MirrorState.Direction direction = 5;</code>
      */
     boolean hasDirection();
     /**
-     * <code>required .netGameNodeSDK.mirror.MirrorState.Direction direction = 4;</code>
+     * <code>required .netGameNodeSDK.mirror.MirrorState.Direction direction = 5;</code>
      */
     netGameNodeSDK.mirror.Mirror.MirrorState.Direction getDirection();
   }
@@ -69,6 +78,7 @@ public final class Mirror {
       id_ = 0;
       x_ = 0D;
       y_ = 0D;
+      picked_ = false;
       direction_ = 1;
     }
 
@@ -116,12 +126,17 @@ public final class Mirror {
               break;
             }
             case 32: {
+              bitField0_ |= 0x00000008;
+              picked_ = input.readBool();
+              break;
+            }
+            case 40: {
               int rawValue = input.readEnum();
               netGameNodeSDK.mirror.Mirror.MirrorState.Direction value = netGameNodeSDK.mirror.Mirror.MirrorState.Direction.valueOf(rawValue);
               if (value == null) {
-                unknownFields.mergeVarintField(4, rawValue);
+                unknownFields.mergeVarintField(5, rawValue);
               } else {
-                bitField0_ |= 0x00000008;
+                bitField0_ |= 0x00000010;
                 direction_ = rawValue;
               }
               break;
@@ -286,16 +301,31 @@ public final class Mirror {
       return y_;
     }
 
-    public static final int DIRECTION_FIELD_NUMBER = 4;
-    private int direction_;
+    public static final int PICKED_FIELD_NUMBER = 4;
+    private boolean picked_;
     /**
-     * <code>required .netGameNodeSDK.mirror.MirrorState.Direction direction = 4;</code>
+     * <code>required bool picked = 4;</code>
      */
-    public boolean hasDirection() {
+    public boolean hasPicked() {
       return ((bitField0_ & 0x00000008) == 0x00000008);
     }
     /**
-     * <code>required .netGameNodeSDK.mirror.MirrorState.Direction direction = 4;</code>
+     * <code>required bool picked = 4;</code>
+     */
+    public boolean getPicked() {
+      return picked_;
+    }
+
+    public static final int DIRECTION_FIELD_NUMBER = 5;
+    private int direction_;
+    /**
+     * <code>required .netGameNodeSDK.mirror.MirrorState.Direction direction = 5;</code>
+     */
+    public boolean hasDirection() {
+      return ((bitField0_ & 0x00000010) == 0x00000010);
+    }
+    /**
+     * <code>required .netGameNodeSDK.mirror.MirrorState.Direction direction = 5;</code>
      */
     public netGameNodeSDK.mirror.Mirror.MirrorState.Direction getDirection() {
       netGameNodeSDK.mirror.Mirror.MirrorState.Direction result = netGameNodeSDK.mirror.Mirror.MirrorState.Direction.valueOf(direction_);
@@ -320,6 +350,10 @@ public final class Mirror {
         memoizedIsInitialized = 0;
         return false;
       }
+      if (!hasPicked()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
       if (!hasDirection()) {
         memoizedIsInitialized = 0;
         return false;
@@ -340,7 +374,10 @@ public final class Mirror {
         output.writeDouble(3, y_);
       }
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
-        output.writeEnum(4, direction_);
+        output.writeBool(4, picked_);
+      }
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        output.writeEnum(5, direction_);
       }
       unknownFields.writeTo(output);
     }
@@ -364,7 +401,11 @@ public final class Mirror {
       }
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeEnumSize(4, direction_);
+          .computeBoolSize(4, picked_);
+      }
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(5, direction_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -402,6 +443,11 @@ public final class Mirror {
             == java.lang.Double.doubleToLongBits(
                 other.getY()));
       }
+      result = result && (hasPicked() == other.hasPicked());
+      if (hasPicked()) {
+        result = result && (getPicked()
+            == other.getPicked());
+      }
       result = result && (hasDirection() == other.hasDirection());
       if (hasDirection()) {
         result = result && direction_ == other.direction_;
@@ -430,6 +476,11 @@ public final class Mirror {
         hash = (37 * hash) + Y_FIELD_NUMBER;
         hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
             java.lang.Double.doubleToLongBits(getY()));
+      }
+      if (hasPicked()) {
+        hash = (37 * hash) + PICKED_FIELD_NUMBER;
+        hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+            getPicked());
       }
       if (hasDirection()) {
         hash = (37 * hash) + DIRECTION_FIELD_NUMBER;
@@ -559,8 +610,10 @@ public final class Mirror {
         bitField0_ = (bitField0_ & ~0x00000002);
         y_ = 0D;
         bitField0_ = (bitField0_ & ~0x00000004);
-        direction_ = 1;
+        picked_ = false;
         bitField0_ = (bitField0_ & ~0x00000008);
+        direction_ = 1;
+        bitField0_ = (bitField0_ & ~0x00000010);
         return this;
       }
 
@@ -599,6 +652,10 @@ public final class Mirror {
         result.y_ = y_;
         if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
           to_bitField0_ |= 0x00000008;
+        }
+        result.picked_ = picked_;
+        if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
+          to_bitField0_ |= 0x00000010;
         }
         result.direction_ = direction_;
         result.bitField0_ = to_bitField0_;
@@ -652,6 +709,9 @@ public final class Mirror {
         if (other.hasY()) {
           setY(other.getY());
         }
+        if (other.hasPicked()) {
+          setPicked(other.getPicked());
+        }
         if (other.hasDirection()) {
           setDirection(other.getDirection());
         }
@@ -668,6 +728,9 @@ public final class Mirror {
           return false;
         }
         if (!hasY()) {
+          return false;
+        }
+        if (!hasPicked()) {
           return false;
         }
         if (!hasDirection()) {
@@ -791,37 +854,69 @@ public final class Mirror {
         return this;
       }
 
-      private int direction_ = 1;
+      private boolean picked_ ;
       /**
-       * <code>required .netGameNodeSDK.mirror.MirrorState.Direction direction = 4;</code>
+       * <code>required bool picked = 4;</code>
        */
-      public boolean hasDirection() {
+      public boolean hasPicked() {
         return ((bitField0_ & 0x00000008) == 0x00000008);
       }
       /**
-       * <code>required .netGameNodeSDK.mirror.MirrorState.Direction direction = 4;</code>
+       * <code>required bool picked = 4;</code>
+       */
+      public boolean getPicked() {
+        return picked_;
+      }
+      /**
+       * <code>required bool picked = 4;</code>
+       */
+      public Builder setPicked(boolean value) {
+        bitField0_ |= 0x00000008;
+        picked_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required bool picked = 4;</code>
+       */
+      public Builder clearPicked() {
+        bitField0_ = (bitField0_ & ~0x00000008);
+        picked_ = false;
+        onChanged();
+        return this;
+      }
+
+      private int direction_ = 1;
+      /**
+       * <code>required .netGameNodeSDK.mirror.MirrorState.Direction direction = 5;</code>
+       */
+      public boolean hasDirection() {
+        return ((bitField0_ & 0x00000010) == 0x00000010);
+      }
+      /**
+       * <code>required .netGameNodeSDK.mirror.MirrorState.Direction direction = 5;</code>
        */
       public netGameNodeSDK.mirror.Mirror.MirrorState.Direction getDirection() {
         netGameNodeSDK.mirror.Mirror.MirrorState.Direction result = netGameNodeSDK.mirror.Mirror.MirrorState.Direction.valueOf(direction_);
         return result == null ? netGameNodeSDK.mirror.Mirror.MirrorState.Direction.SLASH : result;
       }
       /**
-       * <code>required .netGameNodeSDK.mirror.MirrorState.Direction direction = 4;</code>
+       * <code>required .netGameNodeSDK.mirror.MirrorState.Direction direction = 5;</code>
        */
       public Builder setDirection(netGameNodeSDK.mirror.Mirror.MirrorState.Direction value) {
         if (value == null) {
           throw new NullPointerException();
         }
-        bitField0_ |= 0x00000008;
+        bitField0_ |= 0x00000010;
         direction_ = value.getNumber();
         onChanged();
         return this;
       }
       /**
-       * <code>required .netGameNodeSDK.mirror.MirrorState.Direction direction = 4;</code>
+       * <code>required .netGameNodeSDK.mirror.MirrorState.Direction direction = 5;</code>
        */
       public Builder clearDirection() {
-        bitField0_ = (bitField0_ & ~0x00000008);
+        bitField0_ = (bitField0_ & ~0x00000010);
         direction_ = 1;
         onChanged();
         return this;
@@ -889,11 +984,12 @@ public final class Mirror {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\014mirror.proto\022\025netGameNodeSDK.mirror\"\230\001" +
+      "\n\014mirror.proto\022\025netGameNodeSDK.mirror\"\250\001" +
       "\n\013MirrorState\022\n\n\002id\030\001 \002(\r\022\t\n\001x\030\002 \002(\001\022\t\n\001" +
-      "y\030\003 \002(\001\022?\n\tdirection\030\004 \002(\0162,.netGameNode" +
-      "SDK.mirror.MirrorState.Direction\"&\n\tDire" +
-      "ction\022\t\n\005SLASH\020\001\022\016\n\nBACK_SLACK\020\002"
+      "y\030\003 \002(\001\022\016\n\006picked\030\004 \002(\010\022?\n\tdirection\030\005 \002" +
+      "(\0162,.netGameNodeSDK.mirror.MirrorState.D" +
+      "irection\"&\n\tDirection\022\t\n\005SLASH\020\001\022\016\n\nBACK" +
+      "_SLACK\020\002"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -912,7 +1008,7 @@ public final class Mirror {
     internal_static_netGameNodeSDK_mirror_MirrorState_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_netGameNodeSDK_mirror_MirrorState_descriptor,
-        new java.lang.String[] { "Id", "X", "Y", "Direction", });
+        new java.lang.String[] { "Id", "X", "Y", "Picked", "Direction", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

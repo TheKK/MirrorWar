@@ -36,7 +36,7 @@ public abstract class GameNode {
 	public Boolean visible = true;
 
 	private boolean isMouseEntered = false;
-	private HashSet<GameNode> enteredAreaSet = new HashSet<GameNode>();
+	HashSet<GameNode> enteredAreaSet = new HashSet<GameNode>();
 	private HashSet<Integer> collisionGroupSet = new HashSet<Integer>();
 
 	private Optional<GameNode> parent = Optional.empty();

@@ -15,27 +15,33 @@ public final class PhysicEngine {
 	private ArrayList<GameNode> areaNodes = new ArrayList<GameNode>();
 
 	public final void addDynamicNode(GameNode node) {
+		node.enteredAreaSet.clear();
 		dynamicNodes.add(node);
 	}
 
 	public final void removeDynamicNode(GameNode node) {
+		node.enteredAreaSet.clear();
 		dynamicNodes.remove(node);
 	}
 
 	// TODO Make dynamic object an separated interface
 	public final void addStaticNode(GameNode node) {
+		node.enteredAreaSet.clear();
 		staticNodes.add(node);
 	}
 
 	public final void removeStaticNode(GameNode node) {
+		node.enteredAreaSet.clear();
 		staticNodes.remove(node);
 	}
 
 	public final void addAreaNode(GameNode node) {
+		node.enteredAreaSet.clear();
 		areaNodes.add(node);
 	}
 
 	public final void removeAreaNode(GameNode node) {
+		node.enteredAreaSet.clear();
 		areaNodes.remove(node);
 	}
 

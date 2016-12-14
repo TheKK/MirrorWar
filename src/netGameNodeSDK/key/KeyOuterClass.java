@@ -40,13 +40,17 @@ public final class KeyOuterClass {
      */
     SPIN_MIRROR(5),
     /**
-     * <code>PICK_ITEM = 6;</code>
+     * <code>PICK_MIRROR = 6;</code>
      */
-    PICK_ITEM(6),
+    PICK_MIRROR(6),
     /**
-     * <code>SECRET = 7;</code>
+     * <code>PICK_ITEM = 7;</code>
      */
-    SECRET(7),
+    PICK_ITEM(7),
+    /**
+     * <code>SECRET = 8;</code>
+     */
+    SECRET(8),
     ;
 
     /**
@@ -70,13 +74,17 @@ public final class KeyOuterClass {
      */
     public static final int SPIN_MIRROR_VALUE = 5;
     /**
-     * <code>PICK_ITEM = 6;</code>
+     * <code>PICK_MIRROR = 6;</code>
      */
-    public static final int PICK_ITEM_VALUE = 6;
+    public static final int PICK_MIRROR_VALUE = 6;
     /**
-     * <code>SECRET = 7;</code>
+     * <code>PICK_ITEM = 7;</code>
      */
-    public static final int SECRET_VALUE = 7;
+    public static final int PICK_ITEM_VALUE = 7;
+    /**
+     * <code>SECRET = 8;</code>
+     */
+    public static final int SECRET_VALUE = 8;
 
 
     public final int getNumber() {
@@ -98,8 +106,9 @@ public final class KeyOuterClass {
         case 3: return MOVE_LEFT;
         case 4: return MOVE_RIGHT;
         case 5: return SPIN_MIRROR;
-        case 6: return PICK_ITEM;
-        case 7: return SECRET;
+        case 6: return PICK_MIRROR;
+        case 7: return PICK_ITEM;
+        case 8: return SECRET;
         default: return null;
       }
     }
@@ -2050,10 +2059,10 @@ public final class KeyOuterClass {
       "etGameNodeSDK.key.KeyType\"j\n\003Key\022+\n\006key_" +
       "up\030\001 \001(\0132\031.netGameNodeSDK.key.KeyUpH\000\022/\n" +
       "\010key_down\030\002 \001(\0132\033.netGameNodeSDK.key.Key" +
-      "DownH\000B\005\n\003key*p\n\007KeyType\022\013\n\007MOVE_UP\020\001\022\r\n" +
-      "\tMOVE_DOWN\020\002\022\r\n\tMOVE_LEFT\020\003\022\016\n\nMOVE_RIGH" +
-      "T\020\004\022\017\n\013SPIN_MIRROR\020\005\022\r\n\tPICK_ITEM\020\006\022\n\n\006S" +
-      "ECRET\020\007"
+      "DownH\000B\005\n\003key*\201\001\n\007KeyType\022\013\n\007MOVE_UP\020\001\022\r" +
+      "\n\tMOVE_DOWN\020\002\022\r\n\tMOVE_LEFT\020\003\022\016\n\nMOVE_RIG" +
+      "HT\020\004\022\017\n\013SPIN_MIRROR\020\005\022\017\n\013PICK_MIRROR\020\006\022\r" +
+      "\n\tPICK_ITEM\020\007\022\n\n\006SECRET\020\010"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {

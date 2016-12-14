@@ -11,7 +11,11 @@ public class MirrorNetGameNode extends NetGameNode<MirrorState, Void> {
 	private int id;
 	private MirrorState.Direction direction = MirrorState.Direction.SLASH;
 
+	// Client stuff
 	private RectangleGameNode clientMirrorImage;
+
+	// Server stuff
+	private boolean serverIsPicked = false;
 
 	public MirrorNetGameNode(int id) {
 		this.id = id;
@@ -19,6 +23,23 @@ public class MirrorNetGameNode extends NetGameNode<MirrorState, Void> {
 
 	public void spin() {
 		direction = (direction == Direction.SLASH) ? Direction.BACK_SLACK : Direction.SLASH;
+	}
+
+	public void picked() {
+		Game.currentScene().physicEngine.removeStaticNode(this);
+		visible = false;
+
+		serverIsPicked = true;
+	}
+
+	public void drop(double x, double y) {
+		Game.currentScene().physicEngine.addStaticNode(this);
+		visible = true;
+
+		serverIsPicked = false;
+
+		geometry.x = x;
+		geometry.y = y;
 	}
 
 	@Override
@@ -69,6 +90,8 @@ public class MirrorNetGameNode extends NetGameNode<MirrorState, Void> {
 		geometry.y = update.getY();
 
 		direction = update.getDirection();
+
+		visible = !update.getPicked();
 	}
 
 	@Override
@@ -81,6 +104,7 @@ public class MirrorNetGameNode extends NetGameNode<MirrorState, Void> {
 				.setId(id)
 				.setX(geometry.x)
 				.setY(geometry.y)
+				.setPicked(serverIsPicked)
 				.setDirection(direction)
 				.build();
 

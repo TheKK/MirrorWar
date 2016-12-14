@@ -1,7 +1,10 @@
 package netGameNodeSDK;
 
+import java.awt.geom.Rectangle2D;
+import java.util.Optional;
 import java.util.function.Function;
 
+import gameEngine.Game;
 import gameEngine.GameNode;
 import gameEngine.GameScene;
 import gameEngine.RectangleGameNode;
@@ -30,6 +33,7 @@ public final class PlayerNetGameNode extends NetGameNode<PlayerState, Input> {
 	private boolean rightIsPressed = false;
 
 	private boolean spinMirrorIsPressed = false;
+	private boolean pickMirrorIsPressed = false;
 
 	private Animation currentAnimation = Animation.STANDING;
 	private Facing currentFacing = Facing.RIGHT;
@@ -39,6 +43,8 @@ public final class PlayerNetGameNode extends NetGameNode<PlayerState, Input> {
 
 	// Server stuff
 	private RectangleGameNode serverMirrorSpinSensor;
+	private RectangleGameNode serverMirrorPlaceSensor;
+	private Optional<MirrorNetGameNode> serverPickedMirror = Optional.empty();
 
 	public PlayerNetGameNode(int id) {
 		this.id = id;
@@ -110,6 +116,9 @@ public final class PlayerNetGameNode extends NetGameNode<PlayerState, Input> {
 		addChild(serverMirrorSpinSensor);
 		scene.physicEngine.addAreaNode(serverMirrorSpinSensor);
 
+		serverMirrorPlaceSensor = new RectangleGameNode(0, 0, 50, 50, Color.TRANSPARENT);
+		addChild(serverMirrorPlaceSensor);
+
 		// TODO I'm not 100% sure this would work perfectly for some cases,
 		//      find some ways to solve this.
 		if (debugMode) {
@@ -137,6 +146,7 @@ public final class PlayerNetGameNode extends NetGameNode<PlayerState, Input> {
 		pulseX /= elapse;
 		pulseY /= elapse;
 
+		// Handle SPIN_MIRRIR event
 		if (spinMirrorIsPressed) {
 			spinMirrorIsPressed = false;
 
@@ -144,6 +154,29 @@ public final class PlayerNetGameNode extends NetGameNode<PlayerState, Input> {
 				GameNode node = serverMirrorSpinSensor.enteredAreaSet().iterator().next();
 				if (node.colissionGroup().contains(Main.MIRROR_COLLISION_ID)) {
 					((MirrorNetGameNode) node).spin();
+				}
+			}
+		}
+
+		// Handle PICK_MIRROR event
+		if (pickMirrorIsPressed) {
+			pickMirrorIsPressed = false;
+
+			// Drop the mirror
+			if (serverPickedMirror.isPresent()) {
+				if (!serverMirrorPlaceSensor.isAreaEntred()) {
+					dropMirror();
+				}
+
+			// Pick the mirror
+			} else {
+				if (serverMirrorSpinSensor.isAreaEntred()) {
+					GameNode node = serverMirrorSpinSensor.enteredAreaSet().iterator().next();
+					if (node.colissionGroup().contains(Main.MIRROR_COLLISION_ID)) {
+						MirrorNetGameNode mirror = (MirrorNetGameNode) node;
+
+						pickMirror(mirror);
+					}
 				}
 			}
 		}
@@ -156,14 +189,32 @@ public final class PlayerNetGameNode extends NetGameNode<PlayerState, Input> {
 		}
 	}
 
+	private void pickMirror(MirrorNetGameNode mirror) {
+		mirror.picked();
+		serverPickedMirror = Optional.of(mirror);
+		Game.currentScene().physicEngine.removeAreaNode(serverMirrorSpinSensor);
+		Game.currentScene().physicEngine.addAreaNode(serverMirrorPlaceSensor);
+	}
+
+	private void dropMirror() {
+		Rectangle2D.Double dropPos = serverMirrorPlaceSensor.geometryInGameWorld().get();
+		serverPickedMirror.get().drop(dropPos.x, dropPos.y);
+		serverPickedMirror = Optional.empty();
+
+		Game.currentScene().physicEngine.addAreaNode(serverMirrorSpinSensor);
+		Game.currentScene().physicEngine.removeAreaNode(serverMirrorPlaceSensor);
+	}
+
 	private void faceRight() {
 		currentFacing = Facing.RIGHT;
 		serverMirrorSpinSensor.geometry.x = 50;
+		serverMirrorPlaceSensor.geometry.x = 50;
 	}
 
 	private void faceLeft() {
 		currentFacing = Facing.LEFT;
 		serverMirrorSpinSensor.geometry.x = -serverMirrorSpinSensor.geometry.width;
+		serverMirrorPlaceSensor.geometry.x = -serverMirrorPlaceSensor.geometry.width;
 	}
 
 	@Override
@@ -240,6 +291,10 @@ public final class PlayerNetGameNode extends NetGameNode<PlayerState, Input> {
 			inputQueue.add(createInputKeyDown.apply(KeyType.SPIN_MIRROR));
 			break;
 
+		case X:
+			inputQueue.add(createInputKeyDown.apply(KeyType.PICK_MIRROR));
+			break;
+
 		default:
 			break;
 		}
@@ -281,6 +336,10 @@ public final class PlayerNetGameNode extends NetGameNode<PlayerState, Input> {
 
 		case Z:
 			inputQueue.add(createInputKeyUp.apply(KeyType.SPIN_MIRROR));
+			break;
+
+		case X:
+			inputQueue.add(createInputKeyUp.apply(KeyType.PICK_MIRROR));
 			break;
 
 		default:
@@ -328,6 +387,9 @@ public final class PlayerNetGameNode extends NetGameNode<PlayerState, Input> {
 		case SPIN_MIRROR:
 			break;
 
+		case PICK_MIRROR:
+			break;
+
 		case PICK_ITEM:
 			break;
 
@@ -356,6 +418,10 @@ public final class PlayerNetGameNode extends NetGameNode<PlayerState, Input> {
 
 		case SPIN_MIRROR:
 			spinMirrorIsPressed = true;
+			break;
+
+		case PICK_MIRROR:
+			pickMirrorIsPressed = true;
 			break;
 
 		case PICK_ITEM:
