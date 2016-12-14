@@ -21,6 +21,11 @@ public final class PhysicEngine {
 
 	public final void removeDynamicNode(GameNode node) {
 		node.enteredAreaSet.clear();
+
+		dynamicNodes.forEach(n -> n.enteredAreaSet.remove(node));
+		staticNodes.forEach(n -> n.enteredAreaSet.remove(node));
+		areaNodes.forEach(n -> n.enteredAreaSet.remove(node));
+
 		dynamicNodes.remove(node);
 	}
 
@@ -32,6 +37,11 @@ public final class PhysicEngine {
 
 	public final void removeStaticNode(GameNode node) {
 		node.enteredAreaSet.clear();
+
+		dynamicNodes.forEach(n -> n.enteredAreaSet.remove(node));
+		staticNodes.forEach(n -> n.enteredAreaSet.remove(node));
+		areaNodes.forEach(n -> n.enteredAreaSet.remove(node));
+
 		staticNodes.remove(node);
 	}
 
@@ -42,6 +52,11 @@ public final class PhysicEngine {
 
 	public final void removeAreaNode(GameNode node) {
 		node.enteredAreaSet.clear();
+
+		dynamicNodes.forEach(n -> n.enteredAreaSet.remove(node));
+		staticNodes.forEach(n -> n.enteredAreaSet.remove(node));
+		areaNodes.forEach(n -> n.enteredAreaSet.remove(node));
+
 		areaNodes.remove(node);
 	}
 

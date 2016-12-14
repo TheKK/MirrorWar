@@ -30,6 +30,9 @@ public class MirrorNetGameNode extends NetGameNode<MirrorState, Void> {
 		visible = false;
 
 		serverIsPicked = true;
+
+		geometry.x = 99999;
+		geometry.y = 99999;
 	}
 
 	public void drop(double x, double y) {
