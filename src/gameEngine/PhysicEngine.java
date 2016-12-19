@@ -163,31 +163,6 @@ public final class PhysicEngine {
 			sensorNode.geometry.x -= sensorNodeTranslate.x;
 			sensorNode.geometry.y -= sensorNodeTranslate.y;
 		});
-		
-		// FIXME This would drive me crazy... Make things clear and clean.
-		// Handle area and area node
-		for (int i = 0; i < areaNodes.size(); ++i) {
-			GameNode nodeA = areaNodes.get(i);
-			
-			sensorNodeTranslate.setLocation(nodeA.getTranslationInScreen());
-			nodeA.geometry.x += sensorNodeTranslate.x;
-			nodeA.geometry.y += sensorNodeTranslate.y;
-			{
-				for (int j = i + 1; j < areaNodes.size(); ++j) {
-					GameNode nodeB = areaNodes.get(j);
-					sensorNodeTranslate.setLocation(nodeB.getTranslationInScreen());
-					nodeB.geometry.x += staticNodeTranslate.x;
-					nodeB.geometry.y += staticNodeTranslate.y;
-					{
-						doCollisionCheck(nodeA, nodeB, elapse);
-					}
-					nodeB.geometry.x -= staticNodeTranslate.x;
-					nodeB.geometry.y -= staticNodeTranslate.y;
-				}
-			}
-			nodeA.geometry.x -= sensorNodeTranslate.x;
-			nodeA.geometry.y -= sensorNodeTranslate.y;
-		}
 	}
 
 	public final void renderDebug(GraphicsContext gc) {

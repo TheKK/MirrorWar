@@ -112,7 +112,6 @@ public final class PlayerNetGameNode extends NetGameNode<PlayerState, Input> {
 		};
 
 		scene.physicEngine.addDynamicNode(this);
-		// XXX
 
 		serverMirrorSpinSensor = new RectangleGameNode(50, 10, 35, 20, Color.TRANSPARENT);
 		addChild(serverMirrorSpinSensor);

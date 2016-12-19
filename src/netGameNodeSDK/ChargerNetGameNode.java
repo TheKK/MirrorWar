@@ -1,33 +1,32 @@
 package netGameNodeSDK;
 
-import gameEngine.Game;
 import gameEngine.GameNode;
 import gameEngine.GameScene;
 import gameEngine.RectangleGameNode;
 import javafx.scene.paint.Color;
+import mirrorWar.Constants;
 import netGameNodeSDK.charger.Charger.ChargerState;
 import netGameNodeSDK.charger.Charger.ChargerState.Animation;
-import mirrorWar.Constants;
 
 public class ChargerNetGameNode extends NetGameNode<ChargerState, Void> {
 	private int id;
 	private RectangleGameNode serverChargeringArea;
 	private ChargerState.Animation clientCurrentAnimation = Animation.NORMAL, serverCurrentAnimation = Animation.NORMAL;
-	
+
 	public ChargerNetGameNode(int id) {
 		this.id = id;
 	}
-	
+
 	public int id() {
 		return id;
 	}
-	
+
 	@Override
 	protected void clientInitialize(GameScene scene) {
 		RectangleGameNode rec = new RectangleGameNode(0, 0, 50, 50, Color.BLUE);
-		
+
 		addChild(rec);
-		
+
 		updateFunc = (elapse) -> {
 			clientUpdate(elapse);
 		};
@@ -35,19 +34,17 @@ public class ChargerNetGameNode extends NetGameNode<ChargerState, Void> {
 
 	@Override
 	protected void serverInitialize(GameScene scene, boolean debugMode) {
+		geometry.x = 0;
+		geometry.y = 0;
 		geometry.width = 50;
 		geometry.height = 50;
-		
+
 		scene.physicEngine.addStaticNode(this);
 
 		serverChargeringArea = new RectangleGameNode(0, 0, 50, 50, Color.TRANSPARENT);
 		addChild(serverChargeringArea);
-		scene.physicEngine.addAreaNode(serverChargeringArea);
-		
-		GameNode serverMirrorSpinSensor = new RectangleGameNode(50, 10, 35, 20, Color.TRANSPARENT);
-		addChild(serverMirrorSpinSensor);
-		scene.physicEngine.addAreaNode(serverMirrorSpinSensor);
-		
+		scene.physicEngine.addStaticNode(serverChargeringArea);
+
 		updateFunc = (elapse) -> {
 			serverUpdate(elapse);
 		};
@@ -61,7 +58,7 @@ public class ChargerNetGameNode extends NetGameNode<ChargerState, Void> {
 	protected void serverUpdate(long elapse) {
 		if (serverChargeringArea.isAreaEntred()) {
 			boolean player1LaserHit = false, player2LaserHit = false;
-			
+
 			for (GameNode node : serverChargeringArea.enteredAreaSet()) {
 				if (node.colissionGroup().contains(Constants.PLAYER1_LASER_COLLISION_GROUP)) {
 					player1LaserHit = true;
@@ -69,7 +66,7 @@ public class ChargerNetGameNode extends NetGameNode<ChargerState, Void> {
 					player2LaserHit = true;
 				}
 			}
-			
+
 			if (player1LaserHit) {
 				chargePlayer1();
 			}
@@ -82,15 +79,15 @@ public class ChargerNetGameNode extends NetGameNode<ChargerState, Void> {
 				serverCurrentAnimation = Animation.NORMAL;
 			}
 		}
-		
+
 	}
 
 	protected void chargePlayer2() {
-		
+
 	}
-	
+
 	protected void chargePlayer1() {
-		
+
 	}
 
 	@Override

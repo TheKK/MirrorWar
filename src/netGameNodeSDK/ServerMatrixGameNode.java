@@ -68,7 +68,7 @@ public class ServerMatrixGameNode extends GameNode {
 	}
 
 	private void randomlyAddMirrorToGame() {
-		for (int i = 0; i < 30; ++i) {
+		for (int i = 0; i < 20; ++i) {
 			double x = Math.random() * 1000;
 			double y = Math.random() * 1000;
 			int id = getUniqueObjectId();
@@ -88,20 +88,19 @@ public class ServerMatrixGameNode extends GameNode {
 			mirrors.put(id, newMirror);
 		}
 	}
-	
+
 	private void randomlyAddChargerToGame() {
 		for (int i = 0; i < 2; ++i) {
-			double x = Math.random() * 500;
-			double y = Math.random() * 500;
+			double x = Math.random() * 300;
+			double y = Math.random() * 300;
 			int id = getUniqueObjectId();
 
 			ChargerNetGameNode newCharger = new ChargerNetGameNode(id) {
-				
 				@Override
 				protected void chargePlayer2() {
 					gameChargePlayer2();
 				}
-				
+
 				@Override
 				protected void chargePlayer1() {
 					gameChargePlayer1();
@@ -122,12 +121,12 @@ public class ServerMatrixGameNode extends GameNode {
 		// FIXME
 		System.out.println("Player 1 is charged");
 	}
-	
+
 	private void gameChargePlayer2() {
 		//FIXME
 		System.out.println("Player 2 is charged");
 	}
-	
+
 	private void setupUpdateBoardcastingService() {
 		long fps30 = 16 * 3;
 
@@ -309,7 +308,7 @@ public class ServerMatrixGameNode extends GameNode {
 
 			updatesBuilder.addUpdates(update);
 		});
-		
+
 		chargers.forEach((chargerId, charger) -> {
 			ChargerState chargerState = charger.getStates();
 			Update.Builder update = Update.newBuilder()
