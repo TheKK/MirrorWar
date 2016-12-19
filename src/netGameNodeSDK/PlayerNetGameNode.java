@@ -11,6 +11,7 @@ import gameEngine.RectangleGameNode;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
+import mirrorWar.Constants;
 import netGameNodeSDK.input.InputOuterClass.Input;
 import netGameNodeSDK.key.KeyOuterClass.Key;
 import netGameNodeSDK.key.KeyOuterClass.KeyDown;
@@ -111,10 +112,12 @@ public final class PlayerNetGameNode extends NetGameNode<PlayerState, Input> {
 		};
 
 		scene.physicEngine.addDynamicNode(this);
+		// XXX
 
 		serverMirrorSpinSensor = new RectangleGameNode(50, 10, 35, 20, Color.TRANSPARENT);
 		addChild(serverMirrorSpinSensor);
 		scene.physicEngine.addAreaNode(serverMirrorSpinSensor);
+		serverMirrorSpinSensor.addColissionGroup(Constants.PLAYER1_LASER_COLLISION_GROUP);
 
 		serverMirrorPlaceSensor = new RectangleGameNode(0, 0, 50, 50, Color.TRANSPARENT);
 		addChild(serverMirrorPlaceSensor);

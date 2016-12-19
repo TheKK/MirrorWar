@@ -24,6 +24,7 @@ import gameEngine.RectangleGameNode;
 import javafx.application.Platform;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import netGameNodeSDK.charger.Charger.ChargerState;
 import netGameNodeSDK.handshake.Handshake.ClientHandshake;
 import netGameNodeSDK.handshake.Handshake.ServerHandshake;
 import netGameNodeSDK.input.InputOuterClass.Inputs;
@@ -38,12 +39,12 @@ public class ServerMatrixGameNode extends GameNode {
 		public PlayerNetGameNode node;
 	}
 
-	private int clientId = 0;
-	private int mirrorId = 0;
+	private int objectId = 0;
 
 	private ServerSocket serverSocket;
 	private Map<Integer, Client> clients = Collections.synchronizedMap(new HashMap<>());
 	private Map<Integer, MirrorNetGameNode> mirrors = Collections.synchronizedMap(new HashMap<>());
+	private Map<Integer, ChargerNetGameNode> chargers = Collections.synchronizedMap(new HashMap<>());
 
 	private DatagramSocket commandInputSocket;
 	private DatagramPacket commandPacket;
@@ -60,6 +61,7 @@ public class ServerMatrixGameNode extends GameNode {
 		setupWaitsForCommandsService();
 
 		randomlyAddMirrorToGame();
+		randomlyAddChargerToGame();
 
 		RectangleGameNode wall = new RectangleGameNode(100, 100, 9000, 30, Color.PURPLE);
 		Game.currentScene().physicEngine.addStaticNode(wall);
@@ -69,7 +71,7 @@ public class ServerMatrixGameNode extends GameNode {
 		for (int i = 0; i < 30; ++i) {
 			double x = Math.random() * 1000;
 			double y = Math.random() * 1000;
-			int id = getUniqueMirrorId();
+			int id = getUniqueObjectId();
 
 			MirrorNetGameNode newMirror = new MirrorNetGameNode(id);
 			newMirror.serverInitialize(Game.currentScene(), false);
@@ -86,7 +88,46 @@ public class ServerMatrixGameNode extends GameNode {
 			mirrors.put(id, newMirror);
 		}
 	}
+	
+	private void randomlyAddChargerToGame() {
+		for (int i = 0; i < 2; ++i) {
+			double x = Math.random() * 500;
+			double y = Math.random() * 500;
+			int id = getUniqueObjectId();
 
+			ChargerNetGameNode newCharger = new ChargerNetGameNode(id) {
+				
+				@Override
+				protected void chargePlayer2() {
+					gameChargePlayer2();
+				}
+				
+				@Override
+				protected void chargePlayer1() {
+					gameChargePlayer1();
+				}
+			};
+			newCharger.serverInitialize(Game.currentScene(), false);
+
+			newCharger.geometry.x = x;
+			newCharger.geometry.y = y;
+
+			addChild(newCharger);
+
+			chargers.put(id, newCharger);
+		}
+	}
+
+	private void gameChargePlayer1() {
+		// FIXME
+		System.out.println("Player 1 is charged");
+	}
+	
+	private void gameChargePlayer2() {
+		//FIXME
+		System.out.println("Player 2 is charged");
+	}
+	
 	private void setupUpdateBoardcastingService() {
 		long fps30 = 16 * 3;
 
@@ -167,14 +208,9 @@ public class ServerMatrixGameNode extends GameNode {
 		return clientHandshake;
 	}
 
-	private synchronized int getUniqueClientId() {
-		clientId += 1;
-		return clientId;
-	}
-
-	private synchronized int getUniqueMirrorId() {
-		mirrorId += 1;
-		return mirrorId;
+	private synchronized int getUniqueObjectId() {
+		objectId += 1;
+		return objectId;
 	}
 
 	private void waitsForPlayerRoutine() {
@@ -184,7 +220,7 @@ public class ServerMatrixGameNode extends GameNode {
 
 				// TODO Consider creating worker threads to do this asynchornously
 				new Thread(() -> {
-					int clientId = getUniqueClientId();
+					int clientId = getUniqueObjectId();
 
 					ClientHandshake clientHandshake;
 
@@ -269,7 +305,15 @@ public class ServerMatrixGameNode extends GameNode {
 		mirrors.forEach((mirrorId, mirror) -> {
 			MirrorState mirrorState = mirror.getStates();
 			Update.Builder update = Update.newBuilder()
-					.setMirrorStaet(mirrorState);
+					.setMirrorState(mirrorState);
+
+			updatesBuilder.addUpdates(update);
+		});
+		
+		chargers.forEach((chargerId, charger) -> {
+			ChargerState chargerState = charger.getStates();
+			Update.Builder update = Update.newBuilder()
+					.setChargerState(chargerState);
 
 			updatesBuilder.addUpdates(update);
 		});

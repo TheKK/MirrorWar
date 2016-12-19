@@ -32,17 +32,30 @@ public final class UpdateOuterClass {
     netGameNodeSDK.player.Player.PlayerStateOrBuilder getPlayerStateOrBuilder();
 
     /**
-     * <code>optional .netGameNodeSDK.mirror.MirrorState mirror_staet = 2;</code>
+     * <code>optional .netGameNodeSDK.mirror.MirrorState mirror_state = 2;</code>
      */
-    boolean hasMirrorStaet();
+    boolean hasMirrorState();
     /**
-     * <code>optional .netGameNodeSDK.mirror.MirrorState mirror_staet = 2;</code>
+     * <code>optional .netGameNodeSDK.mirror.MirrorState mirror_state = 2;</code>
      */
-    netGameNodeSDK.mirror.Mirror.MirrorState getMirrorStaet();
+    netGameNodeSDK.mirror.Mirror.MirrorState getMirrorState();
     /**
-     * <code>optional .netGameNodeSDK.mirror.MirrorState mirror_staet = 2;</code>
+     * <code>optional .netGameNodeSDK.mirror.MirrorState mirror_state = 2;</code>
      */
-    netGameNodeSDK.mirror.Mirror.MirrorStateOrBuilder getMirrorStaetOrBuilder();
+    netGameNodeSDK.mirror.Mirror.MirrorStateOrBuilder getMirrorStateOrBuilder();
+
+    /**
+     * <code>optional .netGameNodeSDK.charger.ChargerState charger_state = 3;</code>
+     */
+    boolean hasChargerState();
+    /**
+     * <code>optional .netGameNodeSDK.charger.ChargerState charger_state = 3;</code>
+     */
+    netGameNodeSDK.charger.Charger.ChargerState getChargerState();
+    /**
+     * <code>optional .netGameNodeSDK.charger.ChargerState charger_state = 3;</code>
+     */
+    netGameNodeSDK.charger.Charger.ChargerStateOrBuilder getChargerStateOrBuilder();
 
     public netGameNodeSDK.update.UpdateOuterClass.Update.UpdateCase getUpdateCase();
   }
@@ -116,6 +129,20 @@ public final class UpdateOuterClass {
               updateCase_ = 2;
               break;
             }
+            case 26: {
+              netGameNodeSDK.charger.Charger.ChargerState.Builder subBuilder = null;
+              if (updateCase_ == 3) {
+                subBuilder = ((netGameNodeSDK.charger.Charger.ChargerState) update_).toBuilder();
+              }
+              update_ =
+                  input.readMessage(netGameNodeSDK.charger.Charger.ChargerState.PARSER, extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom((netGameNodeSDK.charger.Charger.ChargerState) update_);
+                update_ = subBuilder.buildPartial();
+              }
+              updateCase_ = 3;
+              break;
+            }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
@@ -146,7 +173,8 @@ public final class UpdateOuterClass {
     public enum UpdateCase
         implements com.google.protobuf.Internal.EnumLite {
       PLAYER_STATE(1),
-      MIRROR_STAET(2),
+      MIRROR_STATE(2),
+      CHARGER_STATE(3),
       UPDATE_NOT_SET(0);
       private final int value;
       private UpdateCase(int value) {
@@ -163,7 +191,8 @@ public final class UpdateOuterClass {
       public static UpdateCase forNumber(int value) {
         switch (value) {
           case 1: return PLAYER_STATE;
-          case 2: return MIRROR_STAET;
+          case 2: return MIRROR_STATE;
+          case 3: return CHARGER_STATE;
           case 0: return UPDATE_NOT_SET;
           default: return null;
         }
@@ -205,30 +234,56 @@ public final class UpdateOuterClass {
       return netGameNodeSDK.player.Player.PlayerState.getDefaultInstance();
     }
 
-    public static final int MIRROR_STAET_FIELD_NUMBER = 2;
+    public static final int MIRROR_STATE_FIELD_NUMBER = 2;
     /**
-     * <code>optional .netGameNodeSDK.mirror.MirrorState mirror_staet = 2;</code>
+     * <code>optional .netGameNodeSDK.mirror.MirrorState mirror_state = 2;</code>
      */
-    public boolean hasMirrorStaet() {
+    public boolean hasMirrorState() {
       return updateCase_ == 2;
     }
     /**
-     * <code>optional .netGameNodeSDK.mirror.MirrorState mirror_staet = 2;</code>
+     * <code>optional .netGameNodeSDK.mirror.MirrorState mirror_state = 2;</code>
      */
-    public netGameNodeSDK.mirror.Mirror.MirrorState getMirrorStaet() {
+    public netGameNodeSDK.mirror.Mirror.MirrorState getMirrorState() {
       if (updateCase_ == 2) {
          return (netGameNodeSDK.mirror.Mirror.MirrorState) update_;
       }
       return netGameNodeSDK.mirror.Mirror.MirrorState.getDefaultInstance();
     }
     /**
-     * <code>optional .netGameNodeSDK.mirror.MirrorState mirror_staet = 2;</code>
+     * <code>optional .netGameNodeSDK.mirror.MirrorState mirror_state = 2;</code>
      */
-    public netGameNodeSDK.mirror.Mirror.MirrorStateOrBuilder getMirrorStaetOrBuilder() {
+    public netGameNodeSDK.mirror.Mirror.MirrorStateOrBuilder getMirrorStateOrBuilder() {
       if (updateCase_ == 2) {
          return (netGameNodeSDK.mirror.Mirror.MirrorState) update_;
       }
       return netGameNodeSDK.mirror.Mirror.MirrorState.getDefaultInstance();
+    }
+
+    public static final int CHARGER_STATE_FIELD_NUMBER = 3;
+    /**
+     * <code>optional .netGameNodeSDK.charger.ChargerState charger_state = 3;</code>
+     */
+    public boolean hasChargerState() {
+      return updateCase_ == 3;
+    }
+    /**
+     * <code>optional .netGameNodeSDK.charger.ChargerState charger_state = 3;</code>
+     */
+    public netGameNodeSDK.charger.Charger.ChargerState getChargerState() {
+      if (updateCase_ == 3) {
+         return (netGameNodeSDK.charger.Charger.ChargerState) update_;
+      }
+      return netGameNodeSDK.charger.Charger.ChargerState.getDefaultInstance();
+    }
+    /**
+     * <code>optional .netGameNodeSDK.charger.ChargerState charger_state = 3;</code>
+     */
+    public netGameNodeSDK.charger.Charger.ChargerStateOrBuilder getChargerStateOrBuilder() {
+      if (updateCase_ == 3) {
+         return (netGameNodeSDK.charger.Charger.ChargerState) update_;
+      }
+      return netGameNodeSDK.charger.Charger.ChargerState.getDefaultInstance();
     }
 
     private byte memoizedIsInitialized = -1;
@@ -243,8 +298,14 @@ public final class UpdateOuterClass {
           return false;
         }
       }
-      if (hasMirrorStaet()) {
-        if (!getMirrorStaet().isInitialized()) {
+      if (hasMirrorState()) {
+        if (!getMirrorState().isInitialized()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+      }
+      if (hasChargerState()) {
+        if (!getChargerState().isInitialized()) {
           memoizedIsInitialized = 0;
           return false;
         }
@@ -261,6 +322,9 @@ public final class UpdateOuterClass {
       if (updateCase_ == 2) {
         output.writeMessage(2, (netGameNodeSDK.mirror.Mirror.MirrorState) update_);
       }
+      if (updateCase_ == 3) {
+        output.writeMessage(3, (netGameNodeSDK.charger.Charger.ChargerState) update_);
+      }
       unknownFields.writeTo(output);
     }
 
@@ -276,6 +340,10 @@ public final class UpdateOuterClass {
       if (updateCase_ == 2) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(2, (netGameNodeSDK.mirror.Mirror.MirrorState) update_);
+      }
+      if (updateCase_ == 3) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(3, (netGameNodeSDK.charger.Charger.ChargerState) update_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -303,8 +371,12 @@ public final class UpdateOuterClass {
               .equals(other.getPlayerState());
           break;
         case 2:
-          result = result && getMirrorStaet()
-              .equals(other.getMirrorStaet());
+          result = result && getMirrorState()
+              .equals(other.getMirrorState());
+          break;
+        case 3:
+          result = result && getChargerState()
+              .equals(other.getChargerState());
           break;
         case 0:
         default:
@@ -326,8 +398,12 @@ public final class UpdateOuterClass {
           hash = (53 * hash) + getPlayerState().hashCode();
           break;
         case 2:
-          hash = (37 * hash) + MIRROR_STAET_FIELD_NUMBER;
-          hash = (53 * hash) + getMirrorStaet().hashCode();
+          hash = (37 * hash) + MIRROR_STATE_FIELD_NUMBER;
+          hash = (53 * hash) + getMirrorState().hashCode();
+          break;
+        case 3:
+          hash = (37 * hash) + CHARGER_STATE_FIELD_NUMBER;
+          hash = (53 * hash) + getChargerState().hashCode();
           break;
         case 0:
         default:
@@ -484,10 +560,17 @@ public final class UpdateOuterClass {
           }
         }
         if (updateCase_ == 2) {
-          if (mirrorStaetBuilder_ == null) {
+          if (mirrorStateBuilder_ == null) {
             result.update_ = update_;
           } else {
-            result.update_ = mirrorStaetBuilder_.build();
+            result.update_ = mirrorStateBuilder_.build();
+          }
+        }
+        if (updateCase_ == 3) {
+          if (chargerStateBuilder_ == null) {
+            result.update_ = update_;
+          } else {
+            result.update_ = chargerStateBuilder_.build();
           }
         }
         result.bitField0_ = to_bitField0_;
@@ -538,8 +621,12 @@ public final class UpdateOuterClass {
             mergePlayerState(other.getPlayerState());
             break;
           }
-          case MIRROR_STAET: {
-            mergeMirrorStaet(other.getMirrorStaet());
+          case MIRROR_STATE: {
+            mergeMirrorState(other.getMirrorState());
+            break;
+          }
+          case CHARGER_STATE: {
+            mergeChargerState(other.getChargerState());
             break;
           }
           case UPDATE_NOT_SET: {
@@ -557,8 +644,13 @@ public final class UpdateOuterClass {
             return false;
           }
         }
-        if (hasMirrorStaet()) {
-          if (!getMirrorStaet().isInitialized()) {
+        if (hasMirrorState()) {
+          if (!getMirrorState().isInitialized()) {
+            return false;
+          }
+        }
+        if (hasChargerState()) {
+          if (!getChargerState().isInitialized()) {
             return false;
           }
         }
@@ -736,64 +828,64 @@ public final class UpdateOuterClass {
       }
 
       private com.google.protobuf.SingleFieldBuilderV3<
-          netGameNodeSDK.mirror.Mirror.MirrorState, netGameNodeSDK.mirror.Mirror.MirrorState.Builder, netGameNodeSDK.mirror.Mirror.MirrorStateOrBuilder> mirrorStaetBuilder_;
+          netGameNodeSDK.mirror.Mirror.MirrorState, netGameNodeSDK.mirror.Mirror.MirrorState.Builder, netGameNodeSDK.mirror.Mirror.MirrorStateOrBuilder> mirrorStateBuilder_;
       /**
-       * <code>optional .netGameNodeSDK.mirror.MirrorState mirror_staet = 2;</code>
+       * <code>optional .netGameNodeSDK.mirror.MirrorState mirror_state = 2;</code>
        */
-      public boolean hasMirrorStaet() {
+      public boolean hasMirrorState() {
         return updateCase_ == 2;
       }
       /**
-       * <code>optional .netGameNodeSDK.mirror.MirrorState mirror_staet = 2;</code>
+       * <code>optional .netGameNodeSDK.mirror.MirrorState mirror_state = 2;</code>
        */
-      public netGameNodeSDK.mirror.Mirror.MirrorState getMirrorStaet() {
-        if (mirrorStaetBuilder_ == null) {
+      public netGameNodeSDK.mirror.Mirror.MirrorState getMirrorState() {
+        if (mirrorStateBuilder_ == null) {
           if (updateCase_ == 2) {
             return (netGameNodeSDK.mirror.Mirror.MirrorState) update_;
           }
           return netGameNodeSDK.mirror.Mirror.MirrorState.getDefaultInstance();
         } else {
           if (updateCase_ == 2) {
-            return mirrorStaetBuilder_.getMessage();
+            return mirrorStateBuilder_.getMessage();
           }
           return netGameNodeSDK.mirror.Mirror.MirrorState.getDefaultInstance();
         }
       }
       /**
-       * <code>optional .netGameNodeSDK.mirror.MirrorState mirror_staet = 2;</code>
+       * <code>optional .netGameNodeSDK.mirror.MirrorState mirror_state = 2;</code>
        */
-      public Builder setMirrorStaet(netGameNodeSDK.mirror.Mirror.MirrorState value) {
-        if (mirrorStaetBuilder_ == null) {
+      public Builder setMirrorState(netGameNodeSDK.mirror.Mirror.MirrorState value) {
+        if (mirrorStateBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
           }
           update_ = value;
           onChanged();
         } else {
-          mirrorStaetBuilder_.setMessage(value);
+          mirrorStateBuilder_.setMessage(value);
         }
         updateCase_ = 2;
         return this;
       }
       /**
-       * <code>optional .netGameNodeSDK.mirror.MirrorState mirror_staet = 2;</code>
+       * <code>optional .netGameNodeSDK.mirror.MirrorState mirror_state = 2;</code>
        */
-      public Builder setMirrorStaet(
+      public Builder setMirrorState(
           netGameNodeSDK.mirror.Mirror.MirrorState.Builder builderForValue) {
-        if (mirrorStaetBuilder_ == null) {
+        if (mirrorStateBuilder_ == null) {
           update_ = builderForValue.build();
           onChanged();
         } else {
-          mirrorStaetBuilder_.setMessage(builderForValue.build());
+          mirrorStateBuilder_.setMessage(builderForValue.build());
         }
         updateCase_ = 2;
         return this;
       }
       /**
-       * <code>optional .netGameNodeSDK.mirror.MirrorState mirror_staet = 2;</code>
+       * <code>optional .netGameNodeSDK.mirror.MirrorState mirror_state = 2;</code>
        */
-      public Builder mergeMirrorStaet(netGameNodeSDK.mirror.Mirror.MirrorState value) {
-        if (mirrorStaetBuilder_ == null) {
+      public Builder mergeMirrorState(netGameNodeSDK.mirror.Mirror.MirrorState value) {
+        if (mirrorStateBuilder_ == null) {
           if (updateCase_ == 2 &&
               update_ != netGameNodeSDK.mirror.Mirror.MirrorState.getDefaultInstance()) {
             update_ = netGameNodeSDK.mirror.Mirror.MirrorState.newBuilder((netGameNodeSDK.mirror.Mirror.MirrorState) update_)
@@ -804,18 +896,18 @@ public final class UpdateOuterClass {
           onChanged();
         } else {
           if (updateCase_ == 2) {
-            mirrorStaetBuilder_.mergeFrom(value);
+            mirrorStateBuilder_.mergeFrom(value);
           }
-          mirrorStaetBuilder_.setMessage(value);
+          mirrorStateBuilder_.setMessage(value);
         }
         updateCase_ = 2;
         return this;
       }
       /**
-       * <code>optional .netGameNodeSDK.mirror.MirrorState mirror_staet = 2;</code>
+       * <code>optional .netGameNodeSDK.mirror.MirrorState mirror_state = 2;</code>
        */
-      public Builder clearMirrorStaet() {
-        if (mirrorStaetBuilder_ == null) {
+      public Builder clearMirrorState() {
+        if (mirrorStateBuilder_ == null) {
           if (updateCase_ == 2) {
             updateCase_ = 0;
             update_ = null;
@@ -826,22 +918,22 @@ public final class UpdateOuterClass {
             updateCase_ = 0;
             update_ = null;
           }
-          mirrorStaetBuilder_.clear();
+          mirrorStateBuilder_.clear();
         }
         return this;
       }
       /**
-       * <code>optional .netGameNodeSDK.mirror.MirrorState mirror_staet = 2;</code>
+       * <code>optional .netGameNodeSDK.mirror.MirrorState mirror_state = 2;</code>
        */
-      public netGameNodeSDK.mirror.Mirror.MirrorState.Builder getMirrorStaetBuilder() {
-        return getMirrorStaetFieldBuilder().getBuilder();
+      public netGameNodeSDK.mirror.Mirror.MirrorState.Builder getMirrorStateBuilder() {
+        return getMirrorStateFieldBuilder().getBuilder();
       }
       /**
-       * <code>optional .netGameNodeSDK.mirror.MirrorState mirror_staet = 2;</code>
+       * <code>optional .netGameNodeSDK.mirror.MirrorState mirror_state = 2;</code>
        */
-      public netGameNodeSDK.mirror.Mirror.MirrorStateOrBuilder getMirrorStaetOrBuilder() {
-        if ((updateCase_ == 2) && (mirrorStaetBuilder_ != null)) {
-          return mirrorStaetBuilder_.getMessageOrBuilder();
+      public netGameNodeSDK.mirror.Mirror.MirrorStateOrBuilder getMirrorStateOrBuilder() {
+        if ((updateCase_ == 2) && (mirrorStateBuilder_ != null)) {
+          return mirrorStateBuilder_.getMessageOrBuilder();
         } else {
           if (updateCase_ == 2) {
             return (netGameNodeSDK.mirror.Mirror.MirrorState) update_;
@@ -850,16 +942,16 @@ public final class UpdateOuterClass {
         }
       }
       /**
-       * <code>optional .netGameNodeSDK.mirror.MirrorState mirror_staet = 2;</code>
+       * <code>optional .netGameNodeSDK.mirror.MirrorState mirror_state = 2;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
           netGameNodeSDK.mirror.Mirror.MirrorState, netGameNodeSDK.mirror.Mirror.MirrorState.Builder, netGameNodeSDK.mirror.Mirror.MirrorStateOrBuilder> 
-          getMirrorStaetFieldBuilder() {
-        if (mirrorStaetBuilder_ == null) {
+          getMirrorStateFieldBuilder() {
+        if (mirrorStateBuilder_ == null) {
           if (!(updateCase_ == 2)) {
             update_ = netGameNodeSDK.mirror.Mirror.MirrorState.getDefaultInstance();
           }
-          mirrorStaetBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+          mirrorStateBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
               netGameNodeSDK.mirror.Mirror.MirrorState, netGameNodeSDK.mirror.Mirror.MirrorState.Builder, netGameNodeSDK.mirror.Mirror.MirrorStateOrBuilder>(
                   (netGameNodeSDK.mirror.Mirror.MirrorState) update_,
                   getParentForChildren(),
@@ -868,7 +960,143 @@ public final class UpdateOuterClass {
         }
         updateCase_ = 2;
         onChanged();;
-        return mirrorStaetBuilder_;
+        return mirrorStateBuilder_;
+      }
+
+      private com.google.protobuf.SingleFieldBuilderV3<
+          netGameNodeSDK.charger.Charger.ChargerState, netGameNodeSDK.charger.Charger.ChargerState.Builder, netGameNodeSDK.charger.Charger.ChargerStateOrBuilder> chargerStateBuilder_;
+      /**
+       * <code>optional .netGameNodeSDK.charger.ChargerState charger_state = 3;</code>
+       */
+      public boolean hasChargerState() {
+        return updateCase_ == 3;
+      }
+      /**
+       * <code>optional .netGameNodeSDK.charger.ChargerState charger_state = 3;</code>
+       */
+      public netGameNodeSDK.charger.Charger.ChargerState getChargerState() {
+        if (chargerStateBuilder_ == null) {
+          if (updateCase_ == 3) {
+            return (netGameNodeSDK.charger.Charger.ChargerState) update_;
+          }
+          return netGameNodeSDK.charger.Charger.ChargerState.getDefaultInstance();
+        } else {
+          if (updateCase_ == 3) {
+            return chargerStateBuilder_.getMessage();
+          }
+          return netGameNodeSDK.charger.Charger.ChargerState.getDefaultInstance();
+        }
+      }
+      /**
+       * <code>optional .netGameNodeSDK.charger.ChargerState charger_state = 3;</code>
+       */
+      public Builder setChargerState(netGameNodeSDK.charger.Charger.ChargerState value) {
+        if (chargerStateBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          update_ = value;
+          onChanged();
+        } else {
+          chargerStateBuilder_.setMessage(value);
+        }
+        updateCase_ = 3;
+        return this;
+      }
+      /**
+       * <code>optional .netGameNodeSDK.charger.ChargerState charger_state = 3;</code>
+       */
+      public Builder setChargerState(
+          netGameNodeSDK.charger.Charger.ChargerState.Builder builderForValue) {
+        if (chargerStateBuilder_ == null) {
+          update_ = builderForValue.build();
+          onChanged();
+        } else {
+          chargerStateBuilder_.setMessage(builderForValue.build());
+        }
+        updateCase_ = 3;
+        return this;
+      }
+      /**
+       * <code>optional .netGameNodeSDK.charger.ChargerState charger_state = 3;</code>
+       */
+      public Builder mergeChargerState(netGameNodeSDK.charger.Charger.ChargerState value) {
+        if (chargerStateBuilder_ == null) {
+          if (updateCase_ == 3 &&
+              update_ != netGameNodeSDK.charger.Charger.ChargerState.getDefaultInstance()) {
+            update_ = netGameNodeSDK.charger.Charger.ChargerState.newBuilder((netGameNodeSDK.charger.Charger.ChargerState) update_)
+                .mergeFrom(value).buildPartial();
+          } else {
+            update_ = value;
+          }
+          onChanged();
+        } else {
+          if (updateCase_ == 3) {
+            chargerStateBuilder_.mergeFrom(value);
+          }
+          chargerStateBuilder_.setMessage(value);
+        }
+        updateCase_ = 3;
+        return this;
+      }
+      /**
+       * <code>optional .netGameNodeSDK.charger.ChargerState charger_state = 3;</code>
+       */
+      public Builder clearChargerState() {
+        if (chargerStateBuilder_ == null) {
+          if (updateCase_ == 3) {
+            updateCase_ = 0;
+            update_ = null;
+            onChanged();
+          }
+        } else {
+          if (updateCase_ == 3) {
+            updateCase_ = 0;
+            update_ = null;
+          }
+          chargerStateBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>optional .netGameNodeSDK.charger.ChargerState charger_state = 3;</code>
+       */
+      public netGameNodeSDK.charger.Charger.ChargerState.Builder getChargerStateBuilder() {
+        return getChargerStateFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>optional .netGameNodeSDK.charger.ChargerState charger_state = 3;</code>
+       */
+      public netGameNodeSDK.charger.Charger.ChargerStateOrBuilder getChargerStateOrBuilder() {
+        if ((updateCase_ == 3) && (chargerStateBuilder_ != null)) {
+          return chargerStateBuilder_.getMessageOrBuilder();
+        } else {
+          if (updateCase_ == 3) {
+            return (netGameNodeSDK.charger.Charger.ChargerState) update_;
+          }
+          return netGameNodeSDK.charger.Charger.ChargerState.getDefaultInstance();
+        }
+      }
+      /**
+       * <code>optional .netGameNodeSDK.charger.ChargerState charger_state = 3;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          netGameNodeSDK.charger.Charger.ChargerState, netGameNodeSDK.charger.Charger.ChargerState.Builder, netGameNodeSDK.charger.Charger.ChargerStateOrBuilder> 
+          getChargerStateFieldBuilder() {
+        if (chargerStateBuilder_ == null) {
+          if (!(updateCase_ == 3)) {
+            update_ = netGameNodeSDK.charger.Charger.ChargerState.getDefaultInstance();
+          }
+          chargerStateBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              netGameNodeSDK.charger.Charger.ChargerState, netGameNodeSDK.charger.Charger.ChargerState.Builder, netGameNodeSDK.charger.Charger.ChargerStateOrBuilder>(
+                  (netGameNodeSDK.charger.Charger.ChargerState) update_,
+                  getParentForChildren(),
+                  isClean());
+          update_ = null;
+        }
+        updateCase_ = 3;
+        onChanged();;
+        return chargerStateBuilder_;
       }
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -1693,12 +1921,14 @@ public final class UpdateOuterClass {
   static {
     java.lang.String[] descriptorData = {
       "\n\014update.proto\022\025netGameNodeSDK.update\032\014p" +
-      "layer.proto\032\014mirror.proto\"\212\001\n\006Update\022:\n\014" +
-      "player_state\030\001 \001(\0132\".netGameNodeSDK.play" +
-      "er.PlayerStateH\000\022:\n\014mirror_staet\030\002 \001(\0132\"" +
-      ".netGameNodeSDK.mirror.MirrorStateH\000B\010\n\006" +
-      "update\"9\n\007Updates\022.\n\007updates\030\001 \003(\0132\035.net" +
-      "GameNodeSDK.update.Update"
+      "layer.proto\032\014mirror.proto\032\rcharger.proto" +
+      "\"\311\001\n\006Update\022:\n\014player_state\030\001 \001(\0132\".netG" +
+      "ameNodeSDK.player.PlayerStateH\000\022:\n\014mirro" +
+      "r_state\030\002 \001(\0132\".netGameNodeSDK.mirror.Mi" +
+      "rrorStateH\000\022=\n\rcharger_state\030\003 \001(\0132$.net" +
+      "GameNodeSDK.charger.ChargerStateH\000B\010\n\006up" +
+      "date\"9\n\007Updates\022.\n\007updates\030\001 \003(\0132\035.netGa" +
+      "meNodeSDK.update.Update"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -1713,13 +1943,14 @@ public final class UpdateOuterClass {
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           netGameNodeSDK.player.Player.getDescriptor(),
           netGameNodeSDK.mirror.Mirror.getDescriptor(),
+          netGameNodeSDK.charger.Charger.getDescriptor(),
         }, assigner);
     internal_static_netGameNodeSDK_update_Update_descriptor =
       getDescriptor().getMessageTypes().get(0);
     internal_static_netGameNodeSDK_update_Update_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_netGameNodeSDK_update_Update_descriptor,
-        new java.lang.String[] { "PlayerState", "MirrorStaet", "Update", });
+        new java.lang.String[] { "PlayerState", "MirrorState", "ChargerState", "Update", });
     internal_static_netGameNodeSDK_update_Updates_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_netGameNodeSDK_update_Updates_fieldAccessorTable = new
@@ -1728,6 +1959,7 @@ public final class UpdateOuterClass {
         new java.lang.String[] { "Updates", });
     netGameNodeSDK.player.Player.getDescriptor();
     netGameNodeSDK.mirror.Mirror.getDescriptor();
+    netGameNodeSDK.charger.Charger.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

@@ -25,6 +25,7 @@ import gameEngine.LayerGameNode;
 import gameEngine.SimpleGameSceneCamera;
 import javafx.application.Platform;
 import javafx.scene.canvas.GraphicsContext;
+import netGameNodeSDK.charger.Charger.ChargerState;
 import netGameNodeSDK.handshake.Handshake.ClientHandshake;
 import netGameNodeSDK.handshake.Handshake.ServerHandshake;
 import netGameNodeSDK.input.InputOuterClass.Input;
@@ -35,8 +36,6 @@ import netGameNodeSDK.update.UpdateOuterClass.Update;
 import netGameNodeSDK.update.UpdateOuterClass.Updates;
 
 public class ClientMatrixGameNode extends GameNode {
-	private Socket serverSocket;
-
 	private DatagramSocket commandOutputSocket;
 	private DatagramPacket commandPacket;
 
@@ -47,6 +46,7 @@ public class ClientMatrixGameNode extends GameNode {
 
 	private Map<Integer, PlayerNetGameNode> players = new HashMap<>();
 	private Map<Integer, MirrorNetGameNode> mirrors = new HashMap<>();
+	private Map<Integer, ChargerNetGameNode> chargers = new HashMap<>();
 
 	private int controllingPlayerId;
 
@@ -54,8 +54,6 @@ public class ClientMatrixGameNode extends GameNode {
 
 
 	public ClientMatrixGameNode(Socket serverSocket) {
-		this.serverSocket = serverSocket;
-
 		rootLayer = new LayerGameNode();
 		addChild(rootLayer);
 
@@ -109,8 +107,8 @@ public class ClientMatrixGameNode extends GameNode {
 				}
 					break;
 
-				case MIRROR_STAET: {
-					MirrorState mirrorState = update.getMirrorStaet();
+				case MIRROR_STATE: {
+					MirrorState mirrorState = update.getMirrorState();
 					int mirrorId = mirrorState.getId();
 
 					MirrorNetGameNode mirror = mirrors.get(mirrorId);
@@ -126,7 +124,23 @@ public class ClientMatrixGameNode extends GameNode {
 					mirror.clientHandleServerUpdate(mirrorState);
 				}
 					break;
+				case CHARGER_STATE: {
+					ChargerState chargerState = update.getChargerState();
+					int chargerId = chargerState.getId();
 
+					ChargerNetGameNode charger = chargers.get(chargerId);
+					if (charger == null) {
+						charger = new ChargerNetGameNode(chargerId);
+						charger.clientInitialize(Game.currentScene());
+
+						chargers.put(chargerId, charger);
+
+						rootLayer.addChild(charger);
+					}
+
+					charger.clientHandleServerUpdate(chargerState);
+				}
+					break;
 				case UPDATE_NOT_SET:
 					break;
 				}
