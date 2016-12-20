@@ -77,70 +77,22 @@ public class ClientMatrixGameNode extends GameNode {
 
 	@Override
 	public void update(long elapse) {
-		synchronized (updateQueue) {
+		synchronized (updateQueue)
+		{
 			updateQueue.forEach(update -> {
-
 				switch (update.getUpdateCase()) {
-				case PLAYER_STATE: {
-					PlayerState playerState = update.getPlayerState();
-					int playerId = playerState.getId();
-
-					PlayerNetGameNode player = players.get(playerId);
-					if (player == null) {
-						player = new PlayerNetGameNode(playerId);
-						player.clientInitialize(Game.currentScene());
-
-						if (playerId == controllingPlayerId) {
-							player.isControlling = true;
-
-							SimpleGameSceneCamera camera = new SimpleGameSceneCamera(0, 0, Game.canvasWidth(), Game.canvasHeight());
-							camera.cameraTarget = Optional.of(player);
-							rootLayer.camera = camera;
-						}
-
-						players.put(playerId, player);
-
-						rootLayer.addChild(player);
-					}
-
-					player.clientHandleServerUpdate(playerState);
-				}
+				case PLAYER_STATE:
+					addOrUpdatePlayer(update.getPlayerState());
 					break;
 
-				case MIRROR_STATE: {
-					MirrorState mirrorState = update.getMirrorState();
-					int mirrorId = mirrorState.getId();
-
-					MirrorNetGameNode mirror = mirrors.get(mirrorId);
-					if (mirror == null) {
-						mirror = new MirrorNetGameNode(mirrorId);
-						mirror.clientInitialize(Game.currentScene());
-
-						mirrors.put(mirrorId, mirror);
-
-						rootLayer.addChild(mirror);
-					}
-
-					mirror.clientHandleServerUpdate(mirrorState);
-				}
+				case MIRROR_STATE:
+					addOrUpdateMirror(update.getMirrorState());
 					break;
-				case CHARGER_STATE: {
-					ChargerState chargerState = update.getChargerState();
-					int chargerId = chargerState.getId();
 
-					ChargerNetGameNode charger = chargers.get(chargerId);
-					if (charger == null) {
-						charger = new ChargerNetGameNode(chargerId);
-						charger.clientInitialize(Game.currentScene());
-
-						chargers.put(chargerId, charger);
-
-						rootLayer.addChild(charger);
-					}
-
-					charger.clientHandleServerUpdate(chargerState);
-				}
+				case CHARGER_STATE:
+					addOrUpdateCharger(update.getChargerState());
 					break;
+
 				case UPDATE_NOT_SET:
 					break;
 				}
@@ -149,6 +101,62 @@ public class ClientMatrixGameNode extends GameNode {
 
 			updateQueue.clear();
 		}
+	}
+
+	private void addOrUpdateCharger(ChargerState chargerState) {
+		int chargerId = chargerState.getId();
+
+		ChargerNetGameNode charger = chargers.get(chargerId);
+		if (charger == null) {
+			charger = new ChargerNetGameNode(chargerId);
+			charger.clientInitialize(Game.currentScene());
+
+			chargers.put(chargerId, charger);
+
+			rootLayer.addChild(charger);
+		}
+
+		charger.clientHandleServerUpdate(chargerState);
+	}
+
+	private void addOrUpdateMirror(MirrorState mirrorState) {
+		int mirrorId = mirrorState.getId();
+
+		MirrorNetGameNode mirror = mirrors.get(mirrorId);
+		if (mirror == null) {
+			mirror = new MirrorNetGameNode(mirrorId);
+			mirror.clientInitialize(Game.currentScene());
+
+			mirrors.put(mirrorId, mirror);
+
+			rootLayer.addChild(mirror);
+		}
+
+		mirror.clientHandleServerUpdate(mirrorState);
+	}
+
+	private void addOrUpdatePlayer(PlayerState playerState) {
+		int playerId = playerState.getId();
+
+		PlayerNetGameNode player = players.get(playerId);
+		if (player == null) {
+			player = new PlayerNetGameNode(playerId);
+			player.clientInitialize(Game.currentScene());
+
+			if (playerId == controllingPlayerId) {
+				player.isControlling = true;
+
+				SimpleGameSceneCamera camera = new SimpleGameSceneCamera(0, 0, Game.canvasWidth(), Game.canvasHeight());
+				camera.cameraTarget = Optional.of(player);
+				rootLayer.camera = camera;
+			}
+
+			players.put(playerId, player);
+
+			rootLayer.addChild(player);
+		}
+
+		player.clientHandleServerUpdate(playerState);
 	}
 
 	@Override

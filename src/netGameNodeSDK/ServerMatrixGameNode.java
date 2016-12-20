@@ -37,8 +37,9 @@ public class ServerMatrixGameNode extends GameNode {
 	private int objectId = 0;
 
 	private ServerSocket serverSocket;
-	private Map<Integer, PlayerNetGameNode> players = Collections.synchronizedMap(new HashMap<>());
+
 	private Map<PlayerNetGameNode, InetSocketAddress> playerIPMap = Collections.synchronizedMap(new HashMap<>());
+	private Map<Integer, PlayerNetGameNode> players = Collections.synchronizedMap(new HashMap<>());
 	private Map<Integer, MirrorNetGameNode> mirrors = Collections.synchronizedMap(new HashMap<>());
 	private Map<Integer, ChargerNetGameNode> chargers = Collections.synchronizedMap(new HashMap<>());
 
@@ -201,8 +202,7 @@ public class ServerMatrixGameNode extends GameNode {
 	}
 
 	private synchronized int getUniqueObjectId() {
-		objectId += 1;
-		return objectId;
+		return objectId++;
 	}
 
 	private void waitsForPlayerRoutine() {

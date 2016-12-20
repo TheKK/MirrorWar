@@ -45,14 +45,26 @@ public final class UpdateOuterClass {
     netGameNodeSDK.mirror.Mirror.MirrorStateOrBuilder getMirrorStateOrBuilder();
 
     /**
+     * <pre>
+     *laser.LaserState laser_state = 4;
+     * </pre>
+     *
      * <code>optional .netGameNodeSDK.charger.ChargerState charger_state = 3;</code>
      */
     boolean hasChargerState();
     /**
+     * <pre>
+     *laser.LaserState laser_state = 4;
+     * </pre>
+     *
      * <code>optional .netGameNodeSDK.charger.ChargerState charger_state = 3;</code>
      */
     netGameNodeSDK.charger.Charger.ChargerState getChargerState();
     /**
+     * <pre>
+     *laser.LaserState laser_state = 4;
+     * </pre>
+     *
      * <code>optional .netGameNodeSDK.charger.ChargerState charger_state = 3;</code>
      */
     netGameNodeSDK.charger.Charger.ChargerStateOrBuilder getChargerStateOrBuilder();
@@ -262,12 +274,20 @@ public final class UpdateOuterClass {
 
     public static final int CHARGER_STATE_FIELD_NUMBER = 3;
     /**
+     * <pre>
+     *laser.LaserState laser_state = 4;
+     * </pre>
+     *
      * <code>optional .netGameNodeSDK.charger.ChargerState charger_state = 3;</code>
      */
     public boolean hasChargerState() {
       return updateCase_ == 3;
     }
     /**
+     * <pre>
+     *laser.LaserState laser_state = 4;
+     * </pre>
+     *
      * <code>optional .netGameNodeSDK.charger.ChargerState charger_state = 3;</code>
      */
     public netGameNodeSDK.charger.Charger.ChargerState getChargerState() {
@@ -277,6 +297,10 @@ public final class UpdateOuterClass {
       return netGameNodeSDK.charger.Charger.ChargerState.getDefaultInstance();
     }
     /**
+     * <pre>
+     *laser.LaserState laser_state = 4;
+     * </pre>
+     *
      * <code>optional .netGameNodeSDK.charger.ChargerState charger_state = 3;</code>
      */
     public netGameNodeSDK.charger.Charger.ChargerStateOrBuilder getChargerStateOrBuilder() {
@@ -966,12 +990,20 @@ public final class UpdateOuterClass {
       private com.google.protobuf.SingleFieldBuilderV3<
           netGameNodeSDK.charger.Charger.ChargerState, netGameNodeSDK.charger.Charger.ChargerState.Builder, netGameNodeSDK.charger.Charger.ChargerStateOrBuilder> chargerStateBuilder_;
       /**
+       * <pre>
+       *laser.LaserState laser_state = 4;
+       * </pre>
+       *
        * <code>optional .netGameNodeSDK.charger.ChargerState charger_state = 3;</code>
        */
       public boolean hasChargerState() {
         return updateCase_ == 3;
       }
       /**
+       * <pre>
+       *laser.LaserState laser_state = 4;
+       * </pre>
+       *
        * <code>optional .netGameNodeSDK.charger.ChargerState charger_state = 3;</code>
        */
       public netGameNodeSDK.charger.Charger.ChargerState getChargerState() {
@@ -988,6 +1020,10 @@ public final class UpdateOuterClass {
         }
       }
       /**
+       * <pre>
+       *laser.LaserState laser_state = 4;
+       * </pre>
+       *
        * <code>optional .netGameNodeSDK.charger.ChargerState charger_state = 3;</code>
        */
       public Builder setChargerState(netGameNodeSDK.charger.Charger.ChargerState value) {
@@ -1004,6 +1040,10 @@ public final class UpdateOuterClass {
         return this;
       }
       /**
+       * <pre>
+       *laser.LaserState laser_state = 4;
+       * </pre>
+       *
        * <code>optional .netGameNodeSDK.charger.ChargerState charger_state = 3;</code>
        */
       public Builder setChargerState(
@@ -1018,6 +1058,10 @@ public final class UpdateOuterClass {
         return this;
       }
       /**
+       * <pre>
+       *laser.LaserState laser_state = 4;
+       * </pre>
+       *
        * <code>optional .netGameNodeSDK.charger.ChargerState charger_state = 3;</code>
        */
       public Builder mergeChargerState(netGameNodeSDK.charger.Charger.ChargerState value) {
@@ -1040,6 +1084,10 @@ public final class UpdateOuterClass {
         return this;
       }
       /**
+       * <pre>
+       *laser.LaserState laser_state = 4;
+       * </pre>
+       *
        * <code>optional .netGameNodeSDK.charger.ChargerState charger_state = 3;</code>
        */
       public Builder clearChargerState() {
@@ -1059,12 +1107,20 @@ public final class UpdateOuterClass {
         return this;
       }
       /**
+       * <pre>
+       *laser.LaserState laser_state = 4;
+       * </pre>
+       *
        * <code>optional .netGameNodeSDK.charger.ChargerState charger_state = 3;</code>
        */
       public netGameNodeSDK.charger.Charger.ChargerState.Builder getChargerStateBuilder() {
         return getChargerStateFieldBuilder().getBuilder();
       }
       /**
+       * <pre>
+       *laser.LaserState laser_state = 4;
+       * </pre>
+       *
        * <code>optional .netGameNodeSDK.charger.ChargerState charger_state = 3;</code>
        */
       public netGameNodeSDK.charger.Charger.ChargerStateOrBuilder getChargerStateOrBuilder() {
@@ -1078,6 +1134,10 @@ public final class UpdateOuterClass {
         }
       }
       /**
+       * <pre>
+       *laser.LaserState laser_state = 4;
+       * </pre>
+       *
        * <code>optional .netGameNodeSDK.charger.ChargerState charger_state = 3;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
