@@ -32,6 +32,7 @@ enum State {
 
 public class JoinGameScene extends GameScene {
 	private BoardGameNode messageBoard = new BoardGameNode(3000);
+
 	private State currentState = State.USER_INPUT;
 	private String serverIp = "";
 	private final int width = 200;
@@ -148,6 +149,7 @@ public class JoinGameScene extends GameScene {
 				}
 			});
 	}
+
 
 	private InetSocketAddress getIp(String ip) throws Exception {
 		final String IPADDRESS_PATTERN = "(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)";

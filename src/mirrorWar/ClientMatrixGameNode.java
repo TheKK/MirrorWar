@@ -1,4 +1,4 @@
-package netGameNodeSDK;
+package mirrorWar;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -14,6 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.CompletionException;
 
 import com.google.protobuf.InvalidProtocolBufferException;
 
@@ -25,17 +26,19 @@ import gameEngine.LayerGameNode;
 import gameEngine.SimpleGameSceneCamera;
 import javafx.application.Platform;
 import javafx.scene.canvas.GraphicsContext;
-
 import mirrorWar.charger.Charger.ChargerState;
+import mirrorWar.gameStatusUpdate.GameStatusUpdate.ServerMessage;
 import mirrorWar.handshake.Handshake.ClientHandshake;
 import mirrorWar.handshake.Handshake.ServerHandshake;
 import mirrorWar.input.InputOuterClass.Input;
 import mirrorWar.input.InputOuterClass.Inputs;
-import mirrorWar.laser.Laser.LaserState;
 import mirrorWar.mirror.Mirror.MirrorState;
 import mirrorWar.player.Player.PlayerState;
 import mirrorWar.update.UpdateOuterClass.Update;
 import mirrorWar.update.UpdateOuterClass.Updates;
+import netGameNodeSDK.ChargerNetGameNode;
+import netGameNodeSDK.MirrorNetGameNode;
+import netGameNodeSDK.PlayerNetGameNode;
 
 public class ClientMatrixGameNode extends GameNode {
 	private DatagramSocket commandOutputSocket;
@@ -49,13 +52,11 @@ public class ClientMatrixGameNode extends GameNode {
 	private Map<Integer, PlayerNetGameNode> players = new HashMap<>();
 	private Map<Integer, MirrorNetGameNode> mirrors = new HashMap<>();
 	private Map<Integer, ChargerNetGameNode> chargers = new HashMap<>();
-	private GameReportNetGameNode gameReport;
-
-	private Map<Integer, LaserEmiterNetGameNode> lasers= new HashMap<>();
 
 	private int controllingPlayerId;
 
 	private LayerGameNode rootLayer;
+
 
 	public ClientMatrixGameNode(Socket serverSocket) {
 		rootLayer = new LayerGameNode();
@@ -68,20 +69,15 @@ public class ClientMatrixGameNode extends GameNode {
 
 			controllingPlayerId = serverHandshake.getClientId();
 
+			// TODO Make this process async
+//			waitForOtherPlayerToJoin(serverSocket);
+//			waitGameStartMessage(serverSocket);
+
 		} catch (IOException e) {
 
 			Platform.exit();
 			return;
 		}
-
-		gameReport = new GameReportNetGameNode(controllingPlayerId) {
-			@Override
-			protected void beAttacked() {
-				// TODO add actual implementation
-				System.out.println("play attack animation");
-			}
-		};
-		addChild(gameReport);
 
 		setupSendingInputsService();
 		setupReceivingUpdateService();
@@ -89,7 +85,8 @@ public class ClientMatrixGameNode extends GameNode {
 
 	@Override
 	public void update(long elapse) {
-		synchronized (updateQueue) {
+		synchronized (updateQueue)
+		{
 			updateQueue.forEach(update -> {
 				switch (update.getUpdateCase()) {
 				case PLAYER_STATE:
@@ -104,14 +101,6 @@ public class ClientMatrixGameNode extends GameNode {
 					addOrUpdateCharger(update.getChargerState());
 					break;
 
-				case GAME_REPORT_STATE:
-					gameReport.clientHandleServerUpdate(update.getGameReportState());
-					break;
-
-				case LASER_STATE:
-					addOrUpdateLaser(update.getLaserState());
-					break;
-
 				case UPDATE_NOT_SET:
 					break;
 				}
@@ -121,6 +110,47 @@ public class ClientMatrixGameNode extends GameNode {
 			updateQueue.clear();
 		}
 	}
+
+	private void waitForOtherPlayerToJoin(Socket serverSocket) {
+		try {
+			InputStream in = serverSocket.getInputStream();
+			// This would block current thread
+			ServerMessage status = ServerMessage.parseDelimitedFrom(in);
+			switch (status.getMsg()) {
+				case ALL_PLAYER_READY:
+					return;
+
+				default:
+					DangerousGlobalVariables.logger.severe("Protocol error: expecting 'ALL_PLAYER_READY'");
+					Platform.exit();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			throw new CompletionException(e);
+		}
+	}
+
+	private void waitGameStartMessage(Socket serverSocket) {
+		try {
+			InputStream in = serverSocket.getInputStream();
+			// This would block current thread
+			ServerMessage status = ServerMessage.parseDelimitedFrom(in);
+			switch (status.getMsg()) {
+				case GAME_START:
+					return;
+
+				default:
+					DangerousGlobalVariables.logger.severe("Protocol error: expecting 'ALL_PLAYER_READY'");
+					Platform.exit();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			throw new CompletionException(e);
+		}
+	}
+
 
 	private void addOrUpdateCharger(ChargerState chargerState) {
 		int chargerId = chargerState.getId();
@@ -176,22 +206,6 @@ public class ClientMatrixGameNode extends GameNode {
 		}
 
 		player.clientHandleServerUpdate(playerState);
-	}
-
-	private void addOrUpdateLaser(LaserState laserState) {
-		int laserId = laserState.getId();
-
-		LaserEmiterNetGameNode laser = lasers.get(laserId);
-		if (laser == null) {
-			laser = new LaserEmiterNetGameNode(laserId);
-			laser.clientInitialize(Game.currentScene());
-
-			lasers.put(laserId, laser);
-
-			rootLayer.addChild(laser);
-		}
-
-		laser.clientHandleServerUpdate(laserState);
 	}
 
 	@Override
@@ -280,7 +294,10 @@ public class ClientMatrixGameNode extends GameNode {
 			return;
 		}
 
-		byte[] data = Inputs.newBuilder().setClientId(controllingPlayerId).addAllInputs(inputQueue).build()
+		byte[] data = Inputs.newBuilder()
+				.setClientId(controllingPlayerId)
+				.addAllInputs(inputQueue)
+				.build()
 				.toByteArray();
 
 		commandPacket.setData(data);
@@ -295,7 +312,10 @@ public class ClientMatrixGameNode extends GameNode {
 		OutputStream out = serverSocket.getOutputStream();
 
 		// I. Sending ClientHandshake to server
-		ClientHandshake.newBuilder().setUpdatePort(updateInputSocket.getLocalPort()).build().writeDelimitedTo(out);
+		ClientHandshake.newBuilder()
+				.setUpdatePort(updateInputSocket.getLocalPort())
+				.build()
+				.writeDelimitedTo(out);
 
 		// II. Receive server's port which sending commands to client
 		ServerHandshake serverHandshake = ServerHandshake.parseDelimitedFrom(in);
@@ -304,9 +324,5 @@ public class ClientMatrixGameNode extends GameNode {
 		commandPacket.setPort(serverHandshake.getCommandPort());
 
 		return serverHandshake;
-	}
-
-	public int getControllingId() {
-		return controllingPlayerId;
 	}
 }

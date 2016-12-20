@@ -76,7 +76,6 @@ public final class PlayerNetGameNode extends NetGameNode<PlayerState, Input> {
 
 	@Override
 	public void clientInitialize(GameScene scene) {
-
 		dampX = 0.9999;
 		dampY = 0.9999;
 
@@ -98,6 +97,7 @@ public final class PlayerNetGameNode extends NetGameNode<PlayerState, Input> {
 	@Override
 	public void serverInitialize(GameScene scene, boolean debugMode) {
 		respawn();
+
 		geometry.width = 50;
 		geometry.height = 50;
 

@@ -64,7 +64,7 @@ public final class PhysicEngine {
 
 	public final Set<GameNode> getStaticNodesInArea(Rectangle2D.Double sensorArea) {
 		return staticNodes.stream()
-			.filter(node -> node.geometryInGameWorld().contains(sensorArea))
+			.filter(node -> node.geometryInGameWorld().intersects(sensorArea))
 			.collect(Collectors.toSet());
 	}
 

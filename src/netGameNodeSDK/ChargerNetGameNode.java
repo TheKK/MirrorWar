@@ -111,6 +111,7 @@ public class ChargerNetGameNode extends NetGameNode<ChargerState, Void> {
 				.setX(geometry.x)
 				.setY(geometry.y)
 				.setAnimation(serverCurrentAnimation)
+				//.addRects(builderForValue)//TODO
 				.build();
 	}
 
