@@ -45,29 +45,30 @@ public final class UpdateOuterClass {
     netGameNodeSDK.mirror.Mirror.MirrorStateOrBuilder getMirrorStateOrBuilder();
 
     /**
-     * <pre>
-     *laser.LaserState laser_state = 4;
-     * </pre>
-     *
      * <code>optional .netGameNodeSDK.charger.ChargerState charger_state = 3;</code>
      */
     boolean hasChargerState();
     /**
-     * <pre>
-     *laser.LaserState laser_state = 4;
-     * </pre>
-     *
      * <code>optional .netGameNodeSDK.charger.ChargerState charger_state = 3;</code>
      */
     netGameNodeSDK.charger.Charger.ChargerState getChargerState();
     /**
-     * <pre>
-     *laser.LaserState laser_state = 4;
-     * </pre>
-     *
      * <code>optional .netGameNodeSDK.charger.ChargerState charger_state = 3;</code>
      */
     netGameNodeSDK.charger.Charger.ChargerStateOrBuilder getChargerStateOrBuilder();
+
+    /**
+     * <code>optional .netGameNodeSDK.laser.LaserState laser_state = 4;</code>
+     */
+    boolean hasLaserState();
+    /**
+     * <code>optional .netGameNodeSDK.laser.LaserState laser_state = 4;</code>
+     */
+    netGameNodeSDK.laser.Laser.LaserState getLaserState();
+    /**
+     * <code>optional .netGameNodeSDK.laser.LaserState laser_state = 4;</code>
+     */
+    netGameNodeSDK.laser.Laser.LaserStateOrBuilder getLaserStateOrBuilder();
 
     public netGameNodeSDK.update.UpdateOuterClass.Update.UpdateCase getUpdateCase();
   }
@@ -155,6 +156,20 @@ public final class UpdateOuterClass {
               updateCase_ = 3;
               break;
             }
+            case 34: {
+              netGameNodeSDK.laser.Laser.LaserState.Builder subBuilder = null;
+              if (updateCase_ == 4) {
+                subBuilder = ((netGameNodeSDK.laser.Laser.LaserState) update_).toBuilder();
+              }
+              update_ =
+                  input.readMessage(netGameNodeSDK.laser.Laser.LaserState.PARSER, extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom((netGameNodeSDK.laser.Laser.LaserState) update_);
+                update_ = subBuilder.buildPartial();
+              }
+              updateCase_ = 4;
+              break;
+            }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
@@ -187,6 +202,7 @@ public final class UpdateOuterClass {
       PLAYER_STATE(1),
       MIRROR_STATE(2),
       CHARGER_STATE(3),
+      LASER_STATE(4),
       UPDATE_NOT_SET(0);
       private final int value;
       private UpdateCase(int value) {
@@ -205,6 +221,7 @@ public final class UpdateOuterClass {
           case 1: return PLAYER_STATE;
           case 2: return MIRROR_STATE;
           case 3: return CHARGER_STATE;
+          case 4: return LASER_STATE;
           case 0: return UPDATE_NOT_SET;
           default: return null;
         }
@@ -274,20 +291,12 @@ public final class UpdateOuterClass {
 
     public static final int CHARGER_STATE_FIELD_NUMBER = 3;
     /**
-     * <pre>
-     *laser.LaserState laser_state = 4;
-     * </pre>
-     *
      * <code>optional .netGameNodeSDK.charger.ChargerState charger_state = 3;</code>
      */
     public boolean hasChargerState() {
       return updateCase_ == 3;
     }
     /**
-     * <pre>
-     *laser.LaserState laser_state = 4;
-     * </pre>
-     *
      * <code>optional .netGameNodeSDK.charger.ChargerState charger_state = 3;</code>
      */
     public netGameNodeSDK.charger.Charger.ChargerState getChargerState() {
@@ -297,10 +306,6 @@ public final class UpdateOuterClass {
       return netGameNodeSDK.charger.Charger.ChargerState.getDefaultInstance();
     }
     /**
-     * <pre>
-     *laser.LaserState laser_state = 4;
-     * </pre>
-     *
      * <code>optional .netGameNodeSDK.charger.ChargerState charger_state = 3;</code>
      */
     public netGameNodeSDK.charger.Charger.ChargerStateOrBuilder getChargerStateOrBuilder() {
@@ -308,6 +313,32 @@ public final class UpdateOuterClass {
          return (netGameNodeSDK.charger.Charger.ChargerState) update_;
       }
       return netGameNodeSDK.charger.Charger.ChargerState.getDefaultInstance();
+    }
+
+    public static final int LASER_STATE_FIELD_NUMBER = 4;
+    /**
+     * <code>optional .netGameNodeSDK.laser.LaserState laser_state = 4;</code>
+     */
+    public boolean hasLaserState() {
+      return updateCase_ == 4;
+    }
+    /**
+     * <code>optional .netGameNodeSDK.laser.LaserState laser_state = 4;</code>
+     */
+    public netGameNodeSDK.laser.Laser.LaserState getLaserState() {
+      if (updateCase_ == 4) {
+         return (netGameNodeSDK.laser.Laser.LaserState) update_;
+      }
+      return netGameNodeSDK.laser.Laser.LaserState.getDefaultInstance();
+    }
+    /**
+     * <code>optional .netGameNodeSDK.laser.LaserState laser_state = 4;</code>
+     */
+    public netGameNodeSDK.laser.Laser.LaserStateOrBuilder getLaserStateOrBuilder() {
+      if (updateCase_ == 4) {
+         return (netGameNodeSDK.laser.Laser.LaserState) update_;
+      }
+      return netGameNodeSDK.laser.Laser.LaserState.getDefaultInstance();
     }
 
     private byte memoizedIsInitialized = -1;
@@ -334,6 +365,12 @@ public final class UpdateOuterClass {
           return false;
         }
       }
+      if (hasLaserState()) {
+        if (!getLaserState().isInitialized()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -348,6 +385,9 @@ public final class UpdateOuterClass {
       }
       if (updateCase_ == 3) {
         output.writeMessage(3, (netGameNodeSDK.charger.Charger.ChargerState) update_);
+      }
+      if (updateCase_ == 4) {
+        output.writeMessage(4, (netGameNodeSDK.laser.Laser.LaserState) update_);
       }
       unknownFields.writeTo(output);
     }
@@ -368,6 +408,10 @@ public final class UpdateOuterClass {
       if (updateCase_ == 3) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(3, (netGameNodeSDK.charger.Charger.ChargerState) update_);
+      }
+      if (updateCase_ == 4) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(4, (netGameNodeSDK.laser.Laser.LaserState) update_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -402,6 +446,10 @@ public final class UpdateOuterClass {
           result = result && getChargerState()
               .equals(other.getChargerState());
           break;
+        case 4:
+          result = result && getLaserState()
+              .equals(other.getLaserState());
+          break;
         case 0:
         default:
       }
@@ -428,6 +476,10 @@ public final class UpdateOuterClass {
         case 3:
           hash = (37 * hash) + CHARGER_STATE_FIELD_NUMBER;
           hash = (53 * hash) + getChargerState().hashCode();
+          break;
+        case 4:
+          hash = (37 * hash) + LASER_STATE_FIELD_NUMBER;
+          hash = (53 * hash) + getLaserState().hashCode();
           break;
         case 0:
         default:
@@ -597,6 +649,13 @@ public final class UpdateOuterClass {
             result.update_ = chargerStateBuilder_.build();
           }
         }
+        if (updateCase_ == 4) {
+          if (laserStateBuilder_ == null) {
+            result.update_ = update_;
+          } else {
+            result.update_ = laserStateBuilder_.build();
+          }
+        }
         result.bitField0_ = to_bitField0_;
         result.updateCase_ = updateCase_;
         onBuilt();
@@ -653,6 +712,10 @@ public final class UpdateOuterClass {
             mergeChargerState(other.getChargerState());
             break;
           }
+          case LASER_STATE: {
+            mergeLaserState(other.getLaserState());
+            break;
+          }
           case UPDATE_NOT_SET: {
             break;
           }
@@ -675,6 +738,11 @@ public final class UpdateOuterClass {
         }
         if (hasChargerState()) {
           if (!getChargerState().isInitialized()) {
+            return false;
+          }
+        }
+        if (hasLaserState()) {
+          if (!getLaserState().isInitialized()) {
             return false;
           }
         }
@@ -990,20 +1058,12 @@ public final class UpdateOuterClass {
       private com.google.protobuf.SingleFieldBuilderV3<
           netGameNodeSDK.charger.Charger.ChargerState, netGameNodeSDK.charger.Charger.ChargerState.Builder, netGameNodeSDK.charger.Charger.ChargerStateOrBuilder> chargerStateBuilder_;
       /**
-       * <pre>
-       *laser.LaserState laser_state = 4;
-       * </pre>
-       *
        * <code>optional .netGameNodeSDK.charger.ChargerState charger_state = 3;</code>
        */
       public boolean hasChargerState() {
         return updateCase_ == 3;
       }
       /**
-       * <pre>
-       *laser.LaserState laser_state = 4;
-       * </pre>
-       *
        * <code>optional .netGameNodeSDK.charger.ChargerState charger_state = 3;</code>
        */
       public netGameNodeSDK.charger.Charger.ChargerState getChargerState() {
@@ -1020,10 +1080,6 @@ public final class UpdateOuterClass {
         }
       }
       /**
-       * <pre>
-       *laser.LaserState laser_state = 4;
-       * </pre>
-       *
        * <code>optional .netGameNodeSDK.charger.ChargerState charger_state = 3;</code>
        */
       public Builder setChargerState(netGameNodeSDK.charger.Charger.ChargerState value) {
@@ -1040,10 +1096,6 @@ public final class UpdateOuterClass {
         return this;
       }
       /**
-       * <pre>
-       *laser.LaserState laser_state = 4;
-       * </pre>
-       *
        * <code>optional .netGameNodeSDK.charger.ChargerState charger_state = 3;</code>
        */
       public Builder setChargerState(
@@ -1058,10 +1110,6 @@ public final class UpdateOuterClass {
         return this;
       }
       /**
-       * <pre>
-       *laser.LaserState laser_state = 4;
-       * </pre>
-       *
        * <code>optional .netGameNodeSDK.charger.ChargerState charger_state = 3;</code>
        */
       public Builder mergeChargerState(netGameNodeSDK.charger.Charger.ChargerState value) {
@@ -1084,10 +1132,6 @@ public final class UpdateOuterClass {
         return this;
       }
       /**
-       * <pre>
-       *laser.LaserState laser_state = 4;
-       * </pre>
-       *
        * <code>optional .netGameNodeSDK.charger.ChargerState charger_state = 3;</code>
        */
       public Builder clearChargerState() {
@@ -1107,20 +1151,12 @@ public final class UpdateOuterClass {
         return this;
       }
       /**
-       * <pre>
-       *laser.LaserState laser_state = 4;
-       * </pre>
-       *
        * <code>optional .netGameNodeSDK.charger.ChargerState charger_state = 3;</code>
        */
       public netGameNodeSDK.charger.Charger.ChargerState.Builder getChargerStateBuilder() {
         return getChargerStateFieldBuilder().getBuilder();
       }
       /**
-       * <pre>
-       *laser.LaserState laser_state = 4;
-       * </pre>
-       *
        * <code>optional .netGameNodeSDK.charger.ChargerState charger_state = 3;</code>
        */
       public netGameNodeSDK.charger.Charger.ChargerStateOrBuilder getChargerStateOrBuilder() {
@@ -1134,10 +1170,6 @@ public final class UpdateOuterClass {
         }
       }
       /**
-       * <pre>
-       *laser.LaserState laser_state = 4;
-       * </pre>
-       *
        * <code>optional .netGameNodeSDK.charger.ChargerState charger_state = 3;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
@@ -1157,6 +1189,142 @@ public final class UpdateOuterClass {
         updateCase_ = 3;
         onChanged();;
         return chargerStateBuilder_;
+      }
+
+      private com.google.protobuf.SingleFieldBuilderV3<
+          netGameNodeSDK.laser.Laser.LaserState, netGameNodeSDK.laser.Laser.LaserState.Builder, netGameNodeSDK.laser.Laser.LaserStateOrBuilder> laserStateBuilder_;
+      /**
+       * <code>optional .netGameNodeSDK.laser.LaserState laser_state = 4;</code>
+       */
+      public boolean hasLaserState() {
+        return updateCase_ == 4;
+      }
+      /**
+       * <code>optional .netGameNodeSDK.laser.LaserState laser_state = 4;</code>
+       */
+      public netGameNodeSDK.laser.Laser.LaserState getLaserState() {
+        if (laserStateBuilder_ == null) {
+          if (updateCase_ == 4) {
+            return (netGameNodeSDK.laser.Laser.LaserState) update_;
+          }
+          return netGameNodeSDK.laser.Laser.LaserState.getDefaultInstance();
+        } else {
+          if (updateCase_ == 4) {
+            return laserStateBuilder_.getMessage();
+          }
+          return netGameNodeSDK.laser.Laser.LaserState.getDefaultInstance();
+        }
+      }
+      /**
+       * <code>optional .netGameNodeSDK.laser.LaserState laser_state = 4;</code>
+       */
+      public Builder setLaserState(netGameNodeSDK.laser.Laser.LaserState value) {
+        if (laserStateBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          update_ = value;
+          onChanged();
+        } else {
+          laserStateBuilder_.setMessage(value);
+        }
+        updateCase_ = 4;
+        return this;
+      }
+      /**
+       * <code>optional .netGameNodeSDK.laser.LaserState laser_state = 4;</code>
+       */
+      public Builder setLaserState(
+          netGameNodeSDK.laser.Laser.LaserState.Builder builderForValue) {
+        if (laserStateBuilder_ == null) {
+          update_ = builderForValue.build();
+          onChanged();
+        } else {
+          laserStateBuilder_.setMessage(builderForValue.build());
+        }
+        updateCase_ = 4;
+        return this;
+      }
+      /**
+       * <code>optional .netGameNodeSDK.laser.LaserState laser_state = 4;</code>
+       */
+      public Builder mergeLaserState(netGameNodeSDK.laser.Laser.LaserState value) {
+        if (laserStateBuilder_ == null) {
+          if (updateCase_ == 4 &&
+              update_ != netGameNodeSDK.laser.Laser.LaserState.getDefaultInstance()) {
+            update_ = netGameNodeSDK.laser.Laser.LaserState.newBuilder((netGameNodeSDK.laser.Laser.LaserState) update_)
+                .mergeFrom(value).buildPartial();
+          } else {
+            update_ = value;
+          }
+          onChanged();
+        } else {
+          if (updateCase_ == 4) {
+            laserStateBuilder_.mergeFrom(value);
+          }
+          laserStateBuilder_.setMessage(value);
+        }
+        updateCase_ = 4;
+        return this;
+      }
+      /**
+       * <code>optional .netGameNodeSDK.laser.LaserState laser_state = 4;</code>
+       */
+      public Builder clearLaserState() {
+        if (laserStateBuilder_ == null) {
+          if (updateCase_ == 4) {
+            updateCase_ = 0;
+            update_ = null;
+            onChanged();
+          }
+        } else {
+          if (updateCase_ == 4) {
+            updateCase_ = 0;
+            update_ = null;
+          }
+          laserStateBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>optional .netGameNodeSDK.laser.LaserState laser_state = 4;</code>
+       */
+      public netGameNodeSDK.laser.Laser.LaserState.Builder getLaserStateBuilder() {
+        return getLaserStateFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>optional .netGameNodeSDK.laser.LaserState laser_state = 4;</code>
+       */
+      public netGameNodeSDK.laser.Laser.LaserStateOrBuilder getLaserStateOrBuilder() {
+        if ((updateCase_ == 4) && (laserStateBuilder_ != null)) {
+          return laserStateBuilder_.getMessageOrBuilder();
+        } else {
+          if (updateCase_ == 4) {
+            return (netGameNodeSDK.laser.Laser.LaserState) update_;
+          }
+          return netGameNodeSDK.laser.Laser.LaserState.getDefaultInstance();
+        }
+      }
+      /**
+       * <code>optional .netGameNodeSDK.laser.LaserState laser_state = 4;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          netGameNodeSDK.laser.Laser.LaserState, netGameNodeSDK.laser.Laser.LaserState.Builder, netGameNodeSDK.laser.Laser.LaserStateOrBuilder> 
+          getLaserStateFieldBuilder() {
+        if (laserStateBuilder_ == null) {
+          if (!(updateCase_ == 4)) {
+            update_ = netGameNodeSDK.laser.Laser.LaserState.getDefaultInstance();
+          }
+          laserStateBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              netGameNodeSDK.laser.Laser.LaserState, netGameNodeSDK.laser.Laser.LaserState.Builder, netGameNodeSDK.laser.Laser.LaserStateOrBuilder>(
+                  (netGameNodeSDK.laser.Laser.LaserState) update_,
+                  getParentForChildren(),
+                  isClean());
+          update_ = null;
+        }
+        updateCase_ = 4;
+        onChanged();;
+        return laserStateBuilder_;
       }
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -1982,13 +2150,15 @@ public final class UpdateOuterClass {
     java.lang.String[] descriptorData = {
       "\n\014update.proto\022\025netGameNodeSDK.update\032\014p" +
       "layer.proto\032\014mirror.proto\032\rcharger.proto" +
-      "\"\311\001\n\006Update\022:\n\014player_state\030\001 \001(\0132\".netG" +
-      "ameNodeSDK.player.PlayerStateH\000\022:\n\014mirro" +
-      "r_state\030\002 \001(\0132\".netGameNodeSDK.mirror.Mi" +
-      "rrorStateH\000\022=\n\rcharger_state\030\003 \001(\0132$.net" +
-      "GameNodeSDK.charger.ChargerStateH\000B\010\n\006up" +
-      "date\"9\n\007Updates\022.\n\007updates\030\001 \003(\0132\035.netGa" +
-      "meNodeSDK.update.Update"
+      "\032\013laser.proto\"\202\002\n\006Update\022:\n\014player_state" +
+      "\030\001 \001(\0132\".netGameNodeSDK.player.PlayerSta" +
+      "teH\000\022:\n\014mirror_state\030\002 \001(\0132\".netGameNode" +
+      "SDK.mirror.MirrorStateH\000\022=\n\rcharger_stat" +
+      "e\030\003 \001(\0132$.netGameNodeSDK.charger.Charger" +
+      "StateH\000\0227\n\013laser_state\030\004 \001(\0132 .netGameNo" +
+      "deSDK.laser.LaserStateH\000B\010\n\006update\"9\n\007Up" +
+      "dates\022.\n\007updates\030\001 \003(\0132\035.netGameNodeSDK.",
+      "update.Update"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -2004,13 +2174,14 @@ public final class UpdateOuterClass {
           netGameNodeSDK.player.Player.getDescriptor(),
           netGameNodeSDK.mirror.Mirror.getDescriptor(),
           netGameNodeSDK.charger.Charger.getDescriptor(),
+          netGameNodeSDK.laser.Laser.getDescriptor(),
         }, assigner);
     internal_static_netGameNodeSDK_update_Update_descriptor =
       getDescriptor().getMessageTypes().get(0);
     internal_static_netGameNodeSDK_update_Update_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_netGameNodeSDK_update_Update_descriptor,
-        new java.lang.String[] { "PlayerState", "MirrorState", "ChargerState", "Update", });
+        new java.lang.String[] { "PlayerState", "MirrorState", "ChargerState", "LaserState", "Update", });
     internal_static_netGameNodeSDK_update_Updates_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_netGameNodeSDK_update_Updates_fieldAccessorTable = new
@@ -2020,6 +2191,7 @@ public final class UpdateOuterClass {
     netGameNodeSDK.player.Player.getDescriptor();
     netGameNodeSDK.mirror.Mirror.getDescriptor();
     netGameNodeSDK.charger.Charger.getDescriptor();
+    netGameNodeSDK.laser.Laser.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

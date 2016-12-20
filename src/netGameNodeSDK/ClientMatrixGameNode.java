@@ -16,6 +16,7 @@ import java.util.Map;
 import java.util.Optional;
 
 import com.google.protobuf.InvalidProtocolBufferException;
+import com.sun.org.apache.bcel.internal.generic.NEW;
 
 import gameEngine.AnimationPlayer;
 import gameEngine.FunctionTriggerAnimation;
@@ -30,6 +31,7 @@ import netGameNodeSDK.handshake.Handshake.ClientHandshake;
 import netGameNodeSDK.handshake.Handshake.ServerHandshake;
 import netGameNodeSDK.input.InputOuterClass.Input;
 import netGameNodeSDK.input.InputOuterClass.Inputs;
+import netGameNodeSDK.laser.Laser.LaserState;
 import netGameNodeSDK.mirror.Mirror.MirrorState;
 import netGameNodeSDK.player.Player.PlayerState;
 import netGameNodeSDK.update.UpdateOuterClass.Update;
@@ -47,11 +49,11 @@ public class ClientMatrixGameNode extends GameNode {
 	private Map<Integer, PlayerNetGameNode> players = new HashMap<>();
 	private Map<Integer, MirrorNetGameNode> mirrors = new HashMap<>();
 	private Map<Integer, ChargerNetGameNode> chargers = new HashMap<>();
+	private Map<Integer, LaserEmiterNetGameNode> lasers= new HashMap<>();
 
 	private int controllingPlayerId;
 
 	private LayerGameNode rootLayer;
-
 
 	public ClientMatrixGameNode(Socket serverSocket) {
 		rootLayer = new LayerGameNode();
@@ -77,8 +79,7 @@ public class ClientMatrixGameNode extends GameNode {
 
 	@Override
 	public void update(long elapse) {
-		synchronized (updateQueue)
-		{
+		synchronized (updateQueue) {
 			updateQueue.forEach(update -> {
 				switch (update.getUpdateCase()) {
 				case PLAYER_STATE:
@@ -92,7 +93,10 @@ public class ClientMatrixGameNode extends GameNode {
 				case CHARGER_STATE:
 					addOrUpdateCharger(update.getChargerState());
 					break;
-
+					
+				case LASER_STATE:
+					addOrUpdateLaser(update.getLaserState());
+					break;
 				case UPDATE_NOT_SET:
 					break;
 				}
@@ -157,6 +161,22 @@ public class ClientMatrixGameNode extends GameNode {
 		}
 
 		player.clientHandleServerUpdate(playerState);
+	}
+
+	private void addOrUpdateLaser(LaserState laserState) {
+		int laserId = laserState.getId();
+
+		LaserEmiterNetGameNode laser = lasers.get(laserId);
+		if (laser == null) {
+			laser = new LaserEmiterNetGameNode(laserId);
+			laser.clientInitialize(Game.currentScene());
+
+			lasers.put(laserId, laser);
+
+			rootLayer.addChild(laser);
+		}
+
+		laser.clientHandleServerUpdate(laserState);
 	}
 
 	@Override
@@ -239,10 +259,7 @@ public class ClientMatrixGameNode extends GameNode {
 			return;
 		}
 
-		byte[] data = Inputs.newBuilder()
-				.setClientId(controllingPlayerId)
-				.addAllInputs(inputQueue)
-				.build()
+		byte[] data = Inputs.newBuilder().setClientId(controllingPlayerId).addAllInputs(inputQueue).build()
 				.toByteArray();
 
 		commandPacket.setData(data);
@@ -257,10 +274,7 @@ public class ClientMatrixGameNode extends GameNode {
 		OutputStream out = serverSocket.getOutputStream();
 
 		// I. Sending ClientHandshake to server
-		ClientHandshake.newBuilder()
-				.setUpdatePort(updateInputSocket.getLocalPort())
-				.build()
-				.writeDelimitedTo(out);
+		ClientHandshake.newBuilder().setUpdatePort(updateInputSocket.getLocalPort()).build().writeDelimitedTo(out);
 
 		// II. Receive server's port which sending commands to client
 		ServerHandshake serverHandshake = ServerHandshake.parseDelimitedFrom(in);

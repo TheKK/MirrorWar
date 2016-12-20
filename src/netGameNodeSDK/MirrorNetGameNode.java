@@ -44,7 +44,9 @@ public class MirrorNetGameNode extends NetGameNode<MirrorState, Void> {
 		geometry.x = x;
 		geometry.y = y;
 	}
-
+	public MirrorState.Direction getDirection() {
+		return direction;
+	}
 	@Override
 	protected void clientInitialize(GameScene scene) {
 		clientMirrorImage = new RectangleGameNode(0, 0, 50, 50, Color.BROWN);

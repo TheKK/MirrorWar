@@ -28,6 +28,7 @@ import netGameNodeSDK.charger.Charger.ChargerState;
 import netGameNodeSDK.handshake.Handshake.ClientHandshake;
 import netGameNodeSDK.handshake.Handshake.ServerHandshake;
 import netGameNodeSDK.input.InputOuterClass.Inputs;
+import netGameNodeSDK.laser.Laser.LaserState;
 import netGameNodeSDK.mirror.Mirror.MirrorState;
 import netGameNodeSDK.player.Player.PlayerState;
 import netGameNodeSDK.update.UpdateOuterClass.Update;
@@ -42,6 +43,7 @@ public class ServerMatrixGameNode extends GameNode {
 	private Map<Integer, PlayerNetGameNode> players = Collections.synchronizedMap(new HashMap<>());
 	private Map<Integer, MirrorNetGameNode> mirrors = Collections.synchronizedMap(new HashMap<>());
 	private Map<Integer, ChargerNetGameNode> chargers = Collections.synchronizedMap(new HashMap<>());
+	private Map<Integer, LaserEmiterNetGameNode> laserEmiters = Collections.synchronizedMap(new HashMap<>());
 
 	private DatagramSocket commandInputSocket;
 	private DatagramPacket commandPacket;
@@ -59,7 +61,8 @@ public class ServerMatrixGameNode extends GameNode {
 
 		randomlyAddMirrorToGame();
 		randomlyAddChargerToGame();
-
+		radomAddLaser();
+		
 		RectangleGameNode wall = new RectangleGameNode(100, 100, 9000, 30, Color.PURPLE);
 		Game.currentScene().physicEngine.addStaticNode(wall);
 	}
@@ -84,6 +87,14 @@ public class ServerMatrixGameNode extends GameNode {
 
 			mirrors.put(id, newMirror);
 		}
+	}
+
+	private void radomAddLaser() {
+		int id=getUniqueObjectId();
+		LaserEmiterNetGameNode laserEmiter = new LaserEmiterNetGameNode(id);
+		
+		addChild(laserEmiter);
+		laserEmiters.put(id,laserEmiter);
 	}
 
 	private void randomlyAddChargerToGame() {
@@ -120,7 +131,7 @@ public class ServerMatrixGameNode extends GameNode {
 	}
 
 	private void gameChargePlayer2() {
-		//FIXME
+		// FIXME
 		System.out.println("Player 2 is charged");
 	}
 
@@ -138,15 +149,13 @@ public class ServerMatrixGameNode extends GameNode {
 	}
 
 	private void setupWaitsForPlayerService() {
-		Thread waitsForPlayerThread =
-				new Thread(this::waitsForPlayerRoutine, "waitsForPlayerRoutine");
+		Thread waitsForPlayerThread = new Thread(this::waitsForPlayerRoutine, "waitsForPlayerRoutine");
 		waitsForPlayerThread.setDaemon(true);
 		waitsForPlayerThread.start();
 	}
 
 	private void setupWaitsForCommandsService() {
-		Thread waitsForCommandsThread =
-				new Thread(this::waitForCommandsRoutin, "waitForCommandsRoutin");
+		Thread waitsForCommandsThread = new Thread(this::waitForCommandsRoutin, "waitForCommandsRoutin");
 		waitsForCommandsThread.setDaemon(true);
 		waitsForCommandsThread.start();
 	}
@@ -192,10 +201,7 @@ public class ServerMatrixGameNode extends GameNode {
 		ClientHandshake clientHandshake = ClientHandshake.parseDelimitedFrom(in);
 
 		// II. Send server's port which accepting client's commands
-		ServerHandshake.newBuilder()
-				.setCommandPort(commandInputSocket.getLocalPort())
-				.setClientId(clientId)
-				.build()
+		ServerHandshake.newBuilder().setCommandPort(commandInputSocket.getLocalPort()).setClientId(clientId).build()
 				.writeDelimitedTo(out);
 
 		return clientHandshake;
@@ -210,7 +216,8 @@ public class ServerMatrixGameNode extends GameNode {
 			while (true) {
 				Socket newClientSocket = serverSocket.accept();
 
-				// TODO Consider creating worker threads to do this asynchornously
+				// TODO Consider creating worker threads to do this
+				// asynchornously
 				new Thread(() -> {
 					int clientId = getUniqueObjectId();
 
@@ -228,8 +235,7 @@ public class ServerMatrixGameNode extends GameNode {
 						return;
 					}
 
-					InetSocketAddress newClientUpdateAddr = new InetSocketAddress(
-							newClientSocket.getInetAddress(),
+					InetSocketAddress newClientUpdateAddr = new InetSocketAddress(newClientSocket.getInetAddress(),
 							clientHandshake.getUpdatePort());
 
 					addNewClient(newClientUpdateAddr, clientId);
@@ -256,8 +262,7 @@ public class ServerMatrixGameNode extends GameNode {
 				Platform.exit();
 			}
 
-			byte[] data =
-					Arrays.copyOf(commandPacket.getData(), commandPacket.getLength());
+			byte[] data = Arrays.copyOf(commandPacket.getData(), commandPacket.getLength());
 
 			Inputs inputs;
 
@@ -288,27 +293,33 @@ public class ServerMatrixGameNode extends GameNode {
 
 		players.forEach((playerId, player) -> {
 			PlayerState playerState = player.getStates();
-			Update.Builder update = Update.newBuilder()
-					.setPlayerState(playerState);
+			Update.Builder update = Update.newBuilder().setPlayerState(playerState);
 
 			updatesBuilder.addUpdates(update);
 		});
 
 		mirrors.forEach((mirrorId, mirror) -> {
 			MirrorState mirrorState = mirror.getStates();
-			Update.Builder update = Update.newBuilder()
-					.setMirrorState(mirrorState);
+			Update.Builder update = Update.newBuilder().setMirrorState(mirrorState);
 
 			updatesBuilder.addUpdates(update);
 		});
 
 		chargers.forEach((chargerId, charger) -> {
 			ChargerState chargerState = charger.getStates();
-			Update.Builder update = Update.newBuilder()
-					.setChargerState(chargerState);
+			Update.Builder update = Update.newBuilder().setChargerState(chargerState);
 
 			updatesBuilder.addUpdates(update);
 		});
+		
+		laserEmiters.forEach((laserEmitersId, laserEmiters) -> {
+			LaserState laserState = laserEmiters.getStates();
+			Update.Builder update = Update.newBuilder().setLaserState(laserState);
+		
+			updatesBuilder.addUpdates(update);
+		});		
+		
+		
 
 		playerIPMap.forEach((playerNode, playerIP) -> {
 			byte[] data = updatesBuilder.build().toByteArray();
