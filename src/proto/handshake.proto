@@ -1,0 +1,12 @@
+syntax = "proto2";
+
+package testbed.handshake;
+
+message ClientHandshake {
+    required uint32 updatePort = 1;
+}
+
+message ServerHandshake {
+    required int32 clientId = 1;
+    required uint32 commandPort = 2;
+}

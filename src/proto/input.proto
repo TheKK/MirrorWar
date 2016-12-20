@@ -1,0 +1,17 @@
+syntax = "proto2";
+
+package netGameNodeSDK.input;
+
+import "key.proto";
+
+message Input {
+    oneof input {
+        key.Key key = 1;
+    }
+}
+
+message Inputs {
+    required int32 clientId = 1;
+
+    repeated Input inputs = 2;
+}

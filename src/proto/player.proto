@@ -1,0 +1,32 @@
+syntax = "proto2";
+
+package netGameNodeSDK.player;
+
+message PlayerState {
+    enum Animation {
+        STANDING = 1;
+        WALKING = 2;
+        RUNNING = 3;
+    }
+
+    enum Facing {
+        LEFT = 1;
+        RIGHT = 2;
+    }
+
+    enum Color {
+        RED = 1;
+        BLUE = 2;
+        ORANGE = 3;
+    }
+
+    required uint32 id = 1;
+
+    required Color color = 2;
+
+    required double x = 3;
+    required double y = 4;
+
+    required Animation animation = 5;
+    required Facing facing = 6;
+}

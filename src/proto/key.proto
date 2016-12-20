@@ -1,0 +1,32 @@
+syntax = "proto2";
+
+package netGameNodeSDK.key;
+
+enum KeyType {
+    MOVE_UP = 1;
+    MOVE_DOWN = 2;
+    MOVE_LEFT = 3;
+    MOVE_RIGHT = 4;
+
+    SPIN_MIRROR = 5;
+    PICK_MIRROR = 6;
+
+    PICK_ITEM = 7;
+
+    SECRET = 8;
+}
+
+message KeyUp {
+    required KeyType key_type = 1;
+}
+
+message KeyDown {
+    required KeyType key_type = 1;
+}
+
+message Key {
+    oneof key {
+        KeyUp key_up = 1;
+        KeyDown key_down = 2;
+    }
+}

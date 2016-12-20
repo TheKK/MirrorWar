@@ -1,0 +1,19 @@
+syntax = "proto2";
+
+package netGameNodeSDK.mirror;
+
+message MirrorState {
+    enum Direction {
+        SLASH = 1;
+        BACK_SLACK = 2;
+    }
+
+    required uint32 id = 1;
+
+    required double x = 2;
+    required double y = 3;
+
+    required bool picked = 4;
+
+    required Direction direction = 5;
+}

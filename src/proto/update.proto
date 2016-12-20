@@ -1,0 +1,19 @@
+syntax = "proto2";
+
+package netGameNodeSDK.update;
+
+import "player.proto";
+import "mirror.proto";
+import "charger.proto";
+
+message Update {
+    oneof update {
+        player.PlayerState player_state = 1;
+        mirror.MirrorState mirror_state = 2;
+        charger.ChargerState charger_state = 3;
+    }
+}
+
+message Updates {
+    repeated Update updates = 1;
+}
