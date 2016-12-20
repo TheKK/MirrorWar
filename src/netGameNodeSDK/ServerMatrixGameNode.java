@@ -34,15 +34,11 @@ import netGameNodeSDK.update.UpdateOuterClass.Update;
 import netGameNodeSDK.update.UpdateOuterClass.Updates;
 
 public class ServerMatrixGameNode extends GameNode {
-	private class Client {
-		public InetSocketAddress updateAddr;
-		public PlayerNetGameNode node;
-	}
-
 	private int objectId = 0;
 
 	private ServerSocket serverSocket;
-	private Map<Integer, Client> clients = Collections.synchronizedMap(new HashMap<>());
+	private Map<Integer, PlayerNetGameNode> players = Collections.synchronizedMap(new HashMap<>());
+	private Map<PlayerNetGameNode, InetSocketAddress> playerIPMap = Collections.synchronizedMap(new HashMap<>());
 	private Map<Integer, MirrorNetGameNode> mirrors = Collections.synchronizedMap(new HashMap<>());
 	private Map<Integer, ChargerNetGameNode> chargers = Collections.synchronizedMap(new HashMap<>());
 
@@ -183,11 +179,8 @@ public class ServerMatrixGameNode extends GameNode {
 
 		addChild(playerNode);
 
-		Client newClient = new Client();
-		newClient.updateAddr = clientUpdateAddr;
-		newClient.node = playerNode;
-
-		clients.put(clientId, newClient);
+		players.put(clientId, playerNode);
+		playerIPMap.put(playerNode, clientUpdateAddr);
 	};
 
 	private ClientHandshake handshakeWithClient(Socket socket, int clientId) throws IOException {
@@ -277,8 +270,8 @@ public class ServerMatrixGameNode extends GameNode {
 				continue;
 			}
 
-			Client client = clients.get(inputs.getClientId());
-			if (client == null) {
+			PlayerNetGameNode player = players.get(inputs.getClientId());
+			if (player == null) {
 				System.out.println("Get commands from unknow client, are we hacked!?");
 				System.out.println("clientId: " + inputs.getClientId());
 				System.out.println("ip address: " + commandPacket.getSocketAddress());
@@ -286,15 +279,15 @@ public class ServerMatrixGameNode extends GameNode {
 				continue;
 			}
 
-			client.node.inputQueue.addAll(inputs.getInputsList());
+			player.inputQueue.addAll(inputs.getInputsList());
 		}
 	};
 
 	private void boardcastGameWorldStateRoutine() {
 		Updates.Builder updatesBuilder = Updates.newBuilder();
 
-		clients.forEach((clientId, client) -> {
-			PlayerState playerState = client.node.getStates();
+		players.forEach((playerId, player) -> {
+			PlayerState playerState = player.getStates();
 			Update.Builder update = Update.newBuilder()
 					.setPlayerState(playerState);
 
@@ -317,9 +310,9 @@ public class ServerMatrixGameNode extends GameNode {
 			updatesBuilder.addUpdates(update);
 		});
 
-		clients.forEach((clientId, client) -> {
+		playerIPMap.forEach((playerNode, playerIP) -> {
 			byte[] data = updatesBuilder.build().toByteArray();
-			updatePacket.setSocketAddress(client.updateAddr);
+			updatePacket.setSocketAddress(playerIP);
 			updatePacket.setData(data);
 
 			try {
@@ -332,6 +325,5 @@ public class ServerMatrixGameNode extends GameNode {
 				return;
 			}
 		});
-
 	}
 }
