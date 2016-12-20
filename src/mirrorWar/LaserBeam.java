@@ -21,11 +21,13 @@ public final class LaserBeam extends GameNode {
 		}
 	}
 
-	private GameNode laserAnimation;
+	private GameNode laserHeadNode, laserBodyNode, laserTailNode;
 	private List<LaserBeamInfo> laserBeams;
 
-	public LaserBeam(GameNode laserAnimation) {
-		this.laserAnimation = laserAnimation;
+	public LaserBeam(GameNode laserStartNode, GameNode laserBodyNode, GameNode laserTailNode) {
+		this.laserHeadNode = laserStartNode;
+		this.laserBodyNode = laserBodyNode;
+		this.laserTailNode = laserTailNode;
 	}
 
 	public void setLaserBeamPositions(List<LaserBeamInfo> laserBeams) {
@@ -34,7 +36,9 @@ public final class LaserBeam extends GameNode {
 
 	@Override
 	public void update(long elapse) {
-		laserAnimation.update(elapse);
+		laserHeadNode.update(elapse);
+		laserBodyNode.update(elapse);
+		laserTailNode.update(elapse);
 	}
 
 	@Override
@@ -43,78 +47,132 @@ public final class LaserBeam extends GameNode {
 			// Use rotate to make this happens
 			switch (beam.direction) {
 			case LEFT: {
-				laserAnimation.geometry.width = beam.beamBody.height;
-				laserAnimation.geometry.height = beam.beamBody.height;
-				laserAnimation.geometry.x = beam.beamBody.getMaxX() - laserAnimation.geometry.width;
-				laserAnimation.geometry.y = beam.beamBody.y;
+				double laserWidth = beam.beamBody.height;
 
-				double curX = laserAnimation.geometry.x;
-				double targetX = beam.beamBody.getMinX();
+				this.setLaserTileGeometry(
+						beam.beamBody.getMaxX() - beam.beamBody.height,
+						beam.beamBody.y,
+						laserWidth,
+						laserWidth);
 
+				double curX = laserHeadNode.geometry.x;
+				double targetX = beam.beamBody.getMinX() + laserWidth * 2;
+
+				// Head
+				laserHeadNode.geometry.x = curX;
+				laserHeadNode.render(gc);
+
+				// Body
 				while (curX > targetX) {
-					laserAnimation.render(gc);
+					curX -= laserWidth;
 
-					curX -= laserAnimation.geometry.width;
-					laserAnimation.geometry.x = curX;
+					laserBodyNode.geometry.x = curX;
+					laserBodyNode.render(gc);
 				}
+
+				// Tail
+				laserTailNode.geometry.x = curX;
+				laserTailNode.render(gc);
 			}
 				break;
 
 			case RIGHT: {
-				laserAnimation.geometry.width = beam.beamBody.height;
-				laserAnimation.geometry.height = beam.beamBody.height;
-				laserAnimation.geometry.x = beam.beamBody.x;
-				laserAnimation.geometry.y = beam.beamBody.y;
+				double laserWidth = beam.beamBody.height;
 
-				double curX = laserAnimation.geometry.x;
-				double targetX = beam.beamBody.getMaxX() - laserAnimation.geometry.width;
+				this.setLaserTileGeometry(
+						beam.beamBody.x,
+						beam.beamBody.y,
+						laserWidth,
+						laserWidth);
 
+				double curX = laserHeadNode.geometry.x;
+				double targetX = beam.beamBody.getMaxX() - laserWidth * 2;
 
+				// Head
+				laserHeadNode.geometry.x = curX;
+				laserHeadNode.render(gc);
+
+				// Body
 				while (curX < targetX) {
-					laserAnimation.render(gc);
+					curX += laserWidth;
 
-					curX += laserAnimation.geometry.width;
-					laserAnimation.geometry.x = curX;
+					laserBodyNode.geometry.x = curX;
+					laserBodyNode.render(gc);
 				}
+
+				// Tail
+				laserTailNode.geometry.x = curX;
+				laserTailNode.render(gc);
 			}
 				break;
 
 			case DOWN: {
-				laserAnimation.geometry.width = beam.beamBody.width;
-				laserAnimation.geometry.height = beam.beamBody.width;
-				laserAnimation.geometry.x = beam.beamBody.x;
-				laserAnimation.geometry.y = beam.beamBody.y;
+				double laserHeight = beam.beamBody.width;
 
-				double curY = laserAnimation.geometry.y;
-				double targetY = beam.beamBody.getMaxY() - laserAnimation.geometry.height;
+				this.setLaserTileGeometry(
+						beam.beamBody.x,
+						beam.beamBody.y,
+						laserHeight,
+						laserHeight);
 
+				double curY = laserHeadNode.geometry.y;
+				double targetY = beam.beamBody.getMaxY() - laserHeight * 2;
+
+				// Head
+				laserHeadNode.geometry.y = curY;
+				laserHeadNode.render(gc);
+
+				// Body
 				while (curY < targetY) {
-					laserAnimation.render(gc);
+					curY += laserHeight;
 
-					curY += laserAnimation.geometry.height;
-					laserAnimation.geometry.y = curY;
+					laserBodyNode.geometry.y = curY;
+					laserBodyNode.render(gc);
 				}
+
+				// Tail
+				laserTailNode.geometry.y = curY;
+				laserTailNode.render(gc);
 			}
 				break;
 
 			case UP: {
-				laserAnimation.geometry.width = beam.beamBody.width;
-				laserAnimation.geometry.height = beam.beamBody.width;
-				laserAnimation.geometry.x = beam.beamBody.x;
-				laserAnimation.geometry.y = beam.beamBody.getMaxY() - laserAnimation.geometry.height;
+				double laserHeight = beam.beamBody.width;
 
-				double curY = laserAnimation.geometry.y;
-				double targetY = beam.beamBody.getMinY();
+				this.setLaserTileGeometry(
+						beam.beamBody.x,
+						beam.beamBody.getMaxY() - laserHeight,
+						laserHeight,
+						laserHeight);
 
+				double curY = laserHeadNode.geometry.y;
+				double targetY = beam.beamBody.getMinY() + laserHeight * 2;
+
+				// Head
+				laserHeadNode.geometry.y = curY;
+				laserHeadNode.render(gc);
+
+				// Body
 				while (curY > targetY) {
-					laserAnimation.render(gc);
+					curY -= laserHeight;
 
-					curY -= laserAnimation.geometry.height;
-					laserAnimation.geometry.y = curY;
+					laserBodyNode.geometry.y = curY;
+					laserBodyNode.render(gc);
 				}
+
+				// Tail
+				laserTailNode.geometry.y = curY;
+				laserTailNode.render(gc);
 			}
 				break;
 			}
 		});
+	}
+
+	private void setLaserTileGeometry(double x, double y, double width, double height) {
+		laserHeadNode.geometry.x = laserBodyNode.geometry.x = laserTailNode.geometry.x = x;
+		laserHeadNode.geometry.y = laserBodyNode.geometry.y = laserTailNode.geometry.y = y;
+		laserHeadNode.geometry.width = laserBodyNode.geometry.width = laserTailNode.geometry.width = width;
+		laserHeadNode.geometry.height = laserBodyNode.geometry.height = laserTailNode.geometry.height = height;
 	}
 }
