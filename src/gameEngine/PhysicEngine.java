@@ -3,6 +3,8 @@ package gameEngine;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
@@ -60,6 +62,12 @@ public final class PhysicEngine {
 		areaNodes.remove(node);
 	}
 
+	public final Set<GameNode> getStaticNodesInArea(Rectangle2D.Double sensorArea) {
+		return staticNodes.stream()
+			.filter(node -> node.geometryInGameWorld().get().contains(sensorArea))
+			.collect(Collectors.toSet());
+	}
+
 	public final void updateVelocity(long elapse) {
 		dynamicNodes.forEach(node -> {
 			node.ax = (node.fx / node.mass + worldGravityX);
@@ -75,6 +83,7 @@ public final class PhysicEngine {
 			node.vy = (node.vy * node.dampY) + (node.ay * elapse);
 		});
 	}
+
 	public final void updatePosition(long elapse) {
 		dynamicNodes.forEach(node -> {
 			node.geometry.x += node.vx * elapse;
