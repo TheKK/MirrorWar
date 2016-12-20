@@ -14,6 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+
 import com.google.protobuf.InvalidProtocolBufferException;
 
 import gameEngine.AnimationPlayer;
@@ -29,14 +30,11 @@ import mirrorWar.handshake.Handshake.ClientHandshake;
 import mirrorWar.handshake.Handshake.ServerHandshake;
 import mirrorWar.input.InputOuterClass.Input;
 import mirrorWar.input.InputOuterClass.Inputs;
+import mirrorWar.laser.Laser.LaserState;
 import mirrorWar.mirror.Mirror.MirrorState;
 import mirrorWar.player.Player.PlayerState;
 import mirrorWar.update.UpdateOuterClass.Update;
 import mirrorWar.update.UpdateOuterClass.Updates;
-import netGameNodeSDK.ChargerNetGameNode;
-import netGameNodeSDK.GameReportNetGameNode;
-import netGameNodeSDK.MirrorNetGameNode;
-import netGameNodeSDK.PlayerNetGameNode;
 
 public class ClientMatrixGameNode extends GameNode {
 	private DatagramSocket commandOutputSocket;
@@ -51,11 +49,11 @@ public class ClientMatrixGameNode extends GameNode {
 	private Map<Integer, MirrorNetGameNode> mirrors = new HashMap<>();
 	private Map<Integer, ChargerNetGameNode> chargers = new HashMap<>();
 	private GameReportNetGameNode gameReport;
+	private Map<Integer, LaserEmiterNetGameNode> lasers= new HashMap<>();
 
 	private int controllingPlayerId;
 
 	private LayerGameNode rootLayer;
-
 
 	public ClientMatrixGameNode(Socket serverSocket) {
 		rootLayer = new LayerGameNode();
@@ -73,7 +71,7 @@ public class ClientMatrixGameNode extends GameNode {
 			Platform.exit();
 			return;
 		}
-		
+
 		gameReport = new GameReportNetGameNode(controllingPlayerId) {
 			@Override
 			protected void beAttacked() {
@@ -89,8 +87,7 @@ public class ClientMatrixGameNode extends GameNode {
 
 	@Override
 	public void update(long elapse) {
-		synchronized (updateQueue)
-		{
+		synchronized (updateQueue) {
 			updateQueue.forEach(update -> {
 				switch (update.getUpdateCase()) {
 				case PLAYER_STATE:
@@ -104,10 +101,14 @@ public class ClientMatrixGameNode extends GameNode {
 				case CHARGER_STATE:
 					addOrUpdateCharger(update.getChargerState());
 					break;
-					
+
 				case GAME_REPORT_STATE:
 					gameReport.clientHandleServerUpdate(update.getGameReportState());
-					break;			
+					break;
+
+				case LASER_STATE:
+					addOrUpdateLaser(update.getLaserState());
+					break;
 
 				case UPDATE_NOT_SET:
 					break;
@@ -173,6 +174,22 @@ public class ClientMatrixGameNode extends GameNode {
 		}
 
 		player.clientHandleServerUpdate(playerState);
+	}
+
+	private void addOrUpdateLaser(LaserState laserState) {
+		int laserId = laserState.getId();
+
+		LaserEmiterNetGameNode laser = lasers.get(laserId);
+		if (laser == null) {
+			laser = new LaserEmiterNetGameNode(laserId);
+			laser.clientInitialize(Game.currentScene());
+
+			lasers.put(laserId, laser);
+
+			rootLayer.addChild(laser);
+		}
+
+		laser.clientHandleServerUpdate(laserState);
 	}
 
 	@Override
@@ -261,10 +278,7 @@ public class ClientMatrixGameNode extends GameNode {
 			return;
 		}
 
-		byte[] data = Inputs.newBuilder()
-				.setClientId(controllingPlayerId)
-				.addAllInputs(inputQueue)
-				.build()
+		byte[] data = Inputs.newBuilder().setClientId(controllingPlayerId).addAllInputs(inputQueue).build()
 				.toByteArray();
 
 		commandPacket.setData(data);
@@ -279,10 +293,7 @@ public class ClientMatrixGameNode extends GameNode {
 		OutputStream out = serverSocket.getOutputStream();
 
 		// I. Sending ClientHandshake to server
-		ClientHandshake.newBuilder()
-				.setUpdatePort(updateInputSocket.getLocalPort())
-				.build()
-				.writeDelimitedTo(out);
+		ClientHandshake.newBuilder().setUpdatePort(updateInputSocket.getLocalPort()).build().writeDelimitedTo(out);
 
 		// II. Receive server's port which sending commands to client
 		ServerHandshake serverHandshake = ServerHandshake.parseDelimitedFrom(in);
@@ -292,7 +303,7 @@ public class ClientMatrixGameNode extends GameNode {
 
 		return serverHandshake;
 	}
-	
+
 	public int getControllingId() {
 		return controllingPlayerId;
 	}

@@ -5,6 +5,7 @@ package mirrorWar.update;
 import "player.proto";
 import "mirror.proto";
 import "charger.proto";
+import "laser.proto";
 import "gameReport.proto";
 
 message Update {
@@ -12,7 +13,8 @@ message Update {
         player.PlayerState player_state = 1;
         mirror.MirrorState mirror_state = 2;
         charger.ChargerState charger_state = 3;
-        gameReport.Status game_report_state = 4;
+        laser.LaserState laser_state = 4;
+        gameReport.Status game_report_state = 5;
     }
 }
 

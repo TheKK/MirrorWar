@@ -15,7 +15,7 @@ public final class Charger {
         (com.google.protobuf.ExtensionRegistryLite) registry);
   }
   public interface ChargerStateOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:netGameNodeSDK.charger.ChargerState)
+      // @@protoc_insertion_point(interface_extends:mirrorWar.charger.ChargerState)
       com.google.protobuf.MessageOrBuilder {
 
     /**
@@ -46,20 +46,20 @@ public final class Charger {
     double getY();
 
     /**
-     * <code>required .netGameNodeSDK.charger.ChargerState.Animation animation = 4;</code>
+     * <code>required .mirrorWar.charger.ChargerState.Animation animation = 4;</code>
      */
     boolean hasAnimation();
     /**
-     * <code>required .netGameNodeSDK.charger.ChargerState.Animation animation = 4;</code>
+     * <code>required .mirrorWar.charger.ChargerState.Animation animation = 4;</code>
      */
     mirrorWar.charger.Charger.ChargerState.Animation getAnimation();
   }
   /**
-   * Protobuf type {@code netGameNodeSDK.charger.ChargerState}
+   * Protobuf type {@code mirrorWar.charger.ChargerState}
    */
   public  static final class ChargerState extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:netGameNodeSDK.charger.ChargerState)
+      // @@protoc_insertion_point(message_implements:mirrorWar.charger.ChargerState)
       ChargerStateOrBuilder {
     // Use ChargerState.newBuilder() to construct.
     private ChargerState(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
@@ -140,18 +140,18 @@ public final class Charger {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return mirrorWar.charger.Charger.internal_static_netGameNodeSDK_charger_ChargerState_descriptor;
+      return mirrorWar.charger.Charger.internal_static_mirrorWar_charger_ChargerState_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return mirrorWar.charger.Charger.internal_static_netGameNodeSDK_charger_ChargerState_fieldAccessorTable
+      return mirrorWar.charger.Charger.internal_static_mirrorWar_charger_ChargerState_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               mirrorWar.charger.Charger.ChargerState.class, mirrorWar.charger.Charger.ChargerState.Builder.class);
     }
 
     /**
-     * Protobuf enum {@code netGameNodeSDK.charger.ChargerState.Animation}
+     * Protobuf enum {@code mirrorWar.charger.ChargerState.Animation}
      */
     public enum Animation
         implements com.google.protobuf.ProtocolMessageEnum {
@@ -237,7 +237,7 @@ public final class Charger {
         this.value = value;
       }
 
-      // @@protoc_insertion_point(enum_scope:netGameNodeSDK.charger.ChargerState.Animation)
+      // @@protoc_insertion_point(enum_scope:mirrorWar.charger.ChargerState.Animation)
     }
 
     private int bitField0_;
@@ -289,13 +289,13 @@ public final class Charger {
     public static final int ANIMATION_FIELD_NUMBER = 4;
     private int animation_;
     /**
-     * <code>required .netGameNodeSDK.charger.ChargerState.Animation animation = 4;</code>
+     * <code>required .mirrorWar.charger.ChargerState.Animation animation = 4;</code>
      */
     public boolean hasAnimation() {
       return ((bitField0_ & 0x00000008) == 0x00000008);
     }
     /**
-     * <code>required .netGameNodeSDK.charger.ChargerState.Animation animation = 4;</code>
+     * <code>required .mirrorWar.charger.ChargerState.Animation animation = 4;</code>
      */
     public mirrorWar.charger.Charger.ChargerState.Animation getAnimation() {
       mirrorWar.charger.Charger.ChargerState.Animation result = mirrorWar.charger.Charger.ChargerState.Animation.valueOf(animation_);
@@ -518,25 +518,25 @@ public final class Charger {
       return builder;
     }
     /**
-     * Protobuf type {@code netGameNodeSDK.charger.ChargerState}
+     * Protobuf type {@code mirrorWar.charger.ChargerState}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:netGameNodeSDK.charger.ChargerState)
+        // @@protoc_insertion_point(builder_implements:mirrorWar.charger.ChargerState)
         mirrorWar.charger.Charger.ChargerStateOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return mirrorWar.charger.Charger.internal_static_netGameNodeSDK_charger_ChargerState_descriptor;
+        return mirrorWar.charger.Charger.internal_static_mirrorWar_charger_ChargerState_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return mirrorWar.charger.Charger.internal_static_netGameNodeSDK_charger_ChargerState_fieldAccessorTable
+        return mirrorWar.charger.Charger.internal_static_mirrorWar_charger_ChargerState_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
                 mirrorWar.charger.Charger.ChargerState.class, mirrorWar.charger.Charger.ChargerState.Builder.class);
       }
 
-      // Construct using netGameNodeSDK.charger.Charger.ChargerState.newBuilder()
+      // Construct using mirrorWar.charger.Charger.ChargerState.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -566,7 +566,7 @@ public final class Charger {
 
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return mirrorWar.charger.Charger.internal_static_netGameNodeSDK_charger_ChargerState_descriptor;
+        return mirrorWar.charger.Charger.internal_static_mirrorWar_charger_ChargerState_descriptor;
       }
 
       public mirrorWar.charger.Charger.ChargerState getDefaultInstanceForType() {
@@ -793,20 +793,20 @@ public final class Charger {
 
       private int animation_ = 1;
       /**
-       * <code>required .netGameNodeSDK.charger.ChargerState.Animation animation = 4;</code>
+       * <code>required .mirrorWar.charger.ChargerState.Animation animation = 4;</code>
        */
       public boolean hasAnimation() {
         return ((bitField0_ & 0x00000008) == 0x00000008);
       }
       /**
-       * <code>required .netGameNodeSDK.charger.ChargerState.Animation animation = 4;</code>
+       * <code>required .mirrorWar.charger.ChargerState.Animation animation = 4;</code>
        */
       public mirrorWar.charger.Charger.ChargerState.Animation getAnimation() {
         mirrorWar.charger.Charger.ChargerState.Animation result = mirrorWar.charger.Charger.ChargerState.Animation.valueOf(animation_);
         return result == null ? mirrorWar.charger.Charger.ChargerState.Animation.IS_CHARGED : result;
       }
       /**
-       * <code>required .netGameNodeSDK.charger.ChargerState.Animation animation = 4;</code>
+       * <code>required .mirrorWar.charger.ChargerState.Animation animation = 4;</code>
        */
       public Builder setAnimation(mirrorWar.charger.Charger.ChargerState.Animation value) {
         if (value == null) {
@@ -818,7 +818,7 @@ public final class Charger {
         return this;
       }
       /**
-       * <code>required .netGameNodeSDK.charger.ChargerState.Animation animation = 4;</code>
+       * <code>required .mirrorWar.charger.ChargerState.Animation animation = 4;</code>
        */
       public Builder clearAnimation() {
         bitField0_ = (bitField0_ & ~0x00000008);
@@ -837,10 +837,10 @@ public final class Charger {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:netGameNodeSDK.charger.ChargerState)
+      // @@protoc_insertion_point(builder_scope:mirrorWar.charger.ChargerState)
     }
 
-    // @@protoc_insertion_point(class_scope:netGameNodeSDK.charger.ChargerState)
+    // @@protoc_insertion_point(class_scope:mirrorWar.charger.ChargerState)
     private static final mirrorWar.charger.Charger.ChargerState DEFAULT_INSTANCE;
     static {
       DEFAULT_INSTANCE = new mirrorWar.charger.Charger.ChargerState();
@@ -876,10 +876,10 @@ public final class Charger {
   }
 
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_netGameNodeSDK_charger_ChargerState_descriptor;
+    internal_static_mirrorWar_charger_ChargerState_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_netGameNodeSDK_charger_ChargerState_fieldAccessorTable;
+      internal_static_mirrorWar_charger_ChargerState_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -889,11 +889,11 @@ public final class Charger {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\rcharger.proto\022\026netGameNodeSDK.charger\"" +
-      "\234\001\n\014ChargerState\022\n\n\002id\030\001 \002(\r\022\t\n\001x\030\002 \002(\001\022" +
-      "\t\n\001y\030\003 \002(\001\022A\n\tanimation\030\004 \002(\0162..netGameN" +
-      "odeSDK.charger.ChargerState.Animation\"\'\n" +
-      "\tAnimation\022\016\n\nIS_CHARGED\020\001\022\n\n\006NORMAL\020\002"
+      "\n\rcharger.proto\022\021mirrorWar.charger\"\227\001\n\014C" +
+      "hargerState\022\n\n\002id\030\001 \002(\r\022\t\n\001x\030\002 \002(\001\022\t\n\001y\030" +
+      "\003 \002(\001\022<\n\tanimation\030\004 \002(\0162).mirrorWar.cha" +
+      "rger.ChargerState.Animation\"\'\n\tAnimation" +
+      "\022\016\n\nIS_CHARGED\020\001\022\n\n\006NORMAL\020\002"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -907,11 +907,11 @@ public final class Charger {
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
         }, assigner);
-    internal_static_netGameNodeSDK_charger_ChargerState_descriptor =
+    internal_static_mirrorWar_charger_ChargerState_descriptor =
       getDescriptor().getMessageTypes().get(0);
-    internal_static_netGameNodeSDK_charger_ChargerState_fieldAccessorTable = new
+    internal_static_mirrorWar_charger_ChargerState_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_netGameNodeSDK_charger_ChargerState_descriptor,
+        internal_static_mirrorWar_charger_ChargerState_descriptor,
         new java.lang.String[] { "Id", "X", "Y", "Animation", });
   }
 

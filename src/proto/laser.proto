@@ -1,0 +1,29 @@
+syntax = "proto2";
+
+package mirrorWar.laser;
+
+message LaserState {
+    enum Direction {
+        Up= 1;
+        Down = 2;
+        Left = 3;
+        Right = 4;
+    }
+
+    message Rect {
+        required double x = 1;
+        required double y = 2;
+        required double width = 3;
+        required double height = 4;
+
+        required Direction direc = 5;
+    }
+
+    required uint32 id = 1;
+
+    required double x = 2;
+    required double y = 3;
+
+    required Direction dir = 4;
+    repeated Rect rects = 5;
+}

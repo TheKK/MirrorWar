@@ -15,30 +15,30 @@ public final class InputOuterClass {
         (com.google.protobuf.ExtensionRegistryLite) registry);
   }
   public interface InputOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:netGameNodeSDK.input.Input)
+      // @@protoc_insertion_point(interface_extends:mirrorWar.input.Input)
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>optional .netGameNodeSDK.key.Key key = 1;</code>
+     * <code>optional .mirrorWar.key.Key key = 1;</code>
      */
     boolean hasKey();
     /**
-     * <code>optional .netGameNodeSDK.key.Key key = 1;</code>
+     * <code>optional .mirrorWar.key.Key key = 1;</code>
      */
     mirrorWar.key.KeyOuterClass.Key getKey();
     /**
-     * <code>optional .netGameNodeSDK.key.Key key = 1;</code>
+     * <code>optional .mirrorWar.key.Key key = 1;</code>
      */
     mirrorWar.key.KeyOuterClass.KeyOrBuilder getKeyOrBuilder();
 
     public mirrorWar.input.InputOuterClass.Input.InputCase getInputCase();
   }
   /**
-   * Protobuf type {@code netGameNodeSDK.input.Input}
+   * Protobuf type {@code mirrorWar.input.Input}
    */
   public  static final class Input extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:netGameNodeSDK.input.Input)
+      // @@protoc_insertion_point(message_implements:mirrorWar.input.Input)
       InputOrBuilder {
     // Use Input.newBuilder() to construct.
     private Input(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
@@ -103,12 +103,12 @@ public final class InputOuterClass {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return mirrorWar.input.InputOuterClass.internal_static_netGameNodeSDK_input_Input_descriptor;
+      return mirrorWar.input.InputOuterClass.internal_static_mirrorWar_input_Input_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return mirrorWar.input.InputOuterClass.internal_static_netGameNodeSDK_input_Input_fieldAccessorTable
+      return mirrorWar.input.InputOuterClass.internal_static_mirrorWar_input_Input_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               mirrorWar.input.InputOuterClass.Input.class, mirrorWar.input.InputOuterClass.Input.Builder.class);
     }
@@ -152,13 +152,13 @@ public final class InputOuterClass {
 
     public static final int KEY_FIELD_NUMBER = 1;
     /**
-     * <code>optional .netGameNodeSDK.key.Key key = 1;</code>
+     * <code>optional .mirrorWar.key.Key key = 1;</code>
      */
     public boolean hasKey() {
       return inputCase_ == 1;
     }
     /**
-     * <code>optional .netGameNodeSDK.key.Key key = 1;</code>
+     * <code>optional .mirrorWar.key.Key key = 1;</code>
      */
     public mirrorWar.key.KeyOuterClass.Key getKey() {
       if (inputCase_ == 1) {
@@ -167,7 +167,7 @@ public final class InputOuterClass {
       return mirrorWar.key.KeyOuterClass.Key.getDefaultInstance();
     }
     /**
-     * <code>optional .netGameNodeSDK.key.Key key = 1;</code>
+     * <code>optional .mirrorWar.key.Key key = 1;</code>
      */
     public mirrorWar.key.KeyOuterClass.KeyOrBuilder getKeyOrBuilder() {
       if (inputCase_ == 1) {
@@ -339,25 +339,25 @@ public final class InputOuterClass {
       return builder;
     }
     /**
-     * Protobuf type {@code netGameNodeSDK.input.Input}
+     * Protobuf type {@code mirrorWar.input.Input}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:netGameNodeSDK.input.Input)
+        // @@protoc_insertion_point(builder_implements:mirrorWar.input.Input)
         mirrorWar.input.InputOuterClass.InputOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return mirrorWar.input.InputOuterClass.internal_static_netGameNodeSDK_input_Input_descriptor;
+        return mirrorWar.input.InputOuterClass.internal_static_mirrorWar_input_Input_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return mirrorWar.input.InputOuterClass.internal_static_netGameNodeSDK_input_Input_fieldAccessorTable
+        return mirrorWar.input.InputOuterClass.internal_static_mirrorWar_input_Input_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
                 mirrorWar.input.InputOuterClass.Input.class, mirrorWar.input.InputOuterClass.Input.Builder.class);
       }
 
-      // Construct using netGameNodeSDK.input.InputOuterClass.Input.newBuilder()
+      // Construct using mirrorWar.input.InputOuterClass.Input.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -381,7 +381,7 @@ public final class InputOuterClass {
 
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return mirrorWar.input.InputOuterClass.internal_static_netGameNodeSDK_input_Input_descriptor;
+        return mirrorWar.input.InputOuterClass.internal_static_mirrorWar_input_Input_descriptor;
       }
 
       public mirrorWar.input.InputOuterClass.Input getDefaultInstanceForType() {
@@ -510,13 +510,13 @@ public final class InputOuterClass {
       private com.google.protobuf.SingleFieldBuilderV3<
           mirrorWar.key.KeyOuterClass.Key, mirrorWar.key.KeyOuterClass.Key.Builder, mirrorWar.key.KeyOuterClass.KeyOrBuilder> keyBuilder_;
       /**
-       * <code>optional .netGameNodeSDK.key.Key key = 1;</code>
+       * <code>optional .mirrorWar.key.Key key = 1;</code>
        */
       public boolean hasKey() {
         return inputCase_ == 1;
       }
       /**
-       * <code>optional .netGameNodeSDK.key.Key key = 1;</code>
+       * <code>optional .mirrorWar.key.Key key = 1;</code>
        */
       public mirrorWar.key.KeyOuterClass.Key getKey() {
         if (keyBuilder_ == null) {
@@ -532,7 +532,7 @@ public final class InputOuterClass {
         }
       }
       /**
-       * <code>optional .netGameNodeSDK.key.Key key = 1;</code>
+       * <code>optional .mirrorWar.key.Key key = 1;</code>
        */
       public Builder setKey(mirrorWar.key.KeyOuterClass.Key value) {
         if (keyBuilder_ == null) {
@@ -548,7 +548,7 @@ public final class InputOuterClass {
         return this;
       }
       /**
-       * <code>optional .netGameNodeSDK.key.Key key = 1;</code>
+       * <code>optional .mirrorWar.key.Key key = 1;</code>
        */
       public Builder setKey(
           mirrorWar.key.KeyOuterClass.Key.Builder builderForValue) {
@@ -562,7 +562,7 @@ public final class InputOuterClass {
         return this;
       }
       /**
-       * <code>optional .netGameNodeSDK.key.Key key = 1;</code>
+       * <code>optional .mirrorWar.key.Key key = 1;</code>
        */
       public Builder mergeKey(mirrorWar.key.KeyOuterClass.Key value) {
         if (keyBuilder_ == null) {
@@ -584,7 +584,7 @@ public final class InputOuterClass {
         return this;
       }
       /**
-       * <code>optional .netGameNodeSDK.key.Key key = 1;</code>
+       * <code>optional .mirrorWar.key.Key key = 1;</code>
        */
       public Builder clearKey() {
         if (keyBuilder_ == null) {
@@ -603,13 +603,13 @@ public final class InputOuterClass {
         return this;
       }
       /**
-       * <code>optional .netGameNodeSDK.key.Key key = 1;</code>
+       * <code>optional .mirrorWar.key.Key key = 1;</code>
        */
       public mirrorWar.key.KeyOuterClass.Key.Builder getKeyBuilder() {
         return getKeyFieldBuilder().getBuilder();
       }
       /**
-       * <code>optional .netGameNodeSDK.key.Key key = 1;</code>
+       * <code>optional .mirrorWar.key.Key key = 1;</code>
        */
       public mirrorWar.key.KeyOuterClass.KeyOrBuilder getKeyOrBuilder() {
         if ((inputCase_ == 1) && (keyBuilder_ != null)) {
@@ -622,7 +622,7 @@ public final class InputOuterClass {
         }
       }
       /**
-       * <code>optional .netGameNodeSDK.key.Key key = 1;</code>
+       * <code>optional .mirrorWar.key.Key key = 1;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
           mirrorWar.key.KeyOuterClass.Key, mirrorWar.key.KeyOuterClass.Key.Builder, mirrorWar.key.KeyOuterClass.KeyOrBuilder> 
@@ -653,10 +653,10 @@ public final class InputOuterClass {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:netGameNodeSDK.input.Input)
+      // @@protoc_insertion_point(builder_scope:mirrorWar.input.Input)
     }
 
-    // @@protoc_insertion_point(class_scope:netGameNodeSDK.input.Input)
+    // @@protoc_insertion_point(class_scope:mirrorWar.input.Input)
     private static final mirrorWar.input.InputOuterClass.Input DEFAULT_INSTANCE;
     static {
       DEFAULT_INSTANCE = new mirrorWar.input.InputOuterClass.Input();
@@ -692,7 +692,7 @@ public final class InputOuterClass {
   }
 
   public interface InputsOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:netGameNodeSDK.input.Inputs)
+      // @@protoc_insertion_point(interface_extends:mirrorWar.input.Inputs)
       com.google.protobuf.MessageOrBuilder {
 
     /**
@@ -705,35 +705,35 @@ public final class InputOuterClass {
     int getClientId();
 
     /**
-     * <code>repeated .netGameNodeSDK.input.Input inputs = 2;</code>
+     * <code>repeated .mirrorWar.input.Input inputs = 2;</code>
      */
     java.util.List<mirrorWar.input.InputOuterClass.Input> 
         getInputsList();
     /**
-     * <code>repeated .netGameNodeSDK.input.Input inputs = 2;</code>
+     * <code>repeated .mirrorWar.input.Input inputs = 2;</code>
      */
     mirrorWar.input.InputOuterClass.Input getInputs(int index);
     /**
-     * <code>repeated .netGameNodeSDK.input.Input inputs = 2;</code>
+     * <code>repeated .mirrorWar.input.Input inputs = 2;</code>
      */
     int getInputsCount();
     /**
-     * <code>repeated .netGameNodeSDK.input.Input inputs = 2;</code>
+     * <code>repeated .mirrorWar.input.Input inputs = 2;</code>
      */
     java.util.List<? extends mirrorWar.input.InputOuterClass.InputOrBuilder> 
         getInputsOrBuilderList();
     /**
-     * <code>repeated .netGameNodeSDK.input.Input inputs = 2;</code>
+     * <code>repeated .mirrorWar.input.Input inputs = 2;</code>
      */
     mirrorWar.input.InputOuterClass.InputOrBuilder getInputsOrBuilder(
         int index);
   }
   /**
-   * Protobuf type {@code netGameNodeSDK.input.Inputs}
+   * Protobuf type {@code mirrorWar.input.Inputs}
    */
   public  static final class Inputs extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:netGameNodeSDK.input.Inputs)
+      // @@protoc_insertion_point(message_implements:mirrorWar.input.Inputs)
       InputsOrBuilder {
     // Use Inputs.newBuilder() to construct.
     private Inputs(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
@@ -803,12 +803,12 @@ public final class InputOuterClass {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return mirrorWar.input.InputOuterClass.internal_static_netGameNodeSDK_input_Inputs_descriptor;
+      return mirrorWar.input.InputOuterClass.internal_static_mirrorWar_input_Inputs_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return mirrorWar.input.InputOuterClass.internal_static_netGameNodeSDK_input_Inputs_fieldAccessorTable
+      return mirrorWar.input.InputOuterClass.internal_static_mirrorWar_input_Inputs_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               mirrorWar.input.InputOuterClass.Inputs.class, mirrorWar.input.InputOuterClass.Inputs.Builder.class);
     }
@@ -832,32 +832,32 @@ public final class InputOuterClass {
     public static final int INPUTS_FIELD_NUMBER = 2;
     private java.util.List<mirrorWar.input.InputOuterClass.Input> inputs_;
     /**
-     * <code>repeated .netGameNodeSDK.input.Input inputs = 2;</code>
+     * <code>repeated .mirrorWar.input.Input inputs = 2;</code>
      */
     public java.util.List<mirrorWar.input.InputOuterClass.Input> getInputsList() {
       return inputs_;
     }
     /**
-     * <code>repeated .netGameNodeSDK.input.Input inputs = 2;</code>
+     * <code>repeated .mirrorWar.input.Input inputs = 2;</code>
      */
     public java.util.List<? extends mirrorWar.input.InputOuterClass.InputOrBuilder> 
         getInputsOrBuilderList() {
       return inputs_;
     }
     /**
-     * <code>repeated .netGameNodeSDK.input.Input inputs = 2;</code>
+     * <code>repeated .mirrorWar.input.Input inputs = 2;</code>
      */
     public int getInputsCount() {
       return inputs_.size();
     }
     /**
-     * <code>repeated .netGameNodeSDK.input.Input inputs = 2;</code>
+     * <code>repeated .mirrorWar.input.Input inputs = 2;</code>
      */
     public mirrorWar.input.InputOuterClass.Input getInputs(int index) {
       return inputs_.get(index);
     }
     /**
-     * <code>repeated .netGameNodeSDK.input.Input inputs = 2;</code>
+     * <code>repeated .mirrorWar.input.Input inputs = 2;</code>
      */
     public mirrorWar.input.InputOuterClass.InputOrBuilder getInputsOrBuilder(
         int index) {
@@ -1034,25 +1034,25 @@ public final class InputOuterClass {
       return builder;
     }
     /**
-     * Protobuf type {@code netGameNodeSDK.input.Inputs}
+     * Protobuf type {@code mirrorWar.input.Inputs}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:netGameNodeSDK.input.Inputs)
+        // @@protoc_insertion_point(builder_implements:mirrorWar.input.Inputs)
         mirrorWar.input.InputOuterClass.InputsOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return mirrorWar.input.InputOuterClass.internal_static_netGameNodeSDK_input_Inputs_descriptor;
+        return mirrorWar.input.InputOuterClass.internal_static_mirrorWar_input_Inputs_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return mirrorWar.input.InputOuterClass.internal_static_netGameNodeSDK_input_Inputs_fieldAccessorTable
+        return mirrorWar.input.InputOuterClass.internal_static_mirrorWar_input_Inputs_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
                 mirrorWar.input.InputOuterClass.Inputs.class, mirrorWar.input.InputOuterClass.Inputs.Builder.class);
       }
 
-      // Construct using netGameNodeSDK.input.InputOuterClass.Inputs.newBuilder()
+      // Construct using mirrorWar.input.InputOuterClass.Inputs.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -1083,7 +1083,7 @@ public final class InputOuterClass {
 
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return mirrorWar.input.InputOuterClass.internal_static_netGameNodeSDK_input_Inputs_descriptor;
+        return mirrorWar.input.InputOuterClass.internal_static_mirrorWar_input_Inputs_descriptor;
       }
 
       public mirrorWar.input.InputOuterClass.Inputs getDefaultInstanceForType() {
@@ -1267,7 +1267,7 @@ public final class InputOuterClass {
           mirrorWar.input.InputOuterClass.Input, mirrorWar.input.InputOuterClass.Input.Builder, mirrorWar.input.InputOuterClass.InputOrBuilder> inputsBuilder_;
 
       /**
-       * <code>repeated .netGameNodeSDK.input.Input inputs = 2;</code>
+       * <code>repeated .mirrorWar.input.Input inputs = 2;</code>
        */
       public java.util.List<mirrorWar.input.InputOuterClass.Input> getInputsList() {
         if (inputsBuilder_ == null) {
@@ -1277,7 +1277,7 @@ public final class InputOuterClass {
         }
       }
       /**
-       * <code>repeated .netGameNodeSDK.input.Input inputs = 2;</code>
+       * <code>repeated .mirrorWar.input.Input inputs = 2;</code>
        */
       public int getInputsCount() {
         if (inputsBuilder_ == null) {
@@ -1287,7 +1287,7 @@ public final class InputOuterClass {
         }
       }
       /**
-       * <code>repeated .netGameNodeSDK.input.Input inputs = 2;</code>
+       * <code>repeated .mirrorWar.input.Input inputs = 2;</code>
        */
       public mirrorWar.input.InputOuterClass.Input getInputs(int index) {
         if (inputsBuilder_ == null) {
@@ -1297,7 +1297,7 @@ public final class InputOuterClass {
         }
       }
       /**
-       * <code>repeated .netGameNodeSDK.input.Input inputs = 2;</code>
+       * <code>repeated .mirrorWar.input.Input inputs = 2;</code>
        */
       public Builder setInputs(
           int index, mirrorWar.input.InputOuterClass.Input value) {
@@ -1314,7 +1314,7 @@ public final class InputOuterClass {
         return this;
       }
       /**
-       * <code>repeated .netGameNodeSDK.input.Input inputs = 2;</code>
+       * <code>repeated .mirrorWar.input.Input inputs = 2;</code>
        */
       public Builder setInputs(
           int index, mirrorWar.input.InputOuterClass.Input.Builder builderForValue) {
@@ -1328,7 +1328,7 @@ public final class InputOuterClass {
         return this;
       }
       /**
-       * <code>repeated .netGameNodeSDK.input.Input inputs = 2;</code>
+       * <code>repeated .mirrorWar.input.Input inputs = 2;</code>
        */
       public Builder addInputs(mirrorWar.input.InputOuterClass.Input value) {
         if (inputsBuilder_ == null) {
@@ -1344,7 +1344,7 @@ public final class InputOuterClass {
         return this;
       }
       /**
-       * <code>repeated .netGameNodeSDK.input.Input inputs = 2;</code>
+       * <code>repeated .mirrorWar.input.Input inputs = 2;</code>
        */
       public Builder addInputs(
           int index, mirrorWar.input.InputOuterClass.Input value) {
@@ -1361,7 +1361,7 @@ public final class InputOuterClass {
         return this;
       }
       /**
-       * <code>repeated .netGameNodeSDK.input.Input inputs = 2;</code>
+       * <code>repeated .mirrorWar.input.Input inputs = 2;</code>
        */
       public Builder addInputs(
           mirrorWar.input.InputOuterClass.Input.Builder builderForValue) {
@@ -1375,7 +1375,7 @@ public final class InputOuterClass {
         return this;
       }
       /**
-       * <code>repeated .netGameNodeSDK.input.Input inputs = 2;</code>
+       * <code>repeated .mirrorWar.input.Input inputs = 2;</code>
        */
       public Builder addInputs(
           int index, mirrorWar.input.InputOuterClass.Input.Builder builderForValue) {
@@ -1389,7 +1389,7 @@ public final class InputOuterClass {
         return this;
       }
       /**
-       * <code>repeated .netGameNodeSDK.input.Input inputs = 2;</code>
+       * <code>repeated .mirrorWar.input.Input inputs = 2;</code>
        */
       public Builder addAllInputs(
           java.lang.Iterable<? extends mirrorWar.input.InputOuterClass.Input> values) {
@@ -1404,7 +1404,7 @@ public final class InputOuterClass {
         return this;
       }
       /**
-       * <code>repeated .netGameNodeSDK.input.Input inputs = 2;</code>
+       * <code>repeated .mirrorWar.input.Input inputs = 2;</code>
        */
       public Builder clearInputs() {
         if (inputsBuilder_ == null) {
@@ -1417,7 +1417,7 @@ public final class InputOuterClass {
         return this;
       }
       /**
-       * <code>repeated .netGameNodeSDK.input.Input inputs = 2;</code>
+       * <code>repeated .mirrorWar.input.Input inputs = 2;</code>
        */
       public Builder removeInputs(int index) {
         if (inputsBuilder_ == null) {
@@ -1430,14 +1430,14 @@ public final class InputOuterClass {
         return this;
       }
       /**
-       * <code>repeated .netGameNodeSDK.input.Input inputs = 2;</code>
+       * <code>repeated .mirrorWar.input.Input inputs = 2;</code>
        */
       public mirrorWar.input.InputOuterClass.Input.Builder getInputsBuilder(
           int index) {
         return getInputsFieldBuilder().getBuilder(index);
       }
       /**
-       * <code>repeated .netGameNodeSDK.input.Input inputs = 2;</code>
+       * <code>repeated .mirrorWar.input.Input inputs = 2;</code>
        */
       public mirrorWar.input.InputOuterClass.InputOrBuilder getInputsOrBuilder(
           int index) {
@@ -1447,7 +1447,7 @@ public final class InputOuterClass {
         }
       }
       /**
-       * <code>repeated .netGameNodeSDK.input.Input inputs = 2;</code>
+       * <code>repeated .mirrorWar.input.Input inputs = 2;</code>
        */
       public java.util.List<? extends mirrorWar.input.InputOuterClass.InputOrBuilder> 
            getInputsOrBuilderList() {
@@ -1458,14 +1458,14 @@ public final class InputOuterClass {
         }
       }
       /**
-       * <code>repeated .netGameNodeSDK.input.Input inputs = 2;</code>
+       * <code>repeated .mirrorWar.input.Input inputs = 2;</code>
        */
       public mirrorWar.input.InputOuterClass.Input.Builder addInputsBuilder() {
         return getInputsFieldBuilder().addBuilder(
             mirrorWar.input.InputOuterClass.Input.getDefaultInstance());
       }
       /**
-       * <code>repeated .netGameNodeSDK.input.Input inputs = 2;</code>
+       * <code>repeated .mirrorWar.input.Input inputs = 2;</code>
        */
       public mirrorWar.input.InputOuterClass.Input.Builder addInputsBuilder(
           int index) {
@@ -1473,7 +1473,7 @@ public final class InputOuterClass {
             index, mirrorWar.input.InputOuterClass.Input.getDefaultInstance());
       }
       /**
-       * <code>repeated .netGameNodeSDK.input.Input inputs = 2;</code>
+       * <code>repeated .mirrorWar.input.Input inputs = 2;</code>
        */
       public java.util.List<mirrorWar.input.InputOuterClass.Input.Builder> 
            getInputsBuilderList() {
@@ -1504,10 +1504,10 @@ public final class InputOuterClass {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:netGameNodeSDK.input.Inputs)
+      // @@protoc_insertion_point(builder_scope:mirrorWar.input.Inputs)
     }
 
-    // @@protoc_insertion_point(class_scope:netGameNodeSDK.input.Inputs)
+    // @@protoc_insertion_point(class_scope:mirrorWar.input.Inputs)
     private static final mirrorWar.input.InputOuterClass.Inputs DEFAULT_INSTANCE;
     static {
       DEFAULT_INSTANCE = new mirrorWar.input.InputOuterClass.Inputs();
@@ -1543,15 +1543,15 @@ public final class InputOuterClass {
   }
 
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_netGameNodeSDK_input_Input_descriptor;
+    internal_static_mirrorWar_input_Input_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_netGameNodeSDK_input_Input_fieldAccessorTable;
+      internal_static_mirrorWar_input_Input_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_netGameNodeSDK_input_Inputs_descriptor;
+    internal_static_mirrorWar_input_Inputs_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_netGameNodeSDK_input_Inputs_fieldAccessorTable;
+      internal_static_mirrorWar_input_Inputs_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -1561,11 +1561,11 @@ public final class InputOuterClass {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\013input.proto\022\024netGameNodeSDK.input\032\tkey" +
-      ".proto\"8\n\005Input\022&\n\003key\030\001 \001(\0132\027.netGameNo" +
-      "deSDK.key.KeyH\000B\007\n\005input\"G\n\006Inputs\022\020\n\010cl" +
-      "ientId\030\001 \002(\005\022+\n\006inputs\030\002 \003(\0132\033.netGameNo" +
-      "deSDK.input.Input"
+      "\n\013input.proto\022\017mirrorWar.input\032\tkey.prot" +
+      "o\"3\n\005Input\022!\n\003key\030\001 \001(\0132\022.mirrorWar.key." +
+      "KeyH\000B\007\n\005input\"B\n\006Inputs\022\020\n\010clientId\030\001 \002" +
+      "(\005\022&\n\006inputs\030\002 \003(\0132\026.mirrorWar.input.Inp" +
+      "ut"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -1580,17 +1580,17 @@ public final class InputOuterClass {
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           mirrorWar.key.KeyOuterClass.getDescriptor(),
         }, assigner);
-    internal_static_netGameNodeSDK_input_Input_descriptor =
+    internal_static_mirrorWar_input_Input_descriptor =
       getDescriptor().getMessageTypes().get(0);
-    internal_static_netGameNodeSDK_input_Input_fieldAccessorTable = new
+    internal_static_mirrorWar_input_Input_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_netGameNodeSDK_input_Input_descriptor,
+        internal_static_mirrorWar_input_Input_descriptor,
         new java.lang.String[] { "Key", "Input", });
-    internal_static_netGameNodeSDK_input_Inputs_descriptor =
+    internal_static_mirrorWar_input_Inputs_descriptor =
       getDescriptor().getMessageTypes().get(1);
-    internal_static_netGameNodeSDK_input_Inputs_fieldAccessorTable = new
+    internal_static_mirrorWar_input_Inputs_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_netGameNodeSDK_input_Inputs_descriptor,
+        internal_static_mirrorWar_input_Inputs_descriptor,
         new java.lang.String[] { "ClientId", "Inputs", });
     mirrorWar.key.KeyOuterClass.getDescriptor();
   }

@@ -15,7 +15,7 @@ public final class Mirror {
         (com.google.protobuf.ExtensionRegistryLite) registry);
   }
   public interface MirrorStateOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:netGameNodeSDK.mirror.MirrorState)
+      // @@protoc_insertion_point(interface_extends:mirrorWar.mirror.MirrorState)
       com.google.protobuf.MessageOrBuilder {
 
     /**
@@ -55,20 +55,20 @@ public final class Mirror {
     boolean getPicked();
 
     /**
-     * <code>required .netGameNodeSDK.mirror.MirrorState.Direction direction = 5;</code>
+     * <code>required .mirrorWar.mirror.MirrorState.Direction direction = 5;</code>
      */
     boolean hasDirection();
     /**
-     * <code>required .netGameNodeSDK.mirror.MirrorState.Direction direction = 5;</code>
+     * <code>required .mirrorWar.mirror.MirrorState.Direction direction = 5;</code>
      */
     mirrorWar.mirror.Mirror.MirrorState.Direction getDirection();
   }
   /**
-   * Protobuf type {@code netGameNodeSDK.mirror.MirrorState}
+   * Protobuf type {@code mirrorWar.mirror.MirrorState}
    */
   public  static final class MirrorState extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:netGameNodeSDK.mirror.MirrorState)
+      // @@protoc_insertion_point(message_implements:mirrorWar.mirror.MirrorState)
       MirrorStateOrBuilder {
     // Use MirrorState.newBuilder() to construct.
     private MirrorState(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
@@ -155,18 +155,18 @@ public final class Mirror {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return mirrorWar.mirror.Mirror.internal_static_netGameNodeSDK_mirror_MirrorState_descriptor;
+      return mirrorWar.mirror.Mirror.internal_static_mirrorWar_mirror_MirrorState_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return mirrorWar.mirror.Mirror.internal_static_netGameNodeSDK_mirror_MirrorState_fieldAccessorTable
+      return mirrorWar.mirror.Mirror.internal_static_mirrorWar_mirror_MirrorState_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               mirrorWar.mirror.Mirror.MirrorState.class, mirrorWar.mirror.Mirror.MirrorState.Builder.class);
     }
 
     /**
-     * Protobuf enum {@code netGameNodeSDK.mirror.MirrorState.Direction}
+     * Protobuf enum {@code mirrorWar.mirror.MirrorState.Direction}
      */
     public enum Direction
         implements com.google.protobuf.ProtocolMessageEnum {
@@ -252,7 +252,7 @@ public final class Mirror {
         this.value = value;
       }
 
-      // @@protoc_insertion_point(enum_scope:netGameNodeSDK.mirror.MirrorState.Direction)
+      // @@protoc_insertion_point(enum_scope:mirrorWar.mirror.MirrorState.Direction)
     }
 
     private int bitField0_;
@@ -319,13 +319,13 @@ public final class Mirror {
     public static final int DIRECTION_FIELD_NUMBER = 5;
     private int direction_;
     /**
-     * <code>required .netGameNodeSDK.mirror.MirrorState.Direction direction = 5;</code>
+     * <code>required .mirrorWar.mirror.MirrorState.Direction direction = 5;</code>
      */
     public boolean hasDirection() {
       return ((bitField0_ & 0x00000010) == 0x00000010);
     }
     /**
-     * <code>required .netGameNodeSDK.mirror.MirrorState.Direction direction = 5;</code>
+     * <code>required .mirrorWar.mirror.MirrorState.Direction direction = 5;</code>
      */
     public mirrorWar.mirror.Mirror.MirrorState.Direction getDirection() {
       mirrorWar.mirror.Mirror.MirrorState.Direction result = mirrorWar.mirror.Mirror.MirrorState.Direction.valueOf(direction_);
@@ -569,25 +569,25 @@ public final class Mirror {
       return builder;
     }
     /**
-     * Protobuf type {@code netGameNodeSDK.mirror.MirrorState}
+     * Protobuf type {@code mirrorWar.mirror.MirrorState}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:netGameNodeSDK.mirror.MirrorState)
+        // @@protoc_insertion_point(builder_implements:mirrorWar.mirror.MirrorState)
         mirrorWar.mirror.Mirror.MirrorStateOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return mirrorWar.mirror.Mirror.internal_static_netGameNodeSDK_mirror_MirrorState_descriptor;
+        return mirrorWar.mirror.Mirror.internal_static_mirrorWar_mirror_MirrorState_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return mirrorWar.mirror.Mirror.internal_static_netGameNodeSDK_mirror_MirrorState_fieldAccessorTable
+        return mirrorWar.mirror.Mirror.internal_static_mirrorWar_mirror_MirrorState_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
                 mirrorWar.mirror.Mirror.MirrorState.class, mirrorWar.mirror.Mirror.MirrorState.Builder.class);
       }
 
-      // Construct using netGameNodeSDK.mirror.Mirror.MirrorState.newBuilder()
+      // Construct using mirrorWar.mirror.Mirror.MirrorState.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -619,7 +619,7 @@ public final class Mirror {
 
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return mirrorWar.mirror.Mirror.internal_static_netGameNodeSDK_mirror_MirrorState_descriptor;
+        return mirrorWar.mirror.Mirror.internal_static_mirrorWar_mirror_MirrorState_descriptor;
       }
 
       public mirrorWar.mirror.Mirror.MirrorState getDefaultInstanceForType() {
@@ -888,20 +888,20 @@ public final class Mirror {
 
       private int direction_ = 1;
       /**
-       * <code>required .netGameNodeSDK.mirror.MirrorState.Direction direction = 5;</code>
+       * <code>required .mirrorWar.mirror.MirrorState.Direction direction = 5;</code>
        */
       public boolean hasDirection() {
         return ((bitField0_ & 0x00000010) == 0x00000010);
       }
       /**
-       * <code>required .netGameNodeSDK.mirror.MirrorState.Direction direction = 5;</code>
+       * <code>required .mirrorWar.mirror.MirrorState.Direction direction = 5;</code>
        */
       public mirrorWar.mirror.Mirror.MirrorState.Direction getDirection() {
         mirrorWar.mirror.Mirror.MirrorState.Direction result = mirrorWar.mirror.Mirror.MirrorState.Direction.valueOf(direction_);
         return result == null ? mirrorWar.mirror.Mirror.MirrorState.Direction.SLASH : result;
       }
       /**
-       * <code>required .netGameNodeSDK.mirror.MirrorState.Direction direction = 5;</code>
+       * <code>required .mirrorWar.mirror.MirrorState.Direction direction = 5;</code>
        */
       public Builder setDirection(mirrorWar.mirror.Mirror.MirrorState.Direction value) {
         if (value == null) {
@@ -913,7 +913,7 @@ public final class Mirror {
         return this;
       }
       /**
-       * <code>required .netGameNodeSDK.mirror.MirrorState.Direction direction = 5;</code>
+       * <code>required .mirrorWar.mirror.MirrorState.Direction direction = 5;</code>
        */
       public Builder clearDirection() {
         bitField0_ = (bitField0_ & ~0x00000010);
@@ -932,10 +932,10 @@ public final class Mirror {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:netGameNodeSDK.mirror.MirrorState)
+      // @@protoc_insertion_point(builder_scope:mirrorWar.mirror.MirrorState)
     }
 
-    // @@protoc_insertion_point(class_scope:netGameNodeSDK.mirror.MirrorState)
+    // @@protoc_insertion_point(class_scope:mirrorWar.mirror.MirrorState)
     private static final mirrorWar.mirror.Mirror.MirrorState DEFAULT_INSTANCE;
     static {
       DEFAULT_INSTANCE = new mirrorWar.mirror.Mirror.MirrorState();
@@ -971,10 +971,10 @@ public final class Mirror {
   }
 
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_netGameNodeSDK_mirror_MirrorState_descriptor;
+    internal_static_mirrorWar_mirror_MirrorState_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_netGameNodeSDK_mirror_MirrorState_fieldAccessorTable;
+      internal_static_mirrorWar_mirror_MirrorState_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -984,12 +984,11 @@ public final class Mirror {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\014mirror.proto\022\025netGameNodeSDK.mirror\"\250\001" +
-      "\n\013MirrorState\022\n\n\002id\030\001 \002(\r\022\t\n\001x\030\002 \002(\001\022\t\n\001" +
-      "y\030\003 \002(\001\022\016\n\006picked\030\004 \002(\010\022?\n\tdirection\030\005 \002" +
-      "(\0162,.netGameNodeSDK.mirror.MirrorState.D" +
-      "irection\"&\n\tDirection\022\t\n\005SLASH\020\001\022\016\n\nBACK" +
-      "_SLACK\020\002"
+      "\n\014mirror.proto\022\020mirrorWar.mirror\"\243\001\n\013Mir" +
+      "rorState\022\n\n\002id\030\001 \002(\r\022\t\n\001x\030\002 \002(\001\022\t\n\001y\030\003 \002" +
+      "(\001\022\016\n\006picked\030\004 \002(\010\022:\n\tdirection\030\005 \002(\0162\'." +
+      "mirrorWar.mirror.MirrorState.Direction\"&" +
+      "\n\tDirection\022\t\n\005SLASH\020\001\022\016\n\nBACK_SLACK\020\002"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -1003,11 +1002,11 @@ public final class Mirror {
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
         }, assigner);
-    internal_static_netGameNodeSDK_mirror_MirrorState_descriptor =
+    internal_static_mirrorWar_mirror_MirrorState_descriptor =
       getDescriptor().getMessageTypes().get(0);
-    internal_static_netGameNodeSDK_mirror_MirrorState_fieldAccessorTable = new
+    internal_static_mirrorWar_mirror_MirrorState_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_netGameNodeSDK_mirror_MirrorState_descriptor,
+        internal_static_mirrorWar_mirror_MirrorState_descriptor,
         new java.lang.String[] { "Id", "X", "Y", "Picked", "Direction", });
   }
 

@@ -15,7 +15,7 @@ public final class Handshake {
         (com.google.protobuf.ExtensionRegistryLite) registry);
   }
   public interface ClientHandshakeOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:testbed.handshake.ClientHandshake)
+      // @@protoc_insertion_point(interface_extends:mirrorWar.handshake.ClientHandshake)
       com.google.protobuf.MessageOrBuilder {
 
     /**
@@ -28,11 +28,11 @@ public final class Handshake {
     int getUpdatePort();
   }
   /**
-   * Protobuf type {@code testbed.handshake.ClientHandshake}
+   * Protobuf type {@code mirrorWar.handshake.ClientHandshake}
    */
   public  static final class ClientHandshake extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:testbed.handshake.ClientHandshake)
+      // @@protoc_insertion_point(message_implements:mirrorWar.handshake.ClientHandshake)
       ClientHandshakeOrBuilder {
     // Use ClientHandshake.newBuilder() to construct.
     private ClientHandshake(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
@@ -89,12 +89,12 @@ public final class Handshake {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return mirrorWar.handshake.Handshake.internal_static_testbed_handshake_ClientHandshake_descriptor;
+      return mirrorWar.handshake.Handshake.internal_static_mirrorWar_handshake_ClientHandshake_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return mirrorWar.handshake.Handshake.internal_static_testbed_handshake_ClientHandshake_fieldAccessorTable
+      return mirrorWar.handshake.Handshake.internal_static_mirrorWar_handshake_ClientHandshake_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               mirrorWar.handshake.Handshake.ClientHandshake.class, mirrorWar.handshake.Handshake.ClientHandshake.Builder.class);
     }
@@ -266,25 +266,25 @@ public final class Handshake {
       return builder;
     }
     /**
-     * Protobuf type {@code testbed.handshake.ClientHandshake}
+     * Protobuf type {@code mirrorWar.handshake.ClientHandshake}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:testbed.handshake.ClientHandshake)
+        // @@protoc_insertion_point(builder_implements:mirrorWar.handshake.ClientHandshake)
         mirrorWar.handshake.Handshake.ClientHandshakeOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return mirrorWar.handshake.Handshake.internal_static_testbed_handshake_ClientHandshake_descriptor;
+        return mirrorWar.handshake.Handshake.internal_static_mirrorWar_handshake_ClientHandshake_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return mirrorWar.handshake.Handshake.internal_static_testbed_handshake_ClientHandshake_fieldAccessorTable
+        return mirrorWar.handshake.Handshake.internal_static_mirrorWar_handshake_ClientHandshake_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
                 mirrorWar.handshake.Handshake.ClientHandshake.class, mirrorWar.handshake.Handshake.ClientHandshake.Builder.class);
       }
 
-      // Construct using testbed.handshake.Handshake.ClientHandshake.newBuilder()
+      // Construct using mirrorWar.handshake.Handshake.ClientHandshake.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -308,7 +308,7 @@ public final class Handshake {
 
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return mirrorWar.handshake.Handshake.internal_static_testbed_handshake_ClientHandshake_descriptor;
+        return mirrorWar.handshake.Handshake.internal_static_mirrorWar_handshake_ClientHandshake_descriptor;
       }
 
       public mirrorWar.handshake.Handshake.ClientHandshake getDefaultInstanceForType() {
@@ -449,10 +449,10 @@ public final class Handshake {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:testbed.handshake.ClientHandshake)
+      // @@protoc_insertion_point(builder_scope:mirrorWar.handshake.ClientHandshake)
     }
 
-    // @@protoc_insertion_point(class_scope:testbed.handshake.ClientHandshake)
+    // @@protoc_insertion_point(class_scope:mirrorWar.handshake.ClientHandshake)
     private static final mirrorWar.handshake.Handshake.ClientHandshake DEFAULT_INSTANCE;
     static {
       DEFAULT_INSTANCE = new mirrorWar.handshake.Handshake.ClientHandshake();
@@ -488,7 +488,7 @@ public final class Handshake {
   }
 
   public interface ServerHandshakeOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:testbed.handshake.ServerHandshake)
+      // @@protoc_insertion_point(interface_extends:mirrorWar.handshake.ServerHandshake)
       com.google.protobuf.MessageOrBuilder {
 
     /**
@@ -510,11 +510,11 @@ public final class Handshake {
     int getCommandPort();
   }
   /**
-   * Protobuf type {@code testbed.handshake.ServerHandshake}
+   * Protobuf type {@code mirrorWar.handshake.ServerHandshake}
    */
   public  static final class ServerHandshake extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:testbed.handshake.ServerHandshake)
+      // @@protoc_insertion_point(message_implements:mirrorWar.handshake.ServerHandshake)
       ServerHandshakeOrBuilder {
     // Use ServerHandshake.newBuilder() to construct.
     private ServerHandshake(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
@@ -577,12 +577,12 @@ public final class Handshake {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return mirrorWar.handshake.Handshake.internal_static_testbed_handshake_ServerHandshake_descriptor;
+      return mirrorWar.handshake.Handshake.internal_static_mirrorWar_handshake_ServerHandshake_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return mirrorWar.handshake.Handshake.internal_static_testbed_handshake_ServerHandshake_fieldAccessorTable
+      return mirrorWar.handshake.Handshake.internal_static_mirrorWar_handshake_ServerHandshake_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               mirrorWar.handshake.Handshake.ServerHandshake.class, mirrorWar.handshake.Handshake.ServerHandshake.Builder.class);
     }
@@ -789,25 +789,25 @@ public final class Handshake {
       return builder;
     }
     /**
-     * Protobuf type {@code testbed.handshake.ServerHandshake}
+     * Protobuf type {@code mirrorWar.handshake.ServerHandshake}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:testbed.handshake.ServerHandshake)
+        // @@protoc_insertion_point(builder_implements:mirrorWar.handshake.ServerHandshake)
         mirrorWar.handshake.Handshake.ServerHandshakeOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return mirrorWar.handshake.Handshake.internal_static_testbed_handshake_ServerHandshake_descriptor;
+        return mirrorWar.handshake.Handshake.internal_static_mirrorWar_handshake_ServerHandshake_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return mirrorWar.handshake.Handshake.internal_static_testbed_handshake_ServerHandshake_fieldAccessorTable
+        return mirrorWar.handshake.Handshake.internal_static_mirrorWar_handshake_ServerHandshake_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
                 mirrorWar.handshake.Handshake.ServerHandshake.class, mirrorWar.handshake.Handshake.ServerHandshake.Builder.class);
       }
 
-      // Construct using testbed.handshake.Handshake.ServerHandshake.newBuilder()
+      // Construct using mirrorWar.handshake.Handshake.ServerHandshake.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -833,7 +833,7 @@ public final class Handshake {
 
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return mirrorWar.handshake.Handshake.internal_static_testbed_handshake_ServerHandshake_descriptor;
+        return mirrorWar.handshake.Handshake.internal_static_mirrorWar_handshake_ServerHandshake_descriptor;
       }
 
       public mirrorWar.handshake.Handshake.ServerHandshake getDefaultInstanceForType() {
@@ -1016,10 +1016,10 @@ public final class Handshake {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:testbed.handshake.ServerHandshake)
+      // @@protoc_insertion_point(builder_scope:mirrorWar.handshake.ServerHandshake)
     }
 
-    // @@protoc_insertion_point(class_scope:testbed.handshake.ServerHandshake)
+    // @@protoc_insertion_point(class_scope:mirrorWar.handshake.ServerHandshake)
     private static final mirrorWar.handshake.Handshake.ServerHandshake DEFAULT_INSTANCE;
     static {
       DEFAULT_INSTANCE = new mirrorWar.handshake.Handshake.ServerHandshake();
@@ -1055,15 +1055,15 @@ public final class Handshake {
   }
 
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_testbed_handshake_ClientHandshake_descriptor;
+    internal_static_mirrorWar_handshake_ClientHandshake_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_testbed_handshake_ClientHandshake_fieldAccessorTable;
+      internal_static_mirrorWar_handshake_ClientHandshake_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_testbed_handshake_ServerHandshake_descriptor;
+    internal_static_mirrorWar_handshake_ServerHandshake_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_testbed_handshake_ServerHandshake_fieldAccessorTable;
+      internal_static_mirrorWar_handshake_ServerHandshake_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -1073,10 +1073,10 @@ public final class Handshake {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\017handshake.proto\022\021testbed.handshake\"%\n\017" +
-      "ClientHandshake\022\022\n\nupdatePort\030\001 \002(\r\"8\n\017S" +
-      "erverHandshake\022\020\n\010clientId\030\001 \002(\005\022\023\n\013comm" +
-      "andPort\030\002 \002(\r"
+      "\n\017handshake.proto\022\023mirrorWar.handshake\"%" +
+      "\n\017ClientHandshake\022\022\n\nupdatePort\030\001 \002(\r\"8\n" +
+      "\017ServerHandshake\022\020\n\010clientId\030\001 \002(\005\022\023\n\013co" +
+      "mmandPort\030\002 \002(\r"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -1090,17 +1090,17 @@ public final class Handshake {
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
         }, assigner);
-    internal_static_testbed_handshake_ClientHandshake_descriptor =
+    internal_static_mirrorWar_handshake_ClientHandshake_descriptor =
       getDescriptor().getMessageTypes().get(0);
-    internal_static_testbed_handshake_ClientHandshake_fieldAccessorTable = new
+    internal_static_mirrorWar_handshake_ClientHandshake_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_testbed_handshake_ClientHandshake_descriptor,
+        internal_static_mirrorWar_handshake_ClientHandshake_descriptor,
         new java.lang.String[] { "UpdatePort", });
-    internal_static_testbed_handshake_ServerHandshake_descriptor =
+    internal_static_mirrorWar_handshake_ServerHandshake_descriptor =
       getDescriptor().getMessageTypes().get(1);
-    internal_static_testbed_handshake_ServerHandshake_fieldAccessorTable = new
+    internal_static_mirrorWar_handshake_ServerHandshake_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_testbed_handshake_ServerHandshake_descriptor,
+        internal_static_mirrorWar_handshake_ServerHandshake_descriptor,
         new java.lang.String[] { "ClientId", "CommandPort", });
   }
 

@@ -15,7 +15,7 @@ public final class KeyOuterClass {
         (com.google.protobuf.ExtensionRegistryLite) registry);
   }
   /**
-   * Protobuf enum {@code netGameNodeSDK.key.KeyType}
+   * Protobuf enum {@code mirrorWar.key.KeyType}
    */
   public enum KeyType
       implements com.google.protobuf.ProtocolMessageEnum {
@@ -155,28 +155,28 @@ public final class KeyOuterClass {
       this.value = value;
     }
 
-    // @@protoc_insertion_point(enum_scope:netGameNodeSDK.key.KeyType)
+    // @@protoc_insertion_point(enum_scope:mirrorWar.key.KeyType)
   }
 
   public interface KeyUpOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:netGameNodeSDK.key.KeyUp)
+      // @@protoc_insertion_point(interface_extends:mirrorWar.key.KeyUp)
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>required .netGameNodeSDK.key.KeyType key_type = 1;</code>
+     * <code>required .mirrorWar.key.KeyType key_type = 1;</code>
      */
     boolean hasKeyType();
     /**
-     * <code>required .netGameNodeSDK.key.KeyType key_type = 1;</code>
+     * <code>required .mirrorWar.key.KeyType key_type = 1;</code>
      */
     mirrorWar.key.KeyOuterClass.KeyType getKeyType();
   }
   /**
-   * Protobuf type {@code netGameNodeSDK.key.KeyUp}
+   * Protobuf type {@code mirrorWar.key.KeyUp}
    */
   public  static final class KeyUp extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:netGameNodeSDK.key.KeyUp)
+      // @@protoc_insertion_point(message_implements:mirrorWar.key.KeyUp)
       KeyUpOrBuilder {
     // Use KeyUp.newBuilder() to construct.
     private KeyUp(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
@@ -239,12 +239,12 @@ public final class KeyOuterClass {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return mirrorWar.key.KeyOuterClass.internal_static_netGameNodeSDK_key_KeyUp_descriptor;
+      return mirrorWar.key.KeyOuterClass.internal_static_mirrorWar_key_KeyUp_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return mirrorWar.key.KeyOuterClass.internal_static_netGameNodeSDK_key_KeyUp_fieldAccessorTable
+      return mirrorWar.key.KeyOuterClass.internal_static_mirrorWar_key_KeyUp_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               mirrorWar.key.KeyOuterClass.KeyUp.class, mirrorWar.key.KeyOuterClass.KeyUp.Builder.class);
     }
@@ -253,13 +253,13 @@ public final class KeyOuterClass {
     public static final int KEY_TYPE_FIELD_NUMBER = 1;
     private int keyType_;
     /**
-     * <code>required .netGameNodeSDK.key.KeyType key_type = 1;</code>
+     * <code>required .mirrorWar.key.KeyType key_type = 1;</code>
      */
     public boolean hasKeyType() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
     /**
-     * <code>required .netGameNodeSDK.key.KeyType key_type = 1;</code>
+     * <code>required .mirrorWar.key.KeyType key_type = 1;</code>
      */
     public mirrorWar.key.KeyOuterClass.KeyType getKeyType() {
       mirrorWar.key.KeyOuterClass.KeyType result = mirrorWar.key.KeyOuterClass.KeyType.valueOf(keyType_);
@@ -416,25 +416,25 @@ public final class KeyOuterClass {
       return builder;
     }
     /**
-     * Protobuf type {@code netGameNodeSDK.key.KeyUp}
+     * Protobuf type {@code mirrorWar.key.KeyUp}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:netGameNodeSDK.key.KeyUp)
+        // @@protoc_insertion_point(builder_implements:mirrorWar.key.KeyUp)
         mirrorWar.key.KeyOuterClass.KeyUpOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return mirrorWar.key.KeyOuterClass.internal_static_netGameNodeSDK_key_KeyUp_descriptor;
+        return mirrorWar.key.KeyOuterClass.internal_static_mirrorWar_key_KeyUp_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return mirrorWar.key.KeyOuterClass.internal_static_netGameNodeSDK_key_KeyUp_fieldAccessorTable
+        return mirrorWar.key.KeyOuterClass.internal_static_mirrorWar_key_KeyUp_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
                 mirrorWar.key.KeyOuterClass.KeyUp.class, mirrorWar.key.KeyOuterClass.KeyUp.Builder.class);
       }
 
-      // Construct using netGameNodeSDK.key.KeyOuterClass.KeyUp.newBuilder()
+      // Construct using mirrorWar.key.KeyOuterClass.KeyUp.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -458,7 +458,7 @@ public final class KeyOuterClass {
 
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return mirrorWar.key.KeyOuterClass.internal_static_netGameNodeSDK_key_KeyUp_descriptor;
+        return mirrorWar.key.KeyOuterClass.internal_static_mirrorWar_key_KeyUp_descriptor;
       }
 
       public mirrorWar.key.KeyOuterClass.KeyUp getDefaultInstanceForType() {
@@ -559,20 +559,20 @@ public final class KeyOuterClass {
 
       private int keyType_ = 1;
       /**
-       * <code>required .netGameNodeSDK.key.KeyType key_type = 1;</code>
+       * <code>required .mirrorWar.key.KeyType key_type = 1;</code>
        */
       public boolean hasKeyType() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
       /**
-       * <code>required .netGameNodeSDK.key.KeyType key_type = 1;</code>
+       * <code>required .mirrorWar.key.KeyType key_type = 1;</code>
        */
       public mirrorWar.key.KeyOuterClass.KeyType getKeyType() {
         mirrorWar.key.KeyOuterClass.KeyType result = mirrorWar.key.KeyOuterClass.KeyType.valueOf(keyType_);
         return result == null ? mirrorWar.key.KeyOuterClass.KeyType.MOVE_UP : result;
       }
       /**
-       * <code>required .netGameNodeSDK.key.KeyType key_type = 1;</code>
+       * <code>required .mirrorWar.key.KeyType key_type = 1;</code>
        */
       public Builder setKeyType(mirrorWar.key.KeyOuterClass.KeyType value) {
         if (value == null) {
@@ -584,7 +584,7 @@ public final class KeyOuterClass {
         return this;
       }
       /**
-       * <code>required .netGameNodeSDK.key.KeyType key_type = 1;</code>
+       * <code>required .mirrorWar.key.KeyType key_type = 1;</code>
        */
       public Builder clearKeyType() {
         bitField0_ = (bitField0_ & ~0x00000001);
@@ -603,10 +603,10 @@ public final class KeyOuterClass {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:netGameNodeSDK.key.KeyUp)
+      // @@protoc_insertion_point(builder_scope:mirrorWar.key.KeyUp)
     }
 
-    // @@protoc_insertion_point(class_scope:netGameNodeSDK.key.KeyUp)
+    // @@protoc_insertion_point(class_scope:mirrorWar.key.KeyUp)
     private static final mirrorWar.key.KeyOuterClass.KeyUp DEFAULT_INSTANCE;
     static {
       DEFAULT_INSTANCE = new mirrorWar.key.KeyOuterClass.KeyUp();
@@ -642,24 +642,24 @@ public final class KeyOuterClass {
   }
 
   public interface KeyDownOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:netGameNodeSDK.key.KeyDown)
+      // @@protoc_insertion_point(interface_extends:mirrorWar.key.KeyDown)
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>required .netGameNodeSDK.key.KeyType key_type = 1;</code>
+     * <code>required .mirrorWar.key.KeyType key_type = 1;</code>
      */
     boolean hasKeyType();
     /**
-     * <code>required .netGameNodeSDK.key.KeyType key_type = 1;</code>
+     * <code>required .mirrorWar.key.KeyType key_type = 1;</code>
      */
     mirrorWar.key.KeyOuterClass.KeyType getKeyType();
   }
   /**
-   * Protobuf type {@code netGameNodeSDK.key.KeyDown}
+   * Protobuf type {@code mirrorWar.key.KeyDown}
    */
   public  static final class KeyDown extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:netGameNodeSDK.key.KeyDown)
+      // @@protoc_insertion_point(message_implements:mirrorWar.key.KeyDown)
       KeyDownOrBuilder {
     // Use KeyDown.newBuilder() to construct.
     private KeyDown(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
@@ -722,12 +722,12 @@ public final class KeyOuterClass {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return mirrorWar.key.KeyOuterClass.internal_static_netGameNodeSDK_key_KeyDown_descriptor;
+      return mirrorWar.key.KeyOuterClass.internal_static_mirrorWar_key_KeyDown_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return mirrorWar.key.KeyOuterClass.internal_static_netGameNodeSDK_key_KeyDown_fieldAccessorTable
+      return mirrorWar.key.KeyOuterClass.internal_static_mirrorWar_key_KeyDown_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               mirrorWar.key.KeyOuterClass.KeyDown.class, mirrorWar.key.KeyOuterClass.KeyDown.Builder.class);
     }
@@ -736,13 +736,13 @@ public final class KeyOuterClass {
     public static final int KEY_TYPE_FIELD_NUMBER = 1;
     private int keyType_;
     /**
-     * <code>required .netGameNodeSDK.key.KeyType key_type = 1;</code>
+     * <code>required .mirrorWar.key.KeyType key_type = 1;</code>
      */
     public boolean hasKeyType() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
     /**
-     * <code>required .netGameNodeSDK.key.KeyType key_type = 1;</code>
+     * <code>required .mirrorWar.key.KeyType key_type = 1;</code>
      */
     public mirrorWar.key.KeyOuterClass.KeyType getKeyType() {
       mirrorWar.key.KeyOuterClass.KeyType result = mirrorWar.key.KeyOuterClass.KeyType.valueOf(keyType_);
@@ -899,25 +899,25 @@ public final class KeyOuterClass {
       return builder;
     }
     /**
-     * Protobuf type {@code netGameNodeSDK.key.KeyDown}
+     * Protobuf type {@code mirrorWar.key.KeyDown}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:netGameNodeSDK.key.KeyDown)
+        // @@protoc_insertion_point(builder_implements:mirrorWar.key.KeyDown)
         mirrorWar.key.KeyOuterClass.KeyDownOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return mirrorWar.key.KeyOuterClass.internal_static_netGameNodeSDK_key_KeyDown_descriptor;
+        return mirrorWar.key.KeyOuterClass.internal_static_mirrorWar_key_KeyDown_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return mirrorWar.key.KeyOuterClass.internal_static_netGameNodeSDK_key_KeyDown_fieldAccessorTable
+        return mirrorWar.key.KeyOuterClass.internal_static_mirrorWar_key_KeyDown_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
                 mirrorWar.key.KeyOuterClass.KeyDown.class, mirrorWar.key.KeyOuterClass.KeyDown.Builder.class);
       }
 
-      // Construct using netGameNodeSDK.key.KeyOuterClass.KeyDown.newBuilder()
+      // Construct using mirrorWar.key.KeyOuterClass.KeyDown.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -941,7 +941,7 @@ public final class KeyOuterClass {
 
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return mirrorWar.key.KeyOuterClass.internal_static_netGameNodeSDK_key_KeyDown_descriptor;
+        return mirrorWar.key.KeyOuterClass.internal_static_mirrorWar_key_KeyDown_descriptor;
       }
 
       public mirrorWar.key.KeyOuterClass.KeyDown getDefaultInstanceForType() {
@@ -1042,20 +1042,20 @@ public final class KeyOuterClass {
 
       private int keyType_ = 1;
       /**
-       * <code>required .netGameNodeSDK.key.KeyType key_type = 1;</code>
+       * <code>required .mirrorWar.key.KeyType key_type = 1;</code>
        */
       public boolean hasKeyType() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
       /**
-       * <code>required .netGameNodeSDK.key.KeyType key_type = 1;</code>
+       * <code>required .mirrorWar.key.KeyType key_type = 1;</code>
        */
       public mirrorWar.key.KeyOuterClass.KeyType getKeyType() {
         mirrorWar.key.KeyOuterClass.KeyType result = mirrorWar.key.KeyOuterClass.KeyType.valueOf(keyType_);
         return result == null ? mirrorWar.key.KeyOuterClass.KeyType.MOVE_UP : result;
       }
       /**
-       * <code>required .netGameNodeSDK.key.KeyType key_type = 1;</code>
+       * <code>required .mirrorWar.key.KeyType key_type = 1;</code>
        */
       public Builder setKeyType(mirrorWar.key.KeyOuterClass.KeyType value) {
         if (value == null) {
@@ -1067,7 +1067,7 @@ public final class KeyOuterClass {
         return this;
       }
       /**
-       * <code>required .netGameNodeSDK.key.KeyType key_type = 1;</code>
+       * <code>required .mirrorWar.key.KeyType key_type = 1;</code>
        */
       public Builder clearKeyType() {
         bitField0_ = (bitField0_ & ~0x00000001);
@@ -1086,10 +1086,10 @@ public final class KeyOuterClass {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:netGameNodeSDK.key.KeyDown)
+      // @@protoc_insertion_point(builder_scope:mirrorWar.key.KeyDown)
     }
 
-    // @@protoc_insertion_point(class_scope:netGameNodeSDK.key.KeyDown)
+    // @@protoc_insertion_point(class_scope:mirrorWar.key.KeyDown)
     private static final mirrorWar.key.KeyOuterClass.KeyDown DEFAULT_INSTANCE;
     static {
       DEFAULT_INSTANCE = new mirrorWar.key.KeyOuterClass.KeyDown();
@@ -1125,43 +1125,43 @@ public final class KeyOuterClass {
   }
 
   public interface KeyOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:netGameNodeSDK.key.Key)
+      // @@protoc_insertion_point(interface_extends:mirrorWar.key.Key)
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>optional .netGameNodeSDK.key.KeyUp key_up = 1;</code>
+     * <code>optional .mirrorWar.key.KeyUp key_up = 1;</code>
      */
     boolean hasKeyUp();
     /**
-     * <code>optional .netGameNodeSDK.key.KeyUp key_up = 1;</code>
+     * <code>optional .mirrorWar.key.KeyUp key_up = 1;</code>
      */
     mirrorWar.key.KeyOuterClass.KeyUp getKeyUp();
     /**
-     * <code>optional .netGameNodeSDK.key.KeyUp key_up = 1;</code>
+     * <code>optional .mirrorWar.key.KeyUp key_up = 1;</code>
      */
     mirrorWar.key.KeyOuterClass.KeyUpOrBuilder getKeyUpOrBuilder();
 
     /**
-     * <code>optional .netGameNodeSDK.key.KeyDown key_down = 2;</code>
+     * <code>optional .mirrorWar.key.KeyDown key_down = 2;</code>
      */
     boolean hasKeyDown();
     /**
-     * <code>optional .netGameNodeSDK.key.KeyDown key_down = 2;</code>
+     * <code>optional .mirrorWar.key.KeyDown key_down = 2;</code>
      */
     mirrorWar.key.KeyOuterClass.KeyDown getKeyDown();
     /**
-     * <code>optional .netGameNodeSDK.key.KeyDown key_down = 2;</code>
+     * <code>optional .mirrorWar.key.KeyDown key_down = 2;</code>
      */
     mirrorWar.key.KeyOuterClass.KeyDownOrBuilder getKeyDownOrBuilder();
 
     public mirrorWar.key.KeyOuterClass.Key.KeyCase getKeyCase();
   }
   /**
-   * Protobuf type {@code netGameNodeSDK.key.Key}
+   * Protobuf type {@code mirrorWar.key.Key}
    */
   public  static final class Key extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:netGameNodeSDK.key.Key)
+      // @@protoc_insertion_point(message_implements:mirrorWar.key.Key)
       KeyOrBuilder {
     // Use Key.newBuilder() to construct.
     private Key(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
@@ -1240,12 +1240,12 @@ public final class KeyOuterClass {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return mirrorWar.key.KeyOuterClass.internal_static_netGameNodeSDK_key_Key_descriptor;
+      return mirrorWar.key.KeyOuterClass.internal_static_mirrorWar_key_Key_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return mirrorWar.key.KeyOuterClass.internal_static_netGameNodeSDK_key_Key_fieldAccessorTable
+      return mirrorWar.key.KeyOuterClass.internal_static_mirrorWar_key_Key_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               mirrorWar.key.KeyOuterClass.Key.class, mirrorWar.key.KeyOuterClass.Key.Builder.class);
     }
@@ -1291,13 +1291,13 @@ public final class KeyOuterClass {
 
     public static final int KEY_UP_FIELD_NUMBER = 1;
     /**
-     * <code>optional .netGameNodeSDK.key.KeyUp key_up = 1;</code>
+     * <code>optional .mirrorWar.key.KeyUp key_up = 1;</code>
      */
     public boolean hasKeyUp() {
       return keyCase_ == 1;
     }
     /**
-     * <code>optional .netGameNodeSDK.key.KeyUp key_up = 1;</code>
+     * <code>optional .mirrorWar.key.KeyUp key_up = 1;</code>
      */
     public mirrorWar.key.KeyOuterClass.KeyUp getKeyUp() {
       if (keyCase_ == 1) {
@@ -1306,7 +1306,7 @@ public final class KeyOuterClass {
       return mirrorWar.key.KeyOuterClass.KeyUp.getDefaultInstance();
     }
     /**
-     * <code>optional .netGameNodeSDK.key.KeyUp key_up = 1;</code>
+     * <code>optional .mirrorWar.key.KeyUp key_up = 1;</code>
      */
     public mirrorWar.key.KeyOuterClass.KeyUpOrBuilder getKeyUpOrBuilder() {
       if (keyCase_ == 1) {
@@ -1317,13 +1317,13 @@ public final class KeyOuterClass {
 
     public static final int KEY_DOWN_FIELD_NUMBER = 2;
     /**
-     * <code>optional .netGameNodeSDK.key.KeyDown key_down = 2;</code>
+     * <code>optional .mirrorWar.key.KeyDown key_down = 2;</code>
      */
     public boolean hasKeyDown() {
       return keyCase_ == 2;
     }
     /**
-     * <code>optional .netGameNodeSDK.key.KeyDown key_down = 2;</code>
+     * <code>optional .mirrorWar.key.KeyDown key_down = 2;</code>
      */
     public mirrorWar.key.KeyOuterClass.KeyDown getKeyDown() {
       if (keyCase_ == 2) {
@@ -1332,7 +1332,7 @@ public final class KeyOuterClass {
       return mirrorWar.key.KeyOuterClass.KeyDown.getDefaultInstance();
     }
     /**
-     * <code>optional .netGameNodeSDK.key.KeyDown key_down = 2;</code>
+     * <code>optional .mirrorWar.key.KeyDown key_down = 2;</code>
      */
     public mirrorWar.key.KeyOuterClass.KeyDownOrBuilder getKeyDownOrBuilder() {
       if (keyCase_ == 2) {
@@ -1525,25 +1525,25 @@ public final class KeyOuterClass {
       return builder;
     }
     /**
-     * Protobuf type {@code netGameNodeSDK.key.Key}
+     * Protobuf type {@code mirrorWar.key.Key}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:netGameNodeSDK.key.Key)
+        // @@protoc_insertion_point(builder_implements:mirrorWar.key.Key)
         mirrorWar.key.KeyOuterClass.KeyOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return mirrorWar.key.KeyOuterClass.internal_static_netGameNodeSDK_key_Key_descriptor;
+        return mirrorWar.key.KeyOuterClass.internal_static_mirrorWar_key_Key_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return mirrorWar.key.KeyOuterClass.internal_static_netGameNodeSDK_key_Key_fieldAccessorTable
+        return mirrorWar.key.KeyOuterClass.internal_static_mirrorWar_key_Key_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
                 mirrorWar.key.KeyOuterClass.Key.class, mirrorWar.key.KeyOuterClass.Key.Builder.class);
       }
 
-      // Construct using netGameNodeSDK.key.KeyOuterClass.Key.newBuilder()
+      // Construct using mirrorWar.key.KeyOuterClass.Key.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -1567,7 +1567,7 @@ public final class KeyOuterClass {
 
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return mirrorWar.key.KeyOuterClass.internal_static_netGameNodeSDK_key_Key_descriptor;
+        return mirrorWar.key.KeyOuterClass.internal_static_mirrorWar_key_Key_descriptor;
       }
 
       public mirrorWar.key.KeyOuterClass.Key getDefaultInstanceForType() {
@@ -1712,13 +1712,13 @@ public final class KeyOuterClass {
       private com.google.protobuf.SingleFieldBuilderV3<
           mirrorWar.key.KeyOuterClass.KeyUp, mirrorWar.key.KeyOuterClass.KeyUp.Builder, mirrorWar.key.KeyOuterClass.KeyUpOrBuilder> keyUpBuilder_;
       /**
-       * <code>optional .netGameNodeSDK.key.KeyUp key_up = 1;</code>
+       * <code>optional .mirrorWar.key.KeyUp key_up = 1;</code>
        */
       public boolean hasKeyUp() {
         return keyCase_ == 1;
       }
       /**
-       * <code>optional .netGameNodeSDK.key.KeyUp key_up = 1;</code>
+       * <code>optional .mirrorWar.key.KeyUp key_up = 1;</code>
        */
       public mirrorWar.key.KeyOuterClass.KeyUp getKeyUp() {
         if (keyUpBuilder_ == null) {
@@ -1734,7 +1734,7 @@ public final class KeyOuterClass {
         }
       }
       /**
-       * <code>optional .netGameNodeSDK.key.KeyUp key_up = 1;</code>
+       * <code>optional .mirrorWar.key.KeyUp key_up = 1;</code>
        */
       public Builder setKeyUp(mirrorWar.key.KeyOuterClass.KeyUp value) {
         if (keyUpBuilder_ == null) {
@@ -1750,7 +1750,7 @@ public final class KeyOuterClass {
         return this;
       }
       /**
-       * <code>optional .netGameNodeSDK.key.KeyUp key_up = 1;</code>
+       * <code>optional .mirrorWar.key.KeyUp key_up = 1;</code>
        */
       public Builder setKeyUp(
           mirrorWar.key.KeyOuterClass.KeyUp.Builder builderForValue) {
@@ -1764,7 +1764,7 @@ public final class KeyOuterClass {
         return this;
       }
       /**
-       * <code>optional .netGameNodeSDK.key.KeyUp key_up = 1;</code>
+       * <code>optional .mirrorWar.key.KeyUp key_up = 1;</code>
        */
       public Builder mergeKeyUp(mirrorWar.key.KeyOuterClass.KeyUp value) {
         if (keyUpBuilder_ == null) {
@@ -1786,7 +1786,7 @@ public final class KeyOuterClass {
         return this;
       }
       /**
-       * <code>optional .netGameNodeSDK.key.KeyUp key_up = 1;</code>
+       * <code>optional .mirrorWar.key.KeyUp key_up = 1;</code>
        */
       public Builder clearKeyUp() {
         if (keyUpBuilder_ == null) {
@@ -1805,13 +1805,13 @@ public final class KeyOuterClass {
         return this;
       }
       /**
-       * <code>optional .netGameNodeSDK.key.KeyUp key_up = 1;</code>
+       * <code>optional .mirrorWar.key.KeyUp key_up = 1;</code>
        */
       public mirrorWar.key.KeyOuterClass.KeyUp.Builder getKeyUpBuilder() {
         return getKeyUpFieldBuilder().getBuilder();
       }
       /**
-       * <code>optional .netGameNodeSDK.key.KeyUp key_up = 1;</code>
+       * <code>optional .mirrorWar.key.KeyUp key_up = 1;</code>
        */
       public mirrorWar.key.KeyOuterClass.KeyUpOrBuilder getKeyUpOrBuilder() {
         if ((keyCase_ == 1) && (keyUpBuilder_ != null)) {
@@ -1824,7 +1824,7 @@ public final class KeyOuterClass {
         }
       }
       /**
-       * <code>optional .netGameNodeSDK.key.KeyUp key_up = 1;</code>
+       * <code>optional .mirrorWar.key.KeyUp key_up = 1;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
           mirrorWar.key.KeyOuterClass.KeyUp, mirrorWar.key.KeyOuterClass.KeyUp.Builder, mirrorWar.key.KeyOuterClass.KeyUpOrBuilder> 
@@ -1848,13 +1848,13 @@ public final class KeyOuterClass {
       private com.google.protobuf.SingleFieldBuilderV3<
           mirrorWar.key.KeyOuterClass.KeyDown, mirrorWar.key.KeyOuterClass.KeyDown.Builder, mirrorWar.key.KeyOuterClass.KeyDownOrBuilder> keyDownBuilder_;
       /**
-       * <code>optional .netGameNodeSDK.key.KeyDown key_down = 2;</code>
+       * <code>optional .mirrorWar.key.KeyDown key_down = 2;</code>
        */
       public boolean hasKeyDown() {
         return keyCase_ == 2;
       }
       /**
-       * <code>optional .netGameNodeSDK.key.KeyDown key_down = 2;</code>
+       * <code>optional .mirrorWar.key.KeyDown key_down = 2;</code>
        */
       public mirrorWar.key.KeyOuterClass.KeyDown getKeyDown() {
         if (keyDownBuilder_ == null) {
@@ -1870,7 +1870,7 @@ public final class KeyOuterClass {
         }
       }
       /**
-       * <code>optional .netGameNodeSDK.key.KeyDown key_down = 2;</code>
+       * <code>optional .mirrorWar.key.KeyDown key_down = 2;</code>
        */
       public Builder setKeyDown(mirrorWar.key.KeyOuterClass.KeyDown value) {
         if (keyDownBuilder_ == null) {
@@ -1886,7 +1886,7 @@ public final class KeyOuterClass {
         return this;
       }
       /**
-       * <code>optional .netGameNodeSDK.key.KeyDown key_down = 2;</code>
+       * <code>optional .mirrorWar.key.KeyDown key_down = 2;</code>
        */
       public Builder setKeyDown(
           mirrorWar.key.KeyOuterClass.KeyDown.Builder builderForValue) {
@@ -1900,7 +1900,7 @@ public final class KeyOuterClass {
         return this;
       }
       /**
-       * <code>optional .netGameNodeSDK.key.KeyDown key_down = 2;</code>
+       * <code>optional .mirrorWar.key.KeyDown key_down = 2;</code>
        */
       public Builder mergeKeyDown(mirrorWar.key.KeyOuterClass.KeyDown value) {
         if (keyDownBuilder_ == null) {
@@ -1922,7 +1922,7 @@ public final class KeyOuterClass {
         return this;
       }
       /**
-       * <code>optional .netGameNodeSDK.key.KeyDown key_down = 2;</code>
+       * <code>optional .mirrorWar.key.KeyDown key_down = 2;</code>
        */
       public Builder clearKeyDown() {
         if (keyDownBuilder_ == null) {
@@ -1941,13 +1941,13 @@ public final class KeyOuterClass {
         return this;
       }
       /**
-       * <code>optional .netGameNodeSDK.key.KeyDown key_down = 2;</code>
+       * <code>optional .mirrorWar.key.KeyDown key_down = 2;</code>
        */
       public mirrorWar.key.KeyOuterClass.KeyDown.Builder getKeyDownBuilder() {
         return getKeyDownFieldBuilder().getBuilder();
       }
       /**
-       * <code>optional .netGameNodeSDK.key.KeyDown key_down = 2;</code>
+       * <code>optional .mirrorWar.key.KeyDown key_down = 2;</code>
        */
       public mirrorWar.key.KeyOuterClass.KeyDownOrBuilder getKeyDownOrBuilder() {
         if ((keyCase_ == 2) && (keyDownBuilder_ != null)) {
@@ -1960,7 +1960,7 @@ public final class KeyOuterClass {
         }
       }
       /**
-       * <code>optional .netGameNodeSDK.key.KeyDown key_down = 2;</code>
+       * <code>optional .mirrorWar.key.KeyDown key_down = 2;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
           mirrorWar.key.KeyOuterClass.KeyDown, mirrorWar.key.KeyOuterClass.KeyDown.Builder, mirrorWar.key.KeyOuterClass.KeyDownOrBuilder> 
@@ -1991,10 +1991,10 @@ public final class KeyOuterClass {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:netGameNodeSDK.key.Key)
+      // @@protoc_insertion_point(builder_scope:mirrorWar.key.Key)
     }
 
-    // @@protoc_insertion_point(class_scope:netGameNodeSDK.key.Key)
+    // @@protoc_insertion_point(class_scope:mirrorWar.key.Key)
     private static final mirrorWar.key.KeyOuterClass.Key DEFAULT_INSTANCE;
     static {
       DEFAULT_INSTANCE = new mirrorWar.key.KeyOuterClass.Key();
@@ -2030,20 +2030,20 @@ public final class KeyOuterClass {
   }
 
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_netGameNodeSDK_key_KeyUp_descriptor;
+    internal_static_mirrorWar_key_KeyUp_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_netGameNodeSDK_key_KeyUp_fieldAccessorTable;
+      internal_static_mirrorWar_key_KeyUp_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_netGameNodeSDK_key_KeyDown_descriptor;
+    internal_static_mirrorWar_key_KeyDown_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_netGameNodeSDK_key_KeyDown_fieldAccessorTable;
+      internal_static_mirrorWar_key_KeyDown_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_netGameNodeSDK_key_Key_descriptor;
+    internal_static_mirrorWar_key_Key_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_netGameNodeSDK_key_Key_fieldAccessorTable;
+      internal_static_mirrorWar_key_Key_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -2053,16 +2053,15 @@ public final class KeyOuterClass {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\tkey.proto\022\022netGameNodeSDK.key\"6\n\005KeyUp" +
-      "\022-\n\010key_type\030\001 \002(\0162\033.netGameNodeSDK.key." +
-      "KeyType\"8\n\007KeyDown\022-\n\010key_type\030\001 \002(\0162\033.n" +
-      "etGameNodeSDK.key.KeyType\"j\n\003Key\022+\n\006key_" +
-      "up\030\001 \001(\0132\031.netGameNodeSDK.key.KeyUpH\000\022/\n" +
-      "\010key_down\030\002 \001(\0132\033.netGameNodeSDK.key.Key" +
-      "DownH\000B\005\n\003key*\201\001\n\007KeyType\022\013\n\007MOVE_UP\020\001\022\r" +
-      "\n\tMOVE_DOWN\020\002\022\r\n\tMOVE_LEFT\020\003\022\016\n\nMOVE_RIG" +
-      "HT\020\004\022\017\n\013SPIN_MIRROR\020\005\022\017\n\013PICK_MIRROR\020\006\022\r" +
-      "\n\tPICK_ITEM\020\007\022\n\n\006SECRET\020\010"
+      "\n\tkey.proto\022\rmirrorWar.key\"1\n\005KeyUp\022(\n\010k" +
+      "ey_type\030\001 \002(\0162\026.mirrorWar.key.KeyType\"3\n" +
+      "\007KeyDown\022(\n\010key_type\030\001 \002(\0162\026.mirrorWar.k" +
+      "ey.KeyType\"`\n\003Key\022&\n\006key_up\030\001 \001(\0132\024.mirr" +
+      "orWar.key.KeyUpH\000\022*\n\010key_down\030\002 \001(\0132\026.mi" +
+      "rrorWar.key.KeyDownH\000B\005\n\003key*\201\001\n\007KeyType" +
+      "\022\013\n\007MOVE_UP\020\001\022\r\n\tMOVE_DOWN\020\002\022\r\n\tMOVE_LEF" +
+      "T\020\003\022\016\n\nMOVE_RIGHT\020\004\022\017\n\013SPIN_MIRROR\020\005\022\017\n\013" +
+      "PICK_MIRROR\020\006\022\r\n\tPICK_ITEM\020\007\022\n\n\006SECRET\020\010"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -2076,23 +2075,23 @@ public final class KeyOuterClass {
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
         }, assigner);
-    internal_static_netGameNodeSDK_key_KeyUp_descriptor =
+    internal_static_mirrorWar_key_KeyUp_descriptor =
       getDescriptor().getMessageTypes().get(0);
-    internal_static_netGameNodeSDK_key_KeyUp_fieldAccessorTable = new
+    internal_static_mirrorWar_key_KeyUp_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_netGameNodeSDK_key_KeyUp_descriptor,
+        internal_static_mirrorWar_key_KeyUp_descriptor,
         new java.lang.String[] { "KeyType", });
-    internal_static_netGameNodeSDK_key_KeyDown_descriptor =
+    internal_static_mirrorWar_key_KeyDown_descriptor =
       getDescriptor().getMessageTypes().get(1);
-    internal_static_netGameNodeSDK_key_KeyDown_fieldAccessorTable = new
+    internal_static_mirrorWar_key_KeyDown_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_netGameNodeSDK_key_KeyDown_descriptor,
+        internal_static_mirrorWar_key_KeyDown_descriptor,
         new java.lang.String[] { "KeyType", });
-    internal_static_netGameNodeSDK_key_Key_descriptor =
+    internal_static_mirrorWar_key_Key_descriptor =
       getDescriptor().getMessageTypes().get(2);
-    internal_static_netGameNodeSDK_key_Key_fieldAccessorTable = new
+    internal_static_mirrorWar_key_Key_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_netGameNodeSDK_key_Key_descriptor,
+        internal_static_mirrorWar_key_Key_descriptor,
         new java.lang.String[] { "KeyUp", "KeyDown", "Key", });
   }
 

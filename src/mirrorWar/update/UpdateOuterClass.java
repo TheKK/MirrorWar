@@ -58,15 +58,28 @@ public final class UpdateOuterClass {
     mirrorWar.charger.Charger.ChargerStateOrBuilder getChargerStateOrBuilder();
 
     /**
-     * <code>optional .mirrorWar.gameReport.Status game_report_state = 4;</code>
+     * <code>optional .mirrorWar.laser.LaserState laser_state = 4;</code>
+     */
+    boolean hasLaserState();
+    /**
+     * <code>optional .mirrorWar.laser.LaserState laser_state = 4;</code>
+     */
+    mirrorWar.laser.Laser.LaserState getLaserState();
+    /**
+     * <code>optional .mirrorWar.laser.LaserState laser_state = 4;</code>
+     */
+    mirrorWar.laser.Laser.LaserStateOrBuilder getLaserStateOrBuilder();
+
+    /**
+     * <code>optional .mirrorWar.gameReport.Status game_report_state = 5;</code>
      */
     boolean hasGameReportState();
     /**
-     * <code>optional .mirrorWar.gameReport.Status game_report_state = 4;</code>
+     * <code>optional .mirrorWar.gameReport.Status game_report_state = 5;</code>
      */
     mirrorWar.gameReport.GameReport.Status getGameReportState();
     /**
-     * <code>optional .mirrorWar.gameReport.Status game_report_state = 4;</code>
+     * <code>optional .mirrorWar.gameReport.Status game_report_state = 5;</code>
      */
     mirrorWar.gameReport.GameReport.StatusOrBuilder getGameReportStateOrBuilder();
 
@@ -157,8 +170,22 @@ public final class UpdateOuterClass {
               break;
             }
             case 34: {
-              mirrorWar.gameReport.GameReport.Status.Builder subBuilder = null;
+              mirrorWar.laser.Laser.LaserState.Builder subBuilder = null;
               if (updateCase_ == 4) {
+                subBuilder = ((mirrorWar.laser.Laser.LaserState) update_).toBuilder();
+              }
+              update_ =
+                  input.readMessage(mirrorWar.laser.Laser.LaserState.PARSER, extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom((mirrorWar.laser.Laser.LaserState) update_);
+                update_ = subBuilder.buildPartial();
+              }
+              updateCase_ = 4;
+              break;
+            }
+            case 42: {
+              mirrorWar.gameReport.GameReport.Status.Builder subBuilder = null;
+              if (updateCase_ == 5) {
                 subBuilder = ((mirrorWar.gameReport.GameReport.Status) update_).toBuilder();
               }
               update_ =
@@ -167,7 +194,7 @@ public final class UpdateOuterClass {
                 subBuilder.mergeFrom((mirrorWar.gameReport.GameReport.Status) update_);
                 update_ = subBuilder.buildPartial();
               }
-              updateCase_ = 4;
+              updateCase_ = 5;
               break;
             }
           }
@@ -202,7 +229,8 @@ public final class UpdateOuterClass {
       PLAYER_STATE(1),
       MIRROR_STATE(2),
       CHARGER_STATE(3),
-      GAME_REPORT_STATE(4),
+      LASER_STATE(4),
+      GAME_REPORT_STATE(5),
       UPDATE_NOT_SET(0);
       private final int value;
       private UpdateCase(int value) {
@@ -221,7 +249,8 @@ public final class UpdateOuterClass {
           case 1: return PLAYER_STATE;
           case 2: return MIRROR_STATE;
           case 3: return CHARGER_STATE;
-          case 4: return GAME_REPORT_STATE;
+          case 4: return LASER_STATE;
+          case 5: return GAME_REPORT_STATE;
           case 0: return UPDATE_NOT_SET;
           default: return null;
         }
@@ -315,27 +344,53 @@ public final class UpdateOuterClass {
       return mirrorWar.charger.Charger.ChargerState.getDefaultInstance();
     }
 
-    public static final int GAME_REPORT_STATE_FIELD_NUMBER = 4;
+    public static final int LASER_STATE_FIELD_NUMBER = 4;
     /**
-     * <code>optional .mirrorWar.gameReport.Status game_report_state = 4;</code>
+     * <code>optional .mirrorWar.laser.LaserState laser_state = 4;</code>
      */
-    public boolean hasGameReportState() {
+    public boolean hasLaserState() {
       return updateCase_ == 4;
     }
     /**
-     * <code>optional .mirrorWar.gameReport.Status game_report_state = 4;</code>
+     * <code>optional .mirrorWar.laser.LaserState laser_state = 4;</code>
+     */
+    public mirrorWar.laser.Laser.LaserState getLaserState() {
+      if (updateCase_ == 4) {
+         return (mirrorWar.laser.Laser.LaserState) update_;
+      }
+      return mirrorWar.laser.Laser.LaserState.getDefaultInstance();
+    }
+    /**
+     * <code>optional .mirrorWar.laser.LaserState laser_state = 4;</code>
+     */
+    public mirrorWar.laser.Laser.LaserStateOrBuilder getLaserStateOrBuilder() {
+      if (updateCase_ == 4) {
+         return (mirrorWar.laser.Laser.LaserState) update_;
+      }
+      return mirrorWar.laser.Laser.LaserState.getDefaultInstance();
+    }
+
+    public static final int GAME_REPORT_STATE_FIELD_NUMBER = 5;
+    /**
+     * <code>optional .mirrorWar.gameReport.Status game_report_state = 5;</code>
+     */
+    public boolean hasGameReportState() {
+      return updateCase_ == 5;
+    }
+    /**
+     * <code>optional .mirrorWar.gameReport.Status game_report_state = 5;</code>
      */
     public mirrorWar.gameReport.GameReport.Status getGameReportState() {
-      if (updateCase_ == 4) {
+      if (updateCase_ == 5) {
          return (mirrorWar.gameReport.GameReport.Status) update_;
       }
       return mirrorWar.gameReport.GameReport.Status.getDefaultInstance();
     }
     /**
-     * <code>optional .mirrorWar.gameReport.Status game_report_state = 4;</code>
+     * <code>optional .mirrorWar.gameReport.Status game_report_state = 5;</code>
      */
     public mirrorWar.gameReport.GameReport.StatusOrBuilder getGameReportStateOrBuilder() {
-      if (updateCase_ == 4) {
+      if (updateCase_ == 5) {
          return (mirrorWar.gameReport.GameReport.Status) update_;
       }
       return mirrorWar.gameReport.GameReport.Status.getDefaultInstance();
@@ -365,6 +420,12 @@ public final class UpdateOuterClass {
           return false;
         }
       }
+      if (hasLaserState()) {
+        if (!getLaserState().isInitialized()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -381,7 +442,10 @@ public final class UpdateOuterClass {
         output.writeMessage(3, (mirrorWar.charger.Charger.ChargerState) update_);
       }
       if (updateCase_ == 4) {
-        output.writeMessage(4, (mirrorWar.gameReport.GameReport.Status) update_);
+        output.writeMessage(4, (mirrorWar.laser.Laser.LaserState) update_);
+      }
+      if (updateCase_ == 5) {
+        output.writeMessage(5, (mirrorWar.gameReport.GameReport.Status) update_);
       }
       unknownFields.writeTo(output);
     }
@@ -405,7 +469,11 @@ public final class UpdateOuterClass {
       }
       if (updateCase_ == 4) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(4, (mirrorWar.gameReport.GameReport.Status) update_);
+          .computeMessageSize(4, (mirrorWar.laser.Laser.LaserState) update_);
+      }
+      if (updateCase_ == 5) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(5, (mirrorWar.gameReport.GameReport.Status) update_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -441,6 +509,10 @@ public final class UpdateOuterClass {
               .equals(other.getChargerState());
           break;
         case 4:
+          result = result && getLaserState()
+              .equals(other.getLaserState());
+          break;
+        case 5:
           result = result && getGameReportState()
               .equals(other.getGameReportState());
           break;
@@ -472,6 +544,10 @@ public final class UpdateOuterClass {
           hash = (53 * hash) + getChargerState().hashCode();
           break;
         case 4:
+          hash = (37 * hash) + LASER_STATE_FIELD_NUMBER;
+          hash = (53 * hash) + getLaserState().hashCode();
+          break;
+        case 5:
           hash = (37 * hash) + GAME_REPORT_STATE_FIELD_NUMBER;
           hash = (53 * hash) + getGameReportState().hashCode();
           break;
@@ -644,6 +720,13 @@ public final class UpdateOuterClass {
           }
         }
         if (updateCase_ == 4) {
+          if (laserStateBuilder_ == null) {
+            result.update_ = update_;
+          } else {
+            result.update_ = laserStateBuilder_.build();
+          }
+        }
+        if (updateCase_ == 5) {
           if (gameReportStateBuilder_ == null) {
             result.update_ = update_;
           } else {
@@ -706,6 +789,10 @@ public final class UpdateOuterClass {
             mergeChargerState(other.getChargerState());
             break;
           }
+          case LASER_STATE: {
+            mergeLaserState(other.getLaserState());
+            break;
+          }
           case GAME_REPORT_STATE: {
             mergeGameReportState(other.getGameReportState());
             break;
@@ -732,6 +819,11 @@ public final class UpdateOuterClass {
         }
         if (hasChargerState()) {
           if (!getChargerState().isInitialized()) {
+            return false;
+          }
+        }
+        if (hasLaserState()) {
+          if (!getLaserState().isInitialized()) {
             return false;
           }
         }
@@ -1181,31 +1273,167 @@ public final class UpdateOuterClass {
       }
 
       private com.google.protobuf.SingleFieldBuilderV3<
-          mirrorWar.gameReport.GameReport.Status, mirrorWar.gameReport.GameReport.Status.Builder, mirrorWar.gameReport.GameReport.StatusOrBuilder> gameReportStateBuilder_;
+          mirrorWar.laser.Laser.LaserState, mirrorWar.laser.Laser.LaserState.Builder, mirrorWar.laser.Laser.LaserStateOrBuilder> laserStateBuilder_;
       /**
-       * <code>optional .mirrorWar.gameReport.Status game_report_state = 4;</code>
+       * <code>optional .mirrorWar.laser.LaserState laser_state = 4;</code>
        */
-      public boolean hasGameReportState() {
+      public boolean hasLaserState() {
         return updateCase_ == 4;
       }
       /**
-       * <code>optional .mirrorWar.gameReport.Status game_report_state = 4;</code>
+       * <code>optional .mirrorWar.laser.LaserState laser_state = 4;</code>
+       */
+      public mirrorWar.laser.Laser.LaserState getLaserState() {
+        if (laserStateBuilder_ == null) {
+          if (updateCase_ == 4) {
+            return (mirrorWar.laser.Laser.LaserState) update_;
+          }
+          return mirrorWar.laser.Laser.LaserState.getDefaultInstance();
+        } else {
+          if (updateCase_ == 4) {
+            return laserStateBuilder_.getMessage();
+          }
+          return mirrorWar.laser.Laser.LaserState.getDefaultInstance();
+        }
+      }
+      /**
+       * <code>optional .mirrorWar.laser.LaserState laser_state = 4;</code>
+       */
+      public Builder setLaserState(mirrorWar.laser.Laser.LaserState value) {
+        if (laserStateBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          update_ = value;
+          onChanged();
+        } else {
+          laserStateBuilder_.setMessage(value);
+        }
+        updateCase_ = 4;
+        return this;
+      }
+      /**
+       * <code>optional .mirrorWar.laser.LaserState laser_state = 4;</code>
+       */
+      public Builder setLaserState(
+          mirrorWar.laser.Laser.LaserState.Builder builderForValue) {
+        if (laserStateBuilder_ == null) {
+          update_ = builderForValue.build();
+          onChanged();
+        } else {
+          laserStateBuilder_.setMessage(builderForValue.build());
+        }
+        updateCase_ = 4;
+        return this;
+      }
+      /**
+       * <code>optional .mirrorWar.laser.LaserState laser_state = 4;</code>
+       */
+      public Builder mergeLaserState(mirrorWar.laser.Laser.LaserState value) {
+        if (laserStateBuilder_ == null) {
+          if (updateCase_ == 4 &&
+              update_ != mirrorWar.laser.Laser.LaserState.getDefaultInstance()) {
+            update_ = mirrorWar.laser.Laser.LaserState.newBuilder((mirrorWar.laser.Laser.LaserState) update_)
+                .mergeFrom(value).buildPartial();
+          } else {
+            update_ = value;
+          }
+          onChanged();
+        } else {
+          if (updateCase_ == 4) {
+            laserStateBuilder_.mergeFrom(value);
+          }
+          laserStateBuilder_.setMessage(value);
+        }
+        updateCase_ = 4;
+        return this;
+      }
+      /**
+       * <code>optional .mirrorWar.laser.LaserState laser_state = 4;</code>
+       */
+      public Builder clearLaserState() {
+        if (laserStateBuilder_ == null) {
+          if (updateCase_ == 4) {
+            updateCase_ = 0;
+            update_ = null;
+            onChanged();
+          }
+        } else {
+          if (updateCase_ == 4) {
+            updateCase_ = 0;
+            update_ = null;
+          }
+          laserStateBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>optional .mirrorWar.laser.LaserState laser_state = 4;</code>
+       */
+      public mirrorWar.laser.Laser.LaserState.Builder getLaserStateBuilder() {
+        return getLaserStateFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>optional .mirrorWar.laser.LaserState laser_state = 4;</code>
+       */
+      public mirrorWar.laser.Laser.LaserStateOrBuilder getLaserStateOrBuilder() {
+        if ((updateCase_ == 4) && (laserStateBuilder_ != null)) {
+          return laserStateBuilder_.getMessageOrBuilder();
+        } else {
+          if (updateCase_ == 4) {
+            return (mirrorWar.laser.Laser.LaserState) update_;
+          }
+          return mirrorWar.laser.Laser.LaserState.getDefaultInstance();
+        }
+      }
+      /**
+       * <code>optional .mirrorWar.laser.LaserState laser_state = 4;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          mirrorWar.laser.Laser.LaserState, mirrorWar.laser.Laser.LaserState.Builder, mirrorWar.laser.Laser.LaserStateOrBuilder> 
+          getLaserStateFieldBuilder() {
+        if (laserStateBuilder_ == null) {
+          if (!(updateCase_ == 4)) {
+            update_ = mirrorWar.laser.Laser.LaserState.getDefaultInstance();
+          }
+          laserStateBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              mirrorWar.laser.Laser.LaserState, mirrorWar.laser.Laser.LaserState.Builder, mirrorWar.laser.Laser.LaserStateOrBuilder>(
+                  (mirrorWar.laser.Laser.LaserState) update_,
+                  getParentForChildren(),
+                  isClean());
+          update_ = null;
+        }
+        updateCase_ = 4;
+        onChanged();;
+        return laserStateBuilder_;
+      }
+
+      private com.google.protobuf.SingleFieldBuilderV3<
+          mirrorWar.gameReport.GameReport.Status, mirrorWar.gameReport.GameReport.Status.Builder, mirrorWar.gameReport.GameReport.StatusOrBuilder> gameReportStateBuilder_;
+      /**
+       * <code>optional .mirrorWar.gameReport.Status game_report_state = 5;</code>
+       */
+      public boolean hasGameReportState() {
+        return updateCase_ == 5;
+      }
+      /**
+       * <code>optional .mirrorWar.gameReport.Status game_report_state = 5;</code>
        */
       public mirrorWar.gameReport.GameReport.Status getGameReportState() {
         if (gameReportStateBuilder_ == null) {
-          if (updateCase_ == 4) {
+          if (updateCase_ == 5) {
             return (mirrorWar.gameReport.GameReport.Status) update_;
           }
           return mirrorWar.gameReport.GameReport.Status.getDefaultInstance();
         } else {
-          if (updateCase_ == 4) {
+          if (updateCase_ == 5) {
             return gameReportStateBuilder_.getMessage();
           }
           return mirrorWar.gameReport.GameReport.Status.getDefaultInstance();
         }
       }
       /**
-       * <code>optional .mirrorWar.gameReport.Status game_report_state = 4;</code>
+       * <code>optional .mirrorWar.gameReport.Status game_report_state = 5;</code>
        */
       public Builder setGameReportState(mirrorWar.gameReport.GameReport.Status value) {
         if (gameReportStateBuilder_ == null) {
@@ -1217,11 +1445,11 @@ public final class UpdateOuterClass {
         } else {
           gameReportStateBuilder_.setMessage(value);
         }
-        updateCase_ = 4;
+        updateCase_ = 5;
         return this;
       }
       /**
-       * <code>optional .mirrorWar.gameReport.Status game_report_state = 4;</code>
+       * <code>optional .mirrorWar.gameReport.Status game_report_state = 5;</code>
        */
       public Builder setGameReportState(
           mirrorWar.gameReport.GameReport.Status.Builder builderForValue) {
@@ -1231,15 +1459,15 @@ public final class UpdateOuterClass {
         } else {
           gameReportStateBuilder_.setMessage(builderForValue.build());
         }
-        updateCase_ = 4;
+        updateCase_ = 5;
         return this;
       }
       /**
-       * <code>optional .mirrorWar.gameReport.Status game_report_state = 4;</code>
+       * <code>optional .mirrorWar.gameReport.Status game_report_state = 5;</code>
        */
       public Builder mergeGameReportState(mirrorWar.gameReport.GameReport.Status value) {
         if (gameReportStateBuilder_ == null) {
-          if (updateCase_ == 4 &&
+          if (updateCase_ == 5 &&
               update_ != mirrorWar.gameReport.GameReport.Status.getDefaultInstance()) {
             update_ = mirrorWar.gameReport.GameReport.Status.newBuilder((mirrorWar.gameReport.GameReport.Status) update_)
                 .mergeFrom(value).buildPartial();
@@ -1248,26 +1476,26 @@ public final class UpdateOuterClass {
           }
           onChanged();
         } else {
-          if (updateCase_ == 4) {
+          if (updateCase_ == 5) {
             gameReportStateBuilder_.mergeFrom(value);
           }
           gameReportStateBuilder_.setMessage(value);
         }
-        updateCase_ = 4;
+        updateCase_ = 5;
         return this;
       }
       /**
-       * <code>optional .mirrorWar.gameReport.Status game_report_state = 4;</code>
+       * <code>optional .mirrorWar.gameReport.Status game_report_state = 5;</code>
        */
       public Builder clearGameReportState() {
         if (gameReportStateBuilder_ == null) {
-          if (updateCase_ == 4) {
+          if (updateCase_ == 5) {
             updateCase_ = 0;
             update_ = null;
             onChanged();
           }
         } else {
-          if (updateCase_ == 4) {
+          if (updateCase_ == 5) {
             updateCase_ = 0;
             update_ = null;
           }
@@ -1276,32 +1504,32 @@ public final class UpdateOuterClass {
         return this;
       }
       /**
-       * <code>optional .mirrorWar.gameReport.Status game_report_state = 4;</code>
+       * <code>optional .mirrorWar.gameReport.Status game_report_state = 5;</code>
        */
       public mirrorWar.gameReport.GameReport.Status.Builder getGameReportStateBuilder() {
         return getGameReportStateFieldBuilder().getBuilder();
       }
       /**
-       * <code>optional .mirrorWar.gameReport.Status game_report_state = 4;</code>
+       * <code>optional .mirrorWar.gameReport.Status game_report_state = 5;</code>
        */
       public mirrorWar.gameReport.GameReport.StatusOrBuilder getGameReportStateOrBuilder() {
-        if ((updateCase_ == 4) && (gameReportStateBuilder_ != null)) {
+        if ((updateCase_ == 5) && (gameReportStateBuilder_ != null)) {
           return gameReportStateBuilder_.getMessageOrBuilder();
         } else {
-          if (updateCase_ == 4) {
+          if (updateCase_ == 5) {
             return (mirrorWar.gameReport.GameReport.Status) update_;
           }
           return mirrorWar.gameReport.GameReport.Status.getDefaultInstance();
         }
       }
       /**
-       * <code>optional .mirrorWar.gameReport.Status game_report_state = 4;</code>
+       * <code>optional .mirrorWar.gameReport.Status game_report_state = 5;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
           mirrorWar.gameReport.GameReport.Status, mirrorWar.gameReport.GameReport.Status.Builder, mirrorWar.gameReport.GameReport.StatusOrBuilder> 
           getGameReportStateFieldBuilder() {
         if (gameReportStateBuilder_ == null) {
-          if (!(updateCase_ == 4)) {
+          if (!(updateCase_ == 5)) {
             update_ = mirrorWar.gameReport.GameReport.Status.getDefaultInstance();
           }
           gameReportStateBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
@@ -1311,7 +1539,7 @@ public final class UpdateOuterClass {
                   isClean());
           update_ = null;
         }
-        updateCase_ = 4;
+        updateCase_ = 5;
         onChanged();;
         return gameReportStateBuilder_;
       }
@@ -2138,15 +2366,17 @@ public final class UpdateOuterClass {
   static {
     java.lang.String[] descriptorData = {
       "\n\014update.proto\022\020mirrorWar.update\032\014player" +
-      ".proto\032\014mirror.proto\032\rcharger.proto\032\020gam" +
-      "eReport.proto\"\365\001\n\006Update\0225\n\014player_state" +
-      "\030\001 \001(\0132\035.mirrorWar.player.PlayerStateH\000\022" +
-      "5\n\014mirror_state\030\002 \001(\0132\035.mirrorWar.mirror" +
-      ".MirrorStateH\000\0228\n\rcharger_state\030\003 \001(\0132\037." +
-      "mirrorWar.charger.ChargerStateH\000\0229\n\021game" +
-      "_report_state\030\004 \001(\0132\034.mirrorWar.gameRepo" +
-      "rt.StatusH\000B\010\n\006update\"4\n\007Updates\022)\n\007upda" +
-      "tes\030\001 \003(\0132\030.mirrorWar.update.Update"
+      ".proto\032\014mirror.proto\032\rcharger.proto\032\013las" +
+      "er.proto\032\020gameReport.proto\"\251\002\n\006Update\0225\n" +
+      "\014player_state\030\001 \001(\0132\035.mirrorWar.player.P" +
+      "layerStateH\000\0225\n\014mirror_state\030\002 \001(\0132\035.mir" +
+      "rorWar.mirror.MirrorStateH\000\0228\n\rcharger_s" +
+      "tate\030\003 \001(\0132\037.mirrorWar.charger.ChargerSt" +
+      "ateH\000\0222\n\013laser_state\030\004 \001(\0132\033.mirrorWar.l" +
+      "aser.LaserStateH\000\0229\n\021game_report_state\030\005" +
+      " \001(\0132\034.mirrorWar.gameReport.StatusH\000B\010\n\006",
+      "update\"4\n\007Updates\022)\n\007updates\030\001 \003(\0132\030.mir" +
+      "rorWar.update.Update"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -2162,6 +2392,7 @@ public final class UpdateOuterClass {
           mirrorWar.player.Player.getDescriptor(),
           mirrorWar.mirror.Mirror.getDescriptor(),
           mirrorWar.charger.Charger.getDescriptor(),
+          mirrorWar.laser.Laser.getDescriptor(),
           mirrorWar.gameReport.GameReport.getDescriptor(),
         }, assigner);
     internal_static_mirrorWar_update_Update_descriptor =
@@ -2169,7 +2400,7 @@ public final class UpdateOuterClass {
     internal_static_mirrorWar_update_Update_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_mirrorWar_update_Update_descriptor,
-        new java.lang.String[] { "PlayerState", "MirrorState", "ChargerState", "GameReportState", "Update", });
+        new java.lang.String[] { "PlayerState", "MirrorState", "ChargerState", "LaserState", "GameReportState", "Update", });
     internal_static_mirrorWar_update_Updates_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_mirrorWar_update_Updates_fieldAccessorTable = new
@@ -2179,6 +2410,7 @@ public final class UpdateOuterClass {
     mirrorWar.player.Player.getDescriptor();
     mirrorWar.mirror.Mirror.getDescriptor();
     mirrorWar.charger.Charger.getDescriptor();
+    mirrorWar.laser.Laser.getDescriptor();
     mirrorWar.gameReport.GameReport.getDescriptor();
   }
 
