@@ -2,10 +2,15 @@ package mirrorWar;
 
 import java.awt.geom.Rectangle2D;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
 import java.net.InetSocketAddress;
+import java.net.Socket;
+import java.net.SocketException;
 import java.net.UnknownHostException;
-import java.util.Optional;
-import java.util.concurrent.CompletableFuture;
+
 import java.util.concurrent.CompletionException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -23,8 +28,10 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
-import tcp.GameMessage;
-import tcp.TcpClient;
+import mirrorWar.gameStatusUpdate.GameStatusUpdate.ServerMessage;
+import netGameNodeSDK.handshake.Handshake.ClientHandshake;
+import netGameNodeSDK.handshake.Handshake.ServerHandshake;
+
 
 enum State {
 	USER_INPUT,
@@ -35,10 +42,14 @@ enum State {
 public class JoinGameScene extends GameScene {
 	
 	private State currentState = State.USER_INPUT;
-	
-	private String content = "";
+	private DatagramSocket updateInputSocket;
+	private DatagramPacket updatePacket;
+	private DatagramSocket commandOutputSocket;
+	private DatagramPacket commandPacket;
+	private String serverIp = "";
 	private final int width = 200;
 	private final int height = 30;
+	private int controllingPlayerId = 0;
 	
 	public JoinGameScene() {
 		Game.clearColor = Color.YELLOW;
@@ -49,12 +60,12 @@ public class JoinGameScene extends GameScene {
 		GameNode dialogBackgroud = new RectangleGameNode(300, 250, width, height, Color.WHITE);
 		rootNode.addChild(dialogBackgroud);
 		
-		GameNode text = new TextGameNode(content) {
+		GameNode text = new TextGameNode(serverIp) {
 			@Override
 			public boolean onKeyPressed(KeyEvent event) {
 				switch (event.getCode()) {
 					case BACK_SPACE:
-						content = cutOffLastWord(content);
+						serverIp = cutOffLastWord(serverIp);
 						break;
 					case PERIOD:
 					case DECIMAL:
@@ -66,7 +77,7 @@ public class JoinGameScene extends GameScene {
 						}
 				}
 				
-				text = content;
+				text = serverIp;
 				
 				return true;
 			}
@@ -109,18 +120,19 @@ public class JoinGameScene extends GameScene {
 		return new CyclicTiledBackground(backgroundTileAniSprite);
 	}
 	
-	private TcpClient connectToServer(String ip) {
+	private Socket connectToServer(String ip) {
 		try {
 			InetSocketAddress ipAddr = getIp(ip);
-			TcpClient client = new TcpClient();
+			assert ipAddr != null;
+			Socket socket = new Socket();
 			
 			currentState = State.WAITTING_CONNECTION;
 			
-			client.connectServer(ipAddr);
+			socket.connect(ipAddr);
 			
 			currentState = State.WAITTING_FOR_OTHER_PLAYER;
 
-			return client;
+			return socket;
 
 		} catch (UnknownHostException e) {
 			currentState = State.USER_INPUT;
@@ -132,14 +144,17 @@ public class JoinGameScene extends GameScene {
 		}
 	}
 	
-	private void waitForOtherPlayerToJoin(TcpClient tcpClient) {
+	private void waitForOtherPlayerToJoin(Socket serverSocket) {
 		try {
+			InputStream in = serverSocket.getInputStream();
 			// This would block current thread
-			GameMessage gameMessage = tcpClient.waitForGameMessage();
-			switch (gameMessage) {
-				case TEAM_MATCHED:
+			ServerMessage status = ServerMessage.parseDelimitedFrom(in);
+			switch (status.getMsg()) {
+				case ALL_PLAYER_READY:
 					return;
+					
 				default:
+					DangerousGlobalVariables.logger.severe("Protocol error: expecting 'ALL_PLAYER_READY'");
 					Platform.exit();
 			}
 		} catch (Exception e) {
@@ -150,26 +165,26 @@ public class JoinGameScene extends GameScene {
 	}
 	
 	private void tryConnectAndWaitForOtherPlayer() {
-		CompletableFuture
-			.supplyAsync(() -> { return content; })
-			.thenApplyAsync(this::connectToServer)
-			.thenApplyAsync(tcpClient -> {
-					DangerousGlobalVariables.tcpClient = Optional.of(tcpClient);
-					return tcpClient;
-			})
-			.thenAcceptAsync(this::waitForOtherPlayerToJoin)
-			.whenComplete((result, e) -> {
-				if (e == null) {
-					DangerousGlobalVariables.logger.info("Game start");
-					MirrorWarScene mws = new MirrorWarScene();
-					
-					currentState = State.USER_INPUT;
-					Game.pushScene(mws);
-				} else {
-					// TODO Show these error message to player
-					DangerousGlobalVariables.logger.warning(e.getMessage());
-				}
-			});
+		Runnable routine = () -> {
+			Socket serverSocket;
+			try {
+				serverSocket = connectToServer(serverIp);
+				setupUDPSockets(serverSocket);
+				ServerHandshake serverHandshake = handshakeWithServer(serverSocket);
+				controllingPlayerId = serverHandshake.getClientId();
+				waitForOtherPlayerToJoin(serverSocket);
+			} catch (IOException e) {
+				return;
+			}
+			
+			DangerousGlobalVariables.logger.info("Game start");
+			MirrorWarScene mws = new MirrorWarScene(serverSocket, updateInputSocket, commandOutputSocket, controllingPlayerId, updatePacket, commandPacket);
+			
+			currentState = State.USER_INPUT;
+			Game.swapScene(mws);
+		};
+
+		new Thread(routine).run();
 	}
 	
 	private InetSocketAddress getIp(String ip) throws UnknownHostException {
@@ -195,8 +210,8 @@ public class JoinGameScene extends GameScene {
 	}
 	
 	private void contentAppend(String str) {
-		if (content.length() < 15) {
-			content += str;
+		if (serverIp.length() < 15) {
+			serverIp += str;
 		}
 	}
 	
@@ -222,5 +237,40 @@ public class JoinGameScene extends GameScene {
 			default:
 				return false;
 		}
+	}
+	
+	private ServerHandshake handshakeWithServer(Socket serverSocket) {
+		try {
+			InputStream in = serverSocket.getInputStream();
+			OutputStream out = serverSocket.getOutputStream();
+			
+			// I. Sending ClientHandshake to server
+			ClientHandshake.newBuilder()
+					.setUpdatePort(updateInputSocket.getLocalPort())
+					.build()
+					.writeDelimitedTo(out);
+	
+			// II. Receive server's port which sending commands to client
+			ServerHandshake serverHandshake = ServerHandshake.parseDelimitedFrom(in);
+	
+			commandPacket.setAddress(serverSocket.getInetAddress());
+			commandPacket.setPort(serverHandshake.getCommandPort());
+			
+			return serverHandshake;
+		} catch (IOException e) {
+			throw new CompletionException(e);
+		}
+	}
+	
+	private void setupUDPSockets(Socket serverSocket) throws SocketException {
+		commandOutputSocket = new DatagramSocket();
+		updateInputSocket = new DatagramSocket();
+
+		byte[] commandData = new byte[2048];
+		commandPacket = new DatagramPacket(commandData, commandData.length);
+		commandPacket.setSocketAddress(serverSocket.getRemoteSocketAddress());
+
+		byte[] updateData = new byte[2048];
+		updatePacket = new DatagramPacket(updateData, updateData.length);
 	}
 }

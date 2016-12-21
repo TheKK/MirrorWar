@@ -1,6 +1,6 @@
 syntax = "proto2";
 
-package testbed.handshake;
+package mirrorWar.handshake;
 
 message ClientHandshake {
     required uint32 updatePort = 1;
