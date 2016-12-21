@@ -1,71 +1,113 @@
 package mirrorWar;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.Socket;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
 
 import gameEngine.Game;
 import gameEngine.GameScene;
-import javafx.application.Platform;
 import javafx.scene.paint.Color;
-import tcp.GameMessage;
-import tcp.TcpClient;
-import tcp.WrongMessageException;
+import mirrorWar.gameStatusUpdate.GameStatusUpdate.ServerMessage;
 
 enum GameState {
-	SENDING_READY_MESSAGE, WAIT_FOR_OTHER_PLAYER, START_PLAYING
+	SENDING_READY_MESSAGE, WAIT_FOR_OTHER_PLAYER, START_PLAYING, GAME_OVER
 }
 
 public class MirrorWarScene extends GameScene {
 	private GameState gameState = GameState.SENDING_READY_MESSAGE;
-	private final TcpClient tcpClient;
+	private final DatagramPacket updatePacket, commandPacket;
+	private final DatagramSocket updateSock, commandSock;
+	private final Socket serverConnSocket;
+	private final int playerId;
 	
-	public MirrorWarScene() {
+	public MirrorWarScene(Socket s, DatagramSocket update, DatagramSocket command, int playerId, DatagramPacket updatePack, DatagramPacket commandPack) {
 		Game.clearColor = Color.PINK;
-		tcpClient = DangerousGlobalVariables.tcpClient.get();
+		serverConnSocket = s;
+		updateSock = update;
+		commandSock = command;
+		updatePacket = updatePack;
+		commandPacket = commandPack;
+		this.playerId = playerId;
+	}
+
+	@Override
+	protected void initialize() {
+		setupTCPGameStateUpdateService();
+	}
+	
+	private void setupTCPGameStateUpdateService() {
+		InputStream in;
+		
+		try {
+			in = serverConnSocket.getInputStream();
+
+		} catch (IOException e) {
+			DangerousGlobalVariables.logger.severe("Error while retrieving input and output stream.");
+			Game.swapScene(new JoinGameScene());
+			
+			return;
+		}
 		
 		CompletableFuture.runAsync(() -> {
 			gameState = GameState.SENDING_READY_MESSAGE;
-
-			try {
-				tcpClient.sendGameMessage(GameMessage.PLAYER_IS_READY);
-			} catch (IOException e) {
-				throw new CompletionException(e);
-			}
 		})
 		.thenRunAsync(() -> {
 			gameState = GameState.WAIT_FOR_OTHER_PLAYER;
 
+			ServerMessage serverMessage;
 			try {
-				if (tcpClient.waitForGameMessage() == GameMessage.GAME_START) {
-					DangerousGlobalVariables.logger.info("[CLIENT] Game start");
-				} else {
-					throw new CompletionException(new Exception("Wrong protocol!!"));
-				}
-			} catch (IOException | WrongMessageException e) {
+				serverMessage = ServerMessage.parseDelimitedFrom(in);
+				
+			} catch (IOException e) {
 				throw new CompletionException(e);
+			}
+			
+			switch (serverMessage.getMsg()) {
+			case GAME_START:
+				gameState = GameState.START_PLAYING;
+				break;
+				
+			default:
+				DangerousGlobalVariables.logger.severe("Wrong protocol: expecting 'START_PLAYING'");
+				break;
 			}
 		})
 		.thenRunAsync(() -> {
-			gameState = GameState.START_PLAYING;
-			
+			ServerMessage serverMessage;
 			try {
-				if (tcpClient.waitForGameMessage() != GameMessage.GAME_OVER) {
-					throw new CompletionException(new Exception("Wrong protocol!!"));
-				}
-			} catch (Exception e) {
+				serverMessage = ServerMessage.parseDelimitedFrom(in);
+				
+			} catch (IOException e) {
 				throw new CompletionException(e);
+			}
+			
+			switch (serverMessage.getMsg()) {
+			case GAME_OVER:
+				gameState = GameState.GAME_OVER;
+				break;
+				
+			default:
+				DangerousGlobalVariables.logger.severe("Wrong protocol !!!");
+				break;
 			}
 		})
 		.whenComplete((result, e) -> {
 			if (e != null) {
 				DangerousGlobalVariables.logger.severe("[CLIENT] " + e.getMessage());
-				Platform.exit();
 			}
+			try {
+				serverConnSocket.close();
+			} catch (IOException e1) {
+			}
+			commandSock.close();
+			updateSock.close();
 			
 			DangerousGlobalVariables.logger.info("game is over");
-			Game.popScene();
+			Game.swapScene(new JoinGameScene());
 		});
-
 	}
 }

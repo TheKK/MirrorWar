@@ -1,0 +1,14 @@
+syntax = "proto2";
+
+package mirrorWar.gameStatusUpdate;
+
+message ServerMessage {
+
+    enum Message {
+        GAME_OVER = 1;
+        ALL_PLAYER_READY = 2;
+        GAME_START = 3;
+    }
+
+    required Message msg = 1;
+}
