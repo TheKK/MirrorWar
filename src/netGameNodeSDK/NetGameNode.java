@@ -22,8 +22,8 @@ public abstract class NetGameNode<UPDATE, INPUT> extends GameNode {
 	protected Function<KeyEvent, Boolean> onKeyPressedFunc = key -> { return true; };
 	protected Function<KeyEvent, Boolean> onKeyReleasedFunc = key -> { return true; };
 
-	abstract protected void clientInitialize(GameScene scene);
-	abstract protected void serverInitialize(GameScene scene, boolean debugMode);
+	abstract public void clientInitialize(GameScene scene);
+	abstract public void serverInitialize(GameScene scene, boolean debugMode);
 
 	abstract protected void clientUpdate(long elapse);
 	abstract protected void serverUpdate(long elapse);

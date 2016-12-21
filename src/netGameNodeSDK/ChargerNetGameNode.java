@@ -22,7 +22,7 @@ public class ChargerNetGameNode extends NetGameNode<ChargerState, Void> {
 	}
 
 	@Override
-	protected void clientInitialize(GameScene scene) {
+	public void clientInitialize(GameScene scene) {
 		RectangleGameNode rec = new RectangleGameNode(0, 0, 50, 50, Color.BLUE);
 
 		addChild(rec);
@@ -33,7 +33,7 @@ public class ChargerNetGameNode extends NetGameNode<ChargerState, Void> {
 	}
 
 	@Override
-	protected void serverInitialize(GameScene scene, boolean debugMode) {
+	public void serverInitialize(GameScene scene, boolean debugMode) {
 		geometry.x = 0;
 		geometry.y = 0;
 		geometry.width = 50;

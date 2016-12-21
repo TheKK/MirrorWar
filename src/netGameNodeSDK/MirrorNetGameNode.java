@@ -46,7 +46,7 @@ public class MirrorNetGameNode extends NetGameNode<MirrorState, Void> {
 	}
 
 	@Override
-	protected void clientInitialize(GameScene scene) {
+	public void clientInitialize(GameScene scene) {
 		clientMirrorImage = new RectangleGameNode(0, 0, 50, 50, Color.BROWN);
 		addChild(clientMirrorImage);
 
@@ -54,7 +54,7 @@ public class MirrorNetGameNode extends NetGameNode<MirrorState, Void> {
 	}
 
 	@Override
-	protected void serverInitialize(GameScene scene, boolean debugMode) {
+	public void serverInitialize(GameScene scene, boolean debugMode) {
 		geometry.width = 50;
 		geometry.height = 50;
 
