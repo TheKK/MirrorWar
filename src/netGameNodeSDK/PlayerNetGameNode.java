@@ -70,7 +70,7 @@ public final class PlayerNetGameNode extends NetGameNode<PlayerState, Input> {
 	}
 
 	@Override
-	protected void clientInitialize(GameScene scene) {
+	public void clientInitialize(GameScene scene) {
 		geometry.x = 0;
 		geometry.y = 0;
 
@@ -93,7 +93,7 @@ public final class PlayerNetGameNode extends NetGameNode<PlayerState, Input> {
 	}
 
 	@Override
-	protected void serverInitialize(GameScene scene, boolean debugMode) {
+	public void serverInitialize(GameScene scene, boolean debugMode) {
 		geometry.x = 0;
 		geometry.y = 0;
 		geometry.width = 50;

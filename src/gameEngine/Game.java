@@ -29,7 +29,7 @@ public final class Game extends Application {
 	static private GraphicsContext gc;
 	public static Color clearColor = Color.web("0xcccccc");
 
-	static Class<? extends GameScene> firstGameScene;
+	static Class<? extends GameScene> firstGameScene = null;
 	static Stack<GameScene> gameSceneStack = new Stack<GameScene>();
 
 	public static boolean isClickBoundDebugMode = false;
@@ -194,13 +194,24 @@ public final class Game extends Application {
 			e.printStackTrace();
 		}
 
-		Game.pushScene(Game.firstGameScene.newInstance());
-		startGameLoop();
+		if (Game.firstGameScene != null) {
+			Game.pushScene(Game.firstGameScene.newInstance());
+			startGameLoop();
+		} else {
+			Game.gameSceneStack.peek().initialize();
+			startGameLoop();
+		}
 	}
 
 	public static void run(Class<? extends GameScene> firstGameScene) {
 		Game.firstGameScene = firstGameScene;
 
+		launch();
+	}
+	
+	public static void run(GameScene firstGameScene) {
+		Game.pushScene(firstGameScene);
+		
 		launch();
 	}
 }

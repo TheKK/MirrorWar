@@ -9,15 +9,18 @@ import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import gameEngine.Game;
 import mirrorWar.Constants;
 import mirrorWar.DangerousGlobalVariables;
 import mirrorWar.gameStatusUpdate.GameStatusUpdate;
 import mirrorWar.gameStatusUpdate.GameStatusUpdate.ServerMessage;
-import mirrorWar.gameStatusUpdate.GameStatusUpdate.ServerMessage.Message;
+import mirrorWarServer.ServerMatrixGameNode.ClientInfo;
 import netGameNodeSDK.handshake.Handshake.ClientHandshake;
 import netGameNodeSDK.handshake.Handshake.ServerHandshake;
 
@@ -27,9 +30,6 @@ public class Server {
 
 	private DatagramSocket updateOutputSocket;
 	private DatagramPacket updatePacket;
-	
-	private Map<Integer, Socket> playerTCPMap = Collections.synchronizedMap(new HashMap<>());
-	private Map<Integer, InetSocketAddress> playerUDPMap = Collections.synchronizedMap(new HashMap<>());
 
 	public void run() {
 		ServerSocket tcpServer;
@@ -45,6 +45,8 @@ public class Server {
 		while (true) {
 			DangerousGlobalVariables.logger.info("[SERVER] wait for players to join...");
 			
+			List<ClientInfo> clientInfoList = new ArrayList<>();
+			
 			try {
 				final int PLAYER_NUM = 1;
 				
@@ -52,40 +54,27 @@ public class Server {
 					Socket clientSocket = tcpServer.accept();
 					ClientHandshake clientHandshake = handshakeWithClient(clientSocket, clientId);
 					
-					InetSocketAddress newClientUpdateAddr = new InetSocketAddress(clientSocket.getInetAddress(), clientHandshake.getUpdatePort());
+					InetSocketAddress clientUpdateAddr = new InetSocketAddress(clientSocket.getInetAddress(), clientHandshake.getUpdatePort());
 					
-					playerTCPMap.put(clientId, clientSocket);
-					playerUDPMap.put(clientId, newClientUpdateAddr);
+					ClientInfo clientInfo = new ClientInfo(clientSocket, clientUpdateAddr, clientId);
+					clientInfoList.add(clientInfo);
 				}
 				
-				sendServerMessageToAllClient(ServerMessage.Message.ALL_PLAYER_READY);
-				sendServerMessageToAllClient(ServerMessage.Message.GAME_START);
-
-
+				sendServerMessageToAllClient(clientInfoList, ServerMessage.Message.ALL_PLAYER_READY);
+				sendServerMessageToAllClient(clientInfoList, ServerMessage.Message.GAME_START);
+				
 				DangerousGlobalVariables.logger.info("[SERVER] All client already join game");
+				Game.run(new ServerScene(clientInfoList));
 			} catch (IOException e) {
 				DangerousGlobalVariables.logger.severe(e.getMessage());
-			}	
-			
-			try {
-				Thread.sleep(3000);
-				
-				DangerousGlobalVariables.logger.info("[SERVER] Game is over");
-
-				sendServerMessageToAllClient(ServerMessage.Message.GAME_OVER);
-				playerTCPMap.clear();
-				playerUDPMap.clear();
-				
-			} catch (Exception e) {
-				e.printStackTrace();
-			}	
+			}
 		}
 	}
 	
-	private void sendServerMessageToAllClient(ServerMessage.Message message) {
-		playerTCPMap.forEach((clientId, clientSocket) -> {
+	private void sendServerMessageToAllClient(List<ClientInfo> clientInfoList, ServerMessage.Message message) {
+		clientInfoList.forEach(clientInfo -> {
 			try {
-				OutputStream out = clientSocket.getOutputStream();
+				OutputStream out = clientInfo.tcpSocket.getOutputStream();
 				GameStatusUpdate.ServerMessage.newBuilder()
 					.setMsg(message)
 					.build()
