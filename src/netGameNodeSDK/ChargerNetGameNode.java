@@ -91,7 +91,7 @@ public class ChargerNetGameNode extends NetGameNode<ChargerState, Void> {
 	}
 
 	@Override
-	protected void clientHandleServerUpdate(ChargerState update) {
+	public void clientHandleServerUpdate(ChargerState update) {
 		if (clientCurrentAnimation != update.getAnimation()) {
 			// TODO: play animation
 		}

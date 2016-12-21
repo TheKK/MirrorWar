@@ -10,7 +10,7 @@ import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.SocketException;
 import java.net.UnknownHostException;
-
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -144,44 +144,23 @@ public class JoinGameScene extends GameScene {
 		}
 	}
 	
-	private void waitForOtherPlayerToJoin(Socket serverSocket) {
-		try {
-			InputStream in = serverSocket.getInputStream();
-			// This would block current thread
-			ServerMessage status = ServerMessage.parseDelimitedFrom(in);
-			switch (status.getMsg()) {
-				case ALL_PLAYER_READY:
-					return;
-					
-				default:
-					DangerousGlobalVariables.logger.severe("Protocol error: expecting 'ALL_PLAYER_READY'");
-					Platform.exit();
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			
-			throw new CompletionException(e);
-		}	
-	}
-	
 	private void tryConnectAndWaitForOtherPlayer() {
 		Runnable routine = () -> {
 			Socket serverSocket;
-			try {
-				serverSocket = connectToServer(serverIp);
-				setupUDPSockets(serverSocket);
-				ServerHandshake serverHandshake = handshakeWithServer(serverSocket);
-				controllingPlayerId = serverHandshake.getClientId();
-				waitForOtherPlayerToJoin(serverSocket);
-			} catch (IOException e) {
-				return;
-			}
+			serverSocket = connectToServer(serverIp);
 			
 			DangerousGlobalVariables.logger.info("Game start");
-			MirrorWarScene mws = new MirrorWarScene(serverSocket, updateInputSocket, commandOutputSocket, controllingPlayerId, updatePacket, commandPacket);
 			
-			currentState = State.USER_INPUT;
-			Game.swapScene(mws);
+			
+			CompletableFuture
+				.supplyAsync(() -> new MirrorWarScene(serverSocket))
+				.whenComplete((result, e) -> {
+					if (result != null) {
+						Game.swapScene(result);	
+					} else {
+						e.printStackTrace();
+					}
+				});
 		};
 
 		new Thread(routine).run();
