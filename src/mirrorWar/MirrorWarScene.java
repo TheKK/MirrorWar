@@ -19,19 +19,12 @@ enum GameState {
 
 public class MirrorWarScene extends GameScene {
 	private GameState gameState = GameState.SENDING_READY_MESSAGE;
-	private final DatagramPacket updatePacket, commandPacket;
-	private final DatagramSocket updateSock, commandSock;
 	private final Socket serverConnSocket;
-	private final int playerId;
+
 	
-	public MirrorWarScene(Socket s, DatagramSocket update, DatagramSocket command, int playerId, DatagramPacket updatePack, DatagramPacket commandPack) {
+	public MirrorWarScene(Socket s) {
 		Game.clearColor = Color.PINK;
 		serverConnSocket = s;
-		updateSock = update;
-		commandSock = command;
-		updatePacket = updatePack;
-		commandPacket = commandPack;
-		this.playerId = playerId;
 	}
 
 	@Override
@@ -54,6 +47,9 @@ public class MirrorWarScene extends GameScene {
 		
 		CompletableFuture.runAsync(() -> {
 			gameState = GameState.SENDING_READY_MESSAGE;
+		})
+		.thenRunAsync(() -> {
+			rootNode.addChild(new ClientMatrixGameNode(serverConnSocket));
 		})
 		.thenRunAsync(() -> {
 			gameState = GameState.WAIT_FOR_OTHER_PLAYER;
@@ -101,10 +97,8 @@ public class MirrorWarScene extends GameScene {
 			}
 			try {
 				serverConnSocket.close();
-			} catch (IOException e1) {
+			} catch (IOException ex) {
 			}
-			commandSock.close();
-			updateSock.close();
 			
 			DangerousGlobalVariables.logger.info("game is over");
 			Game.swapScene(new JoinGameScene());

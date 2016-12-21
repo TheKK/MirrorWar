@@ -220,7 +220,7 @@ public final class PlayerNetGameNode extends NetGameNode<PlayerState, Input> {
 	}
 
 	@Override
-	protected void clientHandleServerUpdate(PlayerState update) {
+	public void clientHandleServerUpdate(PlayerState update) {
 		geometry.x = update.getX();
 		geometry.y = update.getY();
 

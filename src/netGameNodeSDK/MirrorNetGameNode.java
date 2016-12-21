@@ -88,7 +88,7 @@ public class MirrorNetGameNode extends NetGameNode<MirrorState, Void> {
 	}
 
 	@Override
-	protected void clientHandleServerUpdate(MirrorState update) {
+	public void clientHandleServerUpdate(MirrorState update) {
 		geometry.x = update.getX();
 		geometry.y = update.getY();
 
