@@ -1,27 +1,29 @@
 package mirrorWarServer;
 
 import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.util.List;
 
 import gameEngine.Game;
-import gameEngine.GameNode;
 import gameEngine.GameScene;
 import javafx.application.Platform;
-import mirrorWarServer.ServerMatrixGameNode.ClientInfo;
 
 public class ServerScene extends GameScene {
-	List<ClientInfo> clients;
-	
-	public ServerScene(List<ClientInfo> clients) {
+	private ServerSocket serverSocket;
+	private List<Socket> clients;
+
+	public ServerScene(ServerSocket serverSocket, List<Socket> clients) {
+		this.serverSocket = serverSocket;
 		this.clients = clients;
 	}
-	
+
 	@Override
 	protected void initialize() {
-		GameNode serverMatrixGameNode;
 		Game.title = "Server";
+
 		try {
-			serverMatrixGameNode = new ServerMatrixGameNode(clients);
+			rootNode.addChild(new ServerMatrixGameNode(serverSocket, clients));
 
 		} catch (IOException e) {
 			System.out.println("error while creating ServerMatrixGameNode");
@@ -30,7 +32,5 @@ public class ServerScene extends GameScene {
 			Platform.exit();
 			return;
 		}
-
-		rootNode.addChild(serverMatrixGameNode);
 	}
 }
