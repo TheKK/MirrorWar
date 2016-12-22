@@ -198,7 +198,6 @@ public final class Game extends Application {
 			Game.pushScene(Game.firstGameScene.newInstance());
 			startGameLoop();
 		} else {
-			Game.gameSceneStack.peek().initialize();
 			startGameLoop();
 		}
 	}
@@ -208,10 +207,10 @@ public final class Game extends Application {
 
 		launch();
 	}
-	
+
 	public static void run(GameScene firstGameScene) {
 		Game.pushScene(firstGameScene);
-		
+
 		launch();
 	}
 }
