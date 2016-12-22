@@ -12,3 +12,7 @@ message ServerMessage {
 
     required Message msg = 1;
 }
+
+message GameResult {
+    required int32 winnerId = 1;
+}

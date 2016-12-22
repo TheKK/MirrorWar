@@ -596,11 +596,489 @@ public final class GameStatusUpdate {
 
   }
 
+  public interface GameResultOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:mirrorWar.gameStatusUpdate.GameResult)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>required int32 winnerId = 1;</code>
+     */
+    boolean hasWinnerId();
+    /**
+     * <code>required int32 winnerId = 1;</code>
+     */
+    int getWinnerId();
+  }
+  /**
+   * Protobuf type {@code mirrorWar.gameStatusUpdate.GameResult}
+   */
+  public  static final class GameResult extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:mirrorWar.gameStatusUpdate.GameResult)
+      GameResultOrBuilder {
+    // Use GameResult.newBuilder() to construct.
+    private GameResult(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private GameResult() {
+      winnerId_ = 0;
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private GameResult(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 8: {
+              bitField0_ |= 0x00000001;
+              winnerId_ = input.readInt32();
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return mirrorWar.gameStatusUpdate.GameStatusUpdate.internal_static_mirrorWar_gameStatusUpdate_GameResult_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return mirrorWar.gameStatusUpdate.GameStatusUpdate.internal_static_mirrorWar_gameStatusUpdate_GameResult_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              mirrorWar.gameStatusUpdate.GameStatusUpdate.GameResult.class, mirrorWar.gameStatusUpdate.GameStatusUpdate.GameResult.Builder.class);
+    }
+
+    private int bitField0_;
+    public static final int WINNERID_FIELD_NUMBER = 1;
+    private int winnerId_;
+    /**
+     * <code>required int32 winnerId = 1;</code>
+     */
+    public boolean hasWinnerId() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    /**
+     * <code>required int32 winnerId = 1;</code>
+     */
+    public int getWinnerId() {
+      return winnerId_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      if (!hasWinnerId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeInt32(1, winnerId_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(1, winnerId_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof mirrorWar.gameStatusUpdate.GameStatusUpdate.GameResult)) {
+        return super.equals(obj);
+      }
+      mirrorWar.gameStatusUpdate.GameStatusUpdate.GameResult other = (mirrorWar.gameStatusUpdate.GameStatusUpdate.GameResult) obj;
+
+      boolean result = true;
+      result = result && (hasWinnerId() == other.hasWinnerId());
+      if (hasWinnerId()) {
+        result = result && (getWinnerId()
+            == other.getWinnerId());
+      }
+      result = result && unknownFields.equals(other.unknownFields);
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptorForType().hashCode();
+      if (hasWinnerId()) {
+        hash = (37 * hash) + WINNERID_FIELD_NUMBER;
+        hash = (53 * hash) + getWinnerId();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static mirrorWar.gameStatusUpdate.GameStatusUpdate.GameResult parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static mirrorWar.gameStatusUpdate.GameStatusUpdate.GameResult parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static mirrorWar.gameStatusUpdate.GameStatusUpdate.GameResult parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static mirrorWar.gameStatusUpdate.GameStatusUpdate.GameResult parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static mirrorWar.gameStatusUpdate.GameStatusUpdate.GameResult parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static mirrorWar.gameStatusUpdate.GameStatusUpdate.GameResult parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static mirrorWar.gameStatusUpdate.GameStatusUpdate.GameResult parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static mirrorWar.gameStatusUpdate.GameStatusUpdate.GameResult parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static mirrorWar.gameStatusUpdate.GameStatusUpdate.GameResult parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static mirrorWar.gameStatusUpdate.GameStatusUpdate.GameResult parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(mirrorWar.gameStatusUpdate.GameStatusUpdate.GameResult prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code mirrorWar.gameStatusUpdate.GameResult}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:mirrorWar.gameStatusUpdate.GameResult)
+        mirrorWar.gameStatusUpdate.GameStatusUpdate.GameResultOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return mirrorWar.gameStatusUpdate.GameStatusUpdate.internal_static_mirrorWar_gameStatusUpdate_GameResult_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return mirrorWar.gameStatusUpdate.GameStatusUpdate.internal_static_mirrorWar_gameStatusUpdate_GameResult_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                mirrorWar.gameStatusUpdate.GameStatusUpdate.GameResult.class, mirrorWar.gameStatusUpdate.GameStatusUpdate.GameResult.Builder.class);
+      }
+
+      // Construct using mirrorWar.gameStatusUpdate.GameStatusUpdate.GameResult.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      public Builder clear() {
+        super.clear();
+        winnerId_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        return this;
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return mirrorWar.gameStatusUpdate.GameStatusUpdate.internal_static_mirrorWar_gameStatusUpdate_GameResult_descriptor;
+      }
+
+      public mirrorWar.gameStatusUpdate.GameStatusUpdate.GameResult getDefaultInstanceForType() {
+        return mirrorWar.gameStatusUpdate.GameStatusUpdate.GameResult.getDefaultInstance();
+      }
+
+      public mirrorWar.gameStatusUpdate.GameStatusUpdate.GameResult build() {
+        mirrorWar.gameStatusUpdate.GameStatusUpdate.GameResult result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public mirrorWar.gameStatusUpdate.GameStatusUpdate.GameResult buildPartial() {
+        mirrorWar.gameStatusUpdate.GameStatusUpdate.GameResult result = new mirrorWar.gameStatusUpdate.GameStatusUpdate.GameResult(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.winnerId_ = winnerId_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof mirrorWar.gameStatusUpdate.GameStatusUpdate.GameResult) {
+          return mergeFrom((mirrorWar.gameStatusUpdate.GameStatusUpdate.GameResult)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(mirrorWar.gameStatusUpdate.GameStatusUpdate.GameResult other) {
+        if (other == mirrorWar.gameStatusUpdate.GameStatusUpdate.GameResult.getDefaultInstance()) return this;
+        if (other.hasWinnerId()) {
+          setWinnerId(other.getWinnerId());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        if (!hasWinnerId()) {
+          return false;
+        }
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        mirrorWar.gameStatusUpdate.GameStatusUpdate.GameResult parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (mirrorWar.gameStatusUpdate.GameStatusUpdate.GameResult) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private int winnerId_ ;
+      /**
+       * <code>required int32 winnerId = 1;</code>
+       */
+      public boolean hasWinnerId() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      /**
+       * <code>required int32 winnerId = 1;</code>
+       */
+      public int getWinnerId() {
+        return winnerId_;
+      }
+      /**
+       * <code>required int32 winnerId = 1;</code>
+       */
+      public Builder setWinnerId(int value) {
+        bitField0_ |= 0x00000001;
+        winnerId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int32 winnerId = 1;</code>
+       */
+      public Builder clearWinnerId() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        winnerId_ = 0;
+        onChanged();
+        return this;
+      }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:mirrorWar.gameStatusUpdate.GameResult)
+    }
+
+    // @@protoc_insertion_point(class_scope:mirrorWar.gameStatusUpdate.GameResult)
+    private static final mirrorWar.gameStatusUpdate.GameStatusUpdate.GameResult DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new mirrorWar.gameStatusUpdate.GameStatusUpdate.GameResult();
+    }
+
+    public static mirrorWar.gameStatusUpdate.GameStatusUpdate.GameResult getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<GameResult>
+        PARSER = new com.google.protobuf.AbstractParser<GameResult>() {
+      public GameResult parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new GameResult(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<GameResult> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<GameResult> getParserForType() {
+      return PARSER;
+    }
+
+    public mirrorWar.gameStatusUpdate.GameStatusUpdate.GameResult getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_mirrorWar_gameStatusUpdate_ServerMessage_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_mirrorWar_gameStatusUpdate_ServerMessage_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_mirrorWar_gameStatusUpdate_GameResult_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_mirrorWar_gameStatusUpdate_GameResult_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -614,7 +1092,8 @@ public final class GameStatusUpdate {
       "StatusUpdate\"\217\001\n\rServerMessage\022>\n\003msg\030\001 " +
       "\002(\01621.mirrorWar.gameStatusUpdate.ServerM" +
       "essage.Message\">\n\007Message\022\r\n\tGAME_OVER\020\001" +
-      "\022\024\n\020ALL_PLAYER_READY\020\002\022\016\n\nGAME_START\020\003"
+      "\022\024\n\020ALL_PLAYER_READY\020\002\022\016\n\nGAME_START\020\003\"\036" +
+      "\n\nGameResult\022\020\n\010winnerId\030\001 \002(\005"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -634,6 +1113,12 @@ public final class GameStatusUpdate {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_mirrorWar_gameStatusUpdate_ServerMessage_descriptor,
         new java.lang.String[] { "Msg", });
+    internal_static_mirrorWar_gameStatusUpdate_GameResult_descriptor =
+      getDescriptor().getMessageTypes().get(1);
+    internal_static_mirrorWar_gameStatusUpdate_GameResult_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_mirrorWar_gameStatusUpdate_GameResult_descriptor,
+        new java.lang.String[] { "WinnerId", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

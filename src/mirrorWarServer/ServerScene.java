@@ -21,6 +21,7 @@ public class ServerScene extends GameScene {
 	@Override
 	protected void initialize() {
 		Game.title = "Server";
+		Game.isPhysicEngineDebugMode = true;
 
 		try {
 			rootNode.addChild(new ServerMatrixGameNode(serverSocket, clients));

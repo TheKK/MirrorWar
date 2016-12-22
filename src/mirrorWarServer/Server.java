@@ -14,9 +14,6 @@ import mirrorWar.gameStatusUpdate.GameStatusUpdate;
 import mirrorWar.gameStatusUpdate.GameStatusUpdate.ServerMessage;
 
 public class Server {
-	// 1 for debug, 2 for release
-	private final int PLAYER_NUM = 2;
-
 	public void run() {
 		ServerSocket tcpServer;
 		try {
@@ -35,7 +32,7 @@ public class Server {
 			DangerousGlobalVariables.logger.info("[SERVER] wait for players to join...");
 
 			try {
-				for (int clientId = 0; clientId < PLAYER_NUM; ++clientId) {
+				for (int clientId = 0; clientId < Constants.PLAYER_NUM; ++clientId) {
 					Socket clientSocket = tcpServer.accept();
 					clientSockets.add(clientSocket);
 				}

@@ -25,6 +25,7 @@ import gameEngine.RectangleGameNode;
 import javafx.application.Platform;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import mirrorWar.Constants;
 import mirrorWar.DangerousGlobalVariables;
 import mirrorWar.gameStatusUpdate.GameStatusUpdate;
 import mirrorWar.gameStatusUpdate.GameStatusUpdate.ServerMessage;
@@ -56,6 +57,7 @@ public class ServerMatrixGameNode extends GameNode {
 
 	private DatagramSocket updateOutputSocket;
 	private DatagramPacket updatePacket;
+	private int[] playersLife = {Constants.LIFE, Constants.LIFE};
 
 	public ServerMatrixGameNode(ServerSocket serverSocket, List<Socket> playerSockets) throws IOException {
 		this.serverSocket = serverSocket;
@@ -67,12 +69,32 @@ public class ServerMatrixGameNode extends GameNode {
 
 		// Tell all player to start their games!
 		// TODO Extract this to a proper place
+		sendMessageToAllClient(ServerMessage.Message.GAME_START);
+
+		setupUpdateBoardcastingService();
+		setupWaitsForCommandsService();
+
+		randomlyAddMirrorToGame();
+		randomlyAddChargerToGame();
+		
+		new Thread(() -> {
+			try {
+				Thread.sleep(5000);
+				playersLife[0] = 0;
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}).start();
+	}
+
+	private void sendMessageToAllClient(ServerMessage.Message msg) {
 		playerSockets.forEach(socket -> {
 			try {
 				OutputStream out = socket.getOutputStream();
 
 				GameStatusUpdate.ServerMessage.newBuilder()
-					.setMsg(ServerMessage.Message.GAME_START)
+					.setMsg(msg)
 					.build()
 					.writeDelimitedTo(out);
 
@@ -80,15 +102,6 @@ public class ServerMatrixGameNode extends GameNode {
 				DangerousGlobalVariables.logger.severe("Connection error: Unable to sent message to client");
 			}
 		});
-
-		setupUpdateBoardcastingService();
-		setupWaitsForCommandsService();
-
-		randomlyAddMirrorToGame();
-		randomlyAddChargerToGame();
-
-		RectangleGameNode wall = new RectangleGameNode(100, 100, 9000, 30, Color.PURPLE);
-		Game.currentScene().physicEngine.addStaticNode(wall);
 	}
 
 	private void randomlyAddMirrorToGame() {
@@ -173,6 +186,28 @@ public class ServerMatrixGameNode extends GameNode {
 
 	@Override
 	public void update(long elapse) {
+		for (int id = 0; id < Constants.PLAYER_NUM; ++id) {
+			if (playersLife[id] == 0) {
+				sendResultToAllClient(id);
+				playerSockets.clear();
+				Platform.exit();
+			}
+		}
+	}
+	
+	private void sendResultToAllClient(int winnerId) {
+		playerSockets.forEach(socket -> {
+			try {
+				OutputStream out = socket.getOutputStream();
+
+				GameStatusUpdate.GameResult.newBuilder()
+					.setWinnerId(winnerId)
+					.build()
+					.writeDelimitedTo(out);
+			} catch (IOException e) {
+				DangerousGlobalVariables.logger.severe("Connection error: Unable to sent message to client");
+			}
+		});
 	}
 
 	@Override

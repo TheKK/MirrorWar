@@ -14,8 +14,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.concurrent.CompletionException;
-
 import com.google.protobuf.InvalidProtocolBufferException;
 
 import gameEngine.AnimationPlayer;
@@ -26,7 +24,6 @@ import gameEngine.LayerGameNode;
 import gameEngine.SimpleGameSceneCamera;
 import javafx.application.Platform;
 import javafx.scene.canvas.GraphicsContext;
-import mirrorWar.gameStatusUpdate.GameStatusUpdate.ServerMessage;
 import netGameNodeSDK.ChargerNetGameNode;
 import netGameNodeSDK.MirrorNetGameNode;
 import netGameNodeSDK.PlayerNetGameNode;
@@ -69,10 +66,6 @@ public class ClientMatrixGameNode extends GameNode {
 
 			controllingPlayerId = serverHandshake.getClientId();
 
-			// TODO Make this process async
-//			waitForOtherPlayerToJoin(serverSocket);
-//			waitGameStartMessage(serverSocket);
-
 		} catch (IOException e) {
 
 			Platform.exit();
@@ -110,47 +103,6 @@ public class ClientMatrixGameNode extends GameNode {
 			updateQueue.clear();
 		}
 	}
-
-	private void waitForOtherPlayerToJoin(Socket serverSocket) {
-		try {
-			InputStream in = serverSocket.getInputStream();
-			// This would block current thread
-			ServerMessage status = ServerMessage.parseDelimitedFrom(in);
-			switch (status.getMsg()) {
-				case ALL_PLAYER_READY:
-					return;
-
-				default:
-					DangerousGlobalVariables.logger.severe("Protocol error: expecting 'ALL_PLAYER_READY'");
-					Platform.exit();
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-
-			throw new CompletionException(e);
-		}
-	}
-
-	private void waitGameStartMessage(Socket serverSocket) {
-		try {
-			InputStream in = serverSocket.getInputStream();
-			// This would block current thread
-			ServerMessage status = ServerMessage.parseDelimitedFrom(in);
-			switch (status.getMsg()) {
-				case GAME_START:
-					return;
-
-				default:
-					DangerousGlobalVariables.logger.severe("Protocol error: expecting 'ALL_PLAYER_READY'");
-					Platform.exit();
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-
-			throw new CompletionException(e);
-		}
-	}
-
 
 	private void addOrUpdateCharger(ChargerState chargerState) {
 		int chargerId = chargerState.getId();
@@ -324,5 +276,9 @@ public class ClientMatrixGameNode extends GameNode {
 		commandPacket.setPort(serverHandshake.getCommandPort());
 
 		return serverHandshake;
+	}
+	
+	public int getControllingId() {
+		return controllingPlayerId;
 	}
 }

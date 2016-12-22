@@ -5,9 +5,9 @@ import java.io.InputStream;
 import java.net.Socket;
 
 import gameEngine.Game;
-import gameEngine.GameNode;
 import gameEngine.GameScene;
 import javafx.scene.paint.Color;
+import mirrorWar.gameStatusUpdate.GameStatusUpdate.GameResult;
 import mirrorWar.gameStatusUpdate.GameStatusUpdate.ServerMessage;
 
 enum GameState {
@@ -59,7 +59,7 @@ public class MirrorWarScene extends GameScene {
 
 			// Handshaking inside ClientMatrixGameNode's initialize method
 			// TODO This is too implicit, make it more clear and straightforward
-			GameNode clientGameNode = new ClientMatrixGameNode(serverConnSocket);
+			ClientMatrixGameNode clientGameNode = new ClientMatrixGameNode(serverConnSocket);
 
 			waitForMessageAndDo(in, ServerMessage.Message.GAME_START,
 					() -> {},
@@ -67,9 +67,19 @@ public class MirrorWarScene extends GameScene {
 
 			rootNode.addChild(clientGameNode);
 
-			waitForMessageAndDo(in, ServerMessage.Message.GAME_OVER,
-					() -> {},
-					() -> {});
+			GameResult result;
+			try {
+				result = GameResult.parseDelimitedFrom(in);
+			} catch (IOException e) {
+				DangerousGlobalVariables.logger.severe(e.getMessage());
+				return;
+			}
+
+			if (result.getWinnerId() == clientGameNode.getControllingId()) {
+				playerWin();
+			} else {
+				playerLose();
+			}
 
 			cleanup.run();
 
@@ -81,6 +91,14 @@ public class MirrorWarScene extends GameScene {
 		Thread thread = new  Thread(routine);
 		thread.setDaemon(true);
 		thread.run();
+	}
+	
+	private void playerWin() {
+		DangerousGlobalVariables.logger.info("win");
+	}
+	
+	private void playerLose() {
+		DangerousGlobalVariables.logger.info("lose");
 	}
 
 	private void waitForMessageAndDo(InputStream in, ServerMessage.Message whatMessage,
