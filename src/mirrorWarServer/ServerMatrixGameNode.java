@@ -1,9 +1,12 @@
 package mirrorWarServer;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetSocketAddress;
+import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
 import java.util.Arrays;
@@ -22,21 +25,28 @@ import gameEngine.RectangleGameNode;
 import javafx.application.Platform;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import mirrorWar.DangerousGlobalVariables;
+import mirrorWar.gameStatusUpdate.GameStatusUpdate;
+import mirrorWar.gameStatusUpdate.GameStatusUpdate.ServerMessage;
 import netGameNodeSDK.ChargerNetGameNode;
 import netGameNodeSDK.MirrorNetGameNode;
 import netGameNodeSDK.PlayerNetGameNode;
 import netGameNodeSDK.charger.Charger.ChargerState;
+import netGameNodeSDK.handshake.Handshake.ClientHandshake;
+import netGameNodeSDK.handshake.Handshake.ServerHandshake;
 import netGameNodeSDK.input.InputOuterClass.Inputs;
 import netGameNodeSDK.mirror.Mirror.MirrorState;
 import netGameNodeSDK.player.Player.PlayerState;
 import netGameNodeSDK.update.UpdateOuterClass.Update;
 import netGameNodeSDK.update.UpdateOuterClass.Updates;
 
-
 public class ServerMatrixGameNode extends GameNode {
 	private int objectId = 0;
 
-	private Map<PlayerNetGameNode, ClientInfo> playerInfoMap = Collections.synchronizedMap(new HashMap<>());
+	private ServerSocket serverSocket;
+
+	private List<Socket> playerSockets;
+	private Map<PlayerNetGameNode, InetSocketAddress> playerIPMap = Collections.synchronizedMap(new HashMap<>());
 	private Map<Integer, PlayerNetGameNode> players = Collections.synchronizedMap(new HashMap<>());
 	private Map<Integer, MirrorNetGameNode> mirrors = Collections.synchronizedMap(new HashMap<>());
 	private Map<Integer, ChargerNetGameNode> chargers = Collections.synchronizedMap(new HashMap<>());
@@ -46,29 +56,36 @@ public class ServerMatrixGameNode extends GameNode {
 
 	private DatagramSocket updateOutputSocket;
 	private DatagramPacket updatePacket;
-	
-	static public class ClientInfo {
-		public Socket tcpSocket;
-		public InetSocketAddress updateAddr;
-		public int id;
-		
-		public ClientInfo(Socket tcpSocket, InetSocketAddress updateAddr, int clientId) {
-			this.tcpSocket = tcpSocket;
-			this.updateAddr = updateAddr;
-			this.id = clientId;
-		}
-	}
 
-	public ServerMatrixGameNode(List<ClientInfo> clients) throws IOException {
+	public ServerMatrixGameNode(ServerSocket serverSocket, List<Socket> playerSockets) throws IOException {
+		this.serverSocket = serverSocket;
+		this.playerSockets = playerSockets;
+
 		setupUDPServer();
+
+		this.playerSockets.forEach(this::addNewClient);
+
+		// Tell all player to start their games!
+		// TODO Extract this to a proper place
+		playerSockets.forEach(socket -> {
+			try {
+				OutputStream out = socket.getOutputStream();
+
+				GameStatusUpdate.ServerMessage.newBuilder()
+					.setMsg(ServerMessage.Message.GAME_START)
+					.build()
+					.writeDelimitedTo(out);
+
+			} catch (IOException e) {
+				DangerousGlobalVariables.logger.severe("Connection error: Unable to sent message to client");
+			}
+		});
 
 		setupUpdateBoardcastingService();
 		setupWaitsForCommandsService();
 
 		randomlyAddMirrorToGame();
 		randomlyAddChargerToGame();
-		
-		clients.forEach(this::addNewClient);
 
 		RectangleGameNode wall = new RectangleGameNode(100, 100, 9000, 30, Color.PURPLE);
 		Game.currentScene().physicEngine.addStaticNode(wall);
@@ -130,7 +147,7 @@ public class ServerMatrixGameNode extends GameNode {
 	}
 
 	private void gameChargePlayer2() {
-		//FIXME
+		// FIXME
 		System.out.println("Player 2 is charged");
 	}
 
@@ -173,15 +190,50 @@ public class ServerMatrixGameNode extends GameNode {
 		updatePacket = new DatagramPacket(updateData, updateData.length);
 	}
 
-	private void addNewClient(ClientInfo clientInfo) {
-		PlayerNetGameNode playerNode = new PlayerNetGameNode(clientInfo.id);
-		playerNode.serverInitialize(Game.currentScene(), true);
+	private void addNewClient(Socket newClientSocket) {
+		int clientId = getUniqueObjectId();
+		ClientHandshake clientHandshake;
 
+		System.out.println("[new player] " + clientId + ", from: " + newClientSocket.getRemoteSocketAddress());
+
+		try {
+			clientHandshake = handshakeWithClient(newClientSocket, clientId);
+
+		} catch (IOException e) {
+			System.out.println("erorr while welcom new player");
+			System.out.println(e.getClass() + ": " + e.getMessage());
+
+			return;
+		}
+
+		PlayerNetGameNode playerNode = new PlayerNetGameNode(clientId);
+		playerNode.serverInitialize(Game.currentScene(), true);
 		addChild(playerNode);
 
-		players.put(clientInfo.id, playerNode);
-		playerInfoMap.put(playerNode, clientInfo);
+		InetSocketAddress newClientUpdateAddr = new InetSocketAddress(
+				newClientSocket.getInetAddress(),
+				clientHandshake.getUpdatePort());
+
+		players.put(clientId, playerNode);
+		playerIPMap.put(playerNode, newClientUpdateAddr);
 	};
+
+	private ClientHandshake handshakeWithClient(Socket socket, int clientId) throws IOException {
+		InputStream in = socket.getInputStream();
+		OutputStream out = socket.getOutputStream();
+
+		// I. Wait for player sending ClientHandshake
+		ClientHandshake clientHandshake = ClientHandshake.parseDelimitedFrom(in);
+
+		// II. Send server's port which accepting client's commands
+		ServerHandshake.newBuilder()
+				.setCommandPort(commandInputSocket.getLocalPort())
+				.setClientId(clientId)
+				.build()
+				.writeDelimitedTo(out);
+
+		return clientHandshake;
+	}
 
 	private synchronized int getUniqueObjectId() {
 		return objectId++;
@@ -198,9 +250,7 @@ public class ServerMatrixGameNode extends GameNode {
 				Platform.exit();
 			}
 
-			byte[] data =
-					Arrays.copyOf(commandPacket.getData(), commandPacket.getLength());
-
+			byte[] data = Arrays.copyOf(commandPacket.getData(), commandPacket.getLength());
 			Inputs inputs;
 
 			try {
@@ -252,9 +302,9 @@ public class ServerMatrixGameNode extends GameNode {
 			updatesBuilder.addUpdates(update);
 		});
 
-		playerInfoMap.forEach((playerNode, playerInfo) -> {
+		playerIPMap.forEach((playerNode, playerIP) -> {
 			byte[] data = updatesBuilder.build().toByteArray();
-			updatePacket.setSocketAddress(playerInfo.updateAddr);
+			updatePacket.setSocketAddress(playerIP);
 			updatePacket.setData(data);
 
 			try {

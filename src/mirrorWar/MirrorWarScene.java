@@ -2,13 +2,10 @@ package mirrorWar;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
 import java.net.Socket;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.CompletionException;
 
 import gameEngine.Game;
+import gameEngine.GameNode;
 import gameEngine.GameScene;
 import javafx.scene.paint.Color;
 import mirrorWar.gameStatusUpdate.GameStatusUpdate.ServerMessage;
@@ -21,7 +18,7 @@ public class MirrorWarScene extends GameScene {
 	private GameState gameState = GameState.SENDING_READY_MESSAGE;
 	private final Socket serverConnSocket;
 
-	
+
 	public MirrorWarScene(Socket s) {
 		Game.clearColor = Color.PINK;
 		serverConnSocket = s;
@@ -31,77 +28,76 @@ public class MirrorWarScene extends GameScene {
 	protected void initialize() {
 		setupTCPGameStateUpdateService();
 	}
-	
+
 	private void setupTCPGameStateUpdateService() {
 		InputStream in;
-		
+
 		try {
 			in = serverConnSocket.getInputStream();
 
 		} catch (IOException e) {
 			DangerousGlobalVariables.logger.severe("Error while retrieving input and output stream.");
 			Game.swapScene(new JoinGameScene());
-			
+
 			return;
 		}
-		
-		CompletableFuture.runAsync(() -> {
-			gameState = GameState.SENDING_READY_MESSAGE;
-		})
-		.thenRunAsync(() -> {
-			rootNode.addChild(new ClientMatrixGameNode(serverConnSocket));
-		})
-		.thenRunAsync(() -> {
-			gameState = GameState.WAIT_FOR_OTHER_PLAYER;
 
-			ServerMessage serverMessage;
-			try {
-				serverMessage = ServerMessage.parseDelimitedFrom(in);
-				
-			} catch (IOException e) {
-				throw new CompletionException(e);
-			}
-			
-			switch (serverMessage.getMsg()) {
-			case GAME_START:
-				gameState = GameState.START_PLAYING;
-				break;
-				
-			default:
-				DangerousGlobalVariables.logger.severe("Wrong protocol: expecting 'START_PLAYING'");
-				break;
-			}
-		})
-		.thenRunAsync(() -> {
-			ServerMessage serverMessage;
-			try {
-				serverMessage = ServerMessage.parseDelimitedFrom(in);
-				
-			} catch (IOException e) {
-				throw new CompletionException(e);
-			}
-			
-			switch (serverMessage.getMsg()) {
-			case GAME_OVER:
-				gameState = GameState.GAME_OVER;
-				break;
-				
-			default:
-				DangerousGlobalVariables.logger.severe("Wrong protocol !!!");
-				break;
-			}
-		})
-		.whenComplete((result, e) -> {
-			if (e != null) {
-				DangerousGlobalVariables.logger.severe("[CLIENT] " + e.getMessage());
-			}
+		final Runnable cleanup = () -> {
 			try {
 				serverConnSocket.close();
-			} catch (IOException ex) {
+			} catch (IOException e) {
+				DangerousGlobalVariables.logger.warning("[CLIENT] " + e.getMessage());
 			}
-			
+		};
+
+		Runnable routine = () -> {
+			gameState = GameState.WAIT_FOR_OTHER_PLAYER;
+
+			waitForMessageAndDo(in, ServerMessage.Message.ALL_PLAYER_READY,
+					() -> { System.out.println("[Client] All players are ready");},
+					() -> {});
+
+			// Handshaking inside ClientMatrixGameNode's initialize method
+			// TODO This is too implicit, make it more clear and straightforward
+			GameNode clientGameNode = new ClientMatrixGameNode(serverConnSocket);
+
+			waitForMessageAndDo(in, ServerMessage.Message.GAME_START,
+					() -> {},
+					() -> {});
+
+			rootNode.addChild(clientGameNode);
+
+			waitForMessageAndDo(in, ServerMessage.Message.GAME_OVER,
+					() -> {},
+					() -> {});
+
+			cleanup.run();
+
 			DangerousGlobalVariables.logger.info("game is over");
+
 			Game.swapScene(new JoinGameScene());
-		});
+		};
+
+		Thread thread = new  Thread(routine);
+		thread.setDaemon(true);
+		thread.run();
+	}
+
+	private void waitForMessageAndDo(InputStream in, ServerMessage.Message whatMessage,
+									  Runnable somethingToDo, Runnable otherwise) {
+			ServerMessage serverMessage;
+
+			try {
+				serverMessage = ServerMessage.parseDelimitedFrom(in);
+			} catch (IOException e) {
+				DangerousGlobalVariables.logger.severe(e.getMessage());
+				return;
+			}
+
+			if (serverMessage.getMsg() == whatMessage) {
+				somethingToDo.run();
+			} else {
+				otherwise.run();
+			}
 	}
 }

@@ -61,17 +61,18 @@ public class ClientMatrixGameNode extends GameNode {
 	public ClientMatrixGameNode(Socket serverSocket) {
 		rootLayer = new LayerGameNode();
 		addChild(rootLayer);
-	
+
 		try {
 			setupUDPSockets(serverSocket);
 			ServerHandshake serverHandshake = handshakeWithServer(serverSocket);
 			System.out.println("finish handshaking!!");
 
 			controllingPlayerId = serverHandshake.getClientId();
-			
+
 			// TODO Make this process async
-			waitForOtherPlayerToJoin(serverSocket);
-			
+//			waitForOtherPlayerToJoin(serverSocket);
+//			waitGameStartMessage(serverSocket);
+
 		} catch (IOException e) {
 
 			Platform.exit();
@@ -109,7 +110,7 @@ public class ClientMatrixGameNode extends GameNode {
 			updateQueue.clear();
 		}
 	}
-	
+
 	private void waitForOtherPlayerToJoin(Socket serverSocket) {
 		try {
 			InputStream in = serverSocket.getInputStream();
@@ -118,17 +119,38 @@ public class ClientMatrixGameNode extends GameNode {
 			switch (status.getMsg()) {
 				case ALL_PLAYER_READY:
 					return;
-					
+
 				default:
 					DangerousGlobalVariables.logger.severe("Protocol error: expecting 'ALL_PLAYER_READY'");
 					Platform.exit();
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			
+
 			throw new CompletionException(e);
-		}	
+		}
 	}
+
+	private void waitGameStartMessage(Socket serverSocket) {
+		try {
+			InputStream in = serverSocket.getInputStream();
+			// This would block current thread
+			ServerMessage status = ServerMessage.parseDelimitedFrom(in);
+			switch (status.getMsg()) {
+				case GAME_START:
+					return;
+
+				default:
+					DangerousGlobalVariables.logger.severe("Protocol error: expecting 'ALL_PLAYER_READY'");
+					Platform.exit();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			throw new CompletionException(e);
+		}
+	}
+
 
 	private void addOrUpdateCharger(ChargerState chargerState) {
 		int chargerId = chargerState.getId();
@@ -164,7 +186,7 @@ public class ClientMatrixGameNode extends GameNode {
 
 	private void addOrUpdatePlayer(PlayerState playerState) {
 		int playerId = playerState.getId();
-		
+
 		PlayerNetGameNode player = players.get(playerId);
 		if (player == null) {
 			player = new PlayerNetGameNode(playerId);
@@ -193,6 +215,9 @@ public class ClientMatrixGameNode extends GameNode {
 	private void setupUDPSockets(Socket serverSocket) throws SocketException {
 		commandOutputSocket = new DatagramSocket();
 		updateInputSocket = new DatagramSocket();
+
+		System.out.println("hold command udp port at: " + commandOutputSocket.getLocalPort());
+		System.out.println("hold update udp port at: " + updateInputSocket.getLocalPort());
 
 		byte[] commandData = new byte[2048];
 		commandPacket = new DatagramPacket(commandData, commandData.length);
@@ -263,7 +288,7 @@ public class ClientMatrixGameNode extends GameNode {
 		if (controlleringPlayer == null) {
 			return;
 		}
-		
+
 		List<Input> inputQueue = controlleringPlayer.inputQueue;
 		if (inputQueue.isEmpty()) {
 			return;
