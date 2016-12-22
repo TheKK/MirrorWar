@@ -41,7 +41,7 @@ public class LaserEmiterNetGameNode extends NetGameNode<LaserState, Void> {
 
 	@Override
 	protected void serverInitialize(GameScene scene, boolean debugMode) {
-
+		updateFunc=this::serverUpdate;
 	}
 
 	@Override
@@ -77,7 +77,7 @@ public class LaserEmiterNetGameNode extends NetGameNode<LaserState, Void> {
 	private void addLaserToPhysicEng() {
 		for (Rectangle2D.Double laser : laserPath) {
 			laserNodes.add(
-					new RectangleGameNode(laser.x, laser.y, laser.getWidth(), laser.getHeight(), Color.TRANSPARENT));
+					new RectangleGameNode(laser.x, laser.y, laser.getWidth(), laser.getHeight(), Color.CHARTREUSE));
 		}
 		PhysicEngine physicEngine = Game.currentScene().physicEngine;
 		for (GameNode gameNode : laserNodes) {
@@ -98,7 +98,6 @@ public class LaserEmiterNetGameNode extends NetGameNode<LaserState, Void> {
 		// Calculate laser
 		Rectangle2D.Double laserRectangle = null;
 		PhysicEngine physicEngine = Game.currentScene().physicEngine;
-		clearLaser();
 
 		Set<GameNode> in = null;
 		LaserState.Direction tmpDir = currentDir;

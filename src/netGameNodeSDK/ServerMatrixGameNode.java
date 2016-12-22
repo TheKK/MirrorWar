@@ -20,6 +20,7 @@ import gameEngine.AnimationPlayer;
 import gameEngine.FunctionTriggerAnimation;
 import gameEngine.Game;
 import gameEngine.GameNode;
+import gameEngine.GameScene;
 import gameEngine.RectangleGameNode;
 import javafx.application.Platform;
 import javafx.scene.canvas.GraphicsContext;
@@ -92,6 +93,7 @@ public class ServerMatrixGameNode extends GameNode {
 	private void radomAddLaser() {
 		int id=getUniqueObjectId();
 		LaserEmiterNetGameNode laserEmiter = new LaserEmiterNetGameNode(id);
+		laserEmiter.serverInitialize(Game.currentScene(), false);
 		
 		addChild(laserEmiter);
 		laserEmiters.put(id,laserEmiter);
