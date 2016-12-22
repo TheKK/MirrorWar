@@ -199,7 +199,7 @@ public final class PlayerNetGameNode extends NetGameNode<PlayerState, Input> {
 	}
 
 	private void dropMirror() {
-		Rectangle2D.Double dropPos = serverMirrorPlaceSensor.geometryInGameWorld().get();
+		Rectangle2D.Double dropPos = serverMirrorPlaceSensor.geometryInGameWorld();
 		serverPickedMirror.get().drop(dropPos.x, dropPos.y);
 		serverPickedMirror = Optional.empty();
 
