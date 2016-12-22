@@ -42,13 +42,14 @@ public abstract class GameNode {
 	private Optional<GameNode> parent = Optional.empty();
 	private ArrayList<GameNode> children = new ArrayList<GameNode>();
 
-	public final Optional<Rectangle2D.Double> geometryInGameWorld() {
+	public final java.awt.geom.Rectangle2D.Double geometryInGameWorld() {
+		Rectangle2D.Double result = new Rectangle2D.Double();
+
 		if (!parent.isPresent()) {
-			return Optional.empty();
+			return result;
 		}
 
 		Optional<GameNode> p = parent;
-		Rectangle2D.Double result = new Rectangle2D.Double();
 
 		result.setFrame(geometry);
 		result.x += offsetX;
@@ -63,7 +64,7 @@ public abstract class GameNode {
 			p = parentNode.parent;
 		}
 
-		return Optional.of(result);
+		return result;
 	}
 
 	final boolean _onMouseMoved(MouseEvent event) {
