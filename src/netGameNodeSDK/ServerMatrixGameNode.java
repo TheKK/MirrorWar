@@ -69,7 +69,7 @@ public class ServerMatrixGameNode extends GameNode {
 	}
 
 	private void randomlyAddMirrorToGame() {
-		for (int i = 0; i < 20; ++i) {
+		for (int i = 0; i < 10; ++i) {
 			double x = Math.random() * 1000;
 			double y = Math.random() * 1000;
 			int id = getUniqueObjectId();
@@ -94,7 +94,8 @@ public class ServerMatrixGameNode extends GameNode {
 		int id=getUniqueObjectId();
 		LaserEmiterNetGameNode laserEmiter = new LaserEmiterNetGameNode(id);
 		laserEmiter.serverInitialize(Game.currentScene(), false);
-		
+		laserEmiter.geometry.x=300;
+		laserEmiter.geometry.y=300;
 		addChild(laserEmiter);
 		laserEmiters.put(id,laserEmiter);
 	}

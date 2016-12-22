@@ -53,6 +53,30 @@ public final class Charger {
      * <code>required .netGameNodeSDK.charger.ChargerState.Animation animation = 4;</code>
      */
     netGameNodeSDK.charger.Charger.ChargerState.Animation getAnimation();
+
+    /**
+     * <code>repeated .netGameNodeSDK.charger.ChargerState.Rect rects = 5;</code>
+     */
+    java.util.List<netGameNodeSDK.charger.Charger.ChargerState.Rect> 
+        getRectsList();
+    /**
+     * <code>repeated .netGameNodeSDK.charger.ChargerState.Rect rects = 5;</code>
+     */
+    netGameNodeSDK.charger.Charger.ChargerState.Rect getRects(int index);
+    /**
+     * <code>repeated .netGameNodeSDK.charger.ChargerState.Rect rects = 5;</code>
+     */
+    int getRectsCount();
+    /**
+     * <code>repeated .netGameNodeSDK.charger.ChargerState.Rect rects = 5;</code>
+     */
+    java.util.List<? extends netGameNodeSDK.charger.Charger.ChargerState.RectOrBuilder> 
+        getRectsOrBuilderList();
+    /**
+     * <code>repeated .netGameNodeSDK.charger.ChargerState.Rect rects = 5;</code>
+     */
+    netGameNodeSDK.charger.Charger.ChargerState.RectOrBuilder getRectsOrBuilder(
+        int index);
   }
   /**
    * Protobuf type {@code netGameNodeSDK.charger.ChargerState}
@@ -70,6 +94,7 @@ public final class Charger {
       x_ = 0D;
       y_ = 0D;
       animation_ = 1;
+      rects_ = java.util.Collections.emptyList();
     }
 
     @java.lang.Override
@@ -126,6 +151,15 @@ public final class Charger {
               }
               break;
             }
+            case 42: {
+              if (!((mutable_bitField0_ & 0x00000010) == 0x00000010)) {
+                rects_ = new java.util.ArrayList<netGameNodeSDK.charger.Charger.ChargerState.Rect>();
+                mutable_bitField0_ |= 0x00000010;
+              }
+              rects_.add(
+                  input.readMessage(netGameNodeSDK.charger.Charger.ChargerState.Rect.PARSER, extensionRegistry));
+              break;
+            }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
@@ -134,6 +168,9 @@ public final class Charger {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
+        if (((mutable_bitField0_ & 0x00000010) == 0x00000010)) {
+          rects_ = java.util.Collections.unmodifiableList(rects_);
+        }
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
@@ -240,6 +277,773 @@ public final class Charger {
       // @@protoc_insertion_point(enum_scope:netGameNodeSDK.charger.ChargerState.Animation)
     }
 
+    public interface RectOrBuilder extends
+        // @@protoc_insertion_point(interface_extends:netGameNodeSDK.charger.ChargerState.Rect)
+        com.google.protobuf.MessageOrBuilder {
+
+      /**
+       * <code>required double x = 1;</code>
+       */
+      boolean hasX();
+      /**
+       * <code>required double x = 1;</code>
+       */
+      double getX();
+
+      /**
+       * <code>required double y = 2;</code>
+       */
+      boolean hasY();
+      /**
+       * <code>required double y = 2;</code>
+       */
+      double getY();
+
+      /**
+       * <code>required double width = 3;</code>
+       */
+      boolean hasWidth();
+      /**
+       * <code>required double width = 3;</code>
+       */
+      double getWidth();
+
+      /**
+       * <code>required double height = 4;</code>
+       */
+      boolean hasHeight();
+      /**
+       * <code>required double height = 4;</code>
+       */
+      double getHeight();
+    }
+    /**
+     * Protobuf type {@code netGameNodeSDK.charger.ChargerState.Rect}
+     */
+    public  static final class Rect extends
+        com.google.protobuf.GeneratedMessageV3 implements
+        // @@protoc_insertion_point(message_implements:netGameNodeSDK.charger.ChargerState.Rect)
+        RectOrBuilder {
+      // Use Rect.newBuilder() to construct.
+      private Rect(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+        super(builder);
+      }
+      private Rect() {
+        x_ = 0D;
+        y_ = 0D;
+        width_ = 0D;
+        height_ = 0D;
+      }
+
+      @java.lang.Override
+      public final com.google.protobuf.UnknownFieldSet
+      getUnknownFields() {
+        return this.unknownFields;
+      }
+      private Rect(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        this();
+        int mutable_bitField0_ = 0;
+        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+            com.google.protobuf.UnknownFieldSet.newBuilder();
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              default: {
+                if (!parseUnknownField(input, unknownFields,
+                                       extensionRegistry, tag)) {
+                  done = true;
+                }
+                break;
+              }
+              case 9: {
+                bitField0_ |= 0x00000001;
+                x_ = input.readDouble();
+                break;
+              }
+              case 17: {
+                bitField0_ |= 0x00000002;
+                y_ = input.readDouble();
+                break;
+              }
+              case 25: {
+                bitField0_ |= 0x00000004;
+                width_ = input.readDouble();
+                break;
+              }
+              case 33: {
+                bitField0_ |= 0x00000008;
+                height_ = input.readDouble();
+                break;
+              }
+            }
+          }
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(this);
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(
+              e).setUnfinishedMessage(this);
+        } finally {
+          this.unknownFields = unknownFields.build();
+          makeExtensionsImmutable();
+        }
+      }
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return netGameNodeSDK.charger.Charger.internal_static_netGameNodeSDK_charger_ChargerState_Rect_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return netGameNodeSDK.charger.Charger.internal_static_netGameNodeSDK_charger_ChargerState_Rect_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                netGameNodeSDK.charger.Charger.ChargerState.Rect.class, netGameNodeSDK.charger.Charger.ChargerState.Rect.Builder.class);
+      }
+
+      private int bitField0_;
+      public static final int X_FIELD_NUMBER = 1;
+      private double x_;
+      /**
+       * <code>required double x = 1;</code>
+       */
+      public boolean hasX() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      /**
+       * <code>required double x = 1;</code>
+       */
+      public double getX() {
+        return x_;
+      }
+
+      public static final int Y_FIELD_NUMBER = 2;
+      private double y_;
+      /**
+       * <code>required double y = 2;</code>
+       */
+      public boolean hasY() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <code>required double y = 2;</code>
+       */
+      public double getY() {
+        return y_;
+      }
+
+      public static final int WIDTH_FIELD_NUMBER = 3;
+      private double width_;
+      /**
+       * <code>required double width = 3;</code>
+       */
+      public boolean hasWidth() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      /**
+       * <code>required double width = 3;</code>
+       */
+      public double getWidth() {
+        return width_;
+      }
+
+      public static final int HEIGHT_FIELD_NUMBER = 4;
+      private double height_;
+      /**
+       * <code>required double height = 4;</code>
+       */
+      public boolean hasHeight() {
+        return ((bitField0_ & 0x00000008) == 0x00000008);
+      }
+      /**
+       * <code>required double height = 4;</code>
+       */
+      public double getHeight() {
+        return height_;
+      }
+
+      private byte memoizedIsInitialized = -1;
+      public final boolean isInitialized() {
+        byte isInitialized = memoizedIsInitialized;
+        if (isInitialized == 1) return true;
+        if (isInitialized == 0) return false;
+
+        if (!hasX()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+        if (!hasY()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+        if (!hasWidth()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+        if (!hasHeight()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+        memoizedIsInitialized = 1;
+        return true;
+      }
+
+      public void writeTo(com.google.protobuf.CodedOutputStream output)
+                          throws java.io.IOException {
+        if (((bitField0_ & 0x00000001) == 0x00000001)) {
+          output.writeDouble(1, x_);
+        }
+        if (((bitField0_ & 0x00000002) == 0x00000002)) {
+          output.writeDouble(2, y_);
+        }
+        if (((bitField0_ & 0x00000004) == 0x00000004)) {
+          output.writeDouble(3, width_);
+        }
+        if (((bitField0_ & 0x00000008) == 0x00000008)) {
+          output.writeDouble(4, height_);
+        }
+        unknownFields.writeTo(output);
+      }
+
+      public int getSerializedSize() {
+        int size = memoizedSize;
+        if (size != -1) return size;
+
+        size = 0;
+        if (((bitField0_ & 0x00000001) == 0x00000001)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeDoubleSize(1, x_);
+        }
+        if (((bitField0_ & 0x00000002) == 0x00000002)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeDoubleSize(2, y_);
+        }
+        if (((bitField0_ & 0x00000004) == 0x00000004)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeDoubleSize(3, width_);
+        }
+        if (((bitField0_ & 0x00000008) == 0x00000008)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeDoubleSize(4, height_);
+        }
+        size += unknownFields.getSerializedSize();
+        memoizedSize = size;
+        return size;
+      }
+
+      private static final long serialVersionUID = 0L;
+      @java.lang.Override
+      public boolean equals(final java.lang.Object obj) {
+        if (obj == this) {
+         return true;
+        }
+        if (!(obj instanceof netGameNodeSDK.charger.Charger.ChargerState.Rect)) {
+          return super.equals(obj);
+        }
+        netGameNodeSDK.charger.Charger.ChargerState.Rect other = (netGameNodeSDK.charger.Charger.ChargerState.Rect) obj;
+
+        boolean result = true;
+        result = result && (hasX() == other.hasX());
+        if (hasX()) {
+          result = result && (
+              java.lang.Double.doubleToLongBits(getX())
+              == java.lang.Double.doubleToLongBits(
+                  other.getX()));
+        }
+        result = result && (hasY() == other.hasY());
+        if (hasY()) {
+          result = result && (
+              java.lang.Double.doubleToLongBits(getY())
+              == java.lang.Double.doubleToLongBits(
+                  other.getY()));
+        }
+        result = result && (hasWidth() == other.hasWidth());
+        if (hasWidth()) {
+          result = result && (
+              java.lang.Double.doubleToLongBits(getWidth())
+              == java.lang.Double.doubleToLongBits(
+                  other.getWidth()));
+        }
+        result = result && (hasHeight() == other.hasHeight());
+        if (hasHeight()) {
+          result = result && (
+              java.lang.Double.doubleToLongBits(getHeight())
+              == java.lang.Double.doubleToLongBits(
+                  other.getHeight()));
+        }
+        result = result && unknownFields.equals(other.unknownFields);
+        return result;
+      }
+
+      @java.lang.Override
+      public int hashCode() {
+        if (memoizedHashCode != 0) {
+          return memoizedHashCode;
+        }
+        int hash = 41;
+        hash = (19 * hash) + getDescriptorForType().hashCode();
+        if (hasX()) {
+          hash = (37 * hash) + X_FIELD_NUMBER;
+          hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+              java.lang.Double.doubleToLongBits(getX()));
+        }
+        if (hasY()) {
+          hash = (37 * hash) + Y_FIELD_NUMBER;
+          hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+              java.lang.Double.doubleToLongBits(getY()));
+        }
+        if (hasWidth()) {
+          hash = (37 * hash) + WIDTH_FIELD_NUMBER;
+          hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+              java.lang.Double.doubleToLongBits(getWidth()));
+        }
+        if (hasHeight()) {
+          hash = (37 * hash) + HEIGHT_FIELD_NUMBER;
+          hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+              java.lang.Double.doubleToLongBits(getHeight()));
+        }
+        hash = (29 * hash) + unknownFields.hashCode();
+        memoizedHashCode = hash;
+        return hash;
+      }
+
+      public static netGameNodeSDK.charger.Charger.ChargerState.Rect parseFrom(
+          com.google.protobuf.ByteString data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static netGameNodeSDK.charger.Charger.ChargerState.Rect parseFrom(
+          com.google.protobuf.ByteString data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static netGameNodeSDK.charger.Charger.ChargerState.Rect parseFrom(byte[] data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static netGameNodeSDK.charger.Charger.ChargerState.Rect parseFrom(
+          byte[] data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static netGameNodeSDK.charger.Charger.ChargerState.Rect parseFrom(java.io.InputStream input)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input);
+      }
+      public static netGameNodeSDK.charger.Charger.ChargerState.Rect parseFrom(
+          java.io.InputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input, extensionRegistry);
+      }
+      public static netGameNodeSDK.charger.Charger.ChargerState.Rect parseDelimitedFrom(java.io.InputStream input)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseDelimitedWithIOException(PARSER, input);
+      }
+      public static netGameNodeSDK.charger.Charger.ChargerState.Rect parseDelimitedFrom(
+          java.io.InputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+      }
+      public static netGameNodeSDK.charger.Charger.ChargerState.Rect parseFrom(
+          com.google.protobuf.CodedInputStream input)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input);
+      }
+      public static netGameNodeSDK.charger.Charger.ChargerState.Rect parseFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input, extensionRegistry);
+      }
+
+      public Builder newBuilderForType() { return newBuilder(); }
+      public static Builder newBuilder() {
+        return DEFAULT_INSTANCE.toBuilder();
+      }
+      public static Builder newBuilder(netGameNodeSDK.charger.Charger.ChargerState.Rect prototype) {
+        return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+      }
+      public Builder toBuilder() {
+        return this == DEFAULT_INSTANCE
+            ? new Builder() : new Builder().mergeFrom(this);
+      }
+
+      @java.lang.Override
+      protected Builder newBuilderForType(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        Builder builder = new Builder(parent);
+        return builder;
+      }
+      /**
+       * Protobuf type {@code netGameNodeSDK.charger.ChargerState.Rect}
+       */
+      public static final class Builder extends
+          com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+          // @@protoc_insertion_point(builder_implements:netGameNodeSDK.charger.ChargerState.Rect)
+          netGameNodeSDK.charger.Charger.ChargerState.RectOrBuilder {
+        public static final com.google.protobuf.Descriptors.Descriptor
+            getDescriptor() {
+          return netGameNodeSDK.charger.Charger.internal_static_netGameNodeSDK_charger_ChargerState_Rect_descriptor;
+        }
+
+        protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+            internalGetFieldAccessorTable() {
+          return netGameNodeSDK.charger.Charger.internal_static_netGameNodeSDK_charger_ChargerState_Rect_fieldAccessorTable
+              .ensureFieldAccessorsInitialized(
+                  netGameNodeSDK.charger.Charger.ChargerState.Rect.class, netGameNodeSDK.charger.Charger.ChargerState.Rect.Builder.class);
+        }
+
+        // Construct using netGameNodeSDK.charger.Charger.ChargerState.Rect.newBuilder()
+        private Builder() {
+          maybeForceBuilderInitialization();
+        }
+
+        private Builder(
+            com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+          super(parent);
+          maybeForceBuilderInitialization();
+        }
+        private void maybeForceBuilderInitialization() {
+          if (com.google.protobuf.GeneratedMessageV3
+                  .alwaysUseFieldBuilders) {
+          }
+        }
+        public Builder clear() {
+          super.clear();
+          x_ = 0D;
+          bitField0_ = (bitField0_ & ~0x00000001);
+          y_ = 0D;
+          bitField0_ = (bitField0_ & ~0x00000002);
+          width_ = 0D;
+          bitField0_ = (bitField0_ & ~0x00000004);
+          height_ = 0D;
+          bitField0_ = (bitField0_ & ~0x00000008);
+          return this;
+        }
+
+        public com.google.protobuf.Descriptors.Descriptor
+            getDescriptorForType() {
+          return netGameNodeSDK.charger.Charger.internal_static_netGameNodeSDK_charger_ChargerState_Rect_descriptor;
+        }
+
+        public netGameNodeSDK.charger.Charger.ChargerState.Rect getDefaultInstanceForType() {
+          return netGameNodeSDK.charger.Charger.ChargerState.Rect.getDefaultInstance();
+        }
+
+        public netGameNodeSDK.charger.Charger.ChargerState.Rect build() {
+          netGameNodeSDK.charger.Charger.ChargerState.Rect result = buildPartial();
+          if (!result.isInitialized()) {
+            throw newUninitializedMessageException(result);
+          }
+          return result;
+        }
+
+        public netGameNodeSDK.charger.Charger.ChargerState.Rect buildPartial() {
+          netGameNodeSDK.charger.Charger.ChargerState.Rect result = new netGameNodeSDK.charger.Charger.ChargerState.Rect(this);
+          int from_bitField0_ = bitField0_;
+          int to_bitField0_ = 0;
+          if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+            to_bitField0_ |= 0x00000001;
+          }
+          result.x_ = x_;
+          if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+            to_bitField0_ |= 0x00000002;
+          }
+          result.y_ = y_;
+          if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+            to_bitField0_ |= 0x00000004;
+          }
+          result.width_ = width_;
+          if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
+            to_bitField0_ |= 0x00000008;
+          }
+          result.height_ = height_;
+          result.bitField0_ = to_bitField0_;
+          onBuilt();
+          return result;
+        }
+
+        public Builder clone() {
+          return (Builder) super.clone();
+        }
+        public Builder setField(
+            com.google.protobuf.Descriptors.FieldDescriptor field,
+            Object value) {
+          return (Builder) super.setField(field, value);
+        }
+        public Builder clearField(
+            com.google.protobuf.Descriptors.FieldDescriptor field) {
+          return (Builder) super.clearField(field);
+        }
+        public Builder clearOneof(
+            com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+          return (Builder) super.clearOneof(oneof);
+        }
+        public Builder setRepeatedField(
+            com.google.protobuf.Descriptors.FieldDescriptor field,
+            int index, Object value) {
+          return (Builder) super.setRepeatedField(field, index, value);
+        }
+        public Builder addRepeatedField(
+            com.google.protobuf.Descriptors.FieldDescriptor field,
+            Object value) {
+          return (Builder) super.addRepeatedField(field, value);
+        }
+        public Builder mergeFrom(com.google.protobuf.Message other) {
+          if (other instanceof netGameNodeSDK.charger.Charger.ChargerState.Rect) {
+            return mergeFrom((netGameNodeSDK.charger.Charger.ChargerState.Rect)other);
+          } else {
+            super.mergeFrom(other);
+            return this;
+          }
+        }
+
+        public Builder mergeFrom(netGameNodeSDK.charger.Charger.ChargerState.Rect other) {
+          if (other == netGameNodeSDK.charger.Charger.ChargerState.Rect.getDefaultInstance()) return this;
+          if (other.hasX()) {
+            setX(other.getX());
+          }
+          if (other.hasY()) {
+            setY(other.getY());
+          }
+          if (other.hasWidth()) {
+            setWidth(other.getWidth());
+          }
+          if (other.hasHeight()) {
+            setHeight(other.getHeight());
+          }
+          this.mergeUnknownFields(other.unknownFields);
+          onChanged();
+          return this;
+        }
+
+        public final boolean isInitialized() {
+          if (!hasX()) {
+            return false;
+          }
+          if (!hasY()) {
+            return false;
+          }
+          if (!hasWidth()) {
+            return false;
+          }
+          if (!hasHeight()) {
+            return false;
+          }
+          return true;
+        }
+
+        public Builder mergeFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
+          netGameNodeSDK.charger.Charger.ChargerState.Rect parsedMessage = null;
+          try {
+            parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+          } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+            parsedMessage = (netGameNodeSDK.charger.Charger.ChargerState.Rect) e.getUnfinishedMessage();
+            throw e.unwrapIOException();
+          } finally {
+            if (parsedMessage != null) {
+              mergeFrom(parsedMessage);
+            }
+          }
+          return this;
+        }
+        private int bitField0_;
+
+        private double x_ ;
+        /**
+         * <code>required double x = 1;</code>
+         */
+        public boolean hasX() {
+          return ((bitField0_ & 0x00000001) == 0x00000001);
+        }
+        /**
+         * <code>required double x = 1;</code>
+         */
+        public double getX() {
+          return x_;
+        }
+        /**
+         * <code>required double x = 1;</code>
+         */
+        public Builder setX(double value) {
+          bitField0_ |= 0x00000001;
+          x_ = value;
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>required double x = 1;</code>
+         */
+        public Builder clearX() {
+          bitField0_ = (bitField0_ & ~0x00000001);
+          x_ = 0D;
+          onChanged();
+          return this;
+        }
+
+        private double y_ ;
+        /**
+         * <code>required double y = 2;</code>
+         */
+        public boolean hasY() {
+          return ((bitField0_ & 0x00000002) == 0x00000002);
+        }
+        /**
+         * <code>required double y = 2;</code>
+         */
+        public double getY() {
+          return y_;
+        }
+        /**
+         * <code>required double y = 2;</code>
+         */
+        public Builder setY(double value) {
+          bitField0_ |= 0x00000002;
+          y_ = value;
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>required double y = 2;</code>
+         */
+        public Builder clearY() {
+          bitField0_ = (bitField0_ & ~0x00000002);
+          y_ = 0D;
+          onChanged();
+          return this;
+        }
+
+        private double width_ ;
+        /**
+         * <code>required double width = 3;</code>
+         */
+        public boolean hasWidth() {
+          return ((bitField0_ & 0x00000004) == 0x00000004);
+        }
+        /**
+         * <code>required double width = 3;</code>
+         */
+        public double getWidth() {
+          return width_;
+        }
+        /**
+         * <code>required double width = 3;</code>
+         */
+        public Builder setWidth(double value) {
+          bitField0_ |= 0x00000004;
+          width_ = value;
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>required double width = 3;</code>
+         */
+        public Builder clearWidth() {
+          bitField0_ = (bitField0_ & ~0x00000004);
+          width_ = 0D;
+          onChanged();
+          return this;
+        }
+
+        private double height_ ;
+        /**
+         * <code>required double height = 4;</code>
+         */
+        public boolean hasHeight() {
+          return ((bitField0_ & 0x00000008) == 0x00000008);
+        }
+        /**
+         * <code>required double height = 4;</code>
+         */
+        public double getHeight() {
+          return height_;
+        }
+        /**
+         * <code>required double height = 4;</code>
+         */
+        public Builder setHeight(double value) {
+          bitField0_ |= 0x00000008;
+          height_ = value;
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>required double height = 4;</code>
+         */
+        public Builder clearHeight() {
+          bitField0_ = (bitField0_ & ~0x00000008);
+          height_ = 0D;
+          onChanged();
+          return this;
+        }
+        public final Builder setUnknownFields(
+            final com.google.protobuf.UnknownFieldSet unknownFields) {
+          return super.setUnknownFields(unknownFields);
+        }
+
+        public final Builder mergeUnknownFields(
+            final com.google.protobuf.UnknownFieldSet unknownFields) {
+          return super.mergeUnknownFields(unknownFields);
+        }
+
+
+        // @@protoc_insertion_point(builder_scope:netGameNodeSDK.charger.ChargerState.Rect)
+      }
+
+      // @@protoc_insertion_point(class_scope:netGameNodeSDK.charger.ChargerState.Rect)
+      private static final netGameNodeSDK.charger.Charger.ChargerState.Rect DEFAULT_INSTANCE;
+      static {
+        DEFAULT_INSTANCE = new netGameNodeSDK.charger.Charger.ChargerState.Rect();
+      }
+
+      public static netGameNodeSDK.charger.Charger.ChargerState.Rect getDefaultInstance() {
+        return DEFAULT_INSTANCE;
+      }
+
+      @java.lang.Deprecated public static final com.google.protobuf.Parser<Rect>
+          PARSER = new com.google.protobuf.AbstractParser<Rect>() {
+        public Rect parsePartialFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+            return new Rect(input, extensionRegistry);
+        }
+      };
+
+      public static com.google.protobuf.Parser<Rect> parser() {
+        return PARSER;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Parser<Rect> getParserForType() {
+        return PARSER;
+      }
+
+      public netGameNodeSDK.charger.Charger.ChargerState.Rect getDefaultInstanceForType() {
+        return DEFAULT_INSTANCE;
+      }
+
+    }
+
     private int bitField0_;
     public static final int ID_FIELD_NUMBER = 1;
     private int id_;
@@ -302,6 +1106,41 @@ public final class Charger {
       return result == null ? netGameNodeSDK.charger.Charger.ChargerState.Animation.IS_CHARGED : result;
     }
 
+    public static final int RECTS_FIELD_NUMBER = 5;
+    private java.util.List<netGameNodeSDK.charger.Charger.ChargerState.Rect> rects_;
+    /**
+     * <code>repeated .netGameNodeSDK.charger.ChargerState.Rect rects = 5;</code>
+     */
+    public java.util.List<netGameNodeSDK.charger.Charger.ChargerState.Rect> getRectsList() {
+      return rects_;
+    }
+    /**
+     * <code>repeated .netGameNodeSDK.charger.ChargerState.Rect rects = 5;</code>
+     */
+    public java.util.List<? extends netGameNodeSDK.charger.Charger.ChargerState.RectOrBuilder> 
+        getRectsOrBuilderList() {
+      return rects_;
+    }
+    /**
+     * <code>repeated .netGameNodeSDK.charger.ChargerState.Rect rects = 5;</code>
+     */
+    public int getRectsCount() {
+      return rects_.size();
+    }
+    /**
+     * <code>repeated .netGameNodeSDK.charger.ChargerState.Rect rects = 5;</code>
+     */
+    public netGameNodeSDK.charger.Charger.ChargerState.Rect getRects(int index) {
+      return rects_.get(index);
+    }
+    /**
+     * <code>repeated .netGameNodeSDK.charger.ChargerState.Rect rects = 5;</code>
+     */
+    public netGameNodeSDK.charger.Charger.ChargerState.RectOrBuilder getRectsOrBuilder(
+        int index) {
+      return rects_.get(index);
+    }
+
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
@@ -324,6 +1163,12 @@ public final class Charger {
         memoizedIsInitialized = 0;
         return false;
       }
+      for (int i = 0; i < getRectsCount(); i++) {
+        if (!getRects(i).isInitialized()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -341,6 +1186,9 @@ public final class Charger {
       }
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
         output.writeEnum(4, animation_);
+      }
+      for (int i = 0; i < rects_.size(); i++) {
+        output.writeMessage(5, rects_.get(i));
       }
       unknownFields.writeTo(output);
     }
@@ -365,6 +1213,10 @@ public final class Charger {
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
         size += com.google.protobuf.CodedOutputStream
           .computeEnumSize(4, animation_);
+      }
+      for (int i = 0; i < rects_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(5, rects_.get(i));
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -406,6 +1258,8 @@ public final class Charger {
       if (hasAnimation()) {
         result = result && animation_ == other.animation_;
       }
+      result = result && getRectsList()
+          .equals(other.getRectsList());
       result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
@@ -434,6 +1288,10 @@ public final class Charger {
       if (hasAnimation()) {
         hash = (37 * hash) + ANIMATION_FIELD_NUMBER;
         hash = (53 * hash) + animation_;
+      }
+      if (getRectsCount() > 0) {
+        hash = (37 * hash) + RECTS_FIELD_NUMBER;
+        hash = (53 * hash) + getRectsList().hashCode();
       }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
@@ -549,6 +1407,7 @@ public final class Charger {
       private void maybeForceBuilderInitialization() {
         if (com.google.protobuf.GeneratedMessageV3
                 .alwaysUseFieldBuilders) {
+          getRectsFieldBuilder();
         }
       }
       public Builder clear() {
@@ -561,6 +1420,12 @@ public final class Charger {
         bitField0_ = (bitField0_ & ~0x00000004);
         animation_ = 1;
         bitField0_ = (bitField0_ & ~0x00000008);
+        if (rectsBuilder_ == null) {
+          rects_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000010);
+        } else {
+          rectsBuilder_.clear();
+        }
         return this;
       }
 
@@ -601,6 +1466,15 @@ public final class Charger {
           to_bitField0_ |= 0x00000008;
         }
         result.animation_ = animation_;
+        if (rectsBuilder_ == null) {
+          if (((bitField0_ & 0x00000010) == 0x00000010)) {
+            rects_ = java.util.Collections.unmodifiableList(rects_);
+            bitField0_ = (bitField0_ & ~0x00000010);
+          }
+          result.rects_ = rects_;
+        } else {
+          result.rects_ = rectsBuilder_.build();
+        }
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -655,6 +1529,32 @@ public final class Charger {
         if (other.hasAnimation()) {
           setAnimation(other.getAnimation());
         }
+        if (rectsBuilder_ == null) {
+          if (!other.rects_.isEmpty()) {
+            if (rects_.isEmpty()) {
+              rects_ = other.rects_;
+              bitField0_ = (bitField0_ & ~0x00000010);
+            } else {
+              ensureRectsIsMutable();
+              rects_.addAll(other.rects_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.rects_.isEmpty()) {
+            if (rectsBuilder_.isEmpty()) {
+              rectsBuilder_.dispose();
+              rectsBuilder_ = null;
+              rects_ = other.rects_;
+              bitField0_ = (bitField0_ & ~0x00000010);
+              rectsBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getRectsFieldBuilder() : null;
+            } else {
+              rectsBuilder_.addAllMessages(other.rects_);
+            }
+          }
+        }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
@@ -672,6 +1572,11 @@ public final class Charger {
         }
         if (!hasAnimation()) {
           return false;
+        }
+        for (int i = 0; i < getRectsCount(); i++) {
+          if (!getRects(i).isInitialized()) {
+            return false;
+          }
         }
         return true;
       }
@@ -826,6 +1731,246 @@ public final class Charger {
         onChanged();
         return this;
       }
+
+      private java.util.List<netGameNodeSDK.charger.Charger.ChargerState.Rect> rects_ =
+        java.util.Collections.emptyList();
+      private void ensureRectsIsMutable() {
+        if (!((bitField0_ & 0x00000010) == 0x00000010)) {
+          rects_ = new java.util.ArrayList<netGameNodeSDK.charger.Charger.ChargerState.Rect>(rects_);
+          bitField0_ |= 0x00000010;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          netGameNodeSDK.charger.Charger.ChargerState.Rect, netGameNodeSDK.charger.Charger.ChargerState.Rect.Builder, netGameNodeSDK.charger.Charger.ChargerState.RectOrBuilder> rectsBuilder_;
+
+      /**
+       * <code>repeated .netGameNodeSDK.charger.ChargerState.Rect rects = 5;</code>
+       */
+      public java.util.List<netGameNodeSDK.charger.Charger.ChargerState.Rect> getRectsList() {
+        if (rectsBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(rects_);
+        } else {
+          return rectsBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .netGameNodeSDK.charger.ChargerState.Rect rects = 5;</code>
+       */
+      public int getRectsCount() {
+        if (rectsBuilder_ == null) {
+          return rects_.size();
+        } else {
+          return rectsBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .netGameNodeSDK.charger.ChargerState.Rect rects = 5;</code>
+       */
+      public netGameNodeSDK.charger.Charger.ChargerState.Rect getRects(int index) {
+        if (rectsBuilder_ == null) {
+          return rects_.get(index);
+        } else {
+          return rectsBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .netGameNodeSDK.charger.ChargerState.Rect rects = 5;</code>
+       */
+      public Builder setRects(
+          int index, netGameNodeSDK.charger.Charger.ChargerState.Rect value) {
+        if (rectsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureRectsIsMutable();
+          rects_.set(index, value);
+          onChanged();
+        } else {
+          rectsBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .netGameNodeSDK.charger.ChargerState.Rect rects = 5;</code>
+       */
+      public Builder setRects(
+          int index, netGameNodeSDK.charger.Charger.ChargerState.Rect.Builder builderForValue) {
+        if (rectsBuilder_ == null) {
+          ensureRectsIsMutable();
+          rects_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          rectsBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .netGameNodeSDK.charger.ChargerState.Rect rects = 5;</code>
+       */
+      public Builder addRects(netGameNodeSDK.charger.Charger.ChargerState.Rect value) {
+        if (rectsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureRectsIsMutable();
+          rects_.add(value);
+          onChanged();
+        } else {
+          rectsBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .netGameNodeSDK.charger.ChargerState.Rect rects = 5;</code>
+       */
+      public Builder addRects(
+          int index, netGameNodeSDK.charger.Charger.ChargerState.Rect value) {
+        if (rectsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureRectsIsMutable();
+          rects_.add(index, value);
+          onChanged();
+        } else {
+          rectsBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .netGameNodeSDK.charger.ChargerState.Rect rects = 5;</code>
+       */
+      public Builder addRects(
+          netGameNodeSDK.charger.Charger.ChargerState.Rect.Builder builderForValue) {
+        if (rectsBuilder_ == null) {
+          ensureRectsIsMutable();
+          rects_.add(builderForValue.build());
+          onChanged();
+        } else {
+          rectsBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .netGameNodeSDK.charger.ChargerState.Rect rects = 5;</code>
+       */
+      public Builder addRects(
+          int index, netGameNodeSDK.charger.Charger.ChargerState.Rect.Builder builderForValue) {
+        if (rectsBuilder_ == null) {
+          ensureRectsIsMutable();
+          rects_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          rectsBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .netGameNodeSDK.charger.ChargerState.Rect rects = 5;</code>
+       */
+      public Builder addAllRects(
+          java.lang.Iterable<? extends netGameNodeSDK.charger.Charger.ChargerState.Rect> values) {
+        if (rectsBuilder_ == null) {
+          ensureRectsIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, rects_);
+          onChanged();
+        } else {
+          rectsBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .netGameNodeSDK.charger.ChargerState.Rect rects = 5;</code>
+       */
+      public Builder clearRects() {
+        if (rectsBuilder_ == null) {
+          rects_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000010);
+          onChanged();
+        } else {
+          rectsBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .netGameNodeSDK.charger.ChargerState.Rect rects = 5;</code>
+       */
+      public Builder removeRects(int index) {
+        if (rectsBuilder_ == null) {
+          ensureRectsIsMutable();
+          rects_.remove(index);
+          onChanged();
+        } else {
+          rectsBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .netGameNodeSDK.charger.ChargerState.Rect rects = 5;</code>
+       */
+      public netGameNodeSDK.charger.Charger.ChargerState.Rect.Builder getRectsBuilder(
+          int index) {
+        return getRectsFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .netGameNodeSDK.charger.ChargerState.Rect rects = 5;</code>
+       */
+      public netGameNodeSDK.charger.Charger.ChargerState.RectOrBuilder getRectsOrBuilder(
+          int index) {
+        if (rectsBuilder_ == null) {
+          return rects_.get(index);  } else {
+          return rectsBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .netGameNodeSDK.charger.ChargerState.Rect rects = 5;</code>
+       */
+      public java.util.List<? extends netGameNodeSDK.charger.Charger.ChargerState.RectOrBuilder> 
+           getRectsOrBuilderList() {
+        if (rectsBuilder_ != null) {
+          return rectsBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(rects_);
+        }
+      }
+      /**
+       * <code>repeated .netGameNodeSDK.charger.ChargerState.Rect rects = 5;</code>
+       */
+      public netGameNodeSDK.charger.Charger.ChargerState.Rect.Builder addRectsBuilder() {
+        return getRectsFieldBuilder().addBuilder(
+            netGameNodeSDK.charger.Charger.ChargerState.Rect.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .netGameNodeSDK.charger.ChargerState.Rect rects = 5;</code>
+       */
+      public netGameNodeSDK.charger.Charger.ChargerState.Rect.Builder addRectsBuilder(
+          int index) {
+        return getRectsFieldBuilder().addBuilder(
+            index, netGameNodeSDK.charger.Charger.ChargerState.Rect.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .netGameNodeSDK.charger.ChargerState.Rect rects = 5;</code>
+       */
+      public java.util.List<netGameNodeSDK.charger.Charger.ChargerState.Rect.Builder> 
+           getRectsBuilderList() {
+        return getRectsFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          netGameNodeSDK.charger.Charger.ChargerState.Rect, netGameNodeSDK.charger.Charger.ChargerState.Rect.Builder, netGameNodeSDK.charger.Charger.ChargerState.RectOrBuilder> 
+          getRectsFieldBuilder() {
+        if (rectsBuilder_ == null) {
+          rectsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              netGameNodeSDK.charger.Charger.ChargerState.Rect, netGameNodeSDK.charger.Charger.ChargerState.Rect.Builder, netGameNodeSDK.charger.Charger.ChargerState.RectOrBuilder>(
+                  rects_,
+                  ((bitField0_ & 0x00000010) == 0x00000010),
+                  getParentForChildren(),
+                  isClean());
+          rects_ = null;
+        }
+        return rectsBuilder_;
+      }
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
         return super.setUnknownFields(unknownFields);
@@ -880,6 +2025,11 @@ public final class Charger {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_netGameNodeSDK_charger_ChargerState_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_netGameNodeSDK_charger_ChargerState_Rect_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_netGameNodeSDK_charger_ChargerState_Rect_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -890,10 +2040,13 @@ public final class Charger {
   static {
     java.lang.String[] descriptorData = {
       "\n\rcharger.proto\022\026netGameNodeSDK.charger\"" +
-      "\234\001\n\014ChargerState\022\n\n\002id\030\001 \002(\r\022\t\n\001x\030\002 \002(\001\022" +
+      "\223\002\n\014ChargerState\022\n\n\002id\030\001 \002(\r\022\t\n\001x\030\002 \002(\001\022" +
       "\t\n\001y\030\003 \002(\001\022A\n\tanimation\030\004 \002(\0162..netGameN" +
-      "odeSDK.charger.ChargerState.Animation\"\'\n" +
-      "\tAnimation\022\016\n\nIS_CHARGED\020\001\022\n\n\006NORMAL\020\002"
+      "odeSDK.charger.ChargerState.Animation\0228\n" +
+      "\005rects\030\005 \003(\0132).netGameNodeSDK.charger.Ch" +
+      "argerState.Rect\032;\n\004Rect\022\t\n\001x\030\001 \002(\001\022\t\n\001y\030" +
+      "\002 \002(\001\022\r\n\005width\030\003 \002(\001\022\016\n\006height\030\004 \002(\001\"\'\n\t" +
+      "Animation\022\016\n\nIS_CHARGED\020\001\022\n\n\006NORMAL\020\002"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -912,7 +2065,13 @@ public final class Charger {
     internal_static_netGameNodeSDK_charger_ChargerState_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_netGameNodeSDK_charger_ChargerState_descriptor,
-        new java.lang.String[] { "Id", "X", "Y", "Animation", });
+        new java.lang.String[] { "Id", "X", "Y", "Animation", "Rects", });
+    internal_static_netGameNodeSDK_charger_ChargerState_Rect_descriptor =
+      internal_static_netGameNodeSDK_charger_ChargerState_descriptor.getNestedTypes().get(0);
+    internal_static_netGameNodeSDK_charger_ChargerState_Rect_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_netGameNodeSDK_charger_ChargerState_Rect_descriptor,
+        new java.lang.String[] { "X", "Y", "Width", "Height", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

@@ -92,7 +92,7 @@ public class ChargerNetGameNode extends NetGameNode<ChargerState, Void> {
 
 	@Override
 	public void clientHandleServerUpdate(ChargerState update) {
-		if (clientCurrentAnimation != update.getAnimation()) {
+		if (clientCurrentAnimation != update.getAnimation()) {//TODO
 			// TODO: play animation
 		}
 		clientCurrentAnimation = update.getAnimation();
@@ -111,6 +111,7 @@ public class ChargerNetGameNode extends NetGameNode<ChargerState, Void> {
 				.setX(geometry.x)
 				.setY(geometry.y)
 				.setAnimation(serverCurrentAnimation)
+				//.addRects(builderForValue)//TODO
 				.build();
 	}
 

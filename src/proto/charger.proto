@@ -7,6 +7,13 @@ message ChargerState {
         IS_CHARGED = 1;
         NORMAL = 2;
     }
+    
+    message Rect {
+    	required double x = 1;
+    	required double y = 2;
+    	required double width = 3;
+    	required double height = 4;
+    }
 
     required uint32 id = 1;
 
@@ -14,4 +21,5 @@ message ChargerState {
     required double y = 3;
 
     required Animation animation = 4;
+    repeated Rect rects = 5;
 }
