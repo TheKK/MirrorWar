@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.Socket;
 
+import gameEngine.AnimationPlayer;
+import gameEngine.FunctionTriggerAnimation;
 import gameEngine.Game;
 import gameEngine.GameScene;
 import javafx.scene.paint.Color;
@@ -15,13 +17,18 @@ enum GameState {
 }
 
 public class MirrorWarScene extends GameScene {
+	private BoardGameNode messageBoard = new BoardGameNode(5000);
+	private AnimationPlayer aniPlayer = new AnimationPlayer(5000);
 	private GameState gameState = GameState.SENDING_READY_MESSAGE;
 	private final Socket serverConnSocket;
 
 
 	public MirrorWarScene(Socket s) {
+		messageBoard.geometry.x = Game.canvasWidth() / 2;
+		messageBoard.geometry.y = Game.canvasHeight() / 2;
 		Game.clearColor = Color.PINK;
 		serverConnSocket = s;
+		setupAnimationPlayer();
 	}
 
 	@Override
@@ -41,14 +48,6 @@ public class MirrorWarScene extends GameScene {
 
 			return;
 		}
-
-		final Runnable cleanup = () -> {
-			try {
-				serverConnSocket.close();
-			} catch (IOException e) {
-				DangerousGlobalVariables.logger.warning("[CLIENT] " + e.getMessage());
-			}
-		};
 
 		Runnable routine = () -> {
 			gameState = GameState.WAIT_FOR_OTHER_PLAYER;
@@ -80,12 +79,6 @@ public class MirrorWarScene extends GameScene {
 			} else {
 				playerLose();
 			}
-
-			cleanup.run();
-
-			DangerousGlobalVariables.logger.info("game is over");
-
-			Game.swapScene(new JoinGameScene());
 		};
 
 		Thread thread = new  Thread(routine);
@@ -94,10 +87,16 @@ public class MirrorWarScene extends GameScene {
 	}
 	
 	private void playerWin() {
+		messageBoard.showMessage("You win!");
+		rootNode.addChild(messageBoard);
+		aniPlayer.play(1);
 		DangerousGlobalVariables.logger.info("win");
 	}
 	
 	private void playerLose() {
+		messageBoard.showMessage("You lose!");
+		rootNode.addChild(messageBoard);
+		aniPlayer.play(1);
 		DangerousGlobalVariables.logger.info("lose");
 	}
 
@@ -117,5 +116,23 @@ public class MirrorWarScene extends GameScene {
 			} else {
 				otherwise.run();
 			}
+	}
+	
+	private void setupAnimationPlayer() {
+		FunctionTriggerAnimation funcAni = new FunctionTriggerAnimation();
+		funcAni.addAnchor(5000, () -> {
+			try {
+				serverConnSocket.close();
+			} catch (IOException e) {
+				DangerousGlobalVariables.logger.warning("[CLIENT] " + e.getMessage());
+			}
+
+			DangerousGlobalVariables.logger.info("game is over");
+
+			Game.swapScene(new JoinGameScene());
+		});
+		
+		aniPlayer.addAnimation("gameOver", funcAni);
+		rootNode.addChild(aniPlayer);
 	}
 }

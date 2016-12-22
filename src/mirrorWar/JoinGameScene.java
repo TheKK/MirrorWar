@@ -31,7 +31,7 @@ enum State {
 }
 
 public class JoinGameScene extends GameScene {
-
+	private BoardGameNode messageBoard = new BoardGameNode(3000);
 	private State currentState = State.USER_INPUT;
 	private String serverIp = "";
 	private final int width = 200;
@@ -45,6 +45,10 @@ public class JoinGameScene extends GameScene {
 
 		GameNode dialogBackgroud = new RectangleGameNode(300, 250, width, height, Color.WHITE);
 		rootNode.addChild(dialogBackgroud);
+		
+		messageBoard.geometry.x = Game.canvasWidth() / 2;
+		messageBoard.geometry.y = Game.canvasHeight() * 0.25;
+		rootNode.addChild(messageBoard);
 
 		GameNode text = new TextGameNode(serverIp) {
 			@Override
@@ -122,11 +126,13 @@ public class JoinGameScene extends GameScene {
 
 		} catch (UnknownHostException e) {
 			currentState = State.USER_INPUT;
-			throw new CompletionException(e);
-
+			throw new CompletionException("Unkown host", e);
 		} catch (IOException e) {
 			currentState = State.USER_INPUT;
-			throw new CompletionException(e);
+			throw new CompletionException("Connection failed", e);
+		} catch (Exception e) {
+			currentState = State.USER_INPUT;
+			throw new CompletionException(e.getMessage()  , e);
 		}
 	}
 
@@ -138,12 +144,12 @@ public class JoinGameScene extends GameScene {
 				if (serverSocket != null) {
 					Game.swapScene(new MirrorWarScene(serverSocket));
 				} else {
-					e.printStackTrace();
+					messageBoard.showMessage(e.getMessage());
 				}
 			});
 	}
 
-	private InetSocketAddress getIp(String ip) throws UnknownHostException {
+	private InetSocketAddress getIp(String ip) throws Exception {
 		final String IPADDRESS_PATTERN = "(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)";
 
 		Pattern pattern = Pattern.compile(IPADDRESS_PATTERN);
@@ -153,7 +159,7 @@ public class JoinGameScene extends GameScene {
 			return ipAddr;
 		}
 
-		throw new UnknownHostException("IP is not true");
+		throw new Exception("IP format is invalid");
 	}
 
 	private String cutOffLastWord(String str) {
