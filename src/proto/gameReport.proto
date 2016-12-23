@@ -3,6 +3,5 @@ syntax = "proto2";
 package mirrorWar.gameReport;
 
 message Status {
-    required int32 player0Life = 1;
-    required int32 player1Life = 2;
+    repeated int32 playersLife = 1;
 }

@@ -36,6 +36,7 @@ import mirrorWar.input.InputOuterClass.Inputs;
 import mirrorWar.mirror.Mirror.MirrorState;
 import mirrorWar.player.Player.PlayerState;
 import netGameNodeSDK.ChargerNetGameNode;
+import netGameNodeSDK.GameReportNetGameNode;
 import netGameNodeSDK.MirrorNetGameNode;
 import netGameNodeSDK.PlayerNetGameNode;
 import netGameNodeSDK.update.UpdateOuterClass.Update;
@@ -57,8 +58,13 @@ public class ServerMatrixGameNode extends GameNode {
 
 	private DatagramSocket updateOutputSocket;
 	private DatagramPacket updatePacket;
-	private int[] playersLife = {Constants.LIFE, Constants.LIFE};
-
+	
+	private GameReportNetGameNode gameReport = new GameReportNetGameNode() {
+		@Override
+		protected void beAttacked() {
+		}
+	};
+	
 	public ServerMatrixGameNode(ServerSocket serverSocket, List<Socket> playerSockets) throws IOException {
 		this.serverSocket = serverSocket;
 		this.playerSockets = playerSockets;
@@ -77,10 +83,15 @@ public class ServerMatrixGameNode extends GameNode {
 		randomlyAddMirrorToGame();
 		randomlyAddChargerToGame();
 		
+		addChild(gameReport);
+		
 		new Thread(() -> {
 			try {
 				Thread.sleep(5000);
-				playersLife[0] = 0;
+				gameReport.hurtPlayer(0);
+				gameReport.hurtPlayer(0);
+				gameReport.hurtPlayer(0);
+				gameReport.hurtPlayer(0);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -187,7 +198,7 @@ public class ServerMatrixGameNode extends GameNode {
 	@Override
 	public void update(long elapse) {
 		for (int id = 0; id < Constants.PLAYER_NUM; ++id) {
-			if (playersLife[id] == 0) {
+			if (gameReport.isPlayerDead(id)) {
 				sendResultToAllClient(id);
 				playerSockets.clear();
 				Platform.exit();
@@ -195,7 +206,10 @@ public class ServerMatrixGameNode extends GameNode {
 		}
 	}
 	
-	private void sendResultToAllClient(int winnerId) {
+	private void sendResultToAllClient(int loseId) {
+		// dirty code
+		int winnerId = (loseId == 0) ? 1: 0;
+		
 		playerSockets.forEach(socket -> {
 			try {
 				OutputStream out = socket.getOutputStream();
