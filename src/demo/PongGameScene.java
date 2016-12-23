@@ -109,7 +109,7 @@ public class PongGameScene extends GameScene {
 			}
 			@Override
 			public void onCollided(GameNode node, long elapse) {
-				HashSet<Integer> collisionGroups = node.colissionGroup();
+				HashSet<Integer> collisionGroups = node.collissionGroup();
 
 				if (collisionGroups.contains(LEFT_PADDLE_GROUP_ID)) vx = BALL_START_VX;
 				if (collisionGroups.contains(RIGHT_PADDLE_GROUP_ID)) vx = -BALL_START_VX;

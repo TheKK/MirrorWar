@@ -8,6 +8,7 @@ import gameEngine.AnimationPlayer;
 import gameEngine.FunctionTriggerAnimation;
 import gameEngine.Game;
 import gameEngine.GameScene;
+import netGameNodeSDK.ClientMatrixGameNode;
 import javafx.scene.paint.Color;
 import mirrorWar.gameStatusUpdate.GameStatusUpdate.GameResult;
 import mirrorWar.gameStatusUpdate.GameStatusUpdate.ServerMessage;

@@ -1,5 +1,6 @@
 package netGameNodeSDK;
 
+import java.awt.geom.Rectangle2D;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -24,6 +25,7 @@ import gameEngine.RectangleGameNode;
 import javafx.application.Platform;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import mirrorWar.Constants;
 import mirrorWar.charger.Charger.ChargerState;
 import mirrorWar.handshake.Handshake.ClientHandshake;
 import mirrorWar.handshake.Handshake.ServerHandshake;
@@ -175,7 +177,8 @@ public class ServerMatrixGameNode extends GameNode {
 	}
 
 	private void addNewClient(InetSocketAddress clientUpdateAddr, int clientId) {
-		PlayerNetGameNode playerNode = new PlayerNetGameNode(clientId);
+		Rectangle2D.Double rec = (clientId == 0) ? Constants.PLAYER0_RESPAWN_REGION : Constants.PLAYER1_RESPAWN_REGION;
+		PlayerNetGameNode playerNode = new PlayerNetGameNode(clientId, rec);
 		playerNode.serverInitialize(Game.currentScene(), true);
 
 		addChild(playerNode);

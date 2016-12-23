@@ -60,9 +60,9 @@ public class ChargerNetGameNode extends NetGameNode<ChargerState, Void> {
 			boolean player1LaserHit = false, player2LaserHit = false;
 
 			for (GameNode node : serverChargeringArea.enteredAreaSet()) {
-				if (node.colissionGroup().contains(Constants.PLAYER1_LASER_COLLISION_GROUP)) {
+				if (node.collissionGroup().contains(Constants.PLAYER0_LASER_COLLISION_GROUP)) {
 					player1LaserHit = true;
-				} else if (node.colissionGroup().contains(Constants.PLAYER2_LASER_COLLISION_GROUP)) {
+				} else if (node.collissionGroup().contains(Constants.PLAYER1_LASER_COLLISION_GROUP)) {
 					player2LaserHit = true;
 				}
 			}

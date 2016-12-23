@@ -14,7 +14,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-
 import com.google.protobuf.InvalidProtocolBufferException;
 
 import gameEngine.AnimationPlayer;
@@ -26,7 +25,6 @@ import gameEngine.SimpleGameSceneCamera;
 import javafx.application.Platform;
 import javafx.scene.canvas.GraphicsContext;
 import mirrorWar.charger.Charger.ChargerState;
-import mirrorWar.gameReport.GameReport.Status;
 import mirrorWar.handshake.Handshake.ClientHandshake;
 import mirrorWar.handshake.Handshake.ServerHandshake;
 import mirrorWar.input.InputOuterClass.Input;
@@ -35,6 +33,10 @@ import mirrorWar.mirror.Mirror.MirrorState;
 import mirrorWar.player.Player.PlayerState;
 import mirrorWar.update.UpdateOuterClass.Update;
 import mirrorWar.update.UpdateOuterClass.Updates;
+import netGameNodeSDK.ChargerNetGameNode;
+import netGameNodeSDK.GameReportNetGameNode;
+import netGameNodeSDK.MirrorNetGameNode;
+import netGameNodeSDK.PlayerNetGameNode;
 
 public class ClientMatrixGameNode extends GameNode {
 	private DatagramSocket commandOutputSocket;
@@ -48,16 +50,17 @@ public class ClientMatrixGameNode extends GameNode {
 	private Map<Integer, PlayerNetGameNode> players = new HashMap<>();
 	private Map<Integer, MirrorNetGameNode> mirrors = new HashMap<>();
 	private Map<Integer, ChargerNetGameNode> chargers = new HashMap<>();
+	private GameReportNetGameNode gameReport;
 
 	private int controllingPlayerId;
 
 	private LayerGameNode rootLayer;
 
+
 	public ClientMatrixGameNode(Socket serverSocket) {
 		rootLayer = new LayerGameNode();
 		addChild(rootLayer);
 
-		// TODO Make this process async
 		try {
 			setupUDPSockets(serverSocket);
 			ServerHandshake serverHandshake = handshakeWithServer(serverSocket);
@@ -71,6 +74,15 @@ public class ClientMatrixGameNode extends GameNode {
 			return;
 		}
 		
+		gameReport = new GameReportNetGameNode(controllingPlayerId) {
+			@Override
+			protected void beAttacked() {
+				// TODO add actual implementation
+				System.out.println("play attack animation");
+			}
+		};
+		addChild(gameReport);
+
 		setupSendingInputsService();
 		setupReceivingUpdateService();
 	}
@@ -92,6 +104,10 @@ public class ClientMatrixGameNode extends GameNode {
 				case CHARGER_STATE:
 					addOrUpdateCharger(update.getChargerState());
 					break;
+					
+				case GAME_REPORT_STATE:
+					gameReport.clientHandleServerUpdate(update.getGameReportState());
+					break;			
 
 				case UPDATE_NOT_SET:
 					break;
@@ -167,6 +183,9 @@ public class ClientMatrixGameNode extends GameNode {
 		commandOutputSocket = new DatagramSocket();
 		updateInputSocket = new DatagramSocket();
 
+		System.out.println("hold command udp port at: " + commandOutputSocket.getLocalPort());
+		System.out.println("hold update udp port at: " + updateInputSocket.getLocalPort());
+
 		byte[] commandData = new byte[2048];
 		commandPacket = new DatagramPacket(commandData, commandData.length);
 		commandPacket.setSocketAddress(serverSocket.getRemoteSocketAddress());
@@ -182,7 +201,6 @@ public class ClientMatrixGameNode extends GameNode {
 		sendInputsToServerAni.addAnchor(0, () -> {
 			try {
 				consumeInputsAndSendToServer();
-
 			} catch (IOException e) {
 				System.out.println("error while sending inputs to server: ");
 				System.out.println(e.getClass() + ": " + e.getMessage());
@@ -234,6 +252,10 @@ public class ClientMatrixGameNode extends GameNode {
 
 	private void consumeInputsAndSendToServer() throws IOException {
 		PlayerNetGameNode controlleringPlayer = players.get(controllingPlayerId);
+		if (controlleringPlayer == null) {
+			return;
+		}
+
 		List<Input> inputQueue = controlleringPlayer.inputQueue;
 		if (inputQueue.isEmpty()) {
 			return;
@@ -269,5 +291,9 @@ public class ClientMatrixGameNode extends GameNode {
 		commandPacket.setPort(serverHandshake.getCommandPort());
 
 		return serverHandshake;
+	}
+	
+	public int getControllingId() {
+		return controllingPlayerId;
 	}
 }

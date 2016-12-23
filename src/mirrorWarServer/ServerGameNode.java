@@ -1,5 +1,6 @@
 package mirrorWarServer;
 
+import java.awt.geom.Rectangle2D;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -21,10 +22,8 @@ import gameEngine.AnimationPlayer;
 import gameEngine.FunctionTriggerAnimation;
 import gameEngine.Game;
 import gameEngine.GameNode;
-import gameEngine.RectangleGameNode;
 import javafx.application.Platform;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
 import mirrorWar.Constants;
 import mirrorWar.DangerousGlobalVariables;
 import mirrorWar.charger.Charger.ChargerState;
@@ -43,7 +42,7 @@ import netGameNodeSDK.GameReportNetGameNode;
 import netGameNodeSDK.MirrorNetGameNode;
 import netGameNodeSDK.PlayerNetGameNode;
 
-public class ServerMatrixGameNode extends GameNode {
+public class ServerGameNode extends GameNode {
 	private int objectId = 0;
 
 	private ServerSocket serverSocket;
@@ -66,7 +65,7 @@ public class ServerMatrixGameNode extends GameNode {
 		}
 	};
 	
-	public ServerMatrixGameNode(ServerSocket serverSocket, List<Socket> playerSockets) throws IOException {
+	public ServerGameNode(ServerSocket serverSocket, List<Socket> playerSockets) throws IOException {
 		this.serverSocket = serverSocket;
 		this.playerSockets = playerSockets;
 
@@ -89,8 +88,11 @@ public class ServerMatrixGameNode extends GameNode {
 		new Thread(() -> {
 			try {
 				while (true) {
-					Thread.sleep(1500);
+					Thread.sleep(1000);
 					gameReport.hurtPlayer(0);
+					Thread.sleep(3000);
+					players.get(0).beKilled();
+					players.get(1).beKilled();
 				}
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
@@ -241,6 +243,7 @@ public class ServerMatrixGameNode extends GameNode {
 
 	private void addNewClient(Socket newClientSocket) {
 		int clientId = getUniqueObjectId();
+
 		ClientHandshake clientHandshake;
 
 		System.out.println("[new player] " + clientId + ", from: " + newClientSocket.getRemoteSocketAddress());
@@ -255,7 +258,8 @@ public class ServerMatrixGameNode extends GameNode {
 			return;
 		}
 
-		PlayerNetGameNode playerNode = new PlayerNetGameNode(clientId);
+		Rectangle2D.Double rec = (clientId == 0) ? Constants.PLAYER0_RESPAWN_REGION : Constants.PLAYER1_RESPAWN_REGION;
+		PlayerNetGameNode playerNode = new PlayerNetGameNode(clientId, rec);
 		playerNode.serverInitialize(Game.currentScene(), true);
 		addChild(playerNode);
 

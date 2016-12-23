@@ -45,9 +45,15 @@ public final class PlayerNetGameNode extends NetGameNode<PlayerState, Input> {
 	private RectangleGameNode serverMirrorSpinSensor;
 	private RectangleGameNode serverMirrorPlaceSensor;
 	private Optional<MirrorNetGameNode> serverPickedMirror = Optional.empty();
+	private Rectangle2D.Double serverRespawnRegion = null;
 
 	public PlayerNetGameNode(int id) {
 		this.id = id;
+	}
+	
+	public PlayerNetGameNode(int id, Rectangle2D.Double respawnRegion) {
+		this.id = id;
+		serverRespawnRegion = respawnRegion;
 	}
 
 	public int id() {
@@ -115,7 +121,6 @@ public final class PlayerNetGameNode extends NetGameNode<PlayerState, Input> {
 		serverMirrorSpinSensor = new RectangleGameNode(50, 10, 35, 20, Color.TRANSPARENT);
 		addChild(serverMirrorSpinSensor);
 		scene.physicEngine.addAreaNode(serverMirrorSpinSensor);
-		serverMirrorSpinSensor.addColissionGroup(Constants.PLAYER1_LASER_COLLISION_GROUP);
 
 		serverMirrorPlaceSensor = new RectangleGameNode(0, 0, 50, 50, Color.TRANSPARENT);
 		addChild(serverMirrorPlaceSensor);
@@ -153,7 +158,7 @@ public final class PlayerNetGameNode extends NetGameNode<PlayerState, Input> {
 
 			if (serverMirrorSpinSensor.isAreaEntred()) {
 				GameNode node = serverMirrorSpinSensor.enteredAreaSet().iterator().next();
-				if (node.colissionGroup().contains(Main.MIRROR_COLLISION_ID)) {
+				if (node.collissionGroup().contains(Main.MIRROR_COLLISION_ID)) {
 					((MirrorNetGameNode) node).spin();
 				}
 			}
@@ -173,7 +178,7 @@ public final class PlayerNetGameNode extends NetGameNode<PlayerState, Input> {
 			} else {
 				if (serverMirrorSpinSensor.isAreaEntred()) {
 					GameNode node = serverMirrorSpinSensor.enteredAreaSet().iterator().next();
-					if (node.colissionGroup().contains(Main.MIRROR_COLLISION_ID)) {
+					if (node.collissionGroup().contains(Main.MIRROR_COLLISION_ID)) {
 						MirrorNetGameNode mirror = (MirrorNetGameNode) node;
 
 						pickMirror(mirror);
@@ -182,6 +187,14 @@ public final class PlayerNetGameNode extends NetGameNode<PlayerState, Input> {
 			}
 		}
 
+		if (this.isAreaEntred()) {
+			for (GameNode node : this.enteredAreaSet()) {
+				if (node.collissionGroup().contains(Constants.PLAYER0_LASER_COLLISION_GROUP) || node.collissionGroup().contains(Constants.PLAYER1_LASER_COLLISION_GROUP)) {
+					beKilled();
+				}
+			}
+		}
+		
 		if (Math.abs(vx) + Math.abs(vy) >= 0.001) {
 			currentAnimation = Animation.WALKING;
 		} else {
@@ -430,5 +443,17 @@ public final class PlayerNetGameNode extends NetGameNode<PlayerState, Input> {
 		case SECRET:
 			break;
 		}
+	}
+	
+	public void beKilled() {
+		// TODO make this and animation
+		geometry.x = serverRespawnRegion.x + Math.random() * (serverRespawnRegion.width) - geometry.width;
+		geometry.y = serverRespawnRegion.y + Math.random() * (serverRespawnRegion.height) - geometry.height;
+		vx = 0;
+		vy = 0;
+		ay = 0;
+		ax = 0;
+		pulseX = 0;
+		pulseY = 0;
 	}
 }

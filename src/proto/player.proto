@@ -7,6 +7,7 @@ message PlayerState {
         STANDING = 1;
         WALKING = 2;
         RUNNING = 3;
+        KILLED = 4;
     }
 
     enum Facing {

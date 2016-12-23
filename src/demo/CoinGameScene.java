@@ -154,7 +154,7 @@ public class CoinGameScene extends GameScene {
 			
 			@Override
 			public void onCollided(GameNode node, long elapse) {
-				if (!node.colissionGroup().contains(COIN_GROUP_ID)) {
+				if (!node.collissionGroup().contains(COIN_GROUP_ID)) {
 					return;
 				}
 

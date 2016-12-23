@@ -228,7 +228,7 @@ public abstract class GameNode {
 	public void onAreaEntered(GameNode node, long elapse) {}
 	public void onAreaExited(GameNode node, long elapse) {}
 
-	public final HashSet<Integer> colissionGroup() { return collisionGroupSet; }
+	public final HashSet<Integer> collissionGroup() { return collisionGroupSet; }
 	public final void addColissionGroup(int groupId) { collisionGroupSet.add(groupId); }
 
 	public final Optional<GameNode> parent() {

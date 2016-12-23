@@ -24,7 +24,7 @@ public class ServerScene extends GameScene {
 		Game.isPhysicEngineDebugMode = true;
 
 		try {
-			rootNode.addChild(new ServerMatrixGameNode(serverSocket, clients));
+			rootNode.addChild(new ServerGameNode(serverSocket, clients));
 
 		} catch (IOException e) {
 			System.out.println("error while creating ServerMatrixGameNode");
