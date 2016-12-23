@@ -8,7 +8,6 @@ import gameEngine.Game;
 import gameEngine.GameNode;
 import gameEngine.GameScene;
 import gameEngine.RectangleGameNode;
-import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import mirrorWar.Constants;
@@ -187,7 +186,6 @@ public final class PlayerNetGameNode extends NetGameNode<PlayerState, Input> {
 			currentAnimation = Animation.WALKING;
 		} else {
 			currentAnimation = Animation.STANDING;
-			Image i;
 		}
 	}
 

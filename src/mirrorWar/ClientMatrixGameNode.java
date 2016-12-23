@@ -31,11 +31,12 @@ import mirrorWar.input.InputOuterClass.Input;
 import mirrorWar.input.InputOuterClass.Inputs;
 import mirrorWar.mirror.Mirror.MirrorState;
 import mirrorWar.player.Player.PlayerState;
+import mirrorWar.update.UpdateOuterClass.Update;
+import mirrorWar.update.UpdateOuterClass.Updates;
 import netGameNodeSDK.ChargerNetGameNode;
+import netGameNodeSDK.GameReportNetGameNode;
 import netGameNodeSDK.MirrorNetGameNode;
 import netGameNodeSDK.PlayerNetGameNode;
-import netGameNodeSDK.update.UpdateOuterClass.Update;
-import netGameNodeSDK.update.UpdateOuterClass.Updates;
 
 public class ClientMatrixGameNode extends GameNode {
 	private DatagramSocket commandOutputSocket;
@@ -49,6 +50,7 @@ public class ClientMatrixGameNode extends GameNode {
 	private Map<Integer, PlayerNetGameNode> players = new HashMap<>();
 	private Map<Integer, MirrorNetGameNode> mirrors = new HashMap<>();
 	private Map<Integer, ChargerNetGameNode> chargers = new HashMap<>();
+	private GameReportNetGameNode gameReport;
 
 	private int controllingPlayerId;
 
@@ -71,6 +73,15 @@ public class ClientMatrixGameNode extends GameNode {
 			Platform.exit();
 			return;
 		}
+		
+		gameReport = new GameReportNetGameNode(controllingPlayerId) {
+			@Override
+			protected void beAttacked() {
+				// TODO add actual implementation
+				System.out.println("play attack animation");
+			}
+		};
+		addChild(gameReport);
 
 		setupSendingInputsService();
 		setupReceivingUpdateService();
@@ -93,6 +104,10 @@ public class ClientMatrixGameNode extends GameNode {
 				case CHARGER_STATE:
 					addOrUpdateCharger(update.getChargerState());
 					break;
+					
+				case GAME_REPORT_STATE:
+					gameReport.clientHandleServerUpdate(update.getGameReportState());
+					break;			
 
 				case UPDATE_NOT_SET:
 					break;

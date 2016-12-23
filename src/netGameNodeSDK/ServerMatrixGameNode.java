@@ -30,8 +30,8 @@ import mirrorWar.handshake.Handshake.ServerHandshake;
 import mirrorWar.input.InputOuterClass.Inputs;
 import mirrorWar.mirror.Mirror.MirrorState;
 import mirrorWar.player.Player.PlayerState;
-import netGameNodeSDK.update.UpdateOuterClass.Update;
-import netGameNodeSDK.update.UpdateOuterClass.Updates;
+import mirrorWar.update.UpdateOuterClass.Update;
+import mirrorWar.update.UpdateOuterClass.Updates;
 
 public class ServerMatrixGameNode extends GameNode {
 	private int objectId = 0;

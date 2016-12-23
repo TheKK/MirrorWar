@@ -28,6 +28,7 @@ import javafx.scene.paint.Color;
 import mirrorWar.Constants;
 import mirrorWar.DangerousGlobalVariables;
 import mirrorWar.charger.Charger.ChargerState;
+import mirrorWar.gameReport.GameReport;
 import mirrorWar.gameStatusUpdate.GameStatusUpdate;
 import mirrorWar.gameStatusUpdate.GameStatusUpdate.ServerMessage;
 import mirrorWar.handshake.Handshake.ClientHandshake;
@@ -35,12 +36,12 @@ import mirrorWar.handshake.Handshake.ServerHandshake;
 import mirrorWar.input.InputOuterClass.Inputs;
 import mirrorWar.mirror.Mirror.MirrorState;
 import mirrorWar.player.Player.PlayerState;
+import mirrorWar.update.UpdateOuterClass.Update;
+import mirrorWar.update.UpdateOuterClass.Updates;
 import netGameNodeSDK.ChargerNetGameNode;
 import netGameNodeSDK.GameReportNetGameNode;
 import netGameNodeSDK.MirrorNetGameNode;
 import netGameNodeSDK.PlayerNetGameNode;
-import netGameNodeSDK.update.UpdateOuterClass.Update;
-import netGameNodeSDK.update.UpdateOuterClass.Updates;
 
 public class ServerMatrixGameNode extends GameNode {
 	private int objectId = 0;
@@ -87,11 +88,10 @@ public class ServerMatrixGameNode extends GameNode {
 		
 		new Thread(() -> {
 			try {
-				Thread.sleep(5000);
-				gameReport.hurtPlayer(0);
-				gameReport.hurtPlayer(0);
-				gameReport.hurtPlayer(0);
-				gameReport.hurtPlayer(0);
+				while (true) {
+					Thread.sleep(1500);
+					gameReport.hurtPlayer(0);
+				}
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -350,6 +350,14 @@ public class ServerMatrixGameNode extends GameNode {
 
 			updatesBuilder.addUpdates(update);
 		});
+		
+		{
+			GameReport.Status gameReportStatus = gameReport.getStates();
+			Update.Builder update = Update.newBuilder()
+					.setGameReportState(gameReportStatus);
+
+			updatesBuilder.addUpdates(update);
+		}
 
 		playerIPMap.forEach((playerNode, playerIP) -> {
 			byte[] data = updatesBuilder.build().toByteArray();

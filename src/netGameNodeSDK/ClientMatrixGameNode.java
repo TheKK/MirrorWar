@@ -26,14 +26,15 @@ import gameEngine.SimpleGameSceneCamera;
 import javafx.application.Platform;
 import javafx.scene.canvas.GraphicsContext;
 import mirrorWar.charger.Charger.ChargerState;
+import mirrorWar.gameReport.GameReport.Status;
 import mirrorWar.handshake.Handshake.ClientHandshake;
 import mirrorWar.handshake.Handshake.ServerHandshake;
 import mirrorWar.input.InputOuterClass.Input;
 import mirrorWar.input.InputOuterClass.Inputs;
 import mirrorWar.mirror.Mirror.MirrorState;
 import mirrorWar.player.Player.PlayerState;
-import netGameNodeSDK.update.UpdateOuterClass.Update;
-import netGameNodeSDK.update.UpdateOuterClass.Updates;
+import mirrorWar.update.UpdateOuterClass.Update;
+import mirrorWar.update.UpdateOuterClass.Updates;
 
 public class ClientMatrixGameNode extends GameNode {
 	private DatagramSocket commandOutputSocket;
@@ -52,7 +53,6 @@ public class ClientMatrixGameNode extends GameNode {
 
 	private LayerGameNode rootLayer;
 
-
 	public ClientMatrixGameNode(Socket serverSocket) {
 		rootLayer = new LayerGameNode();
 		addChild(rootLayer);
@@ -70,7 +70,7 @@ public class ClientMatrixGameNode extends GameNode {
 			Platform.exit();
 			return;
 		}
-
+		
 		setupSendingInputsService();
 		setupReceivingUpdateService();
 	}
