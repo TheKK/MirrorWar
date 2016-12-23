@@ -25,11 +25,11 @@ public final class UpdateOuterClass {
     /**
      * <code>optional .netGameNodeSDK.player.PlayerState player_state = 1;</code>
      */
-    netGameNodeSDK.player.Player.PlayerState getPlayerState();
+    mirrorWar.player.Player.PlayerState getPlayerState();
     /**
      * <code>optional .netGameNodeSDK.player.PlayerState player_state = 1;</code>
      */
-    netGameNodeSDK.player.Player.PlayerStateOrBuilder getPlayerStateOrBuilder();
+    mirrorWar.player.Player.PlayerStateOrBuilder getPlayerStateOrBuilder();
 
     /**
      * <code>optional .netGameNodeSDK.mirror.MirrorState mirror_state = 2;</code>
@@ -38,36 +38,24 @@ public final class UpdateOuterClass {
     /**
      * <code>optional .netGameNodeSDK.mirror.MirrorState mirror_state = 2;</code>
      */
-    netGameNodeSDK.mirror.Mirror.MirrorState getMirrorState();
+    mirrorWar.mirror.Mirror.MirrorState getMirrorState();
     /**
      * <code>optional .netGameNodeSDK.mirror.MirrorState mirror_state = 2;</code>
      */
-    netGameNodeSDK.mirror.Mirror.MirrorStateOrBuilder getMirrorStateOrBuilder();
+    mirrorWar.mirror.Mirror.MirrorStateOrBuilder getMirrorStateOrBuilder();
 
     /**
-     * <pre>
-     *laser.LaserState laser_state = 4;
-     * </pre>
-     *
      * <code>optional .netGameNodeSDK.charger.ChargerState charger_state = 3;</code>
      */
     boolean hasChargerState();
     /**
-     * <pre>
-     *laser.LaserState laser_state = 4;
-     * </pre>
-     *
      * <code>optional .netGameNodeSDK.charger.ChargerState charger_state = 3;</code>
      */
-    netGameNodeSDK.charger.Charger.ChargerState getChargerState();
+    mirrorWar.charger.Charger.ChargerState getChargerState();
     /**
-     * <pre>
-     *laser.LaserState laser_state = 4;
-     * </pre>
-     *
      * <code>optional .netGameNodeSDK.charger.ChargerState charger_state = 3;</code>
      */
-    netGameNodeSDK.charger.Charger.ChargerStateOrBuilder getChargerStateOrBuilder();
+    mirrorWar.charger.Charger.ChargerStateOrBuilder getChargerStateOrBuilder();
 
     public netGameNodeSDK.update.UpdateOuterClass.Update.UpdateCase getUpdateCase();
   }
@@ -114,42 +102,42 @@ public final class UpdateOuterClass {
               break;
             }
             case 10: {
-              netGameNodeSDK.player.Player.PlayerState.Builder subBuilder = null;
+              mirrorWar.player.Player.PlayerState.Builder subBuilder = null;
               if (updateCase_ == 1) {
-                subBuilder = ((netGameNodeSDK.player.Player.PlayerState) update_).toBuilder();
+                subBuilder = ((mirrorWar.player.Player.PlayerState) update_).toBuilder();
               }
               update_ =
-                  input.readMessage(netGameNodeSDK.player.Player.PlayerState.PARSER, extensionRegistry);
+                  input.readMessage(mirrorWar.player.Player.PlayerState.PARSER, extensionRegistry);
               if (subBuilder != null) {
-                subBuilder.mergeFrom((netGameNodeSDK.player.Player.PlayerState) update_);
+                subBuilder.mergeFrom((mirrorWar.player.Player.PlayerState) update_);
                 update_ = subBuilder.buildPartial();
               }
               updateCase_ = 1;
               break;
             }
             case 18: {
-              netGameNodeSDK.mirror.Mirror.MirrorState.Builder subBuilder = null;
+              mirrorWar.mirror.Mirror.MirrorState.Builder subBuilder = null;
               if (updateCase_ == 2) {
-                subBuilder = ((netGameNodeSDK.mirror.Mirror.MirrorState) update_).toBuilder();
+                subBuilder = ((mirrorWar.mirror.Mirror.MirrorState) update_).toBuilder();
               }
               update_ =
-                  input.readMessage(netGameNodeSDK.mirror.Mirror.MirrorState.PARSER, extensionRegistry);
+                  input.readMessage(mirrorWar.mirror.Mirror.MirrorState.PARSER, extensionRegistry);
               if (subBuilder != null) {
-                subBuilder.mergeFrom((netGameNodeSDK.mirror.Mirror.MirrorState) update_);
+                subBuilder.mergeFrom((mirrorWar.mirror.Mirror.MirrorState) update_);
                 update_ = subBuilder.buildPartial();
               }
               updateCase_ = 2;
               break;
             }
             case 26: {
-              netGameNodeSDK.charger.Charger.ChargerState.Builder subBuilder = null;
+              mirrorWar.charger.Charger.ChargerState.Builder subBuilder = null;
               if (updateCase_ == 3) {
-                subBuilder = ((netGameNodeSDK.charger.Charger.ChargerState) update_).toBuilder();
+                subBuilder = ((mirrorWar.charger.Charger.ChargerState) update_).toBuilder();
               }
               update_ =
-                  input.readMessage(netGameNodeSDK.charger.Charger.ChargerState.PARSER, extensionRegistry);
+                  input.readMessage(mirrorWar.charger.Charger.ChargerState.PARSER, extensionRegistry);
               if (subBuilder != null) {
-                subBuilder.mergeFrom((netGameNodeSDK.charger.Charger.ChargerState) update_);
+                subBuilder.mergeFrom((mirrorWar.charger.Charger.ChargerState) update_);
                 update_ = subBuilder.buildPartial();
               }
               updateCase_ = 3;
@@ -230,20 +218,20 @@ public final class UpdateOuterClass {
     /**
      * <code>optional .netGameNodeSDK.player.PlayerState player_state = 1;</code>
      */
-    public netGameNodeSDK.player.Player.PlayerState getPlayerState() {
+    public mirrorWar.player.Player.PlayerState getPlayerState() {
       if (updateCase_ == 1) {
-         return (netGameNodeSDK.player.Player.PlayerState) update_;
+         return (mirrorWar.player.Player.PlayerState) update_;
       }
-      return netGameNodeSDK.player.Player.PlayerState.getDefaultInstance();
+      return mirrorWar.player.Player.PlayerState.getDefaultInstance();
     }
     /**
      * <code>optional .netGameNodeSDK.player.PlayerState player_state = 1;</code>
      */
-    public netGameNodeSDK.player.Player.PlayerStateOrBuilder getPlayerStateOrBuilder() {
+    public mirrorWar.player.Player.PlayerStateOrBuilder getPlayerStateOrBuilder() {
       if (updateCase_ == 1) {
-         return (netGameNodeSDK.player.Player.PlayerState) update_;
+         return (mirrorWar.player.Player.PlayerState) update_;
       }
-      return netGameNodeSDK.player.Player.PlayerState.getDefaultInstance();
+      return mirrorWar.player.Player.PlayerState.getDefaultInstance();
     }
 
     public static final int MIRROR_STATE_FIELD_NUMBER = 2;
@@ -256,58 +244,46 @@ public final class UpdateOuterClass {
     /**
      * <code>optional .netGameNodeSDK.mirror.MirrorState mirror_state = 2;</code>
      */
-    public netGameNodeSDK.mirror.Mirror.MirrorState getMirrorState() {
+    public mirrorWar.mirror.Mirror.MirrorState getMirrorState() {
       if (updateCase_ == 2) {
-         return (netGameNodeSDK.mirror.Mirror.MirrorState) update_;
+         return (mirrorWar.mirror.Mirror.MirrorState) update_;
       }
-      return netGameNodeSDK.mirror.Mirror.MirrorState.getDefaultInstance();
+      return mirrorWar.mirror.Mirror.MirrorState.getDefaultInstance();
     }
     /**
      * <code>optional .netGameNodeSDK.mirror.MirrorState mirror_state = 2;</code>
      */
-    public netGameNodeSDK.mirror.Mirror.MirrorStateOrBuilder getMirrorStateOrBuilder() {
+    public mirrorWar.mirror.Mirror.MirrorStateOrBuilder getMirrorStateOrBuilder() {
       if (updateCase_ == 2) {
-         return (netGameNodeSDK.mirror.Mirror.MirrorState) update_;
+         return (mirrorWar.mirror.Mirror.MirrorState) update_;
       }
-      return netGameNodeSDK.mirror.Mirror.MirrorState.getDefaultInstance();
+      return mirrorWar.mirror.Mirror.MirrorState.getDefaultInstance();
     }
 
     public static final int CHARGER_STATE_FIELD_NUMBER = 3;
     /**
-     * <pre>
-     *laser.LaserState laser_state = 4;
-     * </pre>
-     *
      * <code>optional .netGameNodeSDK.charger.ChargerState charger_state = 3;</code>
      */
     public boolean hasChargerState() {
       return updateCase_ == 3;
     }
     /**
-     * <pre>
-     *laser.LaserState laser_state = 4;
-     * </pre>
-     *
      * <code>optional .netGameNodeSDK.charger.ChargerState charger_state = 3;</code>
      */
-    public netGameNodeSDK.charger.Charger.ChargerState getChargerState() {
+    public mirrorWar.charger.Charger.ChargerState getChargerState() {
       if (updateCase_ == 3) {
-         return (netGameNodeSDK.charger.Charger.ChargerState) update_;
+         return (mirrorWar.charger.Charger.ChargerState) update_;
       }
-      return netGameNodeSDK.charger.Charger.ChargerState.getDefaultInstance();
+      return mirrorWar.charger.Charger.ChargerState.getDefaultInstance();
     }
     /**
-     * <pre>
-     *laser.LaserState laser_state = 4;
-     * </pre>
-     *
      * <code>optional .netGameNodeSDK.charger.ChargerState charger_state = 3;</code>
      */
-    public netGameNodeSDK.charger.Charger.ChargerStateOrBuilder getChargerStateOrBuilder() {
+    public mirrorWar.charger.Charger.ChargerStateOrBuilder getChargerStateOrBuilder() {
       if (updateCase_ == 3) {
-         return (netGameNodeSDK.charger.Charger.ChargerState) update_;
+         return (mirrorWar.charger.Charger.ChargerState) update_;
       }
-      return netGameNodeSDK.charger.Charger.ChargerState.getDefaultInstance();
+      return mirrorWar.charger.Charger.ChargerState.getDefaultInstance();
     }
 
     private byte memoizedIsInitialized = -1;
@@ -341,13 +317,13 @@ public final class UpdateOuterClass {
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       if (updateCase_ == 1) {
-        output.writeMessage(1, (netGameNodeSDK.player.Player.PlayerState) update_);
+        output.writeMessage(1, (mirrorWar.player.Player.PlayerState) update_);
       }
       if (updateCase_ == 2) {
-        output.writeMessage(2, (netGameNodeSDK.mirror.Mirror.MirrorState) update_);
+        output.writeMessage(2, (mirrorWar.mirror.Mirror.MirrorState) update_);
       }
       if (updateCase_ == 3) {
-        output.writeMessage(3, (netGameNodeSDK.charger.Charger.ChargerState) update_);
+        output.writeMessage(3, (mirrorWar.charger.Charger.ChargerState) update_);
       }
       unknownFields.writeTo(output);
     }
@@ -359,15 +335,15 @@ public final class UpdateOuterClass {
       size = 0;
       if (updateCase_ == 1) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(1, (netGameNodeSDK.player.Player.PlayerState) update_);
+          .computeMessageSize(1, (mirrorWar.player.Player.PlayerState) update_);
       }
       if (updateCase_ == 2) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(2, (netGameNodeSDK.mirror.Mirror.MirrorState) update_);
+          .computeMessageSize(2, (mirrorWar.mirror.Mirror.MirrorState) update_);
       }
       if (updateCase_ == 3) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(3, (netGameNodeSDK.charger.Charger.ChargerState) update_);
+          .computeMessageSize(3, (mirrorWar.charger.Charger.ChargerState) update_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -716,7 +692,7 @@ public final class UpdateOuterClass {
       private int bitField0_;
 
       private com.google.protobuf.SingleFieldBuilderV3<
-          netGameNodeSDK.player.Player.PlayerState, netGameNodeSDK.player.Player.PlayerState.Builder, netGameNodeSDK.player.Player.PlayerStateOrBuilder> playerStateBuilder_;
+          mirrorWar.player.Player.PlayerState, mirrorWar.player.Player.PlayerState.Builder, mirrorWar.player.Player.PlayerStateOrBuilder> playerStateBuilder_;
       /**
        * <code>optional .netGameNodeSDK.player.PlayerState player_state = 1;</code>
        */
@@ -726,23 +702,23 @@ public final class UpdateOuterClass {
       /**
        * <code>optional .netGameNodeSDK.player.PlayerState player_state = 1;</code>
        */
-      public netGameNodeSDK.player.Player.PlayerState getPlayerState() {
+      public mirrorWar.player.Player.PlayerState getPlayerState() {
         if (playerStateBuilder_ == null) {
           if (updateCase_ == 1) {
-            return (netGameNodeSDK.player.Player.PlayerState) update_;
+            return (mirrorWar.player.Player.PlayerState) update_;
           }
-          return netGameNodeSDK.player.Player.PlayerState.getDefaultInstance();
+          return mirrorWar.player.Player.PlayerState.getDefaultInstance();
         } else {
           if (updateCase_ == 1) {
             return playerStateBuilder_.getMessage();
           }
-          return netGameNodeSDK.player.Player.PlayerState.getDefaultInstance();
+          return mirrorWar.player.Player.PlayerState.getDefaultInstance();
         }
       }
       /**
        * <code>optional .netGameNodeSDK.player.PlayerState player_state = 1;</code>
        */
-      public Builder setPlayerState(netGameNodeSDK.player.Player.PlayerState value) {
+      public Builder setPlayerState(mirrorWar.player.Player.PlayerState value) {
         if (playerStateBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -759,7 +735,7 @@ public final class UpdateOuterClass {
        * <code>optional .netGameNodeSDK.player.PlayerState player_state = 1;</code>
        */
       public Builder setPlayerState(
-          netGameNodeSDK.player.Player.PlayerState.Builder builderForValue) {
+          mirrorWar.player.Player.PlayerState.Builder builderForValue) {
         if (playerStateBuilder_ == null) {
           update_ = builderForValue.build();
           onChanged();
@@ -772,11 +748,11 @@ public final class UpdateOuterClass {
       /**
        * <code>optional .netGameNodeSDK.player.PlayerState player_state = 1;</code>
        */
-      public Builder mergePlayerState(netGameNodeSDK.player.Player.PlayerState value) {
+      public Builder mergePlayerState(mirrorWar.player.Player.PlayerState value) {
         if (playerStateBuilder_ == null) {
           if (updateCase_ == 1 &&
-              update_ != netGameNodeSDK.player.Player.PlayerState.getDefaultInstance()) {
-            update_ = netGameNodeSDK.player.Player.PlayerState.newBuilder((netGameNodeSDK.player.Player.PlayerState) update_)
+              update_ != mirrorWar.player.Player.PlayerState.getDefaultInstance()) {
+            update_ = mirrorWar.player.Player.PlayerState.newBuilder((mirrorWar.player.Player.PlayerState) update_)
                 .mergeFrom(value).buildPartial();
           } else {
             update_ = value;
@@ -813,35 +789,35 @@ public final class UpdateOuterClass {
       /**
        * <code>optional .netGameNodeSDK.player.PlayerState player_state = 1;</code>
        */
-      public netGameNodeSDK.player.Player.PlayerState.Builder getPlayerStateBuilder() {
+      public mirrorWar.player.Player.PlayerState.Builder getPlayerStateBuilder() {
         return getPlayerStateFieldBuilder().getBuilder();
       }
       /**
        * <code>optional .netGameNodeSDK.player.PlayerState player_state = 1;</code>
        */
-      public netGameNodeSDK.player.Player.PlayerStateOrBuilder getPlayerStateOrBuilder() {
+      public mirrorWar.player.Player.PlayerStateOrBuilder getPlayerStateOrBuilder() {
         if ((updateCase_ == 1) && (playerStateBuilder_ != null)) {
           return playerStateBuilder_.getMessageOrBuilder();
         } else {
           if (updateCase_ == 1) {
-            return (netGameNodeSDK.player.Player.PlayerState) update_;
+            return (mirrorWar.player.Player.PlayerState) update_;
           }
-          return netGameNodeSDK.player.Player.PlayerState.getDefaultInstance();
+          return mirrorWar.player.Player.PlayerState.getDefaultInstance();
         }
       }
       /**
        * <code>optional .netGameNodeSDK.player.PlayerState player_state = 1;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          netGameNodeSDK.player.Player.PlayerState, netGameNodeSDK.player.Player.PlayerState.Builder, netGameNodeSDK.player.Player.PlayerStateOrBuilder> 
+          mirrorWar.player.Player.PlayerState, mirrorWar.player.Player.PlayerState.Builder, mirrorWar.player.Player.PlayerStateOrBuilder> 
           getPlayerStateFieldBuilder() {
         if (playerStateBuilder_ == null) {
           if (!(updateCase_ == 1)) {
-            update_ = netGameNodeSDK.player.Player.PlayerState.getDefaultInstance();
+            update_ = mirrorWar.player.Player.PlayerState.getDefaultInstance();
           }
           playerStateBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              netGameNodeSDK.player.Player.PlayerState, netGameNodeSDK.player.Player.PlayerState.Builder, netGameNodeSDK.player.Player.PlayerStateOrBuilder>(
-                  (netGameNodeSDK.player.Player.PlayerState) update_,
+              mirrorWar.player.Player.PlayerState, mirrorWar.player.Player.PlayerState.Builder, mirrorWar.player.Player.PlayerStateOrBuilder>(
+                  (mirrorWar.player.Player.PlayerState) update_,
                   getParentForChildren(),
                   isClean());
           update_ = null;
@@ -852,7 +828,7 @@ public final class UpdateOuterClass {
       }
 
       private com.google.protobuf.SingleFieldBuilderV3<
-          netGameNodeSDK.mirror.Mirror.MirrorState, netGameNodeSDK.mirror.Mirror.MirrorState.Builder, netGameNodeSDK.mirror.Mirror.MirrorStateOrBuilder> mirrorStateBuilder_;
+          mirrorWar.mirror.Mirror.MirrorState, mirrorWar.mirror.Mirror.MirrorState.Builder, mirrorWar.mirror.Mirror.MirrorStateOrBuilder> mirrorStateBuilder_;
       /**
        * <code>optional .netGameNodeSDK.mirror.MirrorState mirror_state = 2;</code>
        */
@@ -862,23 +838,23 @@ public final class UpdateOuterClass {
       /**
        * <code>optional .netGameNodeSDK.mirror.MirrorState mirror_state = 2;</code>
        */
-      public netGameNodeSDK.mirror.Mirror.MirrorState getMirrorState() {
+      public mirrorWar.mirror.Mirror.MirrorState getMirrorState() {
         if (mirrorStateBuilder_ == null) {
           if (updateCase_ == 2) {
-            return (netGameNodeSDK.mirror.Mirror.MirrorState) update_;
+            return (mirrorWar.mirror.Mirror.MirrorState) update_;
           }
-          return netGameNodeSDK.mirror.Mirror.MirrorState.getDefaultInstance();
+          return mirrorWar.mirror.Mirror.MirrorState.getDefaultInstance();
         } else {
           if (updateCase_ == 2) {
             return mirrorStateBuilder_.getMessage();
           }
-          return netGameNodeSDK.mirror.Mirror.MirrorState.getDefaultInstance();
+          return mirrorWar.mirror.Mirror.MirrorState.getDefaultInstance();
         }
       }
       /**
        * <code>optional .netGameNodeSDK.mirror.MirrorState mirror_state = 2;</code>
        */
-      public Builder setMirrorState(netGameNodeSDK.mirror.Mirror.MirrorState value) {
+      public Builder setMirrorState(mirrorWar.mirror.Mirror.MirrorState value) {
         if (mirrorStateBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -895,7 +871,7 @@ public final class UpdateOuterClass {
        * <code>optional .netGameNodeSDK.mirror.MirrorState mirror_state = 2;</code>
        */
       public Builder setMirrorState(
-          netGameNodeSDK.mirror.Mirror.MirrorState.Builder builderForValue) {
+          mirrorWar.mirror.Mirror.MirrorState.Builder builderForValue) {
         if (mirrorStateBuilder_ == null) {
           update_ = builderForValue.build();
           onChanged();
@@ -908,11 +884,11 @@ public final class UpdateOuterClass {
       /**
        * <code>optional .netGameNodeSDK.mirror.MirrorState mirror_state = 2;</code>
        */
-      public Builder mergeMirrorState(netGameNodeSDK.mirror.Mirror.MirrorState value) {
+      public Builder mergeMirrorState(mirrorWar.mirror.Mirror.MirrorState value) {
         if (mirrorStateBuilder_ == null) {
           if (updateCase_ == 2 &&
-              update_ != netGameNodeSDK.mirror.Mirror.MirrorState.getDefaultInstance()) {
-            update_ = netGameNodeSDK.mirror.Mirror.MirrorState.newBuilder((netGameNodeSDK.mirror.Mirror.MirrorState) update_)
+              update_ != mirrorWar.mirror.Mirror.MirrorState.getDefaultInstance()) {
+            update_ = mirrorWar.mirror.Mirror.MirrorState.newBuilder((mirrorWar.mirror.Mirror.MirrorState) update_)
                 .mergeFrom(value).buildPartial();
           } else {
             update_ = value;
@@ -949,35 +925,35 @@ public final class UpdateOuterClass {
       /**
        * <code>optional .netGameNodeSDK.mirror.MirrorState mirror_state = 2;</code>
        */
-      public netGameNodeSDK.mirror.Mirror.MirrorState.Builder getMirrorStateBuilder() {
+      public mirrorWar.mirror.Mirror.MirrorState.Builder getMirrorStateBuilder() {
         return getMirrorStateFieldBuilder().getBuilder();
       }
       /**
        * <code>optional .netGameNodeSDK.mirror.MirrorState mirror_state = 2;</code>
        */
-      public netGameNodeSDK.mirror.Mirror.MirrorStateOrBuilder getMirrorStateOrBuilder() {
+      public mirrorWar.mirror.Mirror.MirrorStateOrBuilder getMirrorStateOrBuilder() {
         if ((updateCase_ == 2) && (mirrorStateBuilder_ != null)) {
           return mirrorStateBuilder_.getMessageOrBuilder();
         } else {
           if (updateCase_ == 2) {
-            return (netGameNodeSDK.mirror.Mirror.MirrorState) update_;
+            return (mirrorWar.mirror.Mirror.MirrorState) update_;
           }
-          return netGameNodeSDK.mirror.Mirror.MirrorState.getDefaultInstance();
+          return mirrorWar.mirror.Mirror.MirrorState.getDefaultInstance();
         }
       }
       /**
        * <code>optional .netGameNodeSDK.mirror.MirrorState mirror_state = 2;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          netGameNodeSDK.mirror.Mirror.MirrorState, netGameNodeSDK.mirror.Mirror.MirrorState.Builder, netGameNodeSDK.mirror.Mirror.MirrorStateOrBuilder> 
+          mirrorWar.mirror.Mirror.MirrorState, mirrorWar.mirror.Mirror.MirrorState.Builder, mirrorWar.mirror.Mirror.MirrorStateOrBuilder> 
           getMirrorStateFieldBuilder() {
         if (mirrorStateBuilder_ == null) {
           if (!(updateCase_ == 2)) {
-            update_ = netGameNodeSDK.mirror.Mirror.MirrorState.getDefaultInstance();
+            update_ = mirrorWar.mirror.Mirror.MirrorState.getDefaultInstance();
           }
           mirrorStateBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              netGameNodeSDK.mirror.Mirror.MirrorState, netGameNodeSDK.mirror.Mirror.MirrorState.Builder, netGameNodeSDK.mirror.Mirror.MirrorStateOrBuilder>(
-                  (netGameNodeSDK.mirror.Mirror.MirrorState) update_,
+              mirrorWar.mirror.Mirror.MirrorState, mirrorWar.mirror.Mirror.MirrorState.Builder, mirrorWar.mirror.Mirror.MirrorStateOrBuilder>(
+                  (mirrorWar.mirror.Mirror.MirrorState) update_,
                   getParentForChildren(),
                   isClean());
           update_ = null;
@@ -988,45 +964,33 @@ public final class UpdateOuterClass {
       }
 
       private com.google.protobuf.SingleFieldBuilderV3<
-          netGameNodeSDK.charger.Charger.ChargerState, netGameNodeSDK.charger.Charger.ChargerState.Builder, netGameNodeSDK.charger.Charger.ChargerStateOrBuilder> chargerStateBuilder_;
+          mirrorWar.charger.Charger.ChargerState, mirrorWar.charger.Charger.ChargerState.Builder, mirrorWar.charger.Charger.ChargerStateOrBuilder> chargerStateBuilder_;
       /**
-       * <pre>
-       *laser.LaserState laser_state = 4;
-       * </pre>
-       *
        * <code>optional .netGameNodeSDK.charger.ChargerState charger_state = 3;</code>
        */
       public boolean hasChargerState() {
         return updateCase_ == 3;
       }
       /**
-       * <pre>
-       *laser.LaserState laser_state = 4;
-       * </pre>
-       *
        * <code>optional .netGameNodeSDK.charger.ChargerState charger_state = 3;</code>
        */
-      public netGameNodeSDK.charger.Charger.ChargerState getChargerState() {
+      public mirrorWar.charger.Charger.ChargerState getChargerState() {
         if (chargerStateBuilder_ == null) {
           if (updateCase_ == 3) {
-            return (netGameNodeSDK.charger.Charger.ChargerState) update_;
+            return (mirrorWar.charger.Charger.ChargerState) update_;
           }
-          return netGameNodeSDK.charger.Charger.ChargerState.getDefaultInstance();
+          return mirrorWar.charger.Charger.ChargerState.getDefaultInstance();
         } else {
           if (updateCase_ == 3) {
             return chargerStateBuilder_.getMessage();
           }
-          return netGameNodeSDK.charger.Charger.ChargerState.getDefaultInstance();
+          return mirrorWar.charger.Charger.ChargerState.getDefaultInstance();
         }
       }
       /**
-       * <pre>
-       *laser.LaserState laser_state = 4;
-       * </pre>
-       *
        * <code>optional .netGameNodeSDK.charger.ChargerState charger_state = 3;</code>
        */
-      public Builder setChargerState(netGameNodeSDK.charger.Charger.ChargerState value) {
+      public Builder setChargerState(mirrorWar.charger.Charger.ChargerState value) {
         if (chargerStateBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -1040,14 +1004,10 @@ public final class UpdateOuterClass {
         return this;
       }
       /**
-       * <pre>
-       *laser.LaserState laser_state = 4;
-       * </pre>
-       *
        * <code>optional .netGameNodeSDK.charger.ChargerState charger_state = 3;</code>
        */
       public Builder setChargerState(
-          netGameNodeSDK.charger.Charger.ChargerState.Builder builderForValue) {
+          mirrorWar.charger.Charger.ChargerState.Builder builderForValue) {
         if (chargerStateBuilder_ == null) {
           update_ = builderForValue.build();
           onChanged();
@@ -1058,17 +1018,13 @@ public final class UpdateOuterClass {
         return this;
       }
       /**
-       * <pre>
-       *laser.LaserState laser_state = 4;
-       * </pre>
-       *
        * <code>optional .netGameNodeSDK.charger.ChargerState charger_state = 3;</code>
        */
-      public Builder mergeChargerState(netGameNodeSDK.charger.Charger.ChargerState value) {
+      public Builder mergeChargerState(mirrorWar.charger.Charger.ChargerState value) {
         if (chargerStateBuilder_ == null) {
           if (updateCase_ == 3 &&
-              update_ != netGameNodeSDK.charger.Charger.ChargerState.getDefaultInstance()) {
-            update_ = netGameNodeSDK.charger.Charger.ChargerState.newBuilder((netGameNodeSDK.charger.Charger.ChargerState) update_)
+              update_ != mirrorWar.charger.Charger.ChargerState.getDefaultInstance()) {
+            update_ = mirrorWar.charger.Charger.ChargerState.newBuilder((mirrorWar.charger.Charger.ChargerState) update_)
                 .mergeFrom(value).buildPartial();
           } else {
             update_ = value;
@@ -1084,10 +1040,6 @@ public final class UpdateOuterClass {
         return this;
       }
       /**
-       * <pre>
-       *laser.LaserState laser_state = 4;
-       * </pre>
-       *
        * <code>optional .netGameNodeSDK.charger.ChargerState charger_state = 3;</code>
        */
       public Builder clearChargerState() {
@@ -1107,49 +1059,37 @@ public final class UpdateOuterClass {
         return this;
       }
       /**
-       * <pre>
-       *laser.LaserState laser_state = 4;
-       * </pre>
-       *
        * <code>optional .netGameNodeSDK.charger.ChargerState charger_state = 3;</code>
        */
-      public netGameNodeSDK.charger.Charger.ChargerState.Builder getChargerStateBuilder() {
+      public mirrorWar.charger.Charger.ChargerState.Builder getChargerStateBuilder() {
         return getChargerStateFieldBuilder().getBuilder();
       }
       /**
-       * <pre>
-       *laser.LaserState laser_state = 4;
-       * </pre>
-       *
        * <code>optional .netGameNodeSDK.charger.ChargerState charger_state = 3;</code>
        */
-      public netGameNodeSDK.charger.Charger.ChargerStateOrBuilder getChargerStateOrBuilder() {
+      public mirrorWar.charger.Charger.ChargerStateOrBuilder getChargerStateOrBuilder() {
         if ((updateCase_ == 3) && (chargerStateBuilder_ != null)) {
           return chargerStateBuilder_.getMessageOrBuilder();
         } else {
           if (updateCase_ == 3) {
-            return (netGameNodeSDK.charger.Charger.ChargerState) update_;
+            return (mirrorWar.charger.Charger.ChargerState) update_;
           }
-          return netGameNodeSDK.charger.Charger.ChargerState.getDefaultInstance();
+          return mirrorWar.charger.Charger.ChargerState.getDefaultInstance();
         }
       }
       /**
-       * <pre>
-       *laser.LaserState laser_state = 4;
-       * </pre>
-       *
        * <code>optional .netGameNodeSDK.charger.ChargerState charger_state = 3;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          netGameNodeSDK.charger.Charger.ChargerState, netGameNodeSDK.charger.Charger.ChargerState.Builder, netGameNodeSDK.charger.Charger.ChargerStateOrBuilder> 
+          mirrorWar.charger.Charger.ChargerState, mirrorWar.charger.Charger.ChargerState.Builder, mirrorWar.charger.Charger.ChargerStateOrBuilder> 
           getChargerStateFieldBuilder() {
         if (chargerStateBuilder_ == null) {
           if (!(updateCase_ == 3)) {
-            update_ = netGameNodeSDK.charger.Charger.ChargerState.getDefaultInstance();
+            update_ = mirrorWar.charger.Charger.ChargerState.getDefaultInstance();
           }
           chargerStateBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              netGameNodeSDK.charger.Charger.ChargerState, netGameNodeSDK.charger.Charger.ChargerState.Builder, netGameNodeSDK.charger.Charger.ChargerStateOrBuilder>(
-                  (netGameNodeSDK.charger.Charger.ChargerState) update_,
+              mirrorWar.charger.Charger.ChargerState, mirrorWar.charger.Charger.ChargerState.Builder, mirrorWar.charger.Charger.ChargerStateOrBuilder>(
+                  (mirrorWar.charger.Charger.ChargerState) update_,
                   getParentForChildren(),
                   isClean());
           update_ = null;
@@ -2001,9 +1941,9 @@ public final class UpdateOuterClass {
     com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          netGameNodeSDK.player.Player.getDescriptor(),
-          netGameNodeSDK.mirror.Mirror.getDescriptor(),
-          netGameNodeSDK.charger.Charger.getDescriptor(),
+          mirrorWar.player.Player.getDescriptor(),
+          mirrorWar.mirror.Mirror.getDescriptor(),
+          mirrorWar.charger.Charger.getDescriptor(),
         }, assigner);
     internal_static_netGameNodeSDK_update_Update_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -2017,9 +1957,9 @@ public final class UpdateOuterClass {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_netGameNodeSDK_update_Updates_descriptor,
         new java.lang.String[] { "Updates", });
-    netGameNodeSDK.player.Player.getDescriptor();
-    netGameNodeSDK.mirror.Mirror.getDescriptor();
-    netGameNodeSDK.charger.Charger.getDescriptor();
+    mirrorWar.player.Player.getDescriptor();
+    mirrorWar.mirror.Mirror.getDescriptor();
+    mirrorWar.charger.Charger.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

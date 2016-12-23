@@ -1,6 +1,6 @@
 syntax = "proto2";
 
-package netGameNodeSDK.input;
+package mirrorWar.input;
 
 import "key.proto";
 

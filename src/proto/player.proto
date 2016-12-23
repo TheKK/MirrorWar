@@ -1,6 +1,6 @@
 syntax = "proto2";
 
-package netGameNodeSDK.player;
+package mirrorWar.player;
 
 message PlayerState {
     enum Animation {

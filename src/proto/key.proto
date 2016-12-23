@@ -1,6 +1,6 @@
 syntax = "proto2";
 
-package netGameNodeSDK.key;
+package mirrorWar.key;
 
 enum KeyType {
     MOVE_UP = 1;

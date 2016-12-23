@@ -5,8 +5,8 @@ import gameEngine.GameScene;
 import gameEngine.RectangleGameNode;
 import javafx.scene.paint.Color;
 import mirrorWar.Constants;
-import netGameNodeSDK.charger.Charger.ChargerState;
-import netGameNodeSDK.charger.Charger.ChargerState.Animation;
+import mirrorWar.charger.Charger.ChargerState;
+import mirrorWar.charger.Charger.ChargerState.Animation;
 
 public class ChargerNetGameNode extends NetGameNode<ChargerState, Void> {
 	private int id;

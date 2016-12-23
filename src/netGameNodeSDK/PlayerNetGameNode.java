@@ -12,14 +12,14 @@ import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import mirrorWar.Constants;
-import netGameNodeSDK.input.InputOuterClass.Input;
-import netGameNodeSDK.key.KeyOuterClass.Key;
-import netGameNodeSDK.key.KeyOuterClass.KeyDown;
-import netGameNodeSDK.key.KeyOuterClass.KeyType;
-import netGameNodeSDK.key.KeyOuterClass.KeyUp;
-import netGameNodeSDK.player.Player.PlayerState;
-import netGameNodeSDK.player.Player.PlayerState.Animation;
-import netGameNodeSDK.player.Player.PlayerState.Facing;
+import mirrorWar.input.InputOuterClass.Input;
+import mirrorWar.key.KeyOuterClass.Key;
+import mirrorWar.key.KeyOuterClass.KeyDown;
+import mirrorWar.key.KeyOuterClass.KeyType;
+import mirrorWar.key.KeyOuterClass.KeyUp;
+import mirrorWar.player.Player.PlayerState;
+import mirrorWar.player.Player.PlayerState.Animation;
+import mirrorWar.player.Player.PlayerState.Facing;
 
 public final class PlayerNetGameNode extends NetGameNode<PlayerState, Input> {
 	final double WALKING_SPEED = 0.12;

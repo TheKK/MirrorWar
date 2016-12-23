@@ -4,8 +4,8 @@ import gameEngine.Game;
 import gameEngine.GameScene;
 import gameEngine.RectangleGameNode;
 import javafx.scene.paint.Color;
-import netGameNodeSDK.mirror.Mirror.MirrorState;
-import netGameNodeSDK.mirror.Mirror.MirrorState.Direction;
+import mirrorWar.mirror.Mirror.MirrorState;
+import mirrorWar.mirror.Mirror.MirrorState.Direction;
 
 public class MirrorNetGameNode extends NetGameNode<MirrorState, Void> {
 	private int id;

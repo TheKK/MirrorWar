@@ -24,12 +24,12 @@ import gameEngine.RectangleGameNode;
 import javafx.application.Platform;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-import netGameNodeSDK.charger.Charger.ChargerState;
-import netGameNodeSDK.handshake.Handshake.ClientHandshake;
-import netGameNodeSDK.handshake.Handshake.ServerHandshake;
-import netGameNodeSDK.input.InputOuterClass.Inputs;
-import netGameNodeSDK.mirror.Mirror.MirrorState;
-import netGameNodeSDK.player.Player.PlayerState;
+import mirrorWar.charger.Charger.ChargerState;
+import mirrorWar.handshake.Handshake.ClientHandshake;
+import mirrorWar.handshake.Handshake.ServerHandshake;
+import mirrorWar.input.InputOuterClass.Inputs;
+import mirrorWar.mirror.Mirror.MirrorState;
+import mirrorWar.player.Player.PlayerState;
 import netGameNodeSDK.update.UpdateOuterClass.Update;
 import netGameNodeSDK.update.UpdateOuterClass.Updates;
 
