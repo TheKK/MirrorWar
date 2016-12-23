@@ -1,0 +1,19 @@
+{
+"height":50,
+"id":12,
+"name":"Laser2",
+"properties":
+	{
+	"face":"Up"
+	},
+"propertytypes":
+	{
+	"face":"string"
+	},
+"rotation":0,
+"type":"",
+"visible":true,
+"width":50,
+"x":1300,
+"y":1550
+}
