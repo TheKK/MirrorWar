@@ -17,8 +17,12 @@ import gameEngine.GameScene;
 import gameEngine.PhysicEngine;
 import gameEngine.RectangleGameNode;
 import javafx.scene.paint.Color;
+import mirrorWar.LaserBeam;
+import mirrorWar.LaserBeam.LaserBeamInfo;
+import netGameNodeSDK.laser.Laser;
 import netGameNodeSDK.laser.Laser.LaserState;
 import netGameNodeSDK.laser.Laser.LaserState.Direction;
+import netGameNodeSDK.laser.Laser.LaserState.Rect;
 import netGameNodeSDK.mirror.Mirror.MirrorState;
 
 public class LaserEmiterNetGameNode extends NetGameNode<LaserState, Void> {
@@ -26,12 +30,18 @@ public class LaserEmiterNetGameNode extends NetGameNode<LaserState, Void> {
 	private LaserState.Direction currentDir = LaserState.Direction.Up;
 	private int id;
 	ArrayList<Rectangle2D.Double> laserPath = new ArrayList<>();
+	ArrayList<LaserState.Direction> laserDir = new ArrayList<>();
 	ArrayList<GameNode> laserNodes = new ArrayList<GameNode>();
+	LaserBeam laserBeam = new LaserBeam(new RectangleGameNode(0, 0, 50, 50, Color.DARKGOLDENROD),
+			new RectangleGameNode(0, 0, 50, 50, Color.DARKGOLDENROD),
+			new RectangleGameNode(0, 0, 50, 50, Color.DARKGOLDENROD));
 
 	public LaserEmiterNetGameNode(int id) {
+
 		this.id = id;
 		geometry.width = 50;
 		geometry.height = 50;
+
 	}
 
 	public int getId() {
@@ -42,6 +52,7 @@ public class LaserEmiterNetGameNode extends NetGameNode<LaserState, Void> {
 	public void clientInitialize(GameScene scene) {
 		clientLaserImage = new RectangleGameNode(geometry.x, geometry.y, geometry.width, geometry.height, Color.ORANGE);
 		addChild(clientLaserImage);
+		addChild(laserBeam);
 	}
 
 	@Override
@@ -63,20 +74,56 @@ public class LaserEmiterNetGameNode extends NetGameNode<LaserState, Void> {
 
 	@Override
 	protected void clientHandleServerUpdate(LaserState update) {
-		// TODO Auto-generated method stub
+		// draw laser with laser Beam
+		ArrayList<Rectangle2D.Double> rectangles = new ArrayList<>();
+		ArrayList<LaserState.Direction> directions = new ArrayList<>();
+		for (Rect re : update.getRectsList()) {
+			rectangles.add(new Rectangle2D.Double(re.getX(), re.getY(), re.getWidth(), re.getHeight()));
+			directions.add(re.getDirec());
+		}
+		ArrayList<LaserBeamInfo> laserBeamInfos = new ArrayList<>();
+		for (int i = 0; i < rectangles.size(); i++) {
+			LaserState.Direction from = directions.get(i);
+			LaserBeam.Direction to = null;
+			switch (from.getNumber()) {
+			case LaserState.Direction.Down_VALUE:
+				to=LaserBeam.Direction.DOWN;
+				break;
+			case LaserState.Direction.Left_VALUE:
+				to=LaserBeam.Direction.LEFT;
+				break;
+			case LaserState.Direction.Right_VALUE:
+				to=LaserBeam.Direction.RIGHT;
+				break;
+			case LaserState.Direction.Up_VALUE:
+				to=LaserBeam.Direction.UP;
+				break;
+			default:
+				break;
+			}
 
+			laserBeamInfos.add(new LaserBeam.LaserBeamInfo(rectangles.get(i),to));
+		}
+		laserBeam.setLaserBeamPositions(laserBeamInfos);
 	}
 
 	@Override
 	protected void serverHandleClientInput(Void input) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public LaserState getStates() {
+		ArrayList<Laser.LaserState.Rect> rects = new ArrayList<>();
 
-		return LaserState.newBuilder().setId(id).setX(geometry.x).setY(geometry.y).setDirection(currentDir).build();
+		for (int i = 0; i < laserPath.size(); i++) {
+			rects.add(Laser.LaserState.Rect.newBuilder().setX(laserPath.get(i).x).setY(laserPath.get(i).y)
+					.setWidth(laserPath.get(i).width).setHeight(laserPath.get(i).height).setDirec(laserDir.get(i))
+					.build());
+		}
+
+		return LaserState.newBuilder().setId(id).setX(geometry.x).setY(geometry.y).addAllRects(rects).setDir(currentDir)
+				.build();
 	}
 
 	private void clearLaser() {
@@ -86,6 +133,7 @@ public class LaserEmiterNetGameNode extends NetGameNode<LaserState, Void> {
 		}
 		laserNodes.clear();
 		laserPath.clear();
+		laserDir.clear();
 	}
 
 	private void addLaserToPhysicEng() {
@@ -110,19 +158,20 @@ public class LaserEmiterNetGameNode extends NetGameNode<LaserState, Void> {
 		LaserState.Direction tmpDir = currentDir;
 		Rectangle2D.Double tmpEmiter = new Rectangle.Double(geometry.x, geometry.y, geometry.getWidth(),
 				geometry.getHeight());
-		final int maxReflectionTimes =15;
-		int cnt=0;
-		while (cnt<maxReflectionTimes) {
+		final int maxReflectionTimes = 15;
+		int cnt = 0;
+		while (cnt < maxReflectionTimes) {
 			cnt++;
-			System.out.println("tmpEmiter" + tmpEmiter);
+			// System.out.println("tmpEmiter" + tmpEmiter);
 			int dirNum = tmpDir.getNumber();
 			if (dirNum == LaserState.Direction.Up_VALUE) {
 				System.out.println("Up");
-				laserlight = new Rectangle.Double(tmpEmiter.x, tmpEmiter.y - 1000, 50, 1000);
+				laserlight = new Rectangle.Double(tmpEmiter.x, tmpEmiter.y - 1000 - 1, 50, 1000);
 				intersects = physicEngine.getStaticNodesInArea(laserlight);
 
 				if (intersects.isEmpty()) { // nothing
 					laserPath.add(laserlight);
+					laserDir.add(LaserState.Direction.Up);
 					break;
 				} else {
 					// find closest
@@ -136,32 +185,39 @@ public class LaserEmiterNetGameNode extends NetGameNode<LaserState, Void> {
 					}
 					// mirror
 					if (nearestNode instanceof MirrorNetGameNode) {
+						System.out.println("Mirror!");
 						MirrorNetGameNode mirrorNetGameNode = (MirrorNetGameNode) nearestNode;
 						laserlight.setRect(tmpEmiter.x, nearestNode.geometry.y, tmpEmiter.width,
 								takePositive(tmpEmiter.y - nearestNode.geometry.y));
 						laserPath.add(laserlight);
+						laserDir.add(LaserState.Direction.Up);
 						// prepare for next
 						if (mirrorNetGameNode.getDirection() == MirrorState.Direction.SLASH) {
+							System.out.println("slash");
 							tmpDir = LaserState.Direction.Right;
 						} else if (mirrorNetGameNode.getDirection() == MirrorState.Direction.BACK_SLACK) {
+							System.out.println("back_slash");
 							tmpDir = LaserState.Direction.Left;
 						}
 						tmpEmiter.setRect(nearestNode.geometry.x, nearestNode.geometry.y, nearestNode.geometry.width,
 								nearestNode.geometry.height);
 					} else {// wall
+						System.out.println("Wall");
 						laserlight.setRect(tmpEmiter.x, nearestNode.geometry.y, tmpEmiter.width,
 								takePositive(tmpEmiter.y - nearestNode.geometry.y));
 						laserPath.add(laserlight);
+						laserDir.add(LaserState.Direction.Up);
 						break;
 					}
 				}
 			} else if (dirNum == LaserState.Direction.Down_VALUE) {
 				System.out.println("Down");
-				laserlight = new Rectangle.Double(tmpEmiter.x, tmpEmiter.y + tmpEmiter.height, 50, 1000);
+				laserlight = new Rectangle.Double(tmpEmiter.x, tmpEmiter.y + tmpEmiter.height + 1, 50, 1000);
 				intersects = physicEngine.getStaticNodesInArea(laserlight);
 
 				if (intersects.isEmpty()) { // nothing
 					laserPath.add(laserlight);
+					laserDir.add(LaserState.Direction.Down);
 					break;
 				} else {
 					// find closest
@@ -175,32 +231,39 @@ public class LaserEmiterNetGameNode extends NetGameNode<LaserState, Void> {
 					}
 					// mirror
 					if (nearestNode instanceof MirrorNetGameNode) {
+						System.out.println("Mirror!");
 						MirrorNetGameNode mirrorNetGameNode = (MirrorNetGameNode) nearestNode;
-						laserlight.setRect(tmpEmiter.x, tmpEmiter.y+tmpEmiter.height, tmpEmiter.width,
+						laserlight.setRect(tmpEmiter.x, tmpEmiter.y + tmpEmiter.height, tmpEmiter.width,
 								takePositive(nearestNode.geometry.y - tmpEmiter.y));
 						laserPath.add(laserlight);
+						laserDir.add(LaserState.Direction.Down);
 						// prepare for next
 						if (mirrorNetGameNode.getDirection() == MirrorState.Direction.SLASH) {
+							System.out.println("slash");
 							tmpDir = LaserState.Direction.Left;
 						} else if (mirrorNetGameNode.getDirection() == MirrorState.Direction.BACK_SLACK) {
+							System.out.println("back_slash");
 							tmpDir = LaserState.Direction.Right;
 						}
 						tmpEmiter.setRect(nearestNode.geometry.x, nearestNode.geometry.y, nearestNode.geometry.width,
 								nearestNode.geometry.height);
 					} else {// wall
-						laserlight.setRect(tmpEmiter.x, nearestNode.geometry.y, tmpEmiter.width,
+						System.out.println("Wall");
+						laserlight.setRect(tmpEmiter.x, tmpEmiter.y + tmpEmiter.height, tmpEmiter.width,
 								takePositive(nearestNode.geometry.y - tmpEmiter.y));
 						laserPath.add(laserlight);
+						laserDir.add(LaserState.Direction.Down);
 						break;
 					}
 				}
 			} else if (dirNum == LaserState.Direction.Left_VALUE) {
 				System.out.println("Left");
-				laserlight = new Rectangle.Double(tmpEmiter.x-1000, tmpEmiter.y, 1000, 50);
+				laserlight = new Rectangle.Double(tmpEmiter.x - 1000 - 1, tmpEmiter.y, 1000, 50);
 				intersects = physicEngine.getStaticNodesInArea(laserlight);
 
 				if (intersects.isEmpty()) { // nothing
 					laserPath.add(laserlight);
+					laserDir.add(LaserState.Direction.Left);
 					break;
 				} else {
 					// find closest
@@ -214,32 +277,39 @@ public class LaserEmiterNetGameNode extends NetGameNode<LaserState, Void> {
 					}
 					// mirror
 					if (nearestNode instanceof MirrorNetGameNode) {
+						System.out.println("Mirror!");
 						MirrorNetGameNode mirrorNetGameNode = (MirrorNetGameNode) nearestNode;
-						laserlight.setRect(nearestNode.geometry.x+nearestNode.geometry.width, tmpEmiter.y, takePositive(tmpEmiter.x-nearestNode.geometry.x),
-								tmpEmiter.height);
+						laserlight.setRect(nearestNode.geometry.x + nearestNode.geometry.width, tmpEmiter.y,
+								takePositive(tmpEmiter.x - nearestNode.geometry.x), tmpEmiter.height);
 						laserPath.add(laserlight);
+						laserDir.add(LaserState.Direction.Left);
 						// prepare for next
 						if (mirrorNetGameNode.getDirection() == MirrorState.Direction.SLASH) {
+							System.out.println("slash");
 							tmpDir = LaserState.Direction.Down;
 						} else if (mirrorNetGameNode.getDirection() == MirrorState.Direction.BACK_SLACK) {
+							System.out.println("back_slash");
 							tmpDir = LaserState.Direction.Up;
 						}
 						tmpEmiter.setRect(nearestNode.geometry.x, nearestNode.geometry.y, nearestNode.geometry.width,
 								nearestNode.geometry.height);
 					} else {// wall
-						laserlight.setRect(nearestNode.geometry.x+nearestNode.geometry.width, tmpEmiter.x, takePositive(tmpEmiter.x-nearestNode.geometry.x),
-								tmpEmiter.height);
+						System.out.println("Wall");
+						laserlight.setRect(nearestNode.geometry.x + nearestNode.geometry.width, tmpEmiter.y,
+								takePositive(tmpEmiter.x - nearestNode.geometry.x), tmpEmiter.height);
 						laserPath.add(laserlight);
+						laserDir.add(LaserState.Direction.Left);
 						break;
 					}
 				}
 			} else if (dirNum == LaserState.Direction.Right_VALUE) {
 				System.out.println("Right");
-				laserlight = new Rectangle.Double(tmpEmiter.x+tmpEmiter.width, tmpEmiter.y, 1000, 50);
+				laserlight = new Rectangle.Double(tmpEmiter.x + tmpEmiter.width + 1, tmpEmiter.y, 1000, 50);
 				intersects = physicEngine.getStaticNodesInArea(laserlight);
 
 				if (intersects.isEmpty()) { // nothing
 					laserPath.add(laserlight);
+					laserDir.add(LaserState.Direction.Right);
 					break;
 				} else {
 					// find closest
@@ -247,28 +317,34 @@ public class LaserEmiterNetGameNode extends NetGameNode<LaserState, Void> {
 					double xMin = Double.MAX_VALUE;
 					for (GameNode gameNode : intersects) {
 						if (gameNode.geometry.x < xMin) {
-							xMin= gameNode.geometry.x;
+							xMin = gameNode.geometry.x;
 							nearestNode = gameNode;
 						}
 					}
 					// mirror
 					if (nearestNode instanceof MirrorNetGameNode) {
+						System.out.println("Mirror!");
 						MirrorNetGameNode mirrorNetGameNode = (MirrorNetGameNode) nearestNode;
-						laserlight.setRect(tmpEmiter.x+tmpEmiter.width, tmpEmiter.y, takePositive(nearestNode.geometry.x-tmpEmiter.x),
-								tmpEmiter.height);
+						laserlight.setRect(tmpEmiter.x + tmpEmiter.width, tmpEmiter.y,
+								takePositive(nearestNode.geometry.x - tmpEmiter.x), tmpEmiter.height);
 						laserPath.add(laserlight);
+						laserDir.add(LaserState.Direction.Right);
 						// prepare for next
 						if (mirrorNetGameNode.getDirection() == MirrorState.Direction.SLASH) {
+							System.out.println("slash");
 							tmpDir = LaserState.Direction.Up;
 						} else if (mirrorNetGameNode.getDirection() == MirrorState.Direction.BACK_SLACK) {
+							System.out.println("back_slash");
 							tmpDir = LaserState.Direction.Down;
 						}
 						tmpEmiter.setRect(nearestNode.geometry.x, nearestNode.geometry.y, nearestNode.geometry.width,
 								nearestNode.geometry.height);
 					} else {// wall
-						laserlight.setRect(tmpEmiter.x+tmpEmiter.width, tmpEmiter.y, takePositive(nearestNode.geometry.x-tmpEmiter.x),
-								tmpEmiter.height);
+						System.out.println("Wall");
+						laserlight.setRect(tmpEmiter.x + tmpEmiter.width, tmpEmiter.y,
+								takePositive(nearestNode.geometry.x - tmpEmiter.x), tmpEmiter.height);
 						laserPath.add(laserlight);
+						laserDir.add(LaserState.Direction.Right);
 						break;
 					}
 				}

@@ -46,13 +46,37 @@ public final class Laser {
     double getY();
 
     /**
-     * <code>required .netGameNodeSDK.laser.LaserState.Direction direction = 4;</code>
+     * <code>required .netGameNodeSDK.laser.LaserState.Direction dir = 4;</code>
      */
-    boolean hasDirection();
+    boolean hasDir();
     /**
-     * <code>required .netGameNodeSDK.laser.LaserState.Direction direction = 4;</code>
+     * <code>required .netGameNodeSDK.laser.LaserState.Direction dir = 4;</code>
      */
-    netGameNodeSDK.laser.Laser.LaserState.Direction getDirection();
+    netGameNodeSDK.laser.Laser.LaserState.Direction getDir();
+
+    /**
+     * <code>repeated .netGameNodeSDK.laser.LaserState.Rect rects = 5;</code>
+     */
+    java.util.List<netGameNodeSDK.laser.Laser.LaserState.Rect> 
+        getRectsList();
+    /**
+     * <code>repeated .netGameNodeSDK.laser.LaserState.Rect rects = 5;</code>
+     */
+    netGameNodeSDK.laser.Laser.LaserState.Rect getRects(int index);
+    /**
+     * <code>repeated .netGameNodeSDK.laser.LaserState.Rect rects = 5;</code>
+     */
+    int getRectsCount();
+    /**
+     * <code>repeated .netGameNodeSDK.laser.LaserState.Rect rects = 5;</code>
+     */
+    java.util.List<? extends netGameNodeSDK.laser.Laser.LaserState.RectOrBuilder> 
+        getRectsOrBuilderList();
+    /**
+     * <code>repeated .netGameNodeSDK.laser.LaserState.Rect rects = 5;</code>
+     */
+    netGameNodeSDK.laser.Laser.LaserState.RectOrBuilder getRectsOrBuilder(
+        int index);
   }
   /**
    * Protobuf type {@code netGameNodeSDK.laser.LaserState}
@@ -69,7 +93,8 @@ public final class Laser {
       id_ = 0;
       x_ = 0D;
       y_ = 0D;
-      direction_ = 1;
+      dir_ = 1;
+      rects_ = java.util.Collections.emptyList();
     }
 
     @java.lang.Override
@@ -122,8 +147,17 @@ public final class Laser {
                 unknownFields.mergeVarintField(4, rawValue);
               } else {
                 bitField0_ |= 0x00000008;
-                direction_ = rawValue;
+                dir_ = rawValue;
               }
+              break;
+            }
+            case 42: {
+              if (!((mutable_bitField0_ & 0x00000010) == 0x00000010)) {
+                rects_ = new java.util.ArrayList<netGameNodeSDK.laser.Laser.LaserState.Rect>();
+                mutable_bitField0_ |= 0x00000010;
+              }
+              rects_.add(
+                  input.readMessage(netGameNodeSDK.laser.Laser.LaserState.Rect.PARSER, extensionRegistry));
               break;
             }
           }
@@ -134,6 +168,9 @@ public final class Laser {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
+        if (((mutable_bitField0_ & 0x00000010) == 0x00000010)) {
+          rects_ = java.util.Collections.unmodifiableList(rects_);
+        }
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
@@ -160,17 +197,17 @@ public final class Laser {
        */
       Up(1),
       /**
-       * <code>Left = 2;</code>
+       * <code>Down = 2;</code>
        */
-      Left(2),
+      Down(2),
       /**
-       * <code>Right = 3;</code>
+       * <code>Left = 3;</code>
        */
-      Right(3),
+      Left(3),
       /**
-       * <code>Down = 4;</code>
+       * <code>Right = 4;</code>
        */
-      Down(4),
+      Right(4),
       ;
 
       /**
@@ -178,17 +215,17 @@ public final class Laser {
        */
       public static final int Up_VALUE = 1;
       /**
-       * <code>Left = 2;</code>
+       * <code>Down = 2;</code>
        */
-      public static final int Left_VALUE = 2;
+      public static final int Down_VALUE = 2;
       /**
-       * <code>Right = 3;</code>
+       * <code>Left = 3;</code>
        */
-      public static final int Right_VALUE = 3;
+      public static final int Left_VALUE = 3;
       /**
-       * <code>Down = 4;</code>
+       * <code>Right = 4;</code>
        */
-      public static final int Down_VALUE = 4;
+      public static final int Right_VALUE = 4;
 
 
       public final int getNumber() {
@@ -206,9 +243,9 @@ public final class Laser {
       public static Direction forNumber(int value) {
         switch (value) {
           case 1: return Up;
-          case 2: return Left;
-          case 3: return Right;
-          case 4: return Down;
+          case 2: return Down;
+          case 3: return Left;
+          case 4: return Right;
           default: return null;
         }
       }
@@ -258,6 +295,877 @@ public final class Laser {
       // @@protoc_insertion_point(enum_scope:netGameNodeSDK.laser.LaserState.Direction)
     }
 
+    public interface RectOrBuilder extends
+        // @@protoc_insertion_point(interface_extends:netGameNodeSDK.laser.LaserState.Rect)
+        com.google.protobuf.MessageOrBuilder {
+
+      /**
+       * <code>required double x = 1;</code>
+       */
+      boolean hasX();
+      /**
+       * <code>required double x = 1;</code>
+       */
+      double getX();
+
+      /**
+       * <code>required double y = 2;</code>
+       */
+      boolean hasY();
+      /**
+       * <code>required double y = 2;</code>
+       */
+      double getY();
+
+      /**
+       * <code>required double width = 3;</code>
+       */
+      boolean hasWidth();
+      /**
+       * <code>required double width = 3;</code>
+       */
+      double getWidth();
+
+      /**
+       * <code>required double height = 4;</code>
+       */
+      boolean hasHeight();
+      /**
+       * <code>required double height = 4;</code>
+       */
+      double getHeight();
+
+      /**
+       * <code>required .netGameNodeSDK.laser.LaserState.Direction direc = 5;</code>
+       */
+      boolean hasDirec();
+      /**
+       * <code>required .netGameNodeSDK.laser.LaserState.Direction direc = 5;</code>
+       */
+      netGameNodeSDK.laser.Laser.LaserState.Direction getDirec();
+    }
+    /**
+     * Protobuf type {@code netGameNodeSDK.laser.LaserState.Rect}
+     */
+    public  static final class Rect extends
+        com.google.protobuf.GeneratedMessageV3 implements
+        // @@protoc_insertion_point(message_implements:netGameNodeSDK.laser.LaserState.Rect)
+        RectOrBuilder {
+      // Use Rect.newBuilder() to construct.
+      private Rect(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+        super(builder);
+      }
+      private Rect() {
+        x_ = 0D;
+        y_ = 0D;
+        width_ = 0D;
+        height_ = 0D;
+        direc_ = 1;
+      }
+
+      @java.lang.Override
+      public final com.google.protobuf.UnknownFieldSet
+      getUnknownFields() {
+        return this.unknownFields;
+      }
+      private Rect(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        this();
+        int mutable_bitField0_ = 0;
+        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+            com.google.protobuf.UnknownFieldSet.newBuilder();
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              default: {
+                if (!parseUnknownField(input, unknownFields,
+                                       extensionRegistry, tag)) {
+                  done = true;
+                }
+                break;
+              }
+              case 9: {
+                bitField0_ |= 0x00000001;
+                x_ = input.readDouble();
+                break;
+              }
+              case 17: {
+                bitField0_ |= 0x00000002;
+                y_ = input.readDouble();
+                break;
+              }
+              case 25: {
+                bitField0_ |= 0x00000004;
+                width_ = input.readDouble();
+                break;
+              }
+              case 33: {
+                bitField0_ |= 0x00000008;
+                height_ = input.readDouble();
+                break;
+              }
+              case 40: {
+                int rawValue = input.readEnum();
+                netGameNodeSDK.laser.Laser.LaserState.Direction value = netGameNodeSDK.laser.Laser.LaserState.Direction.valueOf(rawValue);
+                if (value == null) {
+                  unknownFields.mergeVarintField(5, rawValue);
+                } else {
+                  bitField0_ |= 0x00000010;
+                  direc_ = rawValue;
+                }
+                break;
+              }
+            }
+          }
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(this);
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(
+              e).setUnfinishedMessage(this);
+        } finally {
+          this.unknownFields = unknownFields.build();
+          makeExtensionsImmutable();
+        }
+      }
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return netGameNodeSDK.laser.Laser.internal_static_netGameNodeSDK_laser_LaserState_Rect_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return netGameNodeSDK.laser.Laser.internal_static_netGameNodeSDK_laser_LaserState_Rect_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                netGameNodeSDK.laser.Laser.LaserState.Rect.class, netGameNodeSDK.laser.Laser.LaserState.Rect.Builder.class);
+      }
+
+      private int bitField0_;
+      public static final int X_FIELD_NUMBER = 1;
+      private double x_;
+      /**
+       * <code>required double x = 1;</code>
+       */
+      public boolean hasX() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      /**
+       * <code>required double x = 1;</code>
+       */
+      public double getX() {
+        return x_;
+      }
+
+      public static final int Y_FIELD_NUMBER = 2;
+      private double y_;
+      /**
+       * <code>required double y = 2;</code>
+       */
+      public boolean hasY() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <code>required double y = 2;</code>
+       */
+      public double getY() {
+        return y_;
+      }
+
+      public static final int WIDTH_FIELD_NUMBER = 3;
+      private double width_;
+      /**
+       * <code>required double width = 3;</code>
+       */
+      public boolean hasWidth() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      /**
+       * <code>required double width = 3;</code>
+       */
+      public double getWidth() {
+        return width_;
+      }
+
+      public static final int HEIGHT_FIELD_NUMBER = 4;
+      private double height_;
+      /**
+       * <code>required double height = 4;</code>
+       */
+      public boolean hasHeight() {
+        return ((bitField0_ & 0x00000008) == 0x00000008);
+      }
+      /**
+       * <code>required double height = 4;</code>
+       */
+      public double getHeight() {
+        return height_;
+      }
+
+      public static final int DIREC_FIELD_NUMBER = 5;
+      private int direc_;
+      /**
+       * <code>required .netGameNodeSDK.laser.LaserState.Direction direc = 5;</code>
+       */
+      public boolean hasDirec() {
+        return ((bitField0_ & 0x00000010) == 0x00000010);
+      }
+      /**
+       * <code>required .netGameNodeSDK.laser.LaserState.Direction direc = 5;</code>
+       */
+      public netGameNodeSDK.laser.Laser.LaserState.Direction getDirec() {
+        netGameNodeSDK.laser.Laser.LaserState.Direction result = netGameNodeSDK.laser.Laser.LaserState.Direction.valueOf(direc_);
+        return result == null ? netGameNodeSDK.laser.Laser.LaserState.Direction.Up : result;
+      }
+
+      private byte memoizedIsInitialized = -1;
+      public final boolean isInitialized() {
+        byte isInitialized = memoizedIsInitialized;
+        if (isInitialized == 1) return true;
+        if (isInitialized == 0) return false;
+
+        if (!hasX()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+        if (!hasY()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+        if (!hasWidth()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+        if (!hasHeight()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+        if (!hasDirec()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+        memoizedIsInitialized = 1;
+        return true;
+      }
+
+      public void writeTo(com.google.protobuf.CodedOutputStream output)
+                          throws java.io.IOException {
+        if (((bitField0_ & 0x00000001) == 0x00000001)) {
+          output.writeDouble(1, x_);
+        }
+        if (((bitField0_ & 0x00000002) == 0x00000002)) {
+          output.writeDouble(2, y_);
+        }
+        if (((bitField0_ & 0x00000004) == 0x00000004)) {
+          output.writeDouble(3, width_);
+        }
+        if (((bitField0_ & 0x00000008) == 0x00000008)) {
+          output.writeDouble(4, height_);
+        }
+        if (((bitField0_ & 0x00000010) == 0x00000010)) {
+          output.writeEnum(5, direc_);
+        }
+        unknownFields.writeTo(output);
+      }
+
+      public int getSerializedSize() {
+        int size = memoizedSize;
+        if (size != -1) return size;
+
+        size = 0;
+        if (((bitField0_ & 0x00000001) == 0x00000001)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeDoubleSize(1, x_);
+        }
+        if (((bitField0_ & 0x00000002) == 0x00000002)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeDoubleSize(2, y_);
+        }
+        if (((bitField0_ & 0x00000004) == 0x00000004)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeDoubleSize(3, width_);
+        }
+        if (((bitField0_ & 0x00000008) == 0x00000008)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeDoubleSize(4, height_);
+        }
+        if (((bitField0_ & 0x00000010) == 0x00000010)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeEnumSize(5, direc_);
+        }
+        size += unknownFields.getSerializedSize();
+        memoizedSize = size;
+        return size;
+      }
+
+      private static final long serialVersionUID = 0L;
+      @java.lang.Override
+      public boolean equals(final java.lang.Object obj) {
+        if (obj == this) {
+         return true;
+        }
+        if (!(obj instanceof netGameNodeSDK.laser.Laser.LaserState.Rect)) {
+          return super.equals(obj);
+        }
+        netGameNodeSDK.laser.Laser.LaserState.Rect other = (netGameNodeSDK.laser.Laser.LaserState.Rect) obj;
+
+        boolean result = true;
+        result = result && (hasX() == other.hasX());
+        if (hasX()) {
+          result = result && (
+              java.lang.Double.doubleToLongBits(getX())
+              == java.lang.Double.doubleToLongBits(
+                  other.getX()));
+        }
+        result = result && (hasY() == other.hasY());
+        if (hasY()) {
+          result = result && (
+              java.lang.Double.doubleToLongBits(getY())
+              == java.lang.Double.doubleToLongBits(
+                  other.getY()));
+        }
+        result = result && (hasWidth() == other.hasWidth());
+        if (hasWidth()) {
+          result = result && (
+              java.lang.Double.doubleToLongBits(getWidth())
+              == java.lang.Double.doubleToLongBits(
+                  other.getWidth()));
+        }
+        result = result && (hasHeight() == other.hasHeight());
+        if (hasHeight()) {
+          result = result && (
+              java.lang.Double.doubleToLongBits(getHeight())
+              == java.lang.Double.doubleToLongBits(
+                  other.getHeight()));
+        }
+        result = result && (hasDirec() == other.hasDirec());
+        if (hasDirec()) {
+          result = result && direc_ == other.direc_;
+        }
+        result = result && unknownFields.equals(other.unknownFields);
+        return result;
+      }
+
+      @java.lang.Override
+      public int hashCode() {
+        if (memoizedHashCode != 0) {
+          return memoizedHashCode;
+        }
+        int hash = 41;
+        hash = (19 * hash) + getDescriptorForType().hashCode();
+        if (hasX()) {
+          hash = (37 * hash) + X_FIELD_NUMBER;
+          hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+              java.lang.Double.doubleToLongBits(getX()));
+        }
+        if (hasY()) {
+          hash = (37 * hash) + Y_FIELD_NUMBER;
+          hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+              java.lang.Double.doubleToLongBits(getY()));
+        }
+        if (hasWidth()) {
+          hash = (37 * hash) + WIDTH_FIELD_NUMBER;
+          hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+              java.lang.Double.doubleToLongBits(getWidth()));
+        }
+        if (hasHeight()) {
+          hash = (37 * hash) + HEIGHT_FIELD_NUMBER;
+          hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+              java.lang.Double.doubleToLongBits(getHeight()));
+        }
+        if (hasDirec()) {
+          hash = (37 * hash) + DIREC_FIELD_NUMBER;
+          hash = (53 * hash) + direc_;
+        }
+        hash = (29 * hash) + unknownFields.hashCode();
+        memoizedHashCode = hash;
+        return hash;
+      }
+
+      public static netGameNodeSDK.laser.Laser.LaserState.Rect parseFrom(
+          com.google.protobuf.ByteString data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static netGameNodeSDK.laser.Laser.LaserState.Rect parseFrom(
+          com.google.protobuf.ByteString data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static netGameNodeSDK.laser.Laser.LaserState.Rect parseFrom(byte[] data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static netGameNodeSDK.laser.Laser.LaserState.Rect parseFrom(
+          byte[] data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static netGameNodeSDK.laser.Laser.LaserState.Rect parseFrom(java.io.InputStream input)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input);
+      }
+      public static netGameNodeSDK.laser.Laser.LaserState.Rect parseFrom(
+          java.io.InputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input, extensionRegistry);
+      }
+      public static netGameNodeSDK.laser.Laser.LaserState.Rect parseDelimitedFrom(java.io.InputStream input)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseDelimitedWithIOException(PARSER, input);
+      }
+      public static netGameNodeSDK.laser.Laser.LaserState.Rect parseDelimitedFrom(
+          java.io.InputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+      }
+      public static netGameNodeSDK.laser.Laser.LaserState.Rect parseFrom(
+          com.google.protobuf.CodedInputStream input)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input);
+      }
+      public static netGameNodeSDK.laser.Laser.LaserState.Rect parseFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input, extensionRegistry);
+      }
+
+      public Builder newBuilderForType() { return newBuilder(); }
+      public static Builder newBuilder() {
+        return DEFAULT_INSTANCE.toBuilder();
+      }
+      public static Builder newBuilder(netGameNodeSDK.laser.Laser.LaserState.Rect prototype) {
+        return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+      }
+      public Builder toBuilder() {
+        return this == DEFAULT_INSTANCE
+            ? new Builder() : new Builder().mergeFrom(this);
+      }
+
+      @java.lang.Override
+      protected Builder newBuilderForType(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        Builder builder = new Builder(parent);
+        return builder;
+      }
+      /**
+       * Protobuf type {@code netGameNodeSDK.laser.LaserState.Rect}
+       */
+      public static final class Builder extends
+          com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+          // @@protoc_insertion_point(builder_implements:netGameNodeSDK.laser.LaserState.Rect)
+          netGameNodeSDK.laser.Laser.LaserState.RectOrBuilder {
+        public static final com.google.protobuf.Descriptors.Descriptor
+            getDescriptor() {
+          return netGameNodeSDK.laser.Laser.internal_static_netGameNodeSDK_laser_LaserState_Rect_descriptor;
+        }
+
+        protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+            internalGetFieldAccessorTable() {
+          return netGameNodeSDK.laser.Laser.internal_static_netGameNodeSDK_laser_LaserState_Rect_fieldAccessorTable
+              .ensureFieldAccessorsInitialized(
+                  netGameNodeSDK.laser.Laser.LaserState.Rect.class, netGameNodeSDK.laser.Laser.LaserState.Rect.Builder.class);
+        }
+
+        // Construct using netGameNodeSDK.laser.Laser.LaserState.Rect.newBuilder()
+        private Builder() {
+          maybeForceBuilderInitialization();
+        }
+
+        private Builder(
+            com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+          super(parent);
+          maybeForceBuilderInitialization();
+        }
+        private void maybeForceBuilderInitialization() {
+          if (com.google.protobuf.GeneratedMessageV3
+                  .alwaysUseFieldBuilders) {
+          }
+        }
+        public Builder clear() {
+          super.clear();
+          x_ = 0D;
+          bitField0_ = (bitField0_ & ~0x00000001);
+          y_ = 0D;
+          bitField0_ = (bitField0_ & ~0x00000002);
+          width_ = 0D;
+          bitField0_ = (bitField0_ & ~0x00000004);
+          height_ = 0D;
+          bitField0_ = (bitField0_ & ~0x00000008);
+          direc_ = 1;
+          bitField0_ = (bitField0_ & ~0x00000010);
+          return this;
+        }
+
+        public com.google.protobuf.Descriptors.Descriptor
+            getDescriptorForType() {
+          return netGameNodeSDK.laser.Laser.internal_static_netGameNodeSDK_laser_LaserState_Rect_descriptor;
+        }
+
+        public netGameNodeSDK.laser.Laser.LaserState.Rect getDefaultInstanceForType() {
+          return netGameNodeSDK.laser.Laser.LaserState.Rect.getDefaultInstance();
+        }
+
+        public netGameNodeSDK.laser.Laser.LaserState.Rect build() {
+          netGameNodeSDK.laser.Laser.LaserState.Rect result = buildPartial();
+          if (!result.isInitialized()) {
+            throw newUninitializedMessageException(result);
+          }
+          return result;
+        }
+
+        public netGameNodeSDK.laser.Laser.LaserState.Rect buildPartial() {
+          netGameNodeSDK.laser.Laser.LaserState.Rect result = new netGameNodeSDK.laser.Laser.LaserState.Rect(this);
+          int from_bitField0_ = bitField0_;
+          int to_bitField0_ = 0;
+          if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+            to_bitField0_ |= 0x00000001;
+          }
+          result.x_ = x_;
+          if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+            to_bitField0_ |= 0x00000002;
+          }
+          result.y_ = y_;
+          if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+            to_bitField0_ |= 0x00000004;
+          }
+          result.width_ = width_;
+          if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
+            to_bitField0_ |= 0x00000008;
+          }
+          result.height_ = height_;
+          if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
+            to_bitField0_ |= 0x00000010;
+          }
+          result.direc_ = direc_;
+          result.bitField0_ = to_bitField0_;
+          onBuilt();
+          return result;
+        }
+
+        public Builder clone() {
+          return (Builder) super.clone();
+        }
+        public Builder setField(
+            com.google.protobuf.Descriptors.FieldDescriptor field,
+            Object value) {
+          return (Builder) super.setField(field, value);
+        }
+        public Builder clearField(
+            com.google.protobuf.Descriptors.FieldDescriptor field) {
+          return (Builder) super.clearField(field);
+        }
+        public Builder clearOneof(
+            com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+          return (Builder) super.clearOneof(oneof);
+        }
+        public Builder setRepeatedField(
+            com.google.protobuf.Descriptors.FieldDescriptor field,
+            int index, Object value) {
+          return (Builder) super.setRepeatedField(field, index, value);
+        }
+        public Builder addRepeatedField(
+            com.google.protobuf.Descriptors.FieldDescriptor field,
+            Object value) {
+          return (Builder) super.addRepeatedField(field, value);
+        }
+        public Builder mergeFrom(com.google.protobuf.Message other) {
+          if (other instanceof netGameNodeSDK.laser.Laser.LaserState.Rect) {
+            return mergeFrom((netGameNodeSDK.laser.Laser.LaserState.Rect)other);
+          } else {
+            super.mergeFrom(other);
+            return this;
+          }
+        }
+
+        public Builder mergeFrom(netGameNodeSDK.laser.Laser.LaserState.Rect other) {
+          if (other == netGameNodeSDK.laser.Laser.LaserState.Rect.getDefaultInstance()) return this;
+          if (other.hasX()) {
+            setX(other.getX());
+          }
+          if (other.hasY()) {
+            setY(other.getY());
+          }
+          if (other.hasWidth()) {
+            setWidth(other.getWidth());
+          }
+          if (other.hasHeight()) {
+            setHeight(other.getHeight());
+          }
+          if (other.hasDirec()) {
+            setDirec(other.getDirec());
+          }
+          this.mergeUnknownFields(other.unknownFields);
+          onChanged();
+          return this;
+        }
+
+        public final boolean isInitialized() {
+          if (!hasX()) {
+            return false;
+          }
+          if (!hasY()) {
+            return false;
+          }
+          if (!hasWidth()) {
+            return false;
+          }
+          if (!hasHeight()) {
+            return false;
+          }
+          if (!hasDirec()) {
+            return false;
+          }
+          return true;
+        }
+
+        public Builder mergeFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
+          netGameNodeSDK.laser.Laser.LaserState.Rect parsedMessage = null;
+          try {
+            parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+          } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+            parsedMessage = (netGameNodeSDK.laser.Laser.LaserState.Rect) e.getUnfinishedMessage();
+            throw e.unwrapIOException();
+          } finally {
+            if (parsedMessage != null) {
+              mergeFrom(parsedMessage);
+            }
+          }
+          return this;
+        }
+        private int bitField0_;
+
+        private double x_ ;
+        /**
+         * <code>required double x = 1;</code>
+         */
+        public boolean hasX() {
+          return ((bitField0_ & 0x00000001) == 0x00000001);
+        }
+        /**
+         * <code>required double x = 1;</code>
+         */
+        public double getX() {
+          return x_;
+        }
+        /**
+         * <code>required double x = 1;</code>
+         */
+        public Builder setX(double value) {
+          bitField0_ |= 0x00000001;
+          x_ = value;
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>required double x = 1;</code>
+         */
+        public Builder clearX() {
+          bitField0_ = (bitField0_ & ~0x00000001);
+          x_ = 0D;
+          onChanged();
+          return this;
+        }
+
+        private double y_ ;
+        /**
+         * <code>required double y = 2;</code>
+         */
+        public boolean hasY() {
+          return ((bitField0_ & 0x00000002) == 0x00000002);
+        }
+        /**
+         * <code>required double y = 2;</code>
+         */
+        public double getY() {
+          return y_;
+        }
+        /**
+         * <code>required double y = 2;</code>
+         */
+        public Builder setY(double value) {
+          bitField0_ |= 0x00000002;
+          y_ = value;
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>required double y = 2;</code>
+         */
+        public Builder clearY() {
+          bitField0_ = (bitField0_ & ~0x00000002);
+          y_ = 0D;
+          onChanged();
+          return this;
+        }
+
+        private double width_ ;
+        /**
+         * <code>required double width = 3;</code>
+         */
+        public boolean hasWidth() {
+          return ((bitField0_ & 0x00000004) == 0x00000004);
+        }
+        /**
+         * <code>required double width = 3;</code>
+         */
+        public double getWidth() {
+          return width_;
+        }
+        /**
+         * <code>required double width = 3;</code>
+         */
+        public Builder setWidth(double value) {
+          bitField0_ |= 0x00000004;
+          width_ = value;
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>required double width = 3;</code>
+         */
+        public Builder clearWidth() {
+          bitField0_ = (bitField0_ & ~0x00000004);
+          width_ = 0D;
+          onChanged();
+          return this;
+        }
+
+        private double height_ ;
+        /**
+         * <code>required double height = 4;</code>
+         */
+        public boolean hasHeight() {
+          return ((bitField0_ & 0x00000008) == 0x00000008);
+        }
+        /**
+         * <code>required double height = 4;</code>
+         */
+        public double getHeight() {
+          return height_;
+        }
+        /**
+         * <code>required double height = 4;</code>
+         */
+        public Builder setHeight(double value) {
+          bitField0_ |= 0x00000008;
+          height_ = value;
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>required double height = 4;</code>
+         */
+        public Builder clearHeight() {
+          bitField0_ = (bitField0_ & ~0x00000008);
+          height_ = 0D;
+          onChanged();
+          return this;
+        }
+
+        private int direc_ = 1;
+        /**
+         * <code>required .netGameNodeSDK.laser.LaserState.Direction direc = 5;</code>
+         */
+        public boolean hasDirec() {
+          return ((bitField0_ & 0x00000010) == 0x00000010);
+        }
+        /**
+         * <code>required .netGameNodeSDK.laser.LaserState.Direction direc = 5;</code>
+         */
+        public netGameNodeSDK.laser.Laser.LaserState.Direction getDirec() {
+          netGameNodeSDK.laser.Laser.LaserState.Direction result = netGameNodeSDK.laser.Laser.LaserState.Direction.valueOf(direc_);
+          return result == null ? netGameNodeSDK.laser.Laser.LaserState.Direction.Up : result;
+        }
+        /**
+         * <code>required .netGameNodeSDK.laser.LaserState.Direction direc = 5;</code>
+         */
+        public Builder setDirec(netGameNodeSDK.laser.Laser.LaserState.Direction value) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          bitField0_ |= 0x00000010;
+          direc_ = value.getNumber();
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>required .netGameNodeSDK.laser.LaserState.Direction direc = 5;</code>
+         */
+        public Builder clearDirec() {
+          bitField0_ = (bitField0_ & ~0x00000010);
+          direc_ = 1;
+          onChanged();
+          return this;
+        }
+        public final Builder setUnknownFields(
+            final com.google.protobuf.UnknownFieldSet unknownFields) {
+          return super.setUnknownFields(unknownFields);
+        }
+
+        public final Builder mergeUnknownFields(
+            final com.google.protobuf.UnknownFieldSet unknownFields) {
+          return super.mergeUnknownFields(unknownFields);
+        }
+
+
+        // @@protoc_insertion_point(builder_scope:netGameNodeSDK.laser.LaserState.Rect)
+      }
+
+      // @@protoc_insertion_point(class_scope:netGameNodeSDK.laser.LaserState.Rect)
+      private static final netGameNodeSDK.laser.Laser.LaserState.Rect DEFAULT_INSTANCE;
+      static {
+        DEFAULT_INSTANCE = new netGameNodeSDK.laser.Laser.LaserState.Rect();
+      }
+
+      public static netGameNodeSDK.laser.Laser.LaserState.Rect getDefaultInstance() {
+        return DEFAULT_INSTANCE;
+      }
+
+      @java.lang.Deprecated public static final com.google.protobuf.Parser<Rect>
+          PARSER = new com.google.protobuf.AbstractParser<Rect>() {
+        public Rect parsePartialFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+            return new Rect(input, extensionRegistry);
+        }
+      };
+
+      public static com.google.protobuf.Parser<Rect> parser() {
+        return PARSER;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Parser<Rect> getParserForType() {
+        return PARSER;
+      }
+
+      public netGameNodeSDK.laser.Laser.LaserState.Rect getDefaultInstanceForType() {
+        return DEFAULT_INSTANCE;
+      }
+
+    }
+
     private int bitField0_;
     public static final int ID_FIELD_NUMBER = 1;
     private int id_;
@@ -304,20 +1212,55 @@ public final class Laser {
       return y_;
     }
 
-    public static final int DIRECTION_FIELD_NUMBER = 4;
-    private int direction_;
+    public static final int DIR_FIELD_NUMBER = 4;
+    private int dir_;
     /**
-     * <code>required .netGameNodeSDK.laser.LaserState.Direction direction = 4;</code>
+     * <code>required .netGameNodeSDK.laser.LaserState.Direction dir = 4;</code>
      */
-    public boolean hasDirection() {
+    public boolean hasDir() {
       return ((bitField0_ & 0x00000008) == 0x00000008);
     }
     /**
-     * <code>required .netGameNodeSDK.laser.LaserState.Direction direction = 4;</code>
+     * <code>required .netGameNodeSDK.laser.LaserState.Direction dir = 4;</code>
      */
-    public netGameNodeSDK.laser.Laser.LaserState.Direction getDirection() {
-      netGameNodeSDK.laser.Laser.LaserState.Direction result = netGameNodeSDK.laser.Laser.LaserState.Direction.valueOf(direction_);
+    public netGameNodeSDK.laser.Laser.LaserState.Direction getDir() {
+      netGameNodeSDK.laser.Laser.LaserState.Direction result = netGameNodeSDK.laser.Laser.LaserState.Direction.valueOf(dir_);
       return result == null ? netGameNodeSDK.laser.Laser.LaserState.Direction.Up : result;
+    }
+
+    public static final int RECTS_FIELD_NUMBER = 5;
+    private java.util.List<netGameNodeSDK.laser.Laser.LaserState.Rect> rects_;
+    /**
+     * <code>repeated .netGameNodeSDK.laser.LaserState.Rect rects = 5;</code>
+     */
+    public java.util.List<netGameNodeSDK.laser.Laser.LaserState.Rect> getRectsList() {
+      return rects_;
+    }
+    /**
+     * <code>repeated .netGameNodeSDK.laser.LaserState.Rect rects = 5;</code>
+     */
+    public java.util.List<? extends netGameNodeSDK.laser.Laser.LaserState.RectOrBuilder> 
+        getRectsOrBuilderList() {
+      return rects_;
+    }
+    /**
+     * <code>repeated .netGameNodeSDK.laser.LaserState.Rect rects = 5;</code>
+     */
+    public int getRectsCount() {
+      return rects_.size();
+    }
+    /**
+     * <code>repeated .netGameNodeSDK.laser.LaserState.Rect rects = 5;</code>
+     */
+    public netGameNodeSDK.laser.Laser.LaserState.Rect getRects(int index) {
+      return rects_.get(index);
+    }
+    /**
+     * <code>repeated .netGameNodeSDK.laser.LaserState.Rect rects = 5;</code>
+     */
+    public netGameNodeSDK.laser.Laser.LaserState.RectOrBuilder getRectsOrBuilder(
+        int index) {
+      return rects_.get(index);
     }
 
     private byte memoizedIsInitialized = -1;
@@ -338,9 +1281,15 @@ public final class Laser {
         memoizedIsInitialized = 0;
         return false;
       }
-      if (!hasDirection()) {
+      if (!hasDir()) {
         memoizedIsInitialized = 0;
         return false;
+      }
+      for (int i = 0; i < getRectsCount(); i++) {
+        if (!getRects(i).isInitialized()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
       }
       memoizedIsInitialized = 1;
       return true;
@@ -358,7 +1307,10 @@ public final class Laser {
         output.writeDouble(3, y_);
       }
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
-        output.writeEnum(4, direction_);
+        output.writeEnum(4, dir_);
+      }
+      for (int i = 0; i < rects_.size(); i++) {
+        output.writeMessage(5, rects_.get(i));
       }
       unknownFields.writeTo(output);
     }
@@ -382,7 +1334,11 @@ public final class Laser {
       }
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeEnumSize(4, direction_);
+          .computeEnumSize(4, dir_);
+      }
+      for (int i = 0; i < rects_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(5, rects_.get(i));
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -420,10 +1376,12 @@ public final class Laser {
             == java.lang.Double.doubleToLongBits(
                 other.getY()));
       }
-      result = result && (hasDirection() == other.hasDirection());
-      if (hasDirection()) {
-        result = result && direction_ == other.direction_;
+      result = result && (hasDir() == other.hasDir());
+      if (hasDir()) {
+        result = result && dir_ == other.dir_;
       }
+      result = result && getRectsList()
+          .equals(other.getRectsList());
       result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
@@ -449,9 +1407,13 @@ public final class Laser {
         hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
             java.lang.Double.doubleToLongBits(getY()));
       }
-      if (hasDirection()) {
-        hash = (37 * hash) + DIRECTION_FIELD_NUMBER;
-        hash = (53 * hash) + direction_;
+      if (hasDir()) {
+        hash = (37 * hash) + DIR_FIELD_NUMBER;
+        hash = (53 * hash) + dir_;
+      }
+      if (getRectsCount() > 0) {
+        hash = (37 * hash) + RECTS_FIELD_NUMBER;
+        hash = (53 * hash) + getRectsList().hashCode();
       }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
@@ -567,6 +1529,7 @@ public final class Laser {
       private void maybeForceBuilderInitialization() {
         if (com.google.protobuf.GeneratedMessageV3
                 .alwaysUseFieldBuilders) {
+          getRectsFieldBuilder();
         }
       }
       public Builder clear() {
@@ -577,8 +1540,14 @@ public final class Laser {
         bitField0_ = (bitField0_ & ~0x00000002);
         y_ = 0D;
         bitField0_ = (bitField0_ & ~0x00000004);
-        direction_ = 1;
+        dir_ = 1;
         bitField0_ = (bitField0_ & ~0x00000008);
+        if (rectsBuilder_ == null) {
+          rects_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000010);
+        } else {
+          rectsBuilder_.clear();
+        }
         return this;
       }
 
@@ -618,7 +1587,16 @@ public final class Laser {
         if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
           to_bitField0_ |= 0x00000008;
         }
-        result.direction_ = direction_;
+        result.dir_ = dir_;
+        if (rectsBuilder_ == null) {
+          if (((bitField0_ & 0x00000010) == 0x00000010)) {
+            rects_ = java.util.Collections.unmodifiableList(rects_);
+            bitField0_ = (bitField0_ & ~0x00000010);
+          }
+          result.rects_ = rects_;
+        } else {
+          result.rects_ = rectsBuilder_.build();
+        }
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -670,8 +1648,34 @@ public final class Laser {
         if (other.hasY()) {
           setY(other.getY());
         }
-        if (other.hasDirection()) {
-          setDirection(other.getDirection());
+        if (other.hasDir()) {
+          setDir(other.getDir());
+        }
+        if (rectsBuilder_ == null) {
+          if (!other.rects_.isEmpty()) {
+            if (rects_.isEmpty()) {
+              rects_ = other.rects_;
+              bitField0_ = (bitField0_ & ~0x00000010);
+            } else {
+              ensureRectsIsMutable();
+              rects_.addAll(other.rects_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.rects_.isEmpty()) {
+            if (rectsBuilder_.isEmpty()) {
+              rectsBuilder_.dispose();
+              rectsBuilder_ = null;
+              rects_ = other.rects_;
+              bitField0_ = (bitField0_ & ~0x00000010);
+              rectsBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getRectsFieldBuilder() : null;
+            } else {
+              rectsBuilder_.addAllMessages(other.rects_);
+            }
+          }
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -688,8 +1692,13 @@ public final class Laser {
         if (!hasY()) {
           return false;
         }
-        if (!hasDirection()) {
+        if (!hasDir()) {
           return false;
+        }
+        for (int i = 0; i < getRectsCount(); i++) {
+          if (!getRects(i).isInitialized()) {
+            return false;
+          }
         }
         return true;
       }
@@ -809,40 +1818,280 @@ public final class Laser {
         return this;
       }
 
-      private int direction_ = 1;
+      private int dir_ = 1;
       /**
-       * <code>required .netGameNodeSDK.laser.LaserState.Direction direction = 4;</code>
+       * <code>required .netGameNodeSDK.laser.LaserState.Direction dir = 4;</code>
        */
-      public boolean hasDirection() {
+      public boolean hasDir() {
         return ((bitField0_ & 0x00000008) == 0x00000008);
       }
       /**
-       * <code>required .netGameNodeSDK.laser.LaserState.Direction direction = 4;</code>
+       * <code>required .netGameNodeSDK.laser.LaserState.Direction dir = 4;</code>
        */
-      public netGameNodeSDK.laser.Laser.LaserState.Direction getDirection() {
-        netGameNodeSDK.laser.Laser.LaserState.Direction result = netGameNodeSDK.laser.Laser.LaserState.Direction.valueOf(direction_);
+      public netGameNodeSDK.laser.Laser.LaserState.Direction getDir() {
+        netGameNodeSDK.laser.Laser.LaserState.Direction result = netGameNodeSDK.laser.Laser.LaserState.Direction.valueOf(dir_);
         return result == null ? netGameNodeSDK.laser.Laser.LaserState.Direction.Up : result;
       }
       /**
-       * <code>required .netGameNodeSDK.laser.LaserState.Direction direction = 4;</code>
+       * <code>required .netGameNodeSDK.laser.LaserState.Direction dir = 4;</code>
        */
-      public Builder setDirection(netGameNodeSDK.laser.Laser.LaserState.Direction value) {
+      public Builder setDir(netGameNodeSDK.laser.Laser.LaserState.Direction value) {
         if (value == null) {
           throw new NullPointerException();
         }
         bitField0_ |= 0x00000008;
-        direction_ = value.getNumber();
+        dir_ = value.getNumber();
         onChanged();
         return this;
       }
       /**
-       * <code>required .netGameNodeSDK.laser.LaserState.Direction direction = 4;</code>
+       * <code>required .netGameNodeSDK.laser.LaserState.Direction dir = 4;</code>
        */
-      public Builder clearDirection() {
+      public Builder clearDir() {
         bitField0_ = (bitField0_ & ~0x00000008);
-        direction_ = 1;
+        dir_ = 1;
         onChanged();
         return this;
+      }
+
+      private java.util.List<netGameNodeSDK.laser.Laser.LaserState.Rect> rects_ =
+        java.util.Collections.emptyList();
+      private void ensureRectsIsMutable() {
+        if (!((bitField0_ & 0x00000010) == 0x00000010)) {
+          rects_ = new java.util.ArrayList<netGameNodeSDK.laser.Laser.LaserState.Rect>(rects_);
+          bitField0_ |= 0x00000010;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          netGameNodeSDK.laser.Laser.LaserState.Rect, netGameNodeSDK.laser.Laser.LaserState.Rect.Builder, netGameNodeSDK.laser.Laser.LaserState.RectOrBuilder> rectsBuilder_;
+
+      /**
+       * <code>repeated .netGameNodeSDK.laser.LaserState.Rect rects = 5;</code>
+       */
+      public java.util.List<netGameNodeSDK.laser.Laser.LaserState.Rect> getRectsList() {
+        if (rectsBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(rects_);
+        } else {
+          return rectsBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .netGameNodeSDK.laser.LaserState.Rect rects = 5;</code>
+       */
+      public int getRectsCount() {
+        if (rectsBuilder_ == null) {
+          return rects_.size();
+        } else {
+          return rectsBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .netGameNodeSDK.laser.LaserState.Rect rects = 5;</code>
+       */
+      public netGameNodeSDK.laser.Laser.LaserState.Rect getRects(int index) {
+        if (rectsBuilder_ == null) {
+          return rects_.get(index);
+        } else {
+          return rectsBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .netGameNodeSDK.laser.LaserState.Rect rects = 5;</code>
+       */
+      public Builder setRects(
+          int index, netGameNodeSDK.laser.Laser.LaserState.Rect value) {
+        if (rectsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureRectsIsMutable();
+          rects_.set(index, value);
+          onChanged();
+        } else {
+          rectsBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .netGameNodeSDK.laser.LaserState.Rect rects = 5;</code>
+       */
+      public Builder setRects(
+          int index, netGameNodeSDK.laser.Laser.LaserState.Rect.Builder builderForValue) {
+        if (rectsBuilder_ == null) {
+          ensureRectsIsMutable();
+          rects_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          rectsBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .netGameNodeSDK.laser.LaserState.Rect rects = 5;</code>
+       */
+      public Builder addRects(netGameNodeSDK.laser.Laser.LaserState.Rect value) {
+        if (rectsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureRectsIsMutable();
+          rects_.add(value);
+          onChanged();
+        } else {
+          rectsBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .netGameNodeSDK.laser.LaserState.Rect rects = 5;</code>
+       */
+      public Builder addRects(
+          int index, netGameNodeSDK.laser.Laser.LaserState.Rect value) {
+        if (rectsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureRectsIsMutable();
+          rects_.add(index, value);
+          onChanged();
+        } else {
+          rectsBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .netGameNodeSDK.laser.LaserState.Rect rects = 5;</code>
+       */
+      public Builder addRects(
+          netGameNodeSDK.laser.Laser.LaserState.Rect.Builder builderForValue) {
+        if (rectsBuilder_ == null) {
+          ensureRectsIsMutable();
+          rects_.add(builderForValue.build());
+          onChanged();
+        } else {
+          rectsBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .netGameNodeSDK.laser.LaserState.Rect rects = 5;</code>
+       */
+      public Builder addRects(
+          int index, netGameNodeSDK.laser.Laser.LaserState.Rect.Builder builderForValue) {
+        if (rectsBuilder_ == null) {
+          ensureRectsIsMutable();
+          rects_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          rectsBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .netGameNodeSDK.laser.LaserState.Rect rects = 5;</code>
+       */
+      public Builder addAllRects(
+          java.lang.Iterable<? extends netGameNodeSDK.laser.Laser.LaserState.Rect> values) {
+        if (rectsBuilder_ == null) {
+          ensureRectsIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, rects_);
+          onChanged();
+        } else {
+          rectsBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .netGameNodeSDK.laser.LaserState.Rect rects = 5;</code>
+       */
+      public Builder clearRects() {
+        if (rectsBuilder_ == null) {
+          rects_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000010);
+          onChanged();
+        } else {
+          rectsBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .netGameNodeSDK.laser.LaserState.Rect rects = 5;</code>
+       */
+      public Builder removeRects(int index) {
+        if (rectsBuilder_ == null) {
+          ensureRectsIsMutable();
+          rects_.remove(index);
+          onChanged();
+        } else {
+          rectsBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .netGameNodeSDK.laser.LaserState.Rect rects = 5;</code>
+       */
+      public netGameNodeSDK.laser.Laser.LaserState.Rect.Builder getRectsBuilder(
+          int index) {
+        return getRectsFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .netGameNodeSDK.laser.LaserState.Rect rects = 5;</code>
+       */
+      public netGameNodeSDK.laser.Laser.LaserState.RectOrBuilder getRectsOrBuilder(
+          int index) {
+        if (rectsBuilder_ == null) {
+          return rects_.get(index);  } else {
+          return rectsBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .netGameNodeSDK.laser.LaserState.Rect rects = 5;</code>
+       */
+      public java.util.List<? extends netGameNodeSDK.laser.Laser.LaserState.RectOrBuilder> 
+           getRectsOrBuilderList() {
+        if (rectsBuilder_ != null) {
+          return rectsBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(rects_);
+        }
+      }
+      /**
+       * <code>repeated .netGameNodeSDK.laser.LaserState.Rect rects = 5;</code>
+       */
+      public netGameNodeSDK.laser.Laser.LaserState.Rect.Builder addRectsBuilder() {
+        return getRectsFieldBuilder().addBuilder(
+            netGameNodeSDK.laser.Laser.LaserState.Rect.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .netGameNodeSDK.laser.LaserState.Rect rects = 5;</code>
+       */
+      public netGameNodeSDK.laser.Laser.LaserState.Rect.Builder addRectsBuilder(
+          int index) {
+        return getRectsFieldBuilder().addBuilder(
+            index, netGameNodeSDK.laser.Laser.LaserState.Rect.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .netGameNodeSDK.laser.LaserState.Rect rects = 5;</code>
+       */
+      public java.util.List<netGameNodeSDK.laser.Laser.LaserState.Rect.Builder> 
+           getRectsBuilderList() {
+        return getRectsFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          netGameNodeSDK.laser.Laser.LaserState.Rect, netGameNodeSDK.laser.Laser.LaserState.Rect.Builder, netGameNodeSDK.laser.Laser.LaserState.RectOrBuilder> 
+          getRectsFieldBuilder() {
+        if (rectsBuilder_ == null) {
+          rectsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              netGameNodeSDK.laser.Laser.LaserState.Rect, netGameNodeSDK.laser.Laser.LaserState.Rect.Builder, netGameNodeSDK.laser.Laser.LaserState.RectOrBuilder>(
+                  rects_,
+                  ((bitField0_ & 0x00000010) == 0x00000010),
+                  getParentForChildren(),
+                  isClean());
+          rects_ = null;
+        }
+        return rectsBuilder_;
       }
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -898,6 +2147,11 @@ public final class Laser {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_netGameNodeSDK_laser_LaserState_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_netGameNodeSDK_laser_LaserState_Rect_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_netGameNodeSDK_laser_LaserState_Rect_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -907,11 +2161,16 @@ public final class Laser {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\013laser.proto\022\024netGameNodeSDK.laser\"\241\001\n\n" +
+      "\n\013laser.proto\022\024netGameNodeSDK.laser\"\311\002\n\n" +
       "LaserState\022\n\n\002id\030\001 \002(\r\022\t\n\001x\030\002 \002(\001\022\t\n\001y\030\003" +
-      " \002(\001\022=\n\tdirection\030\004 \002(\0162*.netGameNodeSDK" +
-      ".laser.LaserState.Direction\"2\n\tDirection" +
-      "\022\006\n\002Up\020\001\022\010\n\004Left\020\002\022\t\n\005Right\020\003\022\010\n\004Down\020\004"
+      " \002(\001\0227\n\003dir\030\004 \002(\0162*.netGameNodeSDK.laser" +
+      ".LaserState.Direction\0224\n\005rects\030\005 \003(\0132%.n" +
+      "etGameNodeSDK.laser.LaserState.Rect\032v\n\004R" +
+      "ect\022\t\n\001x\030\001 \002(\001\022\t\n\001y\030\002 \002(\001\022\r\n\005width\030\003 \002(\001" +
+      "\022\016\n\006height\030\004 \002(\001\0229\n\005direc\030\005 \002(\0162*.netGam" +
+      "eNodeSDK.laser.LaserState.Direction\"2\n\tD" +
+      "irection\022\006\n\002Up\020\001\022\010\n\004Down\020\002\022\010\n\004Left\020\003\022\t\n\005" +
+      "Right\020\004"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -930,7 +2189,13 @@ public final class Laser {
     internal_static_netGameNodeSDK_laser_LaserState_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_netGameNodeSDK_laser_LaserState_descriptor,
-        new java.lang.String[] { "Id", "X", "Y", "Direction", });
+        new java.lang.String[] { "Id", "X", "Y", "Dir", "Rects", });
+    internal_static_netGameNodeSDK_laser_LaserState_Rect_descriptor =
+      internal_static_netGameNodeSDK_laser_LaserState_descriptor.getNestedTypes().get(0);
+    internal_static_netGameNodeSDK_laser_LaserState_Rect_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_netGameNodeSDK_laser_LaserState_Rect_descriptor,
+        new java.lang.String[] { "X", "Y", "Width", "Height", "Direc", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)
