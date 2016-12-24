@@ -66,7 +66,7 @@ public class ServerMatrixGameNode extends GameNode {
 		
 		RectangleGameNode wall = new RectangleGameNode(100, 100, 9000, 30, Color.PURPLE);
 		Game.currentScene().physicEngine.addStaticNode(wall);
-		addChild(wall);
+		addChild(wall); 
 	}
 
 	private void randomlyAddMirrorToGame() {
