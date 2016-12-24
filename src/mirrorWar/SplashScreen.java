@@ -21,14 +21,14 @@ public class SplashScreen extends GameScene {
 	
 	private final String SPLASH_IMAGE_PATH = "./src/application/assets/splash.png";
 	private final String SEGA_SOUND_PATH = "./src/application/assets/sega.wav";
-	private final MediaPlayer sega;
+//	private final MediaPlayer sega;
 	
 	public SplashScreen() {
 		GameNode splashImage = new SpriteGameNode(Game.loadImage(SPLASH_IMAGE_PATH));
 		splashImage.geometry.setFrame(0, 0, Game.canvasWidth(), Game.canvasHeight());
 		rootNode.addChild(splashImage);
 
-		sega = new MediaPlayer(Game.loadMedia(SEGA_SOUND_PATH));
+		//sega = new MediaPlayer(Game.loadMedia(SEGA_SOUND_PATH));
 
 		AnimationPlayer fadeinAniPlayer = new AnimationPlayer(SPLASH_DISPLAY_INTERVAL);
 		rootNode.addChild(fadeinAniPlayer);
@@ -43,7 +43,7 @@ public class SplashScreen extends GameScene {
 		
 		FunctionTriggerAnimation functionTriggerAni = new FunctionTriggerAnimation();
 		functionTriggerAni.addAnchor(SEGA_PALY_TIME, () -> {
-			sega.play();
+			//sega.play();
 		});
 		functionTriggerAni.addAnchor(SPLASH_DISPLAY_INTERVAL, () -> {
 			Game.swapScene(new MenuScene());
@@ -56,14 +56,14 @@ public class SplashScreen extends GameScene {
 	
 	@Override
 	protected boolean onKeyPressed(KeyEvent event) {
-		sega.stop();
+		//sega.stop();
 		Game.swapScene(new MenuScene());
 		return false;
 	}
 	
 	@Override
 	protected boolean onMousePressed(MouseEvent event) {
-		sega.stop();
+		//sega.stop();
 		Game.swapScene(new MenuScene());
 		return false;
 	}

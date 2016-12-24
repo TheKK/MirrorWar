@@ -1,8 +1,9 @@
 package mirrorWarServer;
 
+import gameEngine.Game;
+
 public class Main {
 	static public void main(String[] args) {
-		Server server = new Server();
-		server.run();
+		Game.run(ServerScene.class);
 	}
 }

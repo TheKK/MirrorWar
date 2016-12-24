@@ -21,6 +21,7 @@ public abstract class GameNode {
 	public double anchorX = 0, anchorY = 0;
 	public double scaleX = 1, scaleY = 1;
 	public double offsetX = 0, offsetY = 0;
+	public double rotate = 0.;
 
 	public Rectangle2D.Double mouseBound = new Rectangle2D.Double(0, 0, 0, 0);
 
@@ -266,7 +267,15 @@ public abstract class GameNode {
 		return childExists;
 	}
 
-	final void _render(GraphicsContext gc) {
+	private final double xRotateBy(double x, double y, double degree) {
+		return (x * Math.cos(Math.toRadians(degree))) + (y * Math.sin(Math.toRadians(degree)));
+	}
+
+	private final double yRotateBy(double x, double y, double degree) {
+		return (x * -Math.sin(Math.toRadians(degree))) + (y * Math.cos(Math.toRadians(degree)));
+	}
+
+	public final void _render(GraphicsContext gc) {
 		if (!visible) {
 			return;
 		}
@@ -275,16 +284,26 @@ public abstract class GameNode {
 		{
 			gc.setGlobalAlpha(alpha);
 			gc.translate(offsetX, offsetY);
+			gc.translate(geometry.x, geometry.y);
 			gc.scale(scaleX, scaleY);
+			gc.rotate(rotate);
 
 			gc.save();
 			{
-				gc.translate(-geometry.width * anchorX * (1 - 1 / scaleX), -geometry.height * anchorY * (1 - 1 / scaleY));
+				double vectorX = anchorX * geometry.width;
+				double vectorY = anchorY * geometry.height;
+
+				gc.translate(
+						-xRotateBy(vectorX, vectorY, rotate) * (1 - 1 / scaleX),
+						-yRotateBy(vectorX, vectorY, rotate) * (1 - 1 / scaleY));
+
+				gc.translate(
+						xRotateBy(vectorX, vectorY, rotate) - vectorX,
+						yRotateBy(vectorX, vectorY, rotate) - vectorY);
+
 				render(gc);
 			}
 			gc.restore();
-
-			gc.translate(geometry.x, geometry.y);
 
 			children.forEach(node -> {
 				node._render(gc);

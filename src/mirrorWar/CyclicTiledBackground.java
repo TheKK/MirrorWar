@@ -33,14 +33,13 @@ public class CyclicTiledBackground extends GameNode {
 	public void render(GraphicsContext gc) {
 		int rowNum = (int) (Game.canvasHeight() / tile.geometry.height) + 2;
 		int columnNum = (int) (Game.canvasWidth() / tile.geometry.width) + 2;
-		
+
 		for (int r = 0; r < rowNum; ++r) {
 			tile.geometry.y = offsetY + (r - 1) * tile.geometry.height;
 
 			for (int c = 0; c < columnNum; ++c) {
 				tile.geometry.x = offsetX + (c - 1) * tile.geometry.width;
-				
-				tile.render(gc);
+				tile._render(gc);
 			}
 		}
 	}

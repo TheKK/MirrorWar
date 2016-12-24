@@ -11,14 +11,15 @@ public class RectangleGameNode extends GameNode {
 		geometry.y = y;
 		geometry.width = w;
 		geometry.height = h;
-		
+
 		mouseBound = geometry;
-		
+
 		this.color = color;
 	}
-	
+
+	@Override
 	public void render(GraphicsContext gc) {
 		gc.setFill(color);
-		gc.fillRect(geometry.x, geometry.y, geometry.width, geometry.height);
+		gc.fillRect(0, 0, geometry.width, geometry.height);
 	}
 }

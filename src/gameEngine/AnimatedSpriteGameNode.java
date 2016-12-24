@@ -2,6 +2,7 @@ package gameEngine;
 
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
+import java.util.Optional;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -11,11 +12,12 @@ public class AnimatedSpriteGameNode extends GameNode {
 
 	ArrayList<Long> timeSegments = new ArrayList<>();
 	ArrayList<Rectangle2D.Double> frameClips = new ArrayList<>();
-	
+
 	long currentTimeElapse = 0;
 	Integer currentFrame = 0;
-	
+
 	public boolean autoPlayed = true;
+	public Optional<Rectangle2D.Double> clip = Optional.empty();
 
 	public AnimatedSpriteGameNode(Image image, int width, int height) {
 		this.image = image;
@@ -24,14 +26,14 @@ public class AnimatedSpriteGameNode extends GameNode {
 		this.geometry.width = width;
 		this.geometry.height = height;
 	}
-	
+
 	public void addFrame(Rectangle2D.Double frameClip, long displayPeriod) {
 		Long lastTimeSegment = timeSegments.get(timeSegments.size() - 1);
 
 		frameClips.add(frameClip);
 		timeSegments.add(lastTimeSegment + displayPeriod);
 	}
-	
+
 	public void setFrameIndex(int index) throws Exception {
 		if (index <= timeSegments.size()) {
 			throw new Exception("frame index out of bound!");
@@ -39,7 +41,7 @@ public class AnimatedSpriteGameNode extends GameNode {
 
 		currentFrame = index;
 	}
-	
+
 	public void nextFrame() {
 		currentFrame += 1;
 		if (currentFrame >= frameClips.size()) {
@@ -48,7 +50,7 @@ public class AnimatedSpriteGameNode extends GameNode {
 
 		currentTimeElapse = timeSegments.get(currentFrame);
 	}
-	
+
 	public void previousFrame() {
 		currentFrame -= 1;
 		if (currentFrame <= 0) {
@@ -57,7 +59,7 @@ public class AnimatedSpriteGameNode extends GameNode {
 
 		currentTimeElapse = timeSegments.get(currentFrame);
 	}
-	
+
 	@Override
 	public void update(long elapse) {
 		// FIXME This is just a stub, remove all of this when Animation was done
@@ -66,7 +68,7 @@ public class AnimatedSpriteGameNode extends GameNode {
 		}
 
 		currentTimeElapse += elapse;
-		
+
 		long timeOffset = currentTimeElapse - timeSegments.get(currentFrame + 1);
 
 		if (timeOffset >= 0) {
@@ -74,14 +76,22 @@ public class AnimatedSpriteGameNode extends GameNode {
 			currentTimeElapse += timeOffset;
 		}
 	}
-	
+
 	@Override
 	public void render(GraphicsContext gc) {
-		Rectangle2D.Double clipRect = frameClips.get(currentFrame);
+		Rectangle2D clipRect = frameClips.get(currentFrame);
+
+		if (clip.isPresent()) {
+			Rectangle2D.Double userClip = (Rectangle2D.Double) clip.get().clone();
+			userClip.x += clipRect.getX();
+			userClip.y += clipRect.getY();
+
+			clipRect = clipRect.createIntersection(userClip);
+		}
 
 		gc.drawImage(
 				image,
-				clipRect.x, clipRect.y, clipRect.width, clipRect.height,
-				geometry.x, geometry.y, geometry.width, geometry.height);
+				clipRect.getX(), clipRect.getY(), clipRect.getWidth(), clipRect.getHeight(),
+				0, 0, geometry.width, geometry.height);
 	}
 }

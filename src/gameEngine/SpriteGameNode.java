@@ -22,6 +22,6 @@ public class SpriteGameNode extends GameNode {
 		gc.drawImage(
 				image,
 				srcRect.x, srcRect.y, srcRect.width, srcRect.height,
-				geometry.x, geometry.y, geometry.width, geometry.height);
+				0, 0, geometry.width, geometry.height);
 	}
 }

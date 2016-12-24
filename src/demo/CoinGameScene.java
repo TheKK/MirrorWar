@@ -1,6 +1,8 @@
 package demo;
 
 import java.awt.geom.Rectangle2D;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
@@ -23,12 +25,17 @@ import gameEngine.TransitionFuncs.TransitionType;
 import javafx.application.Platform;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
+import mirrorWar.LaserBeam;
 
 public class CoinGameScene extends GameScene {
 	final int COIN_GROUP_ID = 0;
-	
+
 	final String COIN_SHADOW_IMAGE_PATH = "./src/application/assets/coinShadow.png";
 	final String COIN_ANIMATION_PATH = "./src/application/assets/animatedCoin.png";
+
+	final String LASER_HEAD_ANIMATION_PATH = "./src/mirrorWar/pic/laserHead.png";
+	final String LASER_BODY_ANIMATION_PATH = "./src/mirrorWar/pic/laserBody.png";
+	final String LASER_TAIL_ANIMATION_PATH = "./src/mirrorWar/pic/laserTail.png";
 
 	class Coin extends GameNode {
 		AnimatedSpriteGameNode animatedCoinSprite;
@@ -42,11 +49,11 @@ public class CoinGameScene extends GameScene {
 			coinShadowSprite = new SpriteGameNode(Game.loadImage(COIN_SHADOW_IMAGE_PATH));
 			coinShadowSprite.geometry.y = 15;
 			addChild(coinShadowSprite);
-			
+
 			animatedCoinSprite = new AnimatedSpriteGameNode(Game.loadImage(COIN_ANIMATION_PATH), 16, 16);
 			animatedCoinSprite.autoPlayed = true;
 			addChild(animatedCoinSprite);
-			
+
 			// TODO Make this easier
 			final long PERIOD = 200;
 			animatedCoinSprite.addFrame(
@@ -107,10 +114,85 @@ public class CoinGameScene extends GameScene {
 		floatAnimation.addAnchor(3000, -3., TransitionType.SIN, EaseType.IN_OUT);
 		aniPlayer.addAnimation("floatPos", floatAnimation);
 
+		ContinuousFuncAnimation<Double> scaleAni = new ContinuousFuncAnimation<>(
+				val -> {
+					for (GameNode coin: coinGroup.children()) {
+						((Coin) coin).animatedCoinSprite.anchorX = 0.5;
+						((Coin) coin).animatedCoinSprite.anchorY = 0.5;
+
+						((Coin) coin).animatedCoinSprite.scaleX = val;
+						((Coin) coin).animatedCoinSprite.scaleY = val;
+
+						((Coin) coin).animatedCoinSprite.rotate = val * 360;
+					}
+				});
+		scaleAni.addAnchor(0, 1., TransitionType.SIN, EaseType.IN_OUT);
+		scaleAni.addAnchor(1500, 3., TransitionType.SIN, EaseType.IN_OUT);
+		scaleAni.addAnchor(3000, 1., TransitionType.SIN, EaseType.IN_OUT);
+		aniPlayer.addAnimation("scaleAni", scaleAni);
+
 		aniPlayer.play(-1);
 		rootLayer.addChild(aniPlayer);
 
-		GameNode player = new RectangleGameNode(100, 100, 50, 50, Color.BLUE) {
+		int laserWidth = 50, laserHeight = 50;
+		AnimatedSpriteGameNode laserHead =
+				new AnimatedSpriteGameNode(Game.loadImage(LASER_HEAD_ANIMATION_PATH), laserWidth, laserHeight);
+		AnimatedSpriteGameNode laserBody =
+				new AnimatedSpriteGameNode(Game.loadImage(LASER_BODY_ANIMATION_PATH), laserWidth, laserHeight);
+		AnimatedSpriteGameNode laserTail =
+				new AnimatedSpriteGameNode(Game.loadImage(LASER_TAIL_ANIMATION_PATH), laserWidth, laserHeight);
+
+		List<Rectangle2D.Double> frames = new ArrayList<Rectangle2D.Double>();
+		frames.add(new Rectangle2D.Double(50 * 0, 0, 50, 50));
+		frames.add(new Rectangle2D.Double(50 * 1, 0, 50, 50));
+		frames.add(new Rectangle2D.Double(50 * 2, 0, 50, 50));
+
+		frames.forEach(frame -> {
+			laserHead.addFrame(frame, 60);
+			laserBody.addFrame(frame, 60);
+			laserTail.addFrame(frame, 60);
+		});
+
+		laserHead.autoPlayed = true;
+		laserBody.autoPlayed = true;
+		laserTail.autoPlayed = true;
+
+		rootLayer.addChild(new RectangleGameNode(0, 30, 500, 50, Color.WHITE));
+		rootLayer.addChild(new RectangleGameNode(-130, 0, 50, 500, Color.WHITE));
+
+		LaserBeam laserBeam = new LaserBeam(laserHead, laserBody, laserTail);
+		rootLayer.addChild(laserBeam);
+
+		List<LaserBeam.LaserBeamInfo> beams = new ArrayList<>();
+		beams.add(new LaserBeam.LaserBeamInfo(new Rectangle2D.Double(0, 0, 500, 50), LaserBeam.Direction.LEFT));
+		beams.add(new LaserBeam.LaserBeamInfo(new Rectangle2D.Double(0, 60, 500, 50), LaserBeam.Direction.RIGHT));
+		beams.add(new LaserBeam.LaserBeamInfo(new Rectangle2D.Double(-100, 0, 50, 500), LaserBeam.Direction.DOWN));
+		beams.add(new LaserBeam.LaserBeamInfo(new Rectangle2D.Double(-160, 0, 50, 500), LaserBeam.Direction.UP));
+
+		laserBeam.setLaserBeamPositions(beams);
+
+		ContinuousFuncAnimation<Double> beamAni = new ContinuousFuncAnimation<>(
+				val -> {
+					for (LaserBeam.LaserBeamInfo beam: beams) {
+						switch (beam.direction) {
+						case DOWN:
+						case UP:
+							beam.beamBody.height = 150 * val;
+							break;
+
+						case LEFT:
+						case RIGHT:
+							beam.beamBody.width = 150 * val;
+							break;
+						}
+					}
+				});
+		beamAni.addAnchor(0, 1., TransitionType.SIN, EaseType.IN_OUT);
+		beamAni.addAnchor(1500, 2., TransitionType.SIN, EaseType.IN_OUT);
+		beamAni.addAnchor(3000, 1., TransitionType.SIN, EaseType.IN_OUT);
+		aniPlayer.addAnimation("beamAni", beamAni);
+
+		GameNode player = new RectangleGameNode(0, 0, 50, 50, Color.BLUE) {
 			AnimationPlayer countDownAniPlayer = new AnimationPlayer(6000);
 			int coins = 0;
 			TextGameNode text;
@@ -120,7 +202,7 @@ public class CoinGameScene extends GameScene {
 				text.geometry.x = 0;
 				text.geometry.y = -10;
 				addChild(text);
-				
+
 				DiscreteFuncAnimation<Integer> countDownAni = new DiscreteFuncAnimation<>(val -> {
 					text.text = "EXPLOSION COUNT DOWN: " + val;
 				});
@@ -130,7 +212,7 @@ public class CoinGameScene extends GameScene {
 				countDownAni.addAnchor(3000, 2);
 				countDownAni.addAnchor(4000, 1);
 				countDownAni.addAnchor(5000, 0);
-				
+
 				FunctionTriggerAnimation exitAni = new FunctionTriggerAnimation();
 				exitAni.addAnchor(0, () -> {
 					text.strokeColor = Color.CHARTREUSE;
@@ -151,7 +233,7 @@ public class CoinGameScene extends GameScene {
 				if (Game.getKeyboardState(KeyCode.LEFT)) this.pulseX -= MOVE_SPEED/elapse;
 				if (Game.getKeyboardState(KeyCode.RIGHT)) this.pulseX += MOVE_SPEED/elapse;
 			}
-			
+
 			@Override
 			public void onCollided(GameNode node, long elapse) {
 				if (!node.collissionGroup().contains(COIN_GROUP_ID)) {
@@ -165,26 +247,26 @@ public class CoinGameScene extends GameScene {
 
 				physicEngine.removeDynamicNode(node);
 				cameraShakeAniPlayer.playFromStart(1);
-					
+
 				coins += 1;
 				text.text = coins + " !";
-				
+
 				if (coins >= 10 && !countDownAniPlayer.isPlaying()) {
 					countDownAniPlayer.play(1);
 					cameraShakeAniPlayer.play(-1);
 				}
 			}
 		};
-		player.dampX = 0.1;
-		player.dampY = 0.1;
+		player.dampX = 0.9;
+		player.dampY = 0.9;
 
 		rootLayer.addChild(player);
 		physicEngine.addDynamicNode(player);
-		
+
 		SimpleGameSceneCamera camera = new SimpleGameSceneCamera(0, 0, Game.canvasWidth(), Game.canvasHeight());
 		camera.cameraTarget = Optional.of(player);
 		rootLayer.camera = camera;
-		
+
 		Random rng = new Random();
 		ContinuousFuncAnimation<Double> cameraPosShakeAni = new ContinuousFuncAnimation<>(
 				val -> {

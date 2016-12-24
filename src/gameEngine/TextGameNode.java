@@ -11,7 +11,7 @@ public class TextGameNode extends GameNode {
 	public String text = "";
 	public TextAlignment align = TextAlignment.LEFT;
 	public Font font = Font.font(12);
-	
+
 	public TextGameNode(String text) {
 		this.text = text;
 	}
@@ -22,7 +22,7 @@ public class TextGameNode extends GameNode {
 		gc.setFont(font);
 		gc.setStroke(strokeColor);
 		gc.setFill(fillColor);
-		gc.fillText(text, geometry.getX(), geometry.getY());
-		gc.strokeText(text, geometry.getX(), geometry.getY());
+		gc.fillText(text, 0, 0);
+		gc.strokeText(text, 0, 0);
 	}
 }
