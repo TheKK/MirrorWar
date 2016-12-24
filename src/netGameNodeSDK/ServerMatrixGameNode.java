@@ -46,7 +46,7 @@ public class ServerMatrixGameNode extends GameNode {
 	private Map<Integer, PlayerNetGameNode> players = Collections.synchronizedMap(new HashMap<>());
 	private Map<Integer, MirrorNetGameNode> mirrors = Collections.synchronizedMap(new HashMap<>());
 	private Map<Integer, ChargerNetGameNode> chargers = Collections.synchronizedMap(new HashMap<>());
-	private Map<Integer, LaserEmiterNetGameNode> laserEmiters = Collections.synchronizedMap(new HashMap<>());
+	private Map<Integer, LaserEmitterNetGameNode> laserEmiters = Collections.synchronizedMap(new HashMap<>());
 
 	private DatagramSocket commandInputSocket;
 	private DatagramPacket commandPacket;
@@ -95,7 +95,7 @@ public class ServerMatrixGameNode extends GameNode {
 
 	private void radomAddLaser() {
 		int id=getUniqueObjectId();
-		LaserEmiterNetGameNode laserEmiter = new LaserEmiterNetGameNode(id);
+		LaserEmitterNetGameNode laserEmiter = new LaserEmitterNetGameNode(id);
 
 		laserEmiter.serverInitialize(Game.currentScene(), false);
 		laserEmiter.geometry.x=300;

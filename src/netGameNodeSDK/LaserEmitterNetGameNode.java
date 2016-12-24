@@ -19,9 +19,9 @@ import mirrorWar.laser.Laser.LaserState;
 import mirrorWar.laser.Laser.LaserState.Rect;
 import mirrorWar.mirror.Mirror.MirrorState;
 
-public class LaserEmiterNetGameNode extends NetGameNode<LaserState, Void> {
+public class LaserEmitterNetGameNode extends NetGameNode<LaserState, Void> {
 	private RectangleGameNode clientLaserImage;
-	private LaserState.Direction currentDir = LaserState.Direction.Up;
+	public LaserState.Direction currentDir = null;
 	private int id;
 	ArrayList<Rectangle2D.Double> laserPath = new ArrayList<>();
 	ArrayList<LaserState.Direction> laserDir = new ArrayList<>();
@@ -30,7 +30,7 @@ public class LaserEmiterNetGameNode extends NetGameNode<LaserState, Void> {
 			new RectangleGameNode(0, 0, 50, 50, Color.DARKGOLDENROD),
 			new RectangleGameNode(0, 0, 50, 50, Color.DARKGOLDENROD));
 
-	public LaserEmiterNetGameNode(int id) {
+	public LaserEmitterNetGameNode(int id) {
 		this.id = id;
 		
 		geometry.width = 50;
@@ -67,6 +67,9 @@ public class LaserEmiterNetGameNode extends NetGameNode<LaserState, Void> {
 
 	@Override
 	protected void clientHandleServerUpdate(LaserState update) {
+		geometry.x = update.getX();
+		geometry.y = update.getY();
+		
 		// draw laser with laser Beam
 		ArrayList<Rectangle2D.Double> rectangles = new ArrayList<>();
 		ArrayList<LaserState.Direction> directions = new ArrayList<>();

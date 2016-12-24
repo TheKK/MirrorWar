@@ -51,7 +51,7 @@ public class ClientMatrixGameNode extends GameNode {
 	private Map<Integer, ChargerNetGameNode> chargers = new HashMap<>();
 	private GameReportNetGameNode gameReport;
 
-	private Map<Integer, LaserEmiterNetGameNode> lasers= new HashMap<>();
+	private Map<Integer, LaserEmitterNetGameNode> lasers= new HashMap<>();
 
 	private int controllingPlayerId;
 
@@ -181,9 +181,9 @@ public class ClientMatrixGameNode extends GameNode {
 	private void addOrUpdateLaser(LaserState laserState) {
 		int laserId = laserState.getId();
 
-		LaserEmiterNetGameNode laser = lasers.get(laserId);
+		LaserEmitterNetGameNode laser = lasers.get(laserId);
 		if (laser == null) {
-			laser = new LaserEmiterNetGameNode(laserId);
+			laser = new LaserEmitterNetGameNode(laserId);
 			laser.clientInitialize(Game.currentScene());
 
 			lasers.put(laserId, laser);

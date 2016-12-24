@@ -208,7 +208,7 @@
          "color":"#aaff00",
          "draworder":"topdown",
          "height":10,
-         "name":"laserShooters",
+         "name":"lasers",
          "objects":[
                 {
                  "height":50,
@@ -248,7 +248,7 @@
                  "x":1000,
                  "y":700
                 }],
-         "opacity":1,
+         "opacity":0.899999976158142,
          "type":"objectgroup",
          "visible":true,
          "width":20,

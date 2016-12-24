@@ -1,7 +1,6 @@
 package mirrorWarServer;
 
 import java.awt.geom.Rectangle2D;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -38,12 +37,14 @@ import mirrorWar.gameStatusUpdate.GameStatusUpdate.ServerMessage;
 import mirrorWar.handshake.Handshake.ClientHandshake;
 import mirrorWar.handshake.Handshake.ServerHandshake;
 import mirrorWar.input.InputOuterClass.Inputs;
+import mirrorWar.laser.Laser.LaserState;
 import mirrorWar.mirror.Mirror.MirrorState;
 import mirrorWar.player.Player.PlayerState;
 import mirrorWar.update.UpdateOuterClass.Update;
 import mirrorWar.update.UpdateOuterClass.Updates;
 import netGameNodeSDK.ChargerNetGameNode;
 import netGameNodeSDK.GameReportNetGameNode;
+import netGameNodeSDK.LaserEmitterNetGameNode;
 import netGameNodeSDK.MirrorNetGameNode;
 import netGameNodeSDK.PlayerNetGameNode;
 
@@ -55,6 +56,7 @@ public class ServerGameNode extends GameNode {
 	private Map<Integer, PlayerNetGameNode> players = Collections.synchronizedMap(new HashMap<>());
 	private Map<Integer, MirrorNetGameNode> mirrors = Collections.synchronizedMap(new HashMap<>());
 	private Map<Integer, ChargerNetGameNode> chargers = Collections.synchronizedMap(new HashMap<>());
+	private Map<Integer, LaserEmitterNetGameNode> lasers = Collections.synchronizedMap(new HashMap<>());
 	private Map<Integer, Rectangle2D.Double> playersRespawnRegion = new HashMap<Integer, Rectangle2D.Double>();
 
 	private DatagramSocket commandInputSocket;
@@ -87,6 +89,7 @@ public class ServerGameNode extends GameNode {
 		setupUpdateBoardcastingService();
 		setupWaitsForCommandsService();
 		
+		addLaserToGame(mLoader.getObjectLayers().get("lasers"));
 		addMirrorToGame(mLoader.getObjectLayers().get("mirrors"));
 		addChargerToGame(mLoader.getObjectLayers().get("chargers"));
 		addWallToGame(mLoader.getObjectLayers().get("walls"));
@@ -115,6 +118,30 @@ public class ServerGameNode extends GameNode {
 				DangerousGlobalVariables.logger.severe("Connection error: Unable to sent message to client");
 			}
 		});
+	}
+	
+	private void addLaserToGame(List<MapObject> laserList) {
+		for (MapObject laser : laserList) {
+			int id = getUniqueObjectId();
+
+			LaserEmitterNetGameNode newLaser = new LaserEmitterNetGameNode(id);
+			newLaser.serverInitialize(Game.currentScene(), false);
+
+			newLaser.geometry.x = laser.x;
+			newLaser.geometry.y = laser.y;
+			newLaser.geometry.width = laser.width;
+			newLaser.geometry.height = laser.height;
+			
+			for (LaserState.Direction dir : LaserState.Direction.values()) {
+				if (dir.toString().equals(laser.properties.get("direction"))) {
+					newLaser.currentDir = dir;
+				}
+			}
+
+			addChild(newLaser);
+
+			lasers.put(id, newLaser);
+		}
 	}
 
 	private void addMirrorToGame(List<MapObject> mirrorList) {
@@ -360,6 +387,14 @@ public class ServerGameNode extends GameNode {
 			ChargerState chargerState = charger.getStates();
 			Update.Builder update = Update.newBuilder()
 					.setChargerState(chargerState);
+
+			updatesBuilder.addUpdates(update);
+		});
+		
+		lasers.forEach((laserId, laser) -> {
+			LaserState laserState = laser.getStates();
+			Update.Builder update = Update.newBuilder()
+					.setLaserState(laserState);
 
 			updatesBuilder.addUpdates(update);
 		});
