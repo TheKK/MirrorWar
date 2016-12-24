@@ -1,224 +1,70 @@
-{ "height":32,
+{ "height":10,
  "layers":[
         {
+         "color":"#ffaa00",
          "draworder":"topdown",
-         "height":32,
-         "name":"chargers",
-         "objects":[
-                {
-                 "height":50,
-                 "id":28,
-                 "name":"Charger",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":50,
-                 "x":1400,
-                 "y":700
-                }, 
-                {
-                 "height":50,
-                 "id":5,
-                 "name":"Charger",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":50,
-                 "x":550,
-                 "y":450
-                }],
-         "opacity":1,
-         "type":"objectgroup",
-         "visible":true,
-         "width":32,
-         "x":0,
-         "y":0
-        }, 
-        {
-         "draworder":"topdown",
-         "height":32,
+         "height":10,
          "name":"mirrors",
          "objects":[
                 {
                  "height":50,
-                 "id":11,
-                 "name":"mirror",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":50,
-                 "x":1550,
-                 "y":1550
-                }, 
-                {
-                 "height":50,
-                 "id":13,
-                 "name":"mirror",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":50,
-                 "x":1250,
-                 "y":900
-                }, 
-                {
-                 "height":50,
-                 "id":14,
-                 "name":"mirror",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":50,
-                 "x":500,
-                 "y":950
-                }, 
-                {
-                 "height":50,
-                 "id":15,
-                 "name":"mirror",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":50,
-                 "x":200,
-                 "y":1200
-                }, 
-                {
-                 "height":50,
-                 "id":16,
-                 "name":"mirror",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":50,
-                 "x":1050,
-                 "y":200
-                }, 
-                {
-                 "height":50,
-                 "id":17,
-                 "name":"mirror",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":50,
-                 "x":1400,
-                 "y":400
-                }, 
-                {
-                 "height":50,
-                 "id":18,
-                 "name":"mirror",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":50,
-                 "x":800,
-                 "y":1150
-                }, 
-                {
-                 "height":50,
-                 "id":19,
-                 "name":"mirror",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":50,
-                 "x":550,
-                 "y":1400
-                }, 
-                {
-                 "height":50,
-                 "id":20,
-                 "name":"mirror",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":50,
-                 "x":250,
-                 "y":600
-                }, 
-                {
-                 "height":50,
-                 "id":21,
-                 "name":"mirror",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":50,
-                 "x":800,
-                 "y":850
-                }, 
-                {
-                 "height":50,
-                 "id":22,
-                 "name":"mirror",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":50,
-                 "x":800,
-                 "y":950
-                }, 
-                {
-                 "height":50,
-                 "id":23,
-                 "name":"mirror",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":50,
-                 "x":1450,
-                 "y":1100
-                }, 
-                {
-                 "height":50,
-                 "id":24,
-                 "name":"mirror",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":50,
-                 "x":1000,
-                 "y":450
-                }, 
-                {
-                 "height":50,
-                 "id":25,
-                 "name":"mirror",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":50,
-                 "x":1000,
-                 "y":1400
-                }, 
-                {
-                 "height":50,
-                 "id":26,
-                 "name":"mirror",
+                 "id":1,
+                 "name":"",
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":50,
                  "x":300,
-                 "y":250
+                 "y":100
                 }, 
                 {
                  "height":50,
-                 "id":27,
-                 "name":"mirror",
+                 "id":2,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":50,
+                 "x":500,
+                 "y":200
+                }, 
+                {
+                 "height":50,
+                 "id":3,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":50,
+                 "x":350,
+                 "y":300
+                }, 
+                {
+                 "height":50,
+                 "id":4,
+                 "name":"",
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":50,
                  "x":50,
-                 "y":450
+                 "y":200
                 }, 
                 {
                  "height":50,
-                 "id":29,
-                 "name":"mirror",
+                 "id":6,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":50,
+                 "x":700,
+                 "y":350
+                }, 
+                {
+                 "height":50,
+                 "id":7,
+                 "name":"",
                  "rotation":0,
                  "type":"",
                  "visible":true,
@@ -228,122 +74,171 @@
                 }, 
                 {
                  "height":50,
-                 "id":30,
-                 "name":"mirror",
+                 "id":8,
+                 "name":"",
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":50,
-                 "x":1500,
-                 "y":0
-                }, 
-                {
-                 "height":50,
-                 "id":31,
-                 "name":"mirror",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":50,
-                 "x":250,
-                 "y":1400
-                }, 
-                {
-                 "height":50,
-                 "id":32,
-                 "name":"mirror",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":50,
-                 "x":200,
-                 "y":850
-                }, 
-                {
-                 "height":50,
-                 "id":33,
-                 "name":"mirror",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":50,
-                 "x":1100,
-                 "y":1100
-                }, 
-                {
-                 "height":50,
-                 "id":35,
-                 "name":"mirror",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":50,
-                 "x":50,
-                 "y":1500
+                 "x":150,
+                 "y":400
                 }],
          "opacity":1,
          "type":"objectgroup",
          "visible":true,
-         "width":32,
+         "width":20,
          "x":0,
          "y":0
         }, 
         {
+         "color":"#0000ff",
          "draworder":"topdown",
-         "height":32,
-         "name":"laserShooters",
+         "height":10,
+         "name":"chargers",
          "objects":[
                 {
                  "height":50,
-                 "id":12,
-                 "name":"Laser2",
-                 "properties":
-                    {
-                     "face":"Up"
-                    },
-                 "propertytypes":
-                    {
-                     "face":"string"
-                    },
+                 "id":9,
+                 "name":"",
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":50,
-                 "x":1300,
-                 "y":1550
+                 "x":700,
+                 "y":150
                 }, 
                 {
                  "height":50,
-                 "id":6,
-                 "name":"Laser1",
-                 "properties":
-                    {
-                     "face":"down"
-                    },
-                 "propertytypes":
-                    {
-                     "face":"string"
-                    },
+                 "id":10,
+                 "name":"",
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":50,
                  "x":250,
+                 "y":250
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "width":20,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "color":"#aaff00",
+         "draworder":"topdown",
+         "height":10,
+         "name":"laserShooters",
+         "objects":[
+                {
+                 "height":50,
+                 "id":11,
+                 "name":"",
+                 "properties":
+                    {
+                     "direction":"RIGHT"
+                    },
+                 "propertytypes":
+                    {
+                     "direction":"string"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":50,
+                 "x":0,
+                 "y":100
+                }, 
+                {
+                 "height":50,
+                 "id":12,
+                 "name":"",
+                 "properties":
+                    {
+                     "direction":"UP"
+                    },
+                 "propertytypes":
+                    {
+                     "direction":"string"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":50,
+                 "x":750,
+                 "y":450
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "width":20,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "color":"#aa0000",
+         "draworder":"topdown",
+         "height":10,
+         "name":"walls",
+         "objects":[
+                {
+                 "height":50,
+                 "id":14,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":1000,
+                 "x":0,
+                 "y":0
+                }, 
+                {
+                 "height":500,
+                 "id":15,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":50,
+                 "x":950,
+                 "y":0
+                }, 
+                {
+                 "height":50,
+                 "id":16,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":1000,
+                 "x":0,
+                 "y":450
+                }, 
+                {
+                 "height":500,
+                 "id":17,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":50,
+                 "x":0,
                  "y":0
                 }],
          "opacity":1,
          "type":"objectgroup",
          "visible":true,
-         "width":32,
+         "width":20,
          "x":0,
          "y":0
         }],
- "nextobjectid":38,
+ "nextobjectid":18,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tileheight":50,
  "tilesets":[],
  "tilewidth":50,
  "version":1,
- "width":32
+ "width":20
 }
