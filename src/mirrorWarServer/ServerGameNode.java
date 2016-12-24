@@ -1,6 +1,7 @@
 package mirrorWarServer;
 
 import java.awt.geom.Rectangle2D;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -18,12 +19,16 @@ import java.util.Map;
 
 import com.google.protobuf.InvalidProtocolBufferException;
 
+import MapLoader.MapLoader;
+import MapLoader.MapObject;
 import gameEngine.AnimationPlayer;
 import gameEngine.FunctionTriggerAnimation;
 import gameEngine.Game;
 import gameEngine.GameNode;
+import gameEngine.RectangleGameNode;
 import javafx.application.Platform;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
 import mirrorWar.Constants;
 import mirrorWar.DangerousGlobalVariables;
 import mirrorWar.charger.Charger.ChargerState;
@@ -45,13 +50,12 @@ import netGameNodeSDK.PlayerNetGameNode;
 public class ServerGameNode extends GameNode {
 	private int objectId = 0;
 
-	private ServerSocket serverSocket;
-
 	private List<Socket> playerSockets;
 	private Map<PlayerNetGameNode, InetSocketAddress> playerIPMap = Collections.synchronizedMap(new HashMap<>());
 	private Map<Integer, PlayerNetGameNode> players = Collections.synchronizedMap(new HashMap<>());
 	private Map<Integer, MirrorNetGameNode> mirrors = Collections.synchronizedMap(new HashMap<>());
 	private Map<Integer, ChargerNetGameNode> chargers = Collections.synchronizedMap(new HashMap<>());
+	private Map<Integer, Rectangle2D.Double> playersRespawnRegion = new HashMap<Integer, Rectangle2D.Double>();
 
 	private DatagramSocket commandInputSocket;
 	private DatagramPacket commandPacket;
@@ -66,8 +70,11 @@ public class ServerGameNode extends GameNode {
 	};
 	
 	public ServerGameNode(ServerSocket serverSocket, List<Socket> playerSockets) throws IOException {
-		this.serverSocket = serverSocket;
 		this.playerSockets = playerSockets;
+		
+		MapLoader mLoader = new MapLoader("./src/MapLoader/map.json"); 
+
+		readPlayerRespawnRegion(mLoader.getObjectLayers().get("respawnArea"));
 
 		setupUDPServer();
 
@@ -79,26 +86,19 @@ public class ServerGameNode extends GameNode {
 
 		setupUpdateBoardcastingService();
 		setupWaitsForCommandsService();
-
-		randomlyAddMirrorToGame();
-		randomlyAddChargerToGame();
+		
+		addMirrorToGame(mLoader.getObjectLayers().get("mirrors"));
+		addChargerToGame(mLoader.getObjectLayers().get("chargers"));
+		addWallToGame(mLoader.getObjectLayers().get("walls"));
 		
 		addChild(gameReport);
-		
-		new Thread(() -> {
-			try {
-				while (true) {
-					Thread.sleep(1000);
-					gameReport.hurtPlayer(0);
-					Thread.sleep(3000);
-					players.get(0).beKilled();
-					players.get(1).beKilled();
-				}
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}).start();
+	}
+	
+	private void readPlayerRespawnRegion(List<MapObject> respawnRegions) {
+		for (int i = 0; i < respawnRegions.size(); ++i) {
+			MapObject region = respawnRegions.get(i);
+			playersRespawnRegion.put(i,new Rectangle2D.Double(region.x, region.y, region.width, region.height));
+		}
 	}
 
 	private void sendMessageToAllClient(ServerMessage.Message msg) {
@@ -117,17 +117,17 @@ public class ServerGameNode extends GameNode {
 		});
 	}
 
-	private void randomlyAddMirrorToGame() {
-		for (int i = 0; i < 20; ++i) {
-			double x = Math.random() * 1000;
-			double y = Math.random() * 1000;
+	private void addMirrorToGame(List<MapObject> mirrorList) {
+		for (MapObject mirror : mirrorList) {
 			int id = getUniqueObjectId();
 
 			MirrorNetGameNode newMirror = new MirrorNetGameNode(id);
 			newMirror.serverInitialize(Game.currentScene(), false);
 
-			newMirror.geometry.x = x;
-			newMirror.geometry.y = y;
+			newMirror.geometry.x = mirror.x;
+			newMirror.geometry.y = mirror.y;
+			newMirror.geometry.width = mirror.width;
+			newMirror.geometry.height = mirror.height;
 
 			if (Math.random() * 10 >= 5) {
 				newMirror.spin();
@@ -139,10 +139,8 @@ public class ServerGameNode extends GameNode {
 		}
 	}
 
-	private void randomlyAddChargerToGame() {
-		for (int i = 0; i < 2; ++i) {
-			double x = Math.random() * 300;
-			double y = Math.random() * 300;
+	private void addChargerToGame(List<MapObject> chargerList) {
+		for (MapObject charger : chargerList) {
 			int id = getUniqueObjectId();
 
 			ChargerNetGameNode newCharger = new ChargerNetGameNode(id) {
@@ -158,12 +156,23 @@ public class ServerGameNode extends GameNode {
 			};
 			newCharger.serverInitialize(Game.currentScene(), false);
 
-			newCharger.geometry.x = x;
-			newCharger.geometry.y = y;
+			newCharger.geometry.x = charger.x;
+			newCharger.geometry.y = charger.y;
+			newCharger.geometry.width = charger.width;
+			newCharger.geometry.height = charger.height;
 
 			addChild(newCharger);
 
 			chargers.put(id, newCharger);
+		}
+	}
+	
+	private void addWallToGame(List<MapObject> wallList) {
+		for (MapObject wall : wallList) {
+			RectangleGameNode newWall = new RectangleGameNode(wall.x, wall.y, wall.width, wall.height, Color.TRANSPARENT);
+			
+			addChild(newWall);
+			Game.currentScene().physicEngine.addStaticNode(newWall);
 		}
 	}
 
@@ -258,7 +267,7 @@ public class ServerGameNode extends GameNode {
 			return;
 		}
 
-		Rectangle2D.Double rec = (clientId == 0) ? Constants.PLAYER0_RESPAWN_REGION : Constants.PLAYER1_RESPAWN_REGION;
+		Rectangle2D.Double rec = playersRespawnRegion.get(clientId);
 		PlayerNetGameNode playerNode = new PlayerNetGameNode(clientId, rec);
 		playerNode.serverInitialize(Game.currentScene(), true);
 		addChild(playerNode);

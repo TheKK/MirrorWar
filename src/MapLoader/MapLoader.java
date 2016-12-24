@@ -112,10 +112,10 @@ public class MapLoader {
 
 	private void readObject() throws IOException {
 
-		int height = 0;
-		int width = 0;
-		int x = 0;
-		int y = 0;
+		double height = 0;
+		double width = 0;
+		double x = 0;
+		double y = 0;
 		HashMap<String, String> properties = new HashMap<>();
 
 		reader.beginObject();
@@ -127,19 +127,19 @@ public class MapLoader {
 				properties = readProperties();
 				break;
 			case "x":
-				x = reader.nextInt();
+				x = reader.nextDouble();
 				break;
 
 			case "y":
-				y = reader.nextInt();
+				y = reader.nextDouble();
 				break;
 
 			case "height":
-				height = reader.nextInt();
+				height = reader.nextDouble();
 				break;
 
 			case "width":
-				width = reader.nextInt();
+				width = reader.nextDouble();
 				break;
 
 			default:

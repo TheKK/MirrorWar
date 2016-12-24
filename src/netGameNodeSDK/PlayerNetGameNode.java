@@ -76,8 +76,6 @@ public final class PlayerNetGameNode extends NetGameNode<PlayerState, Input> {
 
 	@Override
 	public void clientInitialize(GameScene scene) {
-		geometry.x = 0;
-		geometry.y = 0;
 
 		dampX = 0.9999;
 		dampY = 0.9999;
@@ -99,8 +97,7 @@ public final class PlayerNetGameNode extends NetGameNode<PlayerState, Input> {
 
 	@Override
 	public void serverInitialize(GameScene scene, boolean debugMode) {
-		geometry.x = 0;
-		geometry.y = 0;
+		respawn();
 		geometry.width = 50;
 		geometry.height = 50;
 
@@ -447,6 +444,10 @@ public final class PlayerNetGameNode extends NetGameNode<PlayerState, Input> {
 	
 	public void beKilled() {
 		// TODO make this and animation
+		respawn();
+	}
+	
+	private void respawn() {
 		geometry.x = serverRespawnRegion.x + Math.random() * (serverRespawnRegion.width) - geometry.width;
 		geometry.y = serverRespawnRegion.y + Math.random() * (serverRespawnRegion.height) - geometry.height;
 		vx = 0;

@@ -186,7 +186,7 @@ public class ServerMatrixGameNode extends GameNode {
 	}
 
 	private void addNewClient(InetSocketAddress clientUpdateAddr, int clientId) {
-		Rectangle2D.Double rec = (clientId == 0) ? Constants.PLAYER0_RESPAWN_REGION : Constants.PLAYER1_RESPAWN_REGION;
+		Rectangle2D.Double rec = new Rectangle2D.Double(0, 0, 400, 400);
 		PlayerNetGameNode playerNode = new PlayerNetGameNode(clientId, rec);
 		playerNode.serverInitialize(Game.currentScene(), true);
 
