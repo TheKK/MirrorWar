@@ -1,0 +1,38 @@
+{ "frames": [
+   {
+    "filename": "laserTail 0.png",
+    "frame": { "x": 0, "y": 0, "w": 50, "h": 50 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 50, "h": 50 },
+    "sourceSize": { "w": 50, "h": 50 },
+    "duration": 100
+   },
+   {
+    "filename": "laserTail 1.png",
+    "frame": { "x": 50, "y": 0, "w": 50, "h": 50 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 50, "h": 50 },
+    "sourceSize": { "w": 50, "h": 50 },
+    "duration": 100
+   },
+   {
+    "filename": "laserTail 2.png",
+    "frame": { "x": 100, "y": 0, "w": 50, "h": 50 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 50, "h": 50 },
+    "sourceSize": { "w": 50, "h": 50 },
+    "duration": 100
+   }
+ ],
+ "meta": {
+  "app": "http://www.aseprite.org/",
+  "version": "1.1.10-dev",
+  "image": "/home/kk/Programs/eclipse-installer/workspace/gameEngine/src/mirrorWar/pic/laserTail_blue.png",
+  "format": "RGBA8888",
+  "size": { "w": 150, "h": 50 },
+  "scale": "1"
+ }
+}
