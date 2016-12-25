@@ -47,8 +47,6 @@ public abstract class GameReportNetGameNode extends NetGameNode<GameReport.Statu
 		for(int i = 0; i < update.getPlayersChargerEnergyCount(); ++i) {
 			chargersEnergy[i] = update.getPlayersChargerEnergy(i);
 		}
-		
-		System.out.println(chargersEnergy[clientPlayerId]);
 	}
 
 	@Override
@@ -75,8 +73,7 @@ public abstract class GameReportNetGameNode extends NetGameNode<GameReport.Statu
 		
 		while (chargersEnergy[chargerId] >= 100) {
 			chargersEnergy[chargerId] -= 100;
-			
-			System.out.println("GameReport: Charged");
+
 			hurtPlayer((chargerId == 0) ? 1 : 0);
 		}
 	}

@@ -156,13 +156,12 @@ public class LaserEmitterNetGameNode extends NetGameNode<LaserState, Void> {
 
 	private void addLaserToPhysicEng() {
 		for (Rectangle2D.Double laser : laserPath) {
-			laserNodes.add(
-					new RectangleGameNode(laser.x, laser.y, laser.getWidth(), laser.getHeight(), Color.CHARTREUSE));
+			laserNodes.add(new RectangleGameNode(laser.x, laser.y, laser.getWidth(), laser.getHeight(), Color.CHARTREUSE));
 		}
 		PhysicEngine physicEngine = Game.currentScene().physicEngine;
 		for (GameNode gameNode : laserNodes) {
 			gameNode.addColissionGroup(serverLaserGroupId);
-			physicEngine.addAreaNode(gameNode);
+			Game.currentScene().physicEngine.addAreaNode(gameNode);
 		}
 	}
 
@@ -185,12 +184,17 @@ public class LaserEmitterNetGameNode extends NetGameNode<LaserState, Void> {
 				intersects = physicEngine.getStaticNodesInArea(laserlight);
 				Optional<GameNode> nearestNodeOp = intersects.stream()
 						.max(Comparator.comparing(node -> ((GameNode) node).geometry.y));
+				
 				if (!nearestNodeOp.isPresent()) { // nothing
 					laserPath.add(laserlight);
 					laserDir.add(LaserState.Direction.Up);
 					break;
+					
 				} else {
 					GameNode nearestNode = nearestNodeOp.get();
+					
+					tryCharging(nearestNode);
+					
 					// mirror
 					if (nearestNode instanceof MirrorNetGameNode) {
 						//System.out.println("Mirror!");
@@ -228,12 +232,17 @@ public class LaserEmitterNetGameNode extends NetGameNode<LaserState, Void> {
 				intersects = physicEngine.getStaticNodesInArea(laserlight);
 				Optional<GameNode> nearestNodeOp = intersects.stream()
 						.min(Comparator.comparing(node -> ((GameNode) node).geometry.y));
+				
 				if (!nearestNodeOp.isPresent()) { // nothing
 					laserPath.add(laserlight);
 					laserDir.add(LaserState.Direction.Down);
 					break;
+					
 				} else {
 					GameNode nearestNode = nearestNodeOp.get();
+					
+					tryCharging(nearestNode);
+					
 					// mirror
 					if (nearestNode instanceof MirrorNetGameNode) {
 						//System.out.println("Mirror!");
@@ -271,12 +280,17 @@ public class LaserEmitterNetGameNode extends NetGameNode<LaserState, Void> {
 				intersects = physicEngine.getStaticNodesInArea(laserlight);
 				Optional<GameNode> nearestNodeOp = intersects.stream()
 						.max(Comparator.comparing(node -> ((GameNode) node).geometry.x));
+				
 				if (!nearestNodeOp.isPresent()) { // nothing
 					laserPath.add(laserlight);
 					laserDir.add(LaserState.Direction.Left);
 					break;
+					
 				} else {
 					GameNode nearestNode = nearestNodeOp.get();
+					
+					tryCharging(nearestNode);
+					
 					// mirror
 					if (nearestNode instanceof MirrorNetGameNode) {
 						//System.out.println("Mirror!");
@@ -322,6 +336,9 @@ public class LaserEmitterNetGameNode extends NetGameNode<LaserState, Void> {
 					
 				} else {
 					GameNode nearestNode = nearestNodeOp.get();
+					
+					tryCharging(nearestNode);
+					
 					// mirror
 					if (nearestNode instanceof MirrorNetGameNode) {
 						//System.out.println("Mirror!");
@@ -360,5 +377,15 @@ public class LaserEmitterNetGameNode extends NetGameNode<LaserState, Void> {
 
 	private double clampToZero(double in) {
 		return Math.max(0, in);
+	}
+	
+	private void tryCharging(GameNode node) {
+		if (node instanceof ChargerNetGameNode) {
+			if (ownerId == 0) {
+				((ChargerNetGameNode) node).chargePlayer0();
+			} else if (ownerId == 1) {
+				((ChargerNetGameNode) node).chargePlayer1();
+			}
+		}
 	}
 }

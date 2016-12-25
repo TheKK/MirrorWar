@@ -1,17 +1,16 @@
 package netGameNodeSDK;
 
-import gameEngine.GameNode;
 import gameEngine.GameScene;
 import gameEngine.RectangleGameNode;
 import javafx.scene.paint.Color;
-import mirrorWar.Constants;
 import mirrorWar.charger.Charger.ChargerState;
 import mirrorWar.charger.Charger.ChargerState.Animation;
 
 public class ChargerNetGameNode extends NetGameNode<ChargerState, Void> {
 	private int id;
-	private RectangleGameNode serverChargeringArea;
-	private ChargerState.Animation clientCurrentAnimation = Animation.NORMAL, serverCurrentAnimation = Animation.NORMAL;
+	protected boolean isCharging = false;
+	private ChargerState.Animation clientCurrentAnimation = Animation.NORMAL;
+	private ChargerState.Animation serverCurrentAnimation = Animation.NORMAL;
 
 	public ChargerNetGameNode(int id) {
 		this.id = id;
@@ -41,10 +40,6 @@ public class ChargerNetGameNode extends NetGameNode<ChargerState, Void> {
 
 		scene.physicEngine.addStaticNode(this);
 
-		serverChargeringArea = new RectangleGameNode(0, 0, 50, 50, Color.TRANSPARENT);
-		addChild(serverChargeringArea);
-		scene.physicEngine.addStaticNode(serverChargeringArea);
-
 		updateFunc = (elapse) -> {
 			serverUpdate(elapse);
 		};
@@ -56,41 +51,20 @@ public class ChargerNetGameNode extends NetGameNode<ChargerState, Void> {
 
 	@Override
 	protected void serverUpdate(long elapse) {
-		if (serverChargeringArea.isAreaEntred()) {
-			boolean player1LaserHit = false, player2LaserHit = false;
-
-			for (GameNode node : serverChargeringArea.enteredAreaSet()) {
-				for (int group: node.collissionGroup()) {
-					System.out.println("Group: " + group);
-				}
-				
-				if (node.collissionGroup().contains(Constants.PLAYER0_LASER_COLLISION_GROUP)) {
-					player1LaserHit = true;
-				} else if (node.collissionGroup().contains(Constants.PLAYER1_LASER_COLLISION_GROUP)) {
-					player2LaserHit = true;
-				}
-			}
-
-			if (player1LaserHit) {
-				chargePlayer0();
-			}
-			if (player2LaserHit) {
-				chargePlayer1();
-			}
-			if (player1LaserHit || player2LaserHit) {
-				serverCurrentAnimation = Animation.IS_CHARGED;
-			} else {
-				serverCurrentAnimation = Animation.NORMAL;
-			}
+		if (isCharging) {
+			serverCurrentAnimation = Animation.IS_CHARGED;
+		} else {
+			serverCurrentAnimation = Animation.NORMAL;
 		}
+		
+		isCharging = false;
+	}
+
+	public void chargePlayer1() {
 
 	}
 
-	protected void chargePlayer1() {
-
-	}
-
-	protected void chargePlayer0() {
+	public void chargePlayer0() {
 
 	}
 

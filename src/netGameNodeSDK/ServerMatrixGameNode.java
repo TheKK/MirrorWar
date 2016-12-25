@@ -63,7 +63,6 @@ public class ServerMatrixGameNode extends GameNode {
 		setupWaitsForCommandsService();
 
 		randomlyAddMirrorToGame();
-		randomlyAddChargerToGame();
 
 		RectangleGameNode wall = new RectangleGameNode(100, 100, 9000, 30, Color.PURPLE);
 		Game.currentScene().physicEngine.addStaticNode(wall);
@@ -89,34 +88,6 @@ public class ServerMatrixGameNode extends GameNode {
 			addChild(newMirror);
 
 			mirrors.put(id, newMirror);
-		}
-	}
-
-	private void randomlyAddChargerToGame() {
-		for (int i = 0; i < 2; ++i) {
-			double x = Math.random() * 300;
-			double y = Math.random() * 300;
-			int id = getUniqueObjectId();
-
-			ChargerNetGameNode newCharger = new ChargerNetGameNode(id) {
-				@Override
-				protected void chargePlayer1() {
-					gameChargePlayer2();
-				}
-
-				@Override
-				protected void chargePlayer0() {
-					gameChargePlayer1();
-				}
-			};
-			newCharger.serverInitialize(Game.currentScene(), false);
-
-			newCharger.geometry.x = x;
-			newCharger.geometry.y = y;
-
-			addChild(newCharger);
-
-			chargers.put(id, newCharger);
 		}
 	}
 

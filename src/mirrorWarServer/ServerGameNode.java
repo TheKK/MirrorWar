@@ -31,6 +31,7 @@ import javafx.scene.paint.Color;
 import mirrorWar.Constants;
 import mirrorWar.DangerousGlobalVariables;
 import mirrorWar.charger.Charger.ChargerState;
+import mirrorWar.charger.Charger.ChargerState.Animation;
 import mirrorWar.gameReport.GameReport;
 import mirrorWar.gameStatusUpdate.GameStatusUpdate;
 import mirrorWar.gameStatusUpdate.GameStatusUpdate.ServerMessage;
@@ -178,13 +179,14 @@ public class ServerGameNode extends GameNode {
 
 			ChargerNetGameNode newCharger = new ChargerNetGameNode(id) {
 				@Override
-				protected void chargePlayer0() {
-					System.out.println("chargerPlayer0");
+				public void chargePlayer0() {
+					isCharging = true;
 					gameChargePlayer0();
 				}
 				
 				@Override
-				protected void chargePlayer1() {
+				public void chargePlayer1() {
+					isCharging = true;
 					gameChargePlayer1();
 				}
 
