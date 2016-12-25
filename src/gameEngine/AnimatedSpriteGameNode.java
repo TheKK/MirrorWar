@@ -30,6 +30,9 @@ public class AnimatedSpriteGameNode extends GameNode {
 
 	public boolean autoPlayed = true;
 
+	public boolean flipVertical = false;
+	public boolean flipHorizontal = false;
+
 	// TODO It should be possible to load image from path which provided by JSON file
 	public static AnimatedSpriteGameNode fromAsepriteJson(Image image, String filePath) throws FileNotFoundException {
 		JsonParser parser = new JsonParser();
@@ -130,9 +133,24 @@ public class AnimatedSpriteGameNode extends GameNode {
 	public void render(GraphicsContext gc) {
 		Rectangle2D clipRect = frameClips.get(currentFrame).clilp;
 
+		double dx = 0;
+		double dy = 0;
+		double dw = geometry.width;
+		double dh = geometry.height;
+
+		if (flipVertical) {
+			dx += Math.abs(dw);
+			dw = -Math.abs(dw);
+		}
+
+		if (flipHorizontal) {
+			dy += Math.abs(dh);
+			dh = -Math.abs(dh);
+		}
+
 		gc.drawImage(
 				image,
 				clipRect.getX(), clipRect.getY(), clipRect.getWidth(), clipRect.getHeight(),
-				0, 0, geometry.width, geometry.height);
+				dx, dy, dw, dh);
 	}
 }
