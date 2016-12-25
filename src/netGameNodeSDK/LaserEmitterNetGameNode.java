@@ -4,9 +4,11 @@ import java.awt.Rectangle;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import gameEngine.AnimatedSpriteGameNode;
 import gameEngine.Game;
 import gameEngine.GameNode;
 import gameEngine.GameScene;
@@ -48,10 +50,35 @@ public class LaserEmitterNetGameNode extends NetGameNode<LaserState, Void> {
 		clientLaserEmitterImage = new RectangleGameNode(0, 0, 50, 50, Color.BISQUE);
 		
 		Color laserColor = (ownerId == 0) ? Color.BLUE : Color.ORANGERED;
-		clientLaserBeam = new LaserBeam(
-				new RectangleGameNode(0, 0, 50, 50, laserColor),
-				new RectangleGameNode(0, 0, 50, 50, laserColor),
-				new RectangleGameNode(0, 0, 50, 50, laserColor));
+		
+		final String LASER_HEAD_ANIMATION_PATH = "./src/mirrorWar/pic/laserHead.png";
+		final String LASER_BODY_ANIMATION_PATH = "./src/mirrorWar/pic/laserBody.png";
+		final String LASER_TAIL_ANIMATION_PATH = "./src/mirrorWar/pic/laserTail.png";
+		
+		int laserWidth = 50, laserHeight = 50;
+		AnimatedSpriteGameNode laserHead =
+				new AnimatedSpriteGameNode(Game.loadImage(LASER_HEAD_ANIMATION_PATH), laserWidth, laserHeight);
+		AnimatedSpriteGameNode laserBody =
+				new AnimatedSpriteGameNode(Game.loadImage(LASER_BODY_ANIMATION_PATH), laserWidth, laserHeight);
+		AnimatedSpriteGameNode laserTail =
+				new AnimatedSpriteGameNode(Game.loadImage(LASER_TAIL_ANIMATION_PATH), laserWidth, laserHeight);
+
+		List<Rectangle2D.Double> frames = new ArrayList<Rectangle2D.Double>();
+		frames.add(new Rectangle2D.Double(50 * 0, 0, 50, 50));
+		frames.add(new Rectangle2D.Double(50 * 1, 0, 50, 50));
+		frames.add(new Rectangle2D.Double(50 * 2, 0, 50, 50));
+
+		frames.forEach(frame -> {
+			laserHead.addFrame(frame, 60);
+			laserBody.addFrame(frame, 60);
+			laserTail.addFrame(frame, 60);
+		});
+
+		laserHead.autoPlayed = true;
+		laserBody.autoPlayed = true;
+		laserTail.autoPlayed = true;
+		
+		clientLaserBeam = new LaserBeam(laserHead, laserBody, laserTail);
 		
 		addChild(clientLaserEmitterImage);
 		addChild(clientLaserBeam);

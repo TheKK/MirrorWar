@@ -166,6 +166,7 @@ public class CoinGameScene extends GameScene {
 		List<LaserBeam.LaserBeamInfo> beams = new ArrayList<>();
 		beams.add(new LaserBeam.LaserBeamInfo(new Rectangle2D.Double(0, 0, 500, 50), LaserBeam.Direction.LEFT));
 		beams.add(new LaserBeam.LaserBeamInfo(new Rectangle2D.Double(0, 60, 500, 50), LaserBeam.Direction.RIGHT));
+		
 		beams.add(new LaserBeam.LaserBeamInfo(new Rectangle2D.Double(-100, 0, 50, 500), LaserBeam.Direction.DOWN));
 		beams.add(new LaserBeam.LaserBeamInfo(new Rectangle2D.Double(-160, 0, 50, 500), LaserBeam.Direction.UP));
 
@@ -190,7 +191,7 @@ public class CoinGameScene extends GameScene {
 		beamAni.addAnchor(0, 1., TransitionType.SIN, EaseType.IN_OUT);
 		beamAni.addAnchor(1500, 2., TransitionType.SIN, EaseType.IN_OUT);
 		beamAni.addAnchor(3000, 1., TransitionType.SIN, EaseType.IN_OUT);
-		aniPlayer.addAnimation("beamAni", beamAni);
+		//aniPlayer.addAnimation("beamAni", beamAni);
 
 		GameNode player = new RectangleGameNode(0, 0, 50, 50, Color.BLUE) {
 			AnimationPlayer countDownAniPlayer = new AnimationPlayer(6000);
