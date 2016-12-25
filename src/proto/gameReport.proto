@@ -4,4 +4,6 @@ package mirrorWar.gameReport;
 
 message Status {
     repeated int32 playersLife = 1;
+
+    repeated double playersChargerEnergy = 2;
 }

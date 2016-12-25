@@ -60,6 +60,10 @@ public class ChargerNetGameNode extends NetGameNode<ChargerState, Void> {
 			boolean player1LaserHit = false, player2LaserHit = false;
 
 			for (GameNode node : serverChargeringArea.enteredAreaSet()) {
+				for (int group: node.collissionGroup()) {
+					System.out.println("Group: " + group);
+				}
+				
 				if (node.collissionGroup().contains(Constants.PLAYER0_LASER_COLLISION_GROUP)) {
 					player1LaserHit = true;
 				} else if (node.collissionGroup().contains(Constants.PLAYER1_LASER_COLLISION_GROUP)) {
@@ -68,10 +72,10 @@ public class ChargerNetGameNode extends NetGameNode<ChargerState, Void> {
 			}
 
 			if (player1LaserHit) {
-				chargePlayer1();
+				chargePlayer0();
 			}
 			if (player2LaserHit) {
-				chargePlayer2();
+				chargePlayer1();
 			}
 			if (player1LaserHit || player2LaserHit) {
 				serverCurrentAnimation = Animation.IS_CHARGED;
@@ -82,11 +86,11 @@ public class ChargerNetGameNode extends NetGameNode<ChargerState, Void> {
 
 	}
 
-	protected void chargePlayer2() {
+	protected void chargePlayer1() {
 
 	}
 
-	protected void chargePlayer1() {
+	protected void chargePlayer0() {
 
 	}
 
@@ -111,7 +115,6 @@ public class ChargerNetGameNode extends NetGameNode<ChargerState, Void> {
 				.setX(geometry.x)
 				.setY(geometry.y)
 				.setAnimation(serverCurrentAnimation)
-				//.addRects(builderForValue)//TODO
 				.build();
 	}
 

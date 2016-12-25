@@ -30,6 +30,19 @@ public final class GameReport {
      * <code>repeated int32 playersLife = 1;</code>
      */
     int getPlayersLife(int index);
+
+    /**
+     * <code>repeated double playersChargerEnergy = 2;</code>
+     */
+    java.util.List<java.lang.Double> getPlayersChargerEnergyList();
+    /**
+     * <code>repeated double playersChargerEnergy = 2;</code>
+     */
+    int getPlayersChargerEnergyCount();
+    /**
+     * <code>repeated double playersChargerEnergy = 2;</code>
+     */
+    double getPlayersChargerEnergy(int index);
   }
   /**
    * Protobuf type {@code mirrorWar.gameReport.Status}
@@ -44,6 +57,7 @@ public final class GameReport {
     }
     private Status() {
       playersLife_ = java.util.Collections.emptyList();
+      playersChargerEnergy_ = java.util.Collections.emptyList();
     }
 
     @java.lang.Override
@@ -95,6 +109,27 @@ public final class GameReport {
               input.popLimit(limit);
               break;
             }
+            case 17: {
+              if (!((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
+                playersChargerEnergy_ = new java.util.ArrayList<java.lang.Double>();
+                mutable_bitField0_ |= 0x00000002;
+              }
+              playersChargerEnergy_.add(input.readDouble());
+              break;
+            }
+            case 18: {
+              int length = input.readRawVarint32();
+              int limit = input.pushLimit(length);
+              if (!((mutable_bitField0_ & 0x00000002) == 0x00000002) && input.getBytesUntilLimit() > 0) {
+                playersChargerEnergy_ = new java.util.ArrayList<java.lang.Double>();
+                mutable_bitField0_ |= 0x00000002;
+              }
+              while (input.getBytesUntilLimit() > 0) {
+                playersChargerEnergy_.add(input.readDouble());
+              }
+              input.popLimit(limit);
+              break;
+            }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
@@ -105,6 +140,9 @@ public final class GameReport {
       } finally {
         if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
           playersLife_ = java.util.Collections.unmodifiableList(playersLife_);
+        }
+        if (((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
+          playersChargerEnergy_ = java.util.Collections.unmodifiableList(playersChargerEnergy_);
         }
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
@@ -144,6 +182,28 @@ public final class GameReport {
       return playersLife_.get(index);
     }
 
+    public static final int PLAYERSCHARGERENERGY_FIELD_NUMBER = 2;
+    private java.util.List<java.lang.Double> playersChargerEnergy_;
+    /**
+     * <code>repeated double playersChargerEnergy = 2;</code>
+     */
+    public java.util.List<java.lang.Double>
+        getPlayersChargerEnergyList() {
+      return playersChargerEnergy_;
+    }
+    /**
+     * <code>repeated double playersChargerEnergy = 2;</code>
+     */
+    public int getPlayersChargerEnergyCount() {
+      return playersChargerEnergy_.size();
+    }
+    /**
+     * <code>repeated double playersChargerEnergy = 2;</code>
+     */
+    public double getPlayersChargerEnergy(int index) {
+      return playersChargerEnergy_.get(index);
+    }
+
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
@@ -158,6 +218,9 @@ public final class GameReport {
                         throws java.io.IOException {
       for (int i = 0; i < playersLife_.size(); i++) {
         output.writeInt32(1, playersLife_.get(i));
+      }
+      for (int i = 0; i < playersChargerEnergy_.size(); i++) {
+        output.writeDouble(2, playersChargerEnergy_.get(i));
       }
       unknownFields.writeTo(output);
     }
@@ -175,6 +238,12 @@ public final class GameReport {
         }
         size += dataSize;
         size += 1 * getPlayersLifeList().size();
+      }
+      {
+        int dataSize = 0;
+        dataSize = 8 * getPlayersChargerEnergyList().size();
+        size += dataSize;
+        size += 1 * getPlayersChargerEnergyList().size();
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -195,6 +264,8 @@ public final class GameReport {
       boolean result = true;
       result = result && getPlayersLifeList()
           .equals(other.getPlayersLifeList());
+      result = result && getPlayersChargerEnergyList()
+          .equals(other.getPlayersChargerEnergyList());
       result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
@@ -209,6 +280,10 @@ public final class GameReport {
       if (getPlayersLifeCount() > 0) {
         hash = (37 * hash) + PLAYERSLIFE_FIELD_NUMBER;
         hash = (53 * hash) + getPlayersLifeList().hashCode();
+      }
+      if (getPlayersChargerEnergyCount() > 0) {
+        hash = (37 * hash) + PLAYERSCHARGERENERGY_FIELD_NUMBER;
+        hash = (53 * hash) + getPlayersChargerEnergyList().hashCode();
       }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
@@ -330,6 +405,8 @@ public final class GameReport {
         super.clear();
         playersLife_ = java.util.Collections.emptyList();
         bitField0_ = (bitField0_ & ~0x00000001);
+        playersChargerEnergy_ = java.util.Collections.emptyList();
+        bitField0_ = (bitField0_ & ~0x00000002);
         return this;
       }
 
@@ -358,6 +435,11 @@ public final class GameReport {
           bitField0_ = (bitField0_ & ~0x00000001);
         }
         result.playersLife_ = playersLife_;
+        if (((bitField0_ & 0x00000002) == 0x00000002)) {
+          playersChargerEnergy_ = java.util.Collections.unmodifiableList(playersChargerEnergy_);
+          bitField0_ = (bitField0_ & ~0x00000002);
+        }
+        result.playersChargerEnergy_ = playersChargerEnergy_;
         onBuilt();
         return result;
       }
@@ -406,6 +488,16 @@ public final class GameReport {
           } else {
             ensurePlayersLifeIsMutable();
             playersLife_.addAll(other.playersLife_);
+          }
+          onChanged();
+        }
+        if (!other.playersChargerEnergy_.isEmpty()) {
+          if (playersChargerEnergy_.isEmpty()) {
+            playersChargerEnergy_ = other.playersChargerEnergy_;
+            bitField0_ = (bitField0_ & ~0x00000002);
+          } else {
+            ensurePlayersChargerEnergyIsMutable();
+            playersChargerEnergy_.addAll(other.playersChargerEnergy_);
           }
           onChanged();
         }
@@ -502,6 +594,72 @@ public final class GameReport {
         onChanged();
         return this;
       }
+
+      private java.util.List<java.lang.Double> playersChargerEnergy_ = java.util.Collections.emptyList();
+      private void ensurePlayersChargerEnergyIsMutable() {
+        if (!((bitField0_ & 0x00000002) == 0x00000002)) {
+          playersChargerEnergy_ = new java.util.ArrayList<java.lang.Double>(playersChargerEnergy_);
+          bitField0_ |= 0x00000002;
+         }
+      }
+      /**
+       * <code>repeated double playersChargerEnergy = 2;</code>
+       */
+      public java.util.List<java.lang.Double>
+          getPlayersChargerEnergyList() {
+        return java.util.Collections.unmodifiableList(playersChargerEnergy_);
+      }
+      /**
+       * <code>repeated double playersChargerEnergy = 2;</code>
+       */
+      public int getPlayersChargerEnergyCount() {
+        return playersChargerEnergy_.size();
+      }
+      /**
+       * <code>repeated double playersChargerEnergy = 2;</code>
+       */
+      public double getPlayersChargerEnergy(int index) {
+        return playersChargerEnergy_.get(index);
+      }
+      /**
+       * <code>repeated double playersChargerEnergy = 2;</code>
+       */
+      public Builder setPlayersChargerEnergy(
+          int index, double value) {
+        ensurePlayersChargerEnergyIsMutable();
+        playersChargerEnergy_.set(index, value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated double playersChargerEnergy = 2;</code>
+       */
+      public Builder addPlayersChargerEnergy(double value) {
+        ensurePlayersChargerEnergyIsMutable();
+        playersChargerEnergy_.add(value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated double playersChargerEnergy = 2;</code>
+       */
+      public Builder addAllPlayersChargerEnergy(
+          java.lang.Iterable<? extends java.lang.Double> values) {
+        ensurePlayersChargerEnergyIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, playersChargerEnergy_);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated double playersChargerEnergy = 2;</code>
+       */
+      public Builder clearPlayersChargerEnergy() {
+        playersChargerEnergy_ = java.util.Collections.emptyList();
+        bitField0_ = (bitField0_ & ~0x00000002);
+        onChanged();
+        return this;
+      }
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
         return super.setUnknownFields(unknownFields);
@@ -566,7 +724,8 @@ public final class GameReport {
   static {
     java.lang.String[] descriptorData = {
       "\n\020gameReport.proto\022\024mirrorWar.gameReport" +
-      "\"\035\n\006Status\022\023\n\013playersLife\030\001 \003(\005"
+      "\";\n\006Status\022\023\n\013playersLife\030\001 \003(\005\022\034\n\024playe" +
+      "rsChargerEnergy\030\002 \003(\001"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -585,7 +744,7 @@ public final class GameReport {
     internal_static_mirrorWar_gameReport_Status_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_mirrorWar_gameReport_Status_descriptor,
-        new java.lang.String[] { "PlayersLife", });
+        new java.lang.String[] { "PlayersLife", "PlayersChargerEnergy", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

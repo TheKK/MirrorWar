@@ -178,14 +178,16 @@ public class ServerGameNode extends GameNode {
 
 			ChargerNetGameNode newCharger = new ChargerNetGameNode(id) {
 				@Override
-				protected void chargePlayer2() {
-					gameChargePlayer2();
+				protected void chargePlayer0() {
+					System.out.println("chargerPlayer0");
+					gameChargePlayer0();
 				}
-
+				
 				@Override
 				protected void chargePlayer1() {
 					gameChargePlayer1();
 				}
+
 			};
 			newCharger.serverInitialize(Game.currentScene(), false);
 
@@ -209,14 +211,12 @@ public class ServerGameNode extends GameNode {
 		}
 	}
 
-	private void gameChargePlayer1() {
-		// FIXME
-		System.out.println("Player 1 is charged");
+	private void gameChargePlayer0() {
+		gameReport.chargeEnergy(0, Constants.DEFAULT_CHARGE_ENERGY);
 	}
 
-	private void gameChargePlayer2() {
-		// FIXME
-		System.out.println("Player 2 is charged");
+	private void gameChargePlayer1() {
+		gameReport.chargeEnergy(1, Constants.DEFAULT_CHARGE_ENERGY);
 	}
 
 	private void setupUpdateBoardcastingService() {

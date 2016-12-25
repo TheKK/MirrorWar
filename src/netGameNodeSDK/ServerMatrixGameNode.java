@@ -100,12 +100,12 @@ public class ServerMatrixGameNode extends GameNode {
 
 			ChargerNetGameNode newCharger = new ChargerNetGameNode(id) {
 				@Override
-				protected void chargePlayer2() {
+				protected void chargePlayer1() {
 					gameChargePlayer2();
 				}
 
 				@Override
-				protected void chargePlayer1() {
+				protected void chargePlayer0() {
 					gameChargePlayer1();
 				}
 			};
