@@ -44,7 +44,7 @@ public class LaserEmitterNetGameNode extends NetGameNode<LaserState, Void> {
 
 	@Override
 	public void clientInitialize(GameScene scene) {
-		clientLaserImage = new RectangleGameNode(geometry.x, geometry.y, geometry.width, geometry.height, Color.ORANGE);
+		clientLaserImage = new RectangleGameNode(0, 0, 50, 50, Color.ORANGE);
 		addChild(clientLaserImage);
 		addChild(laserBeam);
 	}
@@ -72,35 +72,38 @@ public class LaserEmitterNetGameNode extends NetGameNode<LaserState, Void> {
 		geometry.y = update.getY();
 
 		// draw laser with laser Beam
-		ArrayList<Rectangle2D.Double> rectangles = new ArrayList<>();
-		ArrayList<LaserState.Direction> directions = new ArrayList<>();
-		for (Rect re : update.getRectsList()) {
-			rectangles.add(new Rectangle2D.Double(re.getX(), re.getY(), re.getWidth(), re.getHeight()));
-			directions.add(re.getDirec());
-		}
 		ArrayList<LaserBeamInfo> laserBeamInfos = new ArrayList<>();
-		for (int i = 0; i < rectangles.size(); i++) {
-			LaserState.Direction from = directions.get(i);
+		
+		for (Rect re : update.getRectsList()) {
+			LaserState.Direction from = re.getDirec();
 			LaserBeam.Direction to = null;
+			
 			switch (from.getNumber()) {
 			case LaserState.Direction.Down_VALUE:
 				to = LaserBeam.Direction.DOWN;
 				break;
+				
 			case LaserState.Direction.Left_VALUE:
 				to = LaserBeam.Direction.LEFT;
 				break;
+				
 			case LaserState.Direction.Right_VALUE:
 				to = LaserBeam.Direction.RIGHT;
 				break;
+				
 			case LaserState.Direction.Up_VALUE:
 				to = LaserBeam.Direction.UP;
 				break;
-			default:
-				break;
+
 			}
 
-			laserBeamInfos.add(new LaserBeam.LaserBeamInfo(rectangles.get(i), to));
+			Rectangle2D.Double beamBody = new Rectangle2D.Double(
+					re.getX() - geometry.x, re.getY() - geometry.y,
+					re.getWidth(), re.getHeight());
+			laserBeamInfos.add(new LaserBeam.LaserBeamInfo(beamBody, to));
 		}
+		
+
 		laserBeam.setLaserBeamPositions(laserBeamInfos);
 	}
 
