@@ -26,10 +26,13 @@ public final class Game extends Application {
 	static HashMap<KeyCode, Boolean> keyboardState = new HashMap<>();
 
 	static public Canvas canvas;
+	static public Scene scene;
+	static public Stage stage;
 	static private GraphicsContext gc;
 	public static Color clearColor = Color.web("0xcccccc");
 
 	static Class<? extends GameScene> firstGameScene = null;
+	static GameScene firstGameSceneInstance = null;
 	static Stack<GameScene> gameSceneStack = new Stack<GameScene>();
 
 	public static boolean isClickBoundDebugMode = false;
@@ -184,6 +187,9 @@ public final class Game extends Application {
 
 			Scene scene = new Scene(root, width, height, Color.BLACK);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+			
+			Game.scene = scene;
+			Game.stage = primaryStage;
 
 			primaryStage.setScene(scene);
 			primaryStage.setTitle(title);
@@ -198,6 +204,7 @@ public final class Game extends Application {
 			Game.pushScene(Game.firstGameScene.newInstance());
 			startGameLoop();
 		} else {
+			Game.pushScene(firstGameSceneInstance);
 			startGameLoop();
 		}
 	}
@@ -209,8 +216,7 @@ public final class Game extends Application {
 	}
 
 	public static void run(GameScene firstGameScene) {
-		Game.pushScene(firstGameScene);
-
+		Game.firstGameSceneInstance = firstGameScene;
 		launch();
 	}
 }

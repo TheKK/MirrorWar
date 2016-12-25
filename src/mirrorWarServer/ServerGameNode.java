@@ -95,6 +95,11 @@ public class ServerGameNode extends GameNode {
 		addWallToGame(mLoader.getObjectLayers().get("walls"));
 		
 		addChild(gameReport);
+		
+		Game.canvas.setWidth(1250);
+		Game.canvas.setHeight(750);
+		Game.stage.setWidth(1250);
+		Game.stage.setHeight(750);
 	}
 	
 	private void readPlayerRespawnRegion(List<MapObject> respawnRegions) {
