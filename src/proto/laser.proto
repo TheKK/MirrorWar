@@ -20,6 +20,7 @@ message LaserState {
     }
 
     required uint32 id = 1;
+    required uint32 ownerId = 6;
 
     required double x = 2;
     required double y = 3;

@@ -64,7 +64,6 @@ public class ServerMatrixGameNode extends GameNode {
 
 		randomlyAddMirrorToGame();
 		randomlyAddChargerToGame();
-		radomAddLaser();
 
 		RectangleGameNode wall = new RectangleGameNode(100, 100, 9000, 30, Color.PURPLE);
 		Game.currentScene().physicEngine.addStaticNode(wall);
@@ -91,18 +90,6 @@ public class ServerMatrixGameNode extends GameNode {
 
 			mirrors.put(id, newMirror);
 		}
-	}
-
-	private void radomAddLaser() {
-		int id=getUniqueObjectId();
-		LaserEmitterNetGameNode laserEmiter = new LaserEmitterNetGameNode(id);
-
-		laserEmiter.serverInitialize(Game.currentScene(), false);
-		laserEmiter.geometry.x=300;
-		laserEmiter.geometry.y=300;
-
-		addChild(laserEmiter);
-		laserEmiters.put(id,laserEmiter);
 	}
 
 	private void randomlyAddChargerToGame() {

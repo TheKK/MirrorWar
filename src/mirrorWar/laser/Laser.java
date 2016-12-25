@@ -28,6 +28,15 @@ public final class Laser {
     int getId();
 
     /**
+     * <code>required uint32 ownerId = 6;</code>
+     */
+    boolean hasOwnerId();
+    /**
+     * <code>required uint32 ownerId = 6;</code>
+     */
+    int getOwnerId();
+
+    /**
      * <code>required double x = 2;</code>
      */
     boolean hasX();
@@ -91,6 +100,7 @@ public final class Laser {
     }
     private LaserState() {
       id_ = 0;
+      ownerId_ = 0;
       x_ = 0D;
       y_ = 0D;
       dir_ = 1;
@@ -131,12 +141,12 @@ public final class Laser {
               break;
             }
             case 17: {
-              bitField0_ |= 0x00000002;
+              bitField0_ |= 0x00000004;
               x_ = input.readDouble();
               break;
             }
             case 25: {
-              bitField0_ |= 0x00000004;
+              bitField0_ |= 0x00000008;
               y_ = input.readDouble();
               break;
             }
@@ -146,18 +156,23 @@ public final class Laser {
               if (value == null) {
                 unknownFields.mergeVarintField(4, rawValue);
               } else {
-                bitField0_ |= 0x00000008;
+                bitField0_ |= 0x00000010;
                 dir_ = rawValue;
               }
               break;
             }
             case 42: {
-              if (!((mutable_bitField0_ & 0x00000010) == 0x00000010)) {
+              if (!((mutable_bitField0_ & 0x00000020) == 0x00000020)) {
                 rects_ = new java.util.ArrayList<mirrorWar.laser.Laser.LaserState.Rect>();
-                mutable_bitField0_ |= 0x00000010;
+                mutable_bitField0_ |= 0x00000020;
               }
               rects_.add(
                   input.readMessage(mirrorWar.laser.Laser.LaserState.Rect.PARSER, extensionRegistry));
+              break;
+            }
+            case 48: {
+              bitField0_ |= 0x00000002;
+              ownerId_ = input.readUInt32();
               break;
             }
           }
@@ -168,7 +183,7 @@ public final class Laser {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000010) == 0x00000010)) {
+        if (((mutable_bitField0_ & 0x00000020) == 0x00000020)) {
           rects_ = java.util.Collections.unmodifiableList(rects_);
         }
         this.unknownFields = unknownFields.build();
@@ -1182,13 +1197,28 @@ public final class Laser {
       return id_;
     }
 
+    public static final int OWNERID_FIELD_NUMBER = 6;
+    private int ownerId_;
+    /**
+     * <code>required uint32 ownerId = 6;</code>
+     */
+    public boolean hasOwnerId() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    /**
+     * <code>required uint32 ownerId = 6;</code>
+     */
+    public int getOwnerId() {
+      return ownerId_;
+    }
+
     public static final int X_FIELD_NUMBER = 2;
     private double x_;
     /**
      * <code>required double x = 2;</code>
      */
     public boolean hasX() {
-      return ((bitField0_ & 0x00000002) == 0x00000002);
+      return ((bitField0_ & 0x00000004) == 0x00000004);
     }
     /**
      * <code>required double x = 2;</code>
@@ -1203,7 +1233,7 @@ public final class Laser {
      * <code>required double y = 3;</code>
      */
     public boolean hasY() {
-      return ((bitField0_ & 0x00000004) == 0x00000004);
+      return ((bitField0_ & 0x00000008) == 0x00000008);
     }
     /**
      * <code>required double y = 3;</code>
@@ -1218,7 +1248,7 @@ public final class Laser {
      * <code>required .mirrorWar.laser.LaserState.Direction dir = 4;</code>
      */
     public boolean hasDir() {
-      return ((bitField0_ & 0x00000008) == 0x00000008);
+      return ((bitField0_ & 0x00000010) == 0x00000010);
     }
     /**
      * <code>required .mirrorWar.laser.LaserState.Direction dir = 4;</code>
@@ -1273,6 +1303,10 @@ public final class Laser {
         memoizedIsInitialized = 0;
         return false;
       }
+      if (!hasOwnerId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
       if (!hasX()) {
         memoizedIsInitialized = 0;
         return false;
@@ -1300,17 +1334,20 @@ public final class Laser {
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         output.writeUInt32(1, id_);
       }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
         output.writeDouble(2, x_);
       }
-      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
         output.writeDouble(3, y_);
       }
-      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
         output.writeEnum(4, dir_);
       }
       for (int i = 0; i < rects_.size(); i++) {
         output.writeMessage(5, rects_.get(i));
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeUInt32(6, ownerId_);
       }
       unknownFields.writeTo(output);
     }
@@ -1324,21 +1361,25 @@ public final class Laser {
         size += com.google.protobuf.CodedOutputStream
           .computeUInt32Size(1, id_);
       }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
         size += com.google.protobuf.CodedOutputStream
           .computeDoubleSize(2, x_);
       }
-      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
         size += com.google.protobuf.CodedOutputStream
           .computeDoubleSize(3, y_);
       }
-      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
         size += com.google.protobuf.CodedOutputStream
           .computeEnumSize(4, dir_);
       }
       for (int i = 0; i < rects_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(5, rects_.get(i));
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt32Size(6, ownerId_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -1361,6 +1402,11 @@ public final class Laser {
       if (hasId()) {
         result = result && (getId()
             == other.getId());
+      }
+      result = result && (hasOwnerId() == other.hasOwnerId());
+      if (hasOwnerId()) {
+        result = result && (getOwnerId()
+            == other.getOwnerId());
       }
       result = result && (hasX() == other.hasX());
       if (hasX()) {
@@ -1396,6 +1442,10 @@ public final class Laser {
       if (hasId()) {
         hash = (37 * hash) + ID_FIELD_NUMBER;
         hash = (53 * hash) + getId();
+      }
+      if (hasOwnerId()) {
+        hash = (37 * hash) + OWNERID_FIELD_NUMBER;
+        hash = (53 * hash) + getOwnerId();
       }
       if (hasX()) {
         hash = (37 * hash) + X_FIELD_NUMBER;
@@ -1536,15 +1586,17 @@ public final class Laser {
         super.clear();
         id_ = 0;
         bitField0_ = (bitField0_ & ~0x00000001);
-        x_ = 0D;
+        ownerId_ = 0;
         bitField0_ = (bitField0_ & ~0x00000002);
-        y_ = 0D;
+        x_ = 0D;
         bitField0_ = (bitField0_ & ~0x00000004);
-        dir_ = 1;
+        y_ = 0D;
         bitField0_ = (bitField0_ & ~0x00000008);
+        dir_ = 1;
+        bitField0_ = (bitField0_ & ~0x00000010);
         if (rectsBuilder_ == null) {
           rects_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000010);
+          bitField0_ = (bitField0_ & ~0x00000020);
         } else {
           rectsBuilder_.clear();
         }
@@ -1579,19 +1631,23 @@ public final class Laser {
         if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
           to_bitField0_ |= 0x00000002;
         }
-        result.x_ = x_;
+        result.ownerId_ = ownerId_;
         if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
           to_bitField0_ |= 0x00000004;
         }
-        result.y_ = y_;
+        result.x_ = x_;
         if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
           to_bitField0_ |= 0x00000008;
         }
+        result.y_ = y_;
+        if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
+          to_bitField0_ |= 0x00000010;
+        }
         result.dir_ = dir_;
         if (rectsBuilder_ == null) {
-          if (((bitField0_ & 0x00000010) == 0x00000010)) {
+          if (((bitField0_ & 0x00000020) == 0x00000020)) {
             rects_ = java.util.Collections.unmodifiableList(rects_);
-            bitField0_ = (bitField0_ & ~0x00000010);
+            bitField0_ = (bitField0_ & ~0x00000020);
           }
           result.rects_ = rects_;
         } else {
@@ -1642,6 +1698,9 @@ public final class Laser {
         if (other.hasId()) {
           setId(other.getId());
         }
+        if (other.hasOwnerId()) {
+          setOwnerId(other.getOwnerId());
+        }
         if (other.hasX()) {
           setX(other.getX());
         }
@@ -1655,7 +1714,7 @@ public final class Laser {
           if (!other.rects_.isEmpty()) {
             if (rects_.isEmpty()) {
               rects_ = other.rects_;
-              bitField0_ = (bitField0_ & ~0x00000010);
+              bitField0_ = (bitField0_ & ~0x00000020);
             } else {
               ensureRectsIsMutable();
               rects_.addAll(other.rects_);
@@ -1668,7 +1727,7 @@ public final class Laser {
               rectsBuilder_.dispose();
               rectsBuilder_ = null;
               rects_ = other.rects_;
-              bitField0_ = (bitField0_ & ~0x00000010);
+              bitField0_ = (bitField0_ & ~0x00000020);
               rectsBuilder_ = 
                 com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
                    getRectsFieldBuilder() : null;
@@ -1684,6 +1743,9 @@ public final class Laser {
 
       public final boolean isInitialized() {
         if (!hasId()) {
+          return false;
+        }
+        if (!hasOwnerId()) {
           return false;
         }
         if (!hasX()) {
@@ -1754,12 +1816,44 @@ public final class Laser {
         return this;
       }
 
+      private int ownerId_ ;
+      /**
+       * <code>required uint32 ownerId = 6;</code>
+       */
+      public boolean hasOwnerId() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <code>required uint32 ownerId = 6;</code>
+       */
+      public int getOwnerId() {
+        return ownerId_;
+      }
+      /**
+       * <code>required uint32 ownerId = 6;</code>
+       */
+      public Builder setOwnerId(int value) {
+        bitField0_ |= 0x00000002;
+        ownerId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required uint32 ownerId = 6;</code>
+       */
+      public Builder clearOwnerId() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        ownerId_ = 0;
+        onChanged();
+        return this;
+      }
+
       private double x_ ;
       /**
        * <code>required double x = 2;</code>
        */
       public boolean hasX() {
-        return ((bitField0_ & 0x00000002) == 0x00000002);
+        return ((bitField0_ & 0x00000004) == 0x00000004);
       }
       /**
        * <code>required double x = 2;</code>
@@ -1771,7 +1865,7 @@ public final class Laser {
        * <code>required double x = 2;</code>
        */
       public Builder setX(double value) {
-        bitField0_ |= 0x00000002;
+        bitField0_ |= 0x00000004;
         x_ = value;
         onChanged();
         return this;
@@ -1780,7 +1874,7 @@ public final class Laser {
        * <code>required double x = 2;</code>
        */
       public Builder clearX() {
-        bitField0_ = (bitField0_ & ~0x00000002);
+        bitField0_ = (bitField0_ & ~0x00000004);
         x_ = 0D;
         onChanged();
         return this;
@@ -1791,7 +1885,7 @@ public final class Laser {
        * <code>required double y = 3;</code>
        */
       public boolean hasY() {
-        return ((bitField0_ & 0x00000004) == 0x00000004);
+        return ((bitField0_ & 0x00000008) == 0x00000008);
       }
       /**
        * <code>required double y = 3;</code>
@@ -1803,7 +1897,7 @@ public final class Laser {
        * <code>required double y = 3;</code>
        */
       public Builder setY(double value) {
-        bitField0_ |= 0x00000004;
+        bitField0_ |= 0x00000008;
         y_ = value;
         onChanged();
         return this;
@@ -1812,7 +1906,7 @@ public final class Laser {
        * <code>required double y = 3;</code>
        */
       public Builder clearY() {
-        bitField0_ = (bitField0_ & ~0x00000004);
+        bitField0_ = (bitField0_ & ~0x00000008);
         y_ = 0D;
         onChanged();
         return this;
@@ -1823,7 +1917,7 @@ public final class Laser {
        * <code>required .mirrorWar.laser.LaserState.Direction dir = 4;</code>
        */
       public boolean hasDir() {
-        return ((bitField0_ & 0x00000008) == 0x00000008);
+        return ((bitField0_ & 0x00000010) == 0x00000010);
       }
       /**
        * <code>required .mirrorWar.laser.LaserState.Direction dir = 4;</code>
@@ -1839,7 +1933,7 @@ public final class Laser {
         if (value == null) {
           throw new NullPointerException();
         }
-        bitField0_ |= 0x00000008;
+        bitField0_ |= 0x00000010;
         dir_ = value.getNumber();
         onChanged();
         return this;
@@ -1848,7 +1942,7 @@ public final class Laser {
        * <code>required .mirrorWar.laser.LaserState.Direction dir = 4;</code>
        */
       public Builder clearDir() {
-        bitField0_ = (bitField0_ & ~0x00000008);
+        bitField0_ = (bitField0_ & ~0x00000010);
         dir_ = 1;
         onChanged();
         return this;
@@ -1857,9 +1951,9 @@ public final class Laser {
       private java.util.List<mirrorWar.laser.Laser.LaserState.Rect> rects_ =
         java.util.Collections.emptyList();
       private void ensureRectsIsMutable() {
-        if (!((bitField0_ & 0x00000010) == 0x00000010)) {
+        if (!((bitField0_ & 0x00000020) == 0x00000020)) {
           rects_ = new java.util.ArrayList<mirrorWar.laser.Laser.LaserState.Rect>(rects_);
-          bitField0_ |= 0x00000010;
+          bitField0_ |= 0x00000020;
          }
       }
 
@@ -2009,7 +2103,7 @@ public final class Laser {
       public Builder clearRects() {
         if (rectsBuilder_ == null) {
           rects_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000010);
+          bitField0_ = (bitField0_ & ~0x00000020);
           onChanged();
         } else {
           rectsBuilder_.clear();
@@ -2086,7 +2180,7 @@ public final class Laser {
           rectsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
               mirrorWar.laser.Laser.LaserState.Rect, mirrorWar.laser.Laser.LaserState.Rect.Builder, mirrorWar.laser.Laser.LaserState.RectOrBuilder>(
                   rects_,
-                  ((bitField0_ & 0x00000010) == 0x00000010),
+                  ((bitField0_ & 0x00000020) == 0x00000020),
                   getParentForChildren(),
                   isClean());
           rects_ = null;
@@ -2161,15 +2255,16 @@ public final class Laser {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\013laser.proto\022\017mirrorWar.laser\"\272\002\n\nLaser" +
-      "State\022\n\n\002id\030\001 \002(\r\022\t\n\001x\030\002 \002(\001\022\t\n\001y\030\003 \002(\001\022" +
-      "2\n\003dir\030\004 \002(\0162%.mirrorWar.laser.LaserStat" +
-      "e.Direction\022/\n\005rects\030\005 \003(\0132 .mirrorWar.l" +
-      "aser.LaserState.Rect\032q\n\004Rect\022\t\n\001x\030\001 \002(\001\022" +
-      "\t\n\001y\030\002 \002(\001\022\r\n\005width\030\003 \002(\001\022\016\n\006height\030\004 \002(" +
-      "\001\0224\n\005direc\030\005 \002(\0162%.mirrorWar.laser.Laser" +
-      "State.Direction\"2\n\tDirection\022\006\n\002Up\020\001\022\010\n\004" +
-      "Down\020\002\022\010\n\004Left\020\003\022\t\n\005Right\020\004"
+      "\n\013laser.proto\022\017mirrorWar.laser\"\313\002\n\nLaser" +
+      "State\022\n\n\002id\030\001 \002(\r\022\017\n\007ownerId\030\006 \002(\r\022\t\n\001x\030" +
+      "\002 \002(\001\022\t\n\001y\030\003 \002(\001\0222\n\003dir\030\004 \002(\0162%.mirrorWa" +
+      "r.laser.LaserState.Direction\022/\n\005rects\030\005 " +
+      "\003(\0132 .mirrorWar.laser.LaserState.Rect\032q\n" +
+      "\004Rect\022\t\n\001x\030\001 \002(\001\022\t\n\001y\030\002 \002(\001\022\r\n\005width\030\003 \002" +
+      "(\001\022\016\n\006height\030\004 \002(\001\0224\n\005direc\030\005 \002(\0162%.mirr" +
+      "orWar.laser.LaserState.Direction\"2\n\tDire" +
+      "ction\022\006\n\002Up\020\001\022\010\n\004Down\020\002\022\010\n\004Left\020\003\022\t\n\005Rig" +
+      "ht\020\004"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -2188,7 +2283,7 @@ public final class Laser {
     internal_static_mirrorWar_laser_LaserState_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_mirrorWar_laser_LaserState_descriptor,
-        new java.lang.String[] { "Id", "X", "Y", "Dir", "Rects", });
+        new java.lang.String[] { "Id", "OwnerId", "X", "Y", "Dir", "Rects", });
     internal_static_mirrorWar_laser_LaserState_Rect_descriptor =
       internal_static_mirrorWar_laser_LaserState_descriptor.getNestedTypes().get(0);
     internal_static_mirrorWar_laser_LaserState_Rect_fieldAccessorTable = new

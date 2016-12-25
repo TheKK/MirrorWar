@@ -216,11 +216,13 @@
                  "name":"",
                  "properties":
                     {
-                     "direction":"Right"
+                     "direction":"Right",
+                     "owner":"0"
                     },
                  "propertytypes":
                     {
-                     "direction":"string"
+                     "direction":"string",
+                     "owner":"string"
                     },
                  "rotation":0,
                  "type":"",
@@ -235,11 +237,13 @@
                  "name":"",
                  "properties":
                     {
-                     "direction":"Up"
+                     "direction":"Up",
+                     "owner":"1"
                     },
                  "propertytypes":
                     {
-                     "direction":"string"
+                     "direction":"string",
+                     "owner":"string"
                     },
                  "rotation":0,
                  "type":"",

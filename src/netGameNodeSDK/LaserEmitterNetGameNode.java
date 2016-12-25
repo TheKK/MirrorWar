@@ -13,7 +13,7 @@ import gameEngine.GameScene;
 import gameEngine.PhysicEngine;
 import gameEngine.RectangleGameNode;
 import javafx.scene.paint.Color;
-
+import mirrorWar.Constants;
 import mirrorWar.LaserBeam;
 import mirrorWar.LaserBeam.LaserBeamInfo;
 import mirrorWar.laser.Laser;
@@ -22,20 +22,21 @@ import mirrorWar.laser.Laser.LaserState.Rect;
 import mirrorWar.mirror.Mirror.MirrorState;
 
 public class LaserEmitterNetGameNode extends NetGameNode<LaserState, Void> {
-	private RectangleGameNode clientLaserImage;
 	public LaserState.Direction currentDir = null;
-	private int id;
+	
+	private GameNode clientLaserEmitterImage;
+	
+	private int id, ownerId, serverLaserGroupId;
+	
 	ArrayList<Rectangle2D.Double> laserPath = new ArrayList<>();
 	ArrayList<LaserState.Direction> laserDir = new ArrayList<>();
 	ArrayList<GameNode> laserNodes = new ArrayList<GameNode>();
-	LaserBeam laserBeam = new LaserBeam(new RectangleGameNode(0, 0, 50, 50, Color.DARKGOLDENROD),
-			new RectangleGameNode(0, 0, 50, 50, Color.DARKGOLDENROD),
-			new RectangleGameNode(0, 0, 50, 50, Color.DARKGOLDENROD));
+	
+	LaserBeam clientLaserBeam = null;
 
-	public LaserEmitterNetGameNode(int id) {
+	public LaserEmitterNetGameNode(int id, int ownerId) {
 		this.id = id;
-		
-		
+		this.ownerId = ownerId;
 	}
 
 	public int getId() {
@@ -44,13 +45,21 @@ public class LaserEmitterNetGameNode extends NetGameNode<LaserState, Void> {
 
 	@Override
 	public void clientInitialize(GameScene scene) {
-		clientLaserImage = new RectangleGameNode(0, 0, 50, 50, Color.ORANGE);
-		addChild(clientLaserImage);
-		addChild(laserBeam);
+		clientLaserEmitterImage = new RectangleGameNode(0, 0, 50, 50, Color.BISQUE);
+		
+		Color laserColor = (ownerId == 0) ? Color.BLUE : Color.ORANGERED;
+		clientLaserBeam = new LaserBeam(
+				new RectangleGameNode(0, 0, 50, 50, laserColor),
+				new RectangleGameNode(0, 0, 50, 50, laserColor),
+				new RectangleGameNode(0, 0, 50, 50, laserColor));
+		
+		addChild(clientLaserEmitterImage);
+		addChild(clientLaserBeam);
 	}
 
 	@Override
 	public void serverInitialize(GameScene scene, boolean debugMode) {
+		serverLaserGroupId = (ownerId == 0) ? Constants.PLAYER0_LASER_COLLISION_GROUP : Constants.PLAYER1_LASER_COLLISION_GROUP;
 		updateFunc = this::serverUpdate;
 	}
 
@@ -104,7 +113,7 @@ public class LaserEmitterNetGameNode extends NetGameNode<LaserState, Void> {
 		}
 		
 
-		laserBeam.setLaserBeamPositions(laserBeamInfos);
+		clientLaserBeam.setLaserBeamPositions(laserBeamInfos);
 	}
 
 	@Override
@@ -116,12 +125,22 @@ public class LaserEmitterNetGameNode extends NetGameNode<LaserState, Void> {
 		ArrayList<Laser.LaserState.Rect> rects = new ArrayList<>();
 
 		for (int i = 0; i < laserPath.size(); i++) {
-			rects.add(Laser.LaserState.Rect.newBuilder().setX(laserPath.get(i).x).setY(laserPath.get(i).y)
-					.setWidth(laserPath.get(i).width).setHeight(laserPath.get(i).height).setDirec(laserDir.get(i))
+			rects.add(Laser.LaserState.Rect.newBuilder()
+					.setX(laserPath.get(i).x)
+					.setY(laserPath.get(i).y)
+					.setWidth(laserPath.get(i).width)
+					.setHeight(laserPath.get(i).height)
+					.setDirec(laserDir.get(i))
 					.build());
 		}
 
-		return LaserState.newBuilder().setId(id).setX(geometry.x).setY(geometry.y).addAllRects(rects).setDir(currentDir)
+		return LaserState.newBuilder()
+				.setId(id)
+				.setOwnerId(ownerId)
+				.setX(geometry.x)
+				.setY(geometry.y)
+				.addAllRects(rects)
+				.setDir(currentDir)
 				.build();
 	}
 
@@ -142,11 +161,9 @@ public class LaserEmitterNetGameNode extends NetGameNode<LaserState, Void> {
 		}
 		PhysicEngine physicEngine = Game.currentScene().physicEngine;
 		for (GameNode gameNode : laserNodes) {
+			gameNode.addColissionGroup(serverLaserGroupId);
 			physicEngine.addAreaNode(gameNode);
-			//System.out.println(gameNode + "" + gameNode.geometry);
 		}
-		//System.out.println("~");
-
 	}
 
 	private void caculateLaser() {

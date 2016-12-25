@@ -179,11 +179,11 @@ public class ClientMatrixGameNode extends GameNode {
 	}
 
 	private void addOrUpdateLaser(LaserState laserState) {
-		int laserId = laserState.getId();
+		int laserId = laserState.getId(), ownerId = laserState.getOwnerId();
 
 		LaserEmitterNetGameNode laser = lasers.get(laserId);
 		if (laser == null) {
-			laser = new LaserEmitterNetGameNode(laserId);
+			laser = new LaserEmitterNetGameNode(laserId, ownerId);
 			laser.clientInitialize(Game.currentScene());
 
 			lasers.put(laserId, laser);

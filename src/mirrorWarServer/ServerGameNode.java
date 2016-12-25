@@ -128,8 +128,9 @@ public class ServerGameNode extends GameNode {
 	private void addLaserToGame(List<MapObject> laserList) {
 		for (MapObject laser : laserList) {
 			int id = getUniqueObjectId();
+			int ownerId = Integer.valueOf(laser.properties.get("owner"));
 
-			LaserEmitterNetGameNode newLaser = new LaserEmitterNetGameNode(id);
+			LaserEmitterNetGameNode newLaser = new LaserEmitterNetGameNode(id, ownerId);
 			newLaser.serverInitialize(Game.currentScene(), false);
 
 			newLaser.geometry.x = laser.x;
