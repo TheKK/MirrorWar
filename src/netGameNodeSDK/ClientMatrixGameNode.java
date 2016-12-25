@@ -23,6 +23,7 @@ import gameEngine.Game;
 import gameEngine.GameNode;
 import gameEngine.LayerGameNode;
 import gameEngine.SimpleGameSceneCamera;
+import gameEngine.TextGameNode;
 import javafx.application.Platform;
 import javafx.scene.canvas.GraphicsContext;
 
@@ -36,6 +37,7 @@ import mirrorWar.mirror.Mirror.MirrorState;
 import mirrorWar.player.Player.PlayerState;
 import mirrorWar.update.UpdateOuterClass.Update;
 import mirrorWar.update.UpdateOuterClass.Updates;
+import sun.net.www.http.Hurryable;
 
 public class ClientMatrixGameNode extends GameNode {
 	private DatagramSocket commandOutputSocket;
@@ -60,6 +62,39 @@ public class ClientMatrixGameNode extends GameNode {
 	public ClientMatrixGameNode(Socket serverSocket) {
 		rootLayer = new LayerGameNode();
 		addChild(rootLayer);
+		
+		LayerGameNode hudLayer = new LayerGameNode();
+		addChild(hudLayer);
+		
+		TextGameNode player0Info = new TextGameNode("") {
+			@Override
+			public void update(long elapse) {
+				if (gameReport != null) {
+					int life = gameReport.getPlayerLife(0);
+					double energy = gameReport.getChargerEnergy(0);
+					
+					text = String.format("Player1 Life: %d\nPlayer Energy: %2f", life, energy);
+				}
+			}
+		};
+		player0Info.geometry.y = 10;
+		hudLayer.addChild(player0Info);
+		
+		TextGameNode player1Info = new TextGameNode("") {
+			@Override
+			public void update(long elapse) {
+				if (gameReport != null) {
+					int life = gameReport.getPlayerLife(1);
+					double energy = gameReport.getChargerEnergy(1);
+					
+					text = String.format("Player2 Life: %d\nPlayer Energy: %2f", life, energy);
+				}
+			}
+		};
+		player1Info.geometry.y = 10;
+		player1Info.geometry.x = 550;
+		hudLayer.addChild(player1Info);
+		
 
 		try {
 			setupUDPSockets(serverSocket);

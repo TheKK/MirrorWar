@@ -40,8 +40,11 @@ public abstract class GameReportNetGameNode extends NetGameNode<GameReport.Statu
 	@Override
 	public void clientHandleServerUpdate(GameReport.Status update) {
 		if (playersLife[clientPlayerId] != update.getPlayersLife(clientPlayerId)) {
-			playersLife[clientPlayerId] = update.getPlayersLife(clientPlayerId);
 			beAttacked();
+		}
+		
+		for(int i = 0; i < update.getPlayersLifeCount(); ++i) {
+			playersLife[i] = update.getPlayersLife(i);
 		}
 
 		for(int i = 0; i < update.getPlayersChargerEnergyCount(); ++i) {
