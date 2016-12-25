@@ -22,6 +22,9 @@ import mirrorWar.player.Player.PlayerState.Facing;
 
 public final class PlayerNetGameNode extends NetGameNode<PlayerState, Input> {
 	final double WALKING_SPEED = 0.12;
+	
+	final double mirrorSpinSensorWidth = 35, mirrorSpinSensorHeight = 20;
+	final double mirrorPlaceSensorWidth = 50, mirrorPlaceSensorHeight = 50;
 
 	private int id;
 
@@ -76,8 +79,6 @@ public final class PlayerNetGameNode extends NetGameNode<PlayerState, Input> {
 
 	@Override
 	public void clientInitialize(GameScene scene) {
-		dampX = 0.9999;
-		dampY = 0.9999;
 
 		clientRect = new RectangleGameNode(0, 0, 50, 50, Color.RED);
 
@@ -101,8 +102,8 @@ public final class PlayerNetGameNode extends NetGameNode<PlayerState, Input> {
 		geometry.width = 50;
 		geometry.height = 50;
 
-		dampX = 0.9;
-		dampY = 0.9;
+		dampX = 0.75;
+		dampY = 0.75;
 
 		updateFunc = elapse -> {
 			synchronized (inputQueue) {
@@ -115,11 +116,11 @@ public final class PlayerNetGameNode extends NetGameNode<PlayerState, Input> {
 
 		scene.physicEngine.addDynamicNode(this);
 
-		serverMirrorSpinSensor = new RectangleGameNode(50, 10, 35, 20, Color.TRANSPARENT);
+		serverMirrorSpinSensor = new RectangleGameNode(50, 10, mirrorSpinSensorWidth, mirrorSpinSensorHeight, Color.TRANSPARENT);
 		addChild(serverMirrorSpinSensor);
 		scene.physicEngine.addAreaNode(serverMirrorSpinSensor);
 
-		serverMirrorPlaceSensor = new RectangleGameNode(0, 0, 50, 50, Color.TRANSPARENT);
+		serverMirrorPlaceSensor = new RectangleGameNode(0, 0, mirrorPlaceSensorWidth, mirrorPlaceSensorHeight, Color.TRANSPARENT);
 		addChild(serverMirrorPlaceSensor);
 
 		// TODO I'm not 100% sure this would work perfectly for some cases,
@@ -128,6 +129,8 @@ public final class PlayerNetGameNode extends NetGameNode<PlayerState, Input> {
 			GameNode rect = new RectangleGameNode(0, 0, 50, 50, Color.RED);
 			addChild(rect);
 		}
+		
+		faceRight();
 	}
 
 	@Override
@@ -217,14 +220,46 @@ public final class PlayerNetGameNode extends NetGameNode<PlayerState, Input> {
 
 	private void faceRight() {
 		currentFacing = Facing.RIGHT;
-		serverMirrorSpinSensor.geometry.x = 50;
-		serverMirrorPlaceSensor.geometry.x = 50;
+		
+		serverMirrorSpinSensor.geometry.width = mirrorSpinSensorWidth;
+		serverMirrorSpinSensor.geometry.height = mirrorSpinSensorHeight;
+		serverMirrorSpinSensor.geometry.x = 50 + 0.1;
+		serverMirrorSpinSensor.geometry.y = (50 - serverMirrorSpinSensor.geometry.height) / 2;
+		
+		serverMirrorPlaceSensor.geometry.x = 50 + 0.1;
+		serverMirrorPlaceSensor.geometry.y = 0;
+	}
+	
+	private void faceUp() {
+		serverMirrorSpinSensor.geometry.width = mirrorSpinSensorHeight;
+		serverMirrorSpinSensor.geometry.height = mirrorSpinSensorWidth;
+		serverMirrorSpinSensor.geometry.x = (50 - serverMirrorSpinSensor.geometry.width) / 2;	
+		serverMirrorSpinSensor.geometry.y = -serverMirrorSpinSensor.geometry.height - 0.1;
+		
+		serverMirrorPlaceSensor.geometry.x = 0;
+		serverMirrorPlaceSensor.geometry.y = -serverMirrorPlaceSensor.geometry.height - 0.1;
+	}
+	
+	private void faceDown() {
+		serverMirrorSpinSensor.geometry.width = mirrorSpinSensorHeight;
+		serverMirrorSpinSensor.geometry.height = mirrorSpinSensorWidth;
+		serverMirrorSpinSensor.geometry.x = (50 - serverMirrorSpinSensor.geometry.width) / 2;
+		serverMirrorSpinSensor.geometry.y = 50 + 0.1;
+		
+		serverMirrorPlaceSensor.geometry.x = 0;
+		serverMirrorPlaceSensor.geometry.y = serverMirrorPlaceSensor.geometry.height + 0.1;
 	}
 
 	private void faceLeft() {
 		currentFacing = Facing.LEFT;
-		serverMirrorSpinSensor.geometry.x = -serverMirrorSpinSensor.geometry.width;
-		serverMirrorPlaceSensor.geometry.x = -serverMirrorPlaceSensor.geometry.width;
+		
+		serverMirrorSpinSensor.geometry.width = mirrorSpinSensorWidth;
+		serverMirrorSpinSensor.geometry.height = mirrorSpinSensorHeight;
+		serverMirrorSpinSensor.geometry.x = -serverMirrorSpinSensor.geometry.width - 0.1;
+		serverMirrorSpinSensor.geometry.y = (50 - serverMirrorSpinSensor.geometry.height) / 2;
+		
+		serverMirrorPlaceSensor.geometry.x = -serverMirrorPlaceSensor.geometry.width - 0.1;
+		serverMirrorPlaceSensor.geometry.y = 0;
 	}
 
 	@Override
@@ -377,10 +412,12 @@ public final class PlayerNetGameNode extends NetGameNode<PlayerState, Input> {
 	public void serverHandleKeydownInput(KeyDown keyDown) {
 		switch (keyDown.getKeyType()) {
 		case MOVE_UP:
+			faceUp();
 			upIsPressed = true;
 			break;
 
 		case MOVE_DOWN:
+			faceDown();
 			downIsPressed = true;
 			break;
 
