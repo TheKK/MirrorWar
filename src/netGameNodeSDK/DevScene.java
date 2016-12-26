@@ -31,6 +31,8 @@ public class DevScene extends GameScene {
 	}
 
 	private void hostServer(int tcpServerPort) throws IOException {
+
+
 		GameNode serverMatrixGameNode = new ServerMatrixGameNode(tcpServerPort);
 		serverMatrixGameNode.visible = false;
 		rootNode.addChild(serverMatrixGameNode);

@@ -199,6 +199,8 @@ public abstract class GameNode {
 		return onKeyReleased(event);
 	}
 
+	public final boolean isMouseEntered() { return isMouseEntered; }
+
 	protected boolean onMouseMoved(MouseEvent event) { return true; }
 	protected boolean onMousePressed(MouseEvent event) { return true; }
 	protected boolean onMouseReleased(MouseEvent event) { return true; }

@@ -1,9 +1,10 @@
 package netGameNodeSDK;
 
+import java.io.FileNotFoundException;
+
+import gameEngine.AnimatedSpriteGameNode;
 import gameEngine.Game;
 import gameEngine.GameScene;
-import gameEngine.RectangleGameNode;
-import javafx.scene.paint.Color;
 import mirrorWar.mirror.Mirror.MirrorState;
 import mirrorWar.mirror.Mirror.MirrorState.Direction;
 
@@ -12,7 +13,8 @@ public class MirrorNetGameNode extends NetGameNode<MirrorState, Void> {
 	private MirrorState.Direction direction = MirrorState.Direction.SLASH;
 
 	// Client stuff
-	private RectangleGameNode clientMirrorImage;
+	private AnimatedSpriteGameNode clientSlashMirrorSprite;
+	private AnimatedSpriteGameNode clientBackSlashMirrorSprite;
 
 	// Server stuff
 	private boolean serverIsPicked = false;
@@ -49,8 +51,25 @@ public class MirrorNetGameNode extends NetGameNode<MirrorState, Void> {
 	}
 	@Override
 	public void clientInitialize(GameScene scene) {
-		clientMirrorImage = new RectangleGameNode(0, 0, 50, 50, Color.BROWN);
-		addChild(clientMirrorImage);
+		try {
+			clientSlashMirrorSprite = new AnimatedSpriteGameNode(
+					Game.loadImage("./src/mirrorWar/pic/mirrorSlash.png"),
+					"./src/mirrorWar/pic/mirrorSlash.json");
+			clientBackSlashMirrorSprite = new AnimatedSpriteGameNode(
+					Game.loadImage("./src/mirrorWar/pic/mirrorBackSlash.png"),
+					"./src/mirrorWar/pic/mirrorBackSlash.json");
+
+			clientSlashMirrorSprite.autoPlayed = false;
+			clientSlashMirrorSprite.visible = false;
+
+			clientBackSlashMirrorSprite.autoPlayed = false;
+			clientBackSlashMirrorSprite.visible = false;
+
+			addChild(clientSlashMirrorSprite);
+			addChild(clientBackSlashMirrorSprite);
+
+		} catch (FileNotFoundException e) {
+		}
 
 		updateFunc = this::clientUpdate;
 	}
@@ -76,11 +95,19 @@ public class MirrorNetGameNode extends NetGameNode<MirrorState, Void> {
 	protected void clientUpdate(long elapse) {
 		switch (direction) {
 		case BACK_SLACK:
-			clientMirrorImage.color = Color.GOLDENROD;
+			clientSlashMirrorSprite.visible = false;
+			clientSlashMirrorSprite.autoPlayed = false;
+
+			clientBackSlashMirrorSprite.visible = true;
+			clientBackSlashMirrorSprite.play(-1);
 			break;
 
 		case SLASH:
-			clientMirrorImage.color = Color.BROWN;
+			clientBackSlashMirrorSprite.visible = false;
+			clientBackSlashMirrorSprite.autoPlayed = false;
+
+			clientSlashMirrorSprite.visible = true;
+			clientSlashMirrorSprite.play(-1);
 			break;
 		}
 	}

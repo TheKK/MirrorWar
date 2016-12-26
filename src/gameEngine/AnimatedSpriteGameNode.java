@@ -33,15 +33,19 @@ public class AnimatedSpriteGameNode extends GameNode {
 	public boolean flipVertical = false;
 	public boolean flipHorizontal = false;
 
+	public AnimatedSpriteGameNode(Image image, String filePath) throws FileNotFoundException {
+		fromAsepriteJson(image, filePath);
+	}
+
 	// TODO It should be possible to load image from path which provided by JSON file
-	public static AnimatedSpriteGameNode fromAsepriteJson(Image image, String filePath) throws FileNotFoundException {
+	private void fromAsepriteJson(Image image, String filePath) throws FileNotFoundException {
+		this.image = image;
+
 		JsonParser parser = new JsonParser();
 		JsonElement element = parser.parse(new FileReader(filePath));
 
 		JsonObject aseprite = element.getAsJsonObject();
 		JsonArray asepriteFrames = aseprite.get("frames").getAsJsonArray();
-
-		AnimatedSpriteGameNode result = new AnimatedSpriteGameNode(image, 0, 0);
 
 		for (JsonElement asepriteFrame: asepriteFrames) {
 			JsonObject frame = asepriteFrame.getAsJsonObject()
@@ -55,17 +59,15 @@ public class AnimatedSpriteGameNode extends GameNode {
 			int duration = asepriteFrame.getAsJsonObject()
 					.get("duration").getAsInt();
 
-			result.addFrame(new Rectangle2D.Double(x, y, width, height), duration);
+			addFrame(new Rectangle2D.Double(x, y, width, height), duration);
 		}
 
-		if (!result.frameClips.isEmpty()) {
-			Rectangle2D.Double clip = result.frameClips.get(0).clilp;
+		if (!frameClips.isEmpty()) {
+			Rectangle2D.Double clip = frameClips.get(0).clilp;
 
-			result.geometry.width = clip.width;
-			result.geometry.height = clip.height;
+			geometry.width = clip.width;
+			geometry.height = clip.height;
 		}
-
-		return result;
 	}
 
 	public AnimatedSpriteGameNode(Image image, int width, int height) {

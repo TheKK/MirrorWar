@@ -1,9 +1,11 @@
 package netGameNodeSDK;
 
 import java.awt.geom.Rectangle2D;
+import java.io.FileNotFoundException;
 import java.util.Optional;
 import java.util.function.Function;
 
+import gameEngine.AnimatedSpriteGameNode;
 import gameEngine.Game;
 import gameEngine.GameNode;
 import gameEngine.GameScene;
@@ -22,7 +24,7 @@ import mirrorWar.player.Player.PlayerState.Facing;
 
 public final class PlayerNetGameNode extends NetGameNode<PlayerState, Input> {
 	final double WALKING_SPEED = 0.12;
-	
+
 	final double mirrorSpinSensorWidth = 35, mirrorSpinSensorHeight = 20;
 	final double mirrorPlaceSensorWidth = 50, mirrorPlaceSensorHeight = 50;
 
@@ -42,7 +44,8 @@ public final class PlayerNetGameNode extends NetGameNode<PlayerState, Input> {
 	private Facing currentFacing = Facing.RIGHT;
 
 	// Client stuff
-	private RectangleGameNode clientRect;
+	private AnimatedSpriteGameNode standingSprite;
+	private AnimatedSpriteGameNode walkingSprite;
 
 	// Server stuff
 	private RectangleGameNode serverMirrorSpinSensor;
@@ -53,7 +56,7 @@ public final class PlayerNetGameNode extends NetGameNode<PlayerState, Input> {
 	public PlayerNetGameNode(int id) {
 		this.id = id;
 	}
-	
+
 	public PlayerNetGameNode(int id, Rectangle2D.Double respawnRegion) {
 		this.id = id;
 		serverRespawnRegion = respawnRegion;
@@ -80,7 +83,27 @@ public final class PlayerNetGameNode extends NetGameNode<PlayerState, Input> {
 	@Override
 	public void clientInitialize(GameScene scene) {
 
-		clientRect = new RectangleGameNode(0, 0, 50, 50, Color.RED);
+		try {
+			standingSprite = new AnimatedSpriteGameNode(
+					Game.loadImage("./src/mirrorWar/pic/mirrorPlayerStand.png"),
+					"./src/mirrorWar/pic/mirrorPlayerStand.json");
+
+			walkingSprite = new AnimatedSpriteGameNode(
+					Game.loadImage("./src/mirrorWar/pic/mirrorPlayerWalk.png"),
+					"./src/mirrorWar/pic/mirrorPlayerWalk.json");
+
+			standingSprite.visible = false;
+			walkingSprite.visible = false;
+
+			standingSprite.autoPlayed = false;
+			walkingSprite.autoPlayed = false;
+
+			addChild(standingSprite);
+			addChild(walkingSprite);
+
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 
 		updateFunc = elapse -> {
 			updateQueue.forEach(this::clientHandleServerUpdate);
@@ -92,7 +115,9 @@ public final class PlayerNetGameNode extends NetGameNode<PlayerState, Input> {
 		onKeyPressedFunc = this::clientOnKeyPressed;
 		onKeyReleasedFunc = this::clientOnKeyReleased;
 
-		addChild(clientRect);
+		standingSprite.playFromStart(-1);
+		standingSprite.visible = true;
+//		startStanding();
 	}
 
 	@Override
@@ -129,12 +154,21 @@ public final class PlayerNetGameNode extends NetGameNode<PlayerState, Input> {
 			GameNode rect = new RectangleGameNode(0, 0, 50, 50, Color.RED);
 			addChild(rect);
 		}
-		
+
 		faceRight();
 	}
 
 	@Override
 	protected void clientUpdate(long elapse) {
+		switch (currentFacing) {
+		case LEFT:
+			standingSprite.flipVertical = walkingSprite.flipVertical = true;
+			break;
+
+		case RIGHT:
+			standingSprite.flipVertical = walkingSprite.flipVertical = false;
+			break;
+		}
 	}
 
 	@Override
@@ -194,7 +228,7 @@ public final class PlayerNetGameNode extends NetGameNode<PlayerState, Input> {
 				}
 			}
 		}
-		
+
 		if (Math.abs(vx) + Math.abs(vy) >= 0.001) {
 			currentAnimation = Animation.WALKING;
 		} else {
@@ -220,44 +254,44 @@ public final class PlayerNetGameNode extends NetGameNode<PlayerState, Input> {
 
 	private void faceRight() {
 		currentFacing = Facing.RIGHT;
-		
+
 		serverMirrorSpinSensor.geometry.width = mirrorSpinSensorWidth;
 		serverMirrorSpinSensor.geometry.height = mirrorSpinSensorHeight;
 		serverMirrorSpinSensor.geometry.x = 50 + 0.1;
 		serverMirrorSpinSensor.geometry.y = (50 - serverMirrorSpinSensor.geometry.height) / 2;
-		
+
 		serverMirrorPlaceSensor.geometry.x = 50 + 0.1;
 		serverMirrorPlaceSensor.geometry.y = 0;
 	}
-	
+
 	private void faceUp() {
 		serverMirrorSpinSensor.geometry.width = mirrorSpinSensorHeight;
 		serverMirrorSpinSensor.geometry.height = mirrorSpinSensorWidth;
-		serverMirrorSpinSensor.geometry.x = (50 - serverMirrorSpinSensor.geometry.width) / 2;	
+		serverMirrorSpinSensor.geometry.x = (50 - serverMirrorSpinSensor.geometry.width) / 2;
 		serverMirrorSpinSensor.geometry.y = -serverMirrorSpinSensor.geometry.height - 0.1;
-		
+
 		serverMirrorPlaceSensor.geometry.x = 0;
 		serverMirrorPlaceSensor.geometry.y = -serverMirrorPlaceSensor.geometry.height - 0.1;
 	}
-	
+
 	private void faceDown() {
 		serverMirrorSpinSensor.geometry.width = mirrorSpinSensorHeight;
 		serverMirrorSpinSensor.geometry.height = mirrorSpinSensorWidth;
 		serverMirrorSpinSensor.geometry.x = (50 - serverMirrorSpinSensor.geometry.width) / 2;
 		serverMirrorSpinSensor.geometry.y = 50 + 0.1;
-		
+
 		serverMirrorPlaceSensor.geometry.x = 0;
 		serverMirrorPlaceSensor.geometry.y = serverMirrorPlaceSensor.geometry.height + 0.1;
 	}
 
 	private void faceLeft() {
 		currentFacing = Facing.LEFT;
-		
+
 		serverMirrorSpinSensor.geometry.width = mirrorSpinSensorWidth;
 		serverMirrorSpinSensor.geometry.height = mirrorSpinSensorHeight;
 		serverMirrorSpinSensor.geometry.x = -serverMirrorSpinSensor.geometry.width - 0.1;
 		serverMirrorSpinSensor.geometry.y = (50 - serverMirrorSpinSensor.geometry.height) / 2;
-		
+
 		serverMirrorPlaceSensor.geometry.x = -serverMirrorPlaceSensor.geometry.width - 0.1;
 		serverMirrorPlaceSensor.geometry.y = 0;
 	}
@@ -268,24 +302,48 @@ public final class PlayerNetGameNode extends NetGameNode<PlayerState, Input> {
 		geometry.y = update.getY();
 
 		if (currentAnimation != update.getAnimation()) {
-			// Change animation
+			currentAnimation = update.getAnimation();
+
+			switch (currentAnimation) {
+			case RUNNING:
+				startRunning();
+				break;
+
+			case STANDING:
+				startStanding();
+				break;
+
+			case WALKING:
+				startWalking();
+				break;
+
+			case KILLED:
+				break;
+
+			default:
+				break;
+			}
 		}
 
 		currentFacing = update.getFacing();
+	}
 
-		switch (update.getAnimation()) {
-		case RUNNING:
-			clientRect.color = Color.RED;
-			break;
+	private void startRunning() {
 
-		case STANDING:
-			clientRect.color = Color.GREY;
-			break;
+	}
 
-		case WALKING:
-			clientRect.color = Color.BISQUE;
-			break;
-		}
+	private void startStanding() {
+		walkingSprite.visible = false;
+
+		standingSprite.visible = true;
+		standingSprite.playFromStart(-1);
+	}
+
+	private void startWalking() {
+		standingSprite.visible = false;
+
+		walkingSprite.visible = true;
+		walkingSprite.playFromStart(-1);
 	}
 
 	@Override
@@ -478,12 +536,12 @@ public final class PlayerNetGameNode extends NetGameNode<PlayerState, Input> {
 			break;
 		}
 	}
-	
+
 	public void beKilled() {
 		// TODO make this and animation
 		respawn();
 	}
-	
+
 	private void respawn() {
 		geometry.x = serverRespawnRegion.x + Math.random() * (serverRespawnRegion.width) - geometry.width;
 		geometry.y = serverRespawnRegion.y + Math.random() * (serverRespawnRegion.height) - geometry.height;
