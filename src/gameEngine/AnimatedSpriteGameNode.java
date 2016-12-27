@@ -118,6 +118,12 @@ public class AnimatedSpriteGameNode extends GameNode {
 		frameDurationRemains += frameClips.get(currentFrame).duration;
 	}
 
+	public long animationLength() {
+		return frameClips.stream()
+				.mapToLong(clip -> clip.duration)
+				.sum();
+	}
+
 	@Override
 	public void update(long elapse) {
 		if (!autoPlayed || (loopCountRemains == 0)) {

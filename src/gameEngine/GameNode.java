@@ -35,6 +35,7 @@ public abstract class GameNode {
 
 	public Double alpha = 1.0;
 	public Boolean visible = true;
+	public Boolean enable = true;
 
 	private boolean isMouseEntered = false;
 	HashSet<GameNode> enteredAreaSet = new HashSet<GameNode>();
@@ -42,6 +43,7 @@ public abstract class GameNode {
 
 	private Optional<GameNode> parent = Optional.empty();
 	private ArrayList<GameNode> children = new ArrayList<GameNode>();
+	private List<GameNode> childrenToBeRemoved = new ArrayList<>();
 
 	public final java.awt.geom.Rectangle2D.Double geometryInGameWorld() {
 		Rectangle2D.Double result = new Rectangle2D.Double();
@@ -69,6 +71,8 @@ public abstract class GameNode {
 	}
 
 	final boolean _onMouseMoved(MouseEvent event) {
+		if (!enable) return false;
+
 		for (int i = children.size() - 1; i >=0; i--) {
 			GameNode child = children.get(i);
 
@@ -86,6 +90,8 @@ public abstract class GameNode {
 	}
 
 	final boolean _onMousePressed(MouseEvent event) {
+		if (!enable) return false;
+
 		Point point = new Point((int) event.getX(), (int) event.getY());
 
 		for (int i = children.size() - 1; i >=0; i--) {
@@ -109,6 +115,8 @@ public abstract class GameNode {
 	}
 
 	final boolean _onMouseReleased(MouseEvent event) {
+		if (!enable) return false;
+
 		Point point = new Point((int) event.getX(), (int) event.getY());
 
 		for (int i = children.size() - 1; i >=0; i--) {
@@ -131,6 +139,8 @@ public abstract class GameNode {
 		return result.isPresent() ? result.get() : true;
 	}
 	final boolean _onMouseEntered(MouseEvent event) {
+		if (!enable) return false;
+
 		Point point = new Point((int) event.getX(), (int) event.getY());
 
 		for (int i = children.size() - 1; i >=0; i--) {
@@ -154,6 +164,8 @@ public abstract class GameNode {
 		return result.isPresent() ? result.get() : true;
 	}
 	final boolean _onMouseExited(MouseEvent event) {
+		if (!enable) return false;
+
 		Point point = new Point((int) event.getX(), (int) event.getY());
 
 		for (int i = children.size() - 1; i >=0; i--) {
@@ -177,6 +189,8 @@ public abstract class GameNode {
 		return result.isPresent() ? result.get() : true;
 	}
 	final boolean _onKeyPressed(KeyEvent event) {
+		if (!enable) return false;
+
 		for (int i = children.size() - 1; i >=0; i--) {
 			GameNode child = children.get(i);
 
@@ -188,6 +202,8 @@ public abstract class GameNode {
 		return onKeyPressed(event);
 	}
 	final boolean _onKeyReleased(KeyEvent event) {
+		if (!enable) return false;
+
 		for (int i = children.size() - 1; i >=0; i--) {
 			GameNode child = children.get(i);
 
@@ -240,7 +256,7 @@ public abstract class GameNode {
 
 	public final boolean detachFromParent() {
 		if (parent.isPresent()) {
-			parent.get().removeChild(this);
+			parent.get().childrenToBeRemoved.add(this);
 			return true;
 		} else {
 			return false;
@@ -317,6 +333,9 @@ public abstract class GameNode {
 	final void _update(long elapse) {
 		update(elapse);
 		children.forEach(node -> node._update(elapse));
+
+		childrenToBeRemoved.forEach(child -> children.remove(child));
+		childrenToBeRemoved.clear();
 	}
 
 	public void update(long elapse) {}

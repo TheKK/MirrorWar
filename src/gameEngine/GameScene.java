@@ -8,6 +8,8 @@ public abstract class GameScene {
 	public RootGameNode rootNode = new RootGameNode();
 	public PhysicEngine physicEngine = new PhysicEngine();
 
+	public boolean enable = true;
+
 	// Put all initializations to here instead constructor
 	protected void initialize() {}
 
@@ -18,33 +20,47 @@ public abstract class GameScene {
 	protected boolean onKeyReleased(KeyEvent event) { return true; }
 
 	final void _onMouseMoved(MouseEvent event) {
+		if (!enable) return;
+
 		if (onMouseMoved(event)) {
 			rootNode._onMouseMoved(event);
 		}
 	}
 	final void _onMousePressed(MouseEvent event) {
+		if (!enable) return;
+
 		if (onMousePressed(event)) {
 			rootNode._onMousePressed(event);
 		}
 	}
 	final void _onMouseReleased(MouseEvent event) {
+		if (!enable) return;
+
 		if (onMouseReleased(event)) {
 			rootNode._onMouseReleased(event);
 		}
 	}
 	final void _onMouseEntered(MouseEvent event) {
+		if (!enable) return;
+
 		rootNode._onMouseEntered(event);
 	}
 	final void _onMouseExited(MouseEvent event) {
+		if (!enable) return;
+
 		rootNode._onMouseExited(event);
 	}
 
 	final void _onKeyPressed(KeyEvent event) {
+		if (!enable) return;
+
 		if (onKeyPressed(event)) {
 			rootNode._onKeyPressed(event);
 		}
 	}
 	final void _onKeyReleased(KeyEvent event) {
+		if (!enable) return;
+
 		if (onKeyReleased(event)) {
 			rootNode._onKeyReleased(event);
 		}

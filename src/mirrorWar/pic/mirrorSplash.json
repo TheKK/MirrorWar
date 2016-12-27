@@ -1,0 +1,164 @@
+{ "frames": [
+   {
+    "filename": "mirrorSplash 0.ase",
+    "frame": { "x": 0, "y": 0, "w": 800, "h": 450 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 800, "h": 450 },
+    "sourceSize": { "w": 800, "h": 450 },
+    "duration": 200
+   },
+   {
+    "filename": "mirrorSplash 1.ase",
+    "frame": { "x": 0, "y": 450, "w": 800, "h": 450 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 800, "h": 450 },
+    "sourceSize": { "w": 800, "h": 450 },
+    "duration": 200
+   },
+   {
+    "filename": "mirrorSplash 2.ase",
+    "frame": { "x": 0, "y": 900, "w": 800, "h": 450 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 800, "h": 450 },
+    "sourceSize": { "w": 800, "h": 450 },
+    "duration": 200
+   },
+   {
+    "filename": "mirrorSplash 3.ase",
+    "frame": { "x": 0, "y": 1350, "w": 800, "h": 450 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 800, "h": 450 },
+    "sourceSize": { "w": 800, "h": 450 },
+    "duration": 200
+   },
+   {
+    "filename": "mirrorSplash 4.ase",
+    "frame": { "x": 0, "y": 1800, "w": 800, "h": 450 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 800, "h": 450 },
+    "sourceSize": { "w": 800, "h": 450 },
+    "duration": 200
+   },
+   {
+    "filename": "mirrorSplash 5.ase",
+    "frame": { "x": 0, "y": 2250, "w": 800, "h": 450 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 800, "h": 450 },
+    "sourceSize": { "w": 800, "h": 450 },
+    "duration": 200
+   },
+   {
+    "filename": "mirrorSplash 6.ase",
+    "frame": { "x": 0, "y": 2700, "w": 800, "h": 450 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 800, "h": 450 },
+    "sourceSize": { "w": 800, "h": 450 },
+    "duration": 200
+   },
+   {
+    "filename": "mirrorSplash 7.ase",
+    "frame": { "x": 0, "y": 3150, "w": 800, "h": 450 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 800, "h": 450 },
+    "sourceSize": { "w": 800, "h": 450 },
+    "duration": 200
+   },
+   {
+    "filename": "mirrorSplash 8.ase",
+    "frame": { "x": 0, "y": 3600, "w": 800, "h": 450 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 800, "h": 450 },
+    "sourceSize": { "w": 800, "h": 450 },
+    "duration": 200
+   },
+   {
+    "filename": "mirrorSplash 9.ase",
+    "frame": { "x": 0, "y": 4050, "w": 800, "h": 450 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 800, "h": 450 },
+    "sourceSize": { "w": 800, "h": 450 },
+    "duration": 200
+   },
+   {
+    "filename": "mirrorSplash 10.ase",
+    "frame": { "x": 0, "y": 4500, "w": 800, "h": 450 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 800, "h": 450 },
+    "sourceSize": { "w": 800, "h": 450 },
+    "duration": 200
+   },
+   {
+    "filename": "mirrorSplash 11.ase",
+    "frame": { "x": 0, "y": 4950, "w": 800, "h": 450 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 800, "h": 450 },
+    "sourceSize": { "w": 800, "h": 450 },
+    "duration": 200
+   },
+   {
+    "filename": "mirrorSplash 12.ase",
+    "frame": { "x": 0, "y": 5400, "w": 800, "h": 450 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 800, "h": 450 },
+    "sourceSize": { "w": 800, "h": 450 },
+    "duration": 200
+   },
+   {
+    "filename": "mirrorSplash 13.ase",
+    "frame": { "x": 0, "y": 5850, "w": 800, "h": 450 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 800, "h": 450 },
+    "sourceSize": { "w": 800, "h": 450 },
+    "duration": 200
+   },
+   {
+    "filename": "mirrorSplash 14.ase",
+    "frame": { "x": 0, "y": 6300, "w": 800, "h": 450 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 800, "h": 450 },
+    "sourceSize": { "w": 800, "h": 450 },
+    "duration": 200
+   },
+   {
+    "filename": "mirrorSplash 15.ase",
+    "frame": { "x": 0, "y": 6750, "w": 800, "h": 450 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 800, "h": 450 },
+    "sourceSize": { "w": 800, "h": 450 },
+    "duration": 200
+   },
+   {
+    "filename": "mirrorSplash 16.ase",
+    "frame": { "x": 0, "y": 7200, "w": 800, "h": 450 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 800, "h": 450 },
+    "sourceSize": { "w": 800, "h": 450 },
+    "duration": 2000
+   }
+ ],
+ "meta": {
+  "app": "http://www.aseprite.org/",
+  "version": "1.1.12-dev",
+  "image": "/home/kk/Pictures/mine/mirrorSplash.png",
+  "format": "RGBA8888",
+  "size": { "w": 800, "h": 7650 },
+  "scale": "1"
+ }
+}

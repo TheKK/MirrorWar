@@ -8,11 +8,11 @@ public class Main {
 	public static void main(String[] args) {
 
 		DangerousGlobalVariables.logger.setLevel(Level.INFO);
-		
-		Game.isClickBoundDebugMode = true;
-		Game.isPhysicEngineDebugMode = true;
+
+//		Game.isClickBoundDebugMode = true;
+//		Game.isPhysicEngineDebugMode = true;
 		Game.title = "Mirror War";
-		
+
 		Game.run(SplashScreen.class);
 	}
 }
