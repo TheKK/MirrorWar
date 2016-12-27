@@ -2,6 +2,7 @@ package mirrorWar;
 
 import gameEngine.AnimationPlayer;
 import gameEngine.ContinuousFuncAnimation;
+import gameEngine.FunctionTriggerAnimation;
 import gameEngine.Game;
 import gameEngine.GameNode;
 import gameEngine.GameScene;
@@ -28,25 +29,29 @@ public class MenuScene extends GameScene {
 
 	private static final String TITLE_IMAGE = "./src/mirrorWar/pic/mirrorTitle.png";
 
-	MediaPlayer menuHoveredSe;
+	private MediaPlayer menuHoveredSe;
+
+	private GameNode titleImage;
+	private GameNode joinGameButton, creditsButton, quitButton;
 
 	@Override
 	protected void initialize() {
 		final double BUTTON_MARGIN = 40;
 
-		Game.clearColor = Color.BLUEVIOLET;
+		Game.clearColor = Color.BLACK;
 
 		SpriteGameNode background = new SpriteGameNode(Game.loadImage(BACKGROUND_IMAGE));
 		rootNode.addChild(background);
-		GameNode joinGameButton = this.createButton(
+
+		joinGameButton = this.createButton(
 				JOIN_GAME_TEXT,
-				() -> { Game.swapScene(new JoinGameScene()); });
+				() -> { navigateToOtherScene(new JoinGameScene()); });
 
 		joinGameButton.geometry.x = BUTTON_MARGIN;
 		joinGameButton.geometry.y = 330;
 		rootNode.addChild(joinGameButton);
 
-		GameNode creditsButton = this.createButton(
+		creditsButton = this.createButton(
 				CREDITS_TEXT,
 				() -> {
 					GameNode transitionNode = new TransitionGameNode(Type.OUT, () -> {
@@ -60,7 +65,7 @@ public class MenuScene extends GameScene {
 		creditsButton.geometry.y = 360;
 		rootNode.addChild(creditsButton);
 
-		GameNode quitButton = this.createButton(
+		quitButton = this.createButton(
 				QUIT_TEXT,
 				() -> { Platform.exit(); });
 
@@ -73,18 +78,18 @@ public class MenuScene extends GameScene {
 		AnimationPlayer aniPlayer = new AnimationPlayer(7000);
 		rootNode.addChild(aniPlayer);
 
-		SpriteGameNode title = new SpriteGameNode(Game.loadImage(TITLE_IMAGE));
-		title.geometry.x = (Game.canvasWidth() - title.geometry.width) / 2;
-		title.geometry.y = 20;
-		title.anchorX = 0.5;
-		title.anchorY = 0.2;
-		rootNode.addChild(title);
+		titleImage = new SpriteGameNode(Game.loadImage(TITLE_IMAGE));
+		titleImage.geometry.x = (Game.canvasWidth() - titleImage.geometry.width) / 2;
+		titleImage.geometry.y = 20;
+		titleImage.anchorX = 0.5;
+		titleImage.anchorY = 0.2;
+		rootNode.addChild(titleImage);
 
 		ContinuousFuncAnimation<Double> contiAni = new ContinuousFuncAnimation<>(val -> {
-			title.scaleX = title.scaleY = 1 + (0.04 * Math.sin(val * 2));
+			titleImage.scaleX = titleImage.scaleY = 1 + (0.04 * Math.sin(val * 2));
 
-			title.offsetX = 10 * Math.cos(val);
-			title.offsetY = 5 * Math.sin(val);
+			titleImage.offsetX = 10 * Math.cos(val);
+			titleImage.offsetY = 5 * Math.sin(val);
 		});
 		contiAni.addAnchor(0, 0., TransitionType.LINEAR, EaseType.IN_OUT);
 		contiAni.addAnchor(aniPlayer.totalLength(), Math.PI * 2, TransitionType.LINEAR, EaseType.IN_OUT);
@@ -132,5 +137,66 @@ public class MenuScene extends GameScene {
 		backgroundNode.addChild(textImageNode);
 
 		return backgroundNode;
+	}
+
+	private void navigateToOtherScene(GameScene otherScene) {
+		final long animationDuration = 2000;
+
+		this.enable = false;
+
+		addFlyoutAnimation(titleImage, animationDuration);
+		addFlyoutAnimation(joinGameButton, animationDuration);
+		addFlyoutAnimation(creditsButton, animationDuration);
+		addFlyoutAnimation(quitButton, animationDuration);
+
+		AnimationPlayer aniPlayer = new AnimationPlayer(animationDuration);
+		aniPlayer.play(1);
+		rootNode.addChild(aniPlayer);
+
+		FunctionTriggerAnimation funcAni = new FunctionTriggerAnimation();
+		funcAni.addAnchor(aniPlayer.totalLength(), () -> {
+			Game.swapScene(otherScene);
+		});
+
+		ContinuousFuncAnimation<Double> fadeOutAni = new ContinuousFuncAnimation<>(val -> {
+			rootNode.alpha = 1 - val;
+		});
+		fadeOutAni.addAnchor(0, 0., TransitionType.SIN, EaseType.IN);
+		fadeOutAni.addAnchor(animationDuration - 200, 1., TransitionType.SIN, EaseType.OUT);
+
+		aniPlayer.addAnimation("funcAni", funcAni);
+		aniPlayer.addAnimation("fadeOutAni", fadeOutAni);
+	}
+
+	private void addFlyoutAnimation(GameNode node, long duration) {
+		AnimationPlayer aniPlayer = new AnimationPlayer(duration);
+		aniPlayer.play(1);
+		rootNode.addChild(aniPlayer);
+
+		double originOffsetX = node.offsetX;
+		double originOffsetY = node.offsetY;
+
+		double moveDownOffsetY = 30 + 10 * Math.random();
+		double moveUpOffsetY =  1000 + 100 * Math.random();
+		double moveOffsetX = -50 + 100 * Math.random();
+
+		long moveUpTime = duration / 4;
+
+		ContinuousFuncAnimation<Double> moveDownAni = new ContinuousFuncAnimation<>(val -> {
+			node.offsetX = originOffsetX + (val * moveOffsetX);
+			node.offsetY = originOffsetY + (val * moveDownOffsetY);
+		});
+		moveDownAni.addAnchor(0, 0., TransitionType.SIN, EaseType.OUT);
+		moveDownAni.addAnchor(moveUpTime, 1., TransitionType.SIN, EaseType.OUT);
+
+		ContinuousFuncAnimation<Double> moveUpAni = new ContinuousFuncAnimation<>(val -> {
+			node.offsetX = originOffsetX + ((1 + val) * moveOffsetX);
+			node.offsetY = originOffsetY + moveDownOffsetY - (val *  moveUpOffsetY);
+		});
+		moveUpAni.addAnchor(moveUpTime, 0., TransitionType.SIN, EaseType.IN);
+		moveUpAni.addAnchor(duration, 1., TransitionType.SIN, EaseType.OUT);
+
+		aniPlayer.addAnimation("moveDown", moveDownAni);
+		aniPlayer.addAnimation("moveUp", moveUpAni);
 	}
 }

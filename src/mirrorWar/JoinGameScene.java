@@ -38,15 +38,16 @@ public class JoinGameScene extends GameScene {
 	private final int width = 200;
 	private final int height = 30;
 
-	public JoinGameScene() {
-		Game.clearColor = Color.YELLOW;
+	@Override
+	protected void initialize() {
+		Game.clearColor = Color.BLACK;
 
 		CyclicTiledBackground cyclicTileBg = createCyclicTiledBackground();
 		rootNode.addChild(cyclicTileBg);
 
 		GameNode dialogBackgroud = new RectangleGameNode(300, 250, width, height, Color.WHITE);
 		rootNode.addChild(dialogBackgroud);
-		
+
 		messageBoard.geometry.x = Game.canvasWidth() / 2;
 		messageBoard.geometry.y = Game.canvasHeight() * 0.25;
 		rootNode.addChild(messageBoard);

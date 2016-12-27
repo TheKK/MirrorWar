@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.function.Consumer;
 
 import gameEngine.TransitionFuncs.EaseType;
-import gameEngine.TransitionFuncs.TransitionType;
 import gameEngine.TransitionFuncs.LinearTransitionFuncs;
-import gameEngine.TransitionFuncs.SinusoidalTransitionFuncs;
 import gameEngine.TransitionFuncs.QuadraticTransitionFuncs;
+import gameEngine.TransitionFuncs.SinusoidalTransitionFuncs;
+import gameEngine.TransitionFuncs.TransitionType;
 
 public class ContinuousFuncAnimation<T extends Number> implements Animation {
 
@@ -16,7 +16,7 @@ public class ContinuousFuncAnimation<T extends Number> implements Animation {
 		T value;
 		TransitionType transType;
 		EaseType easeType;
-		 
+
 		Anchor(long time, T value, TransitionType transType, EaseType easeType) {
 			this.time = time;
 			this.value = value;
@@ -60,7 +60,10 @@ public class ContinuousFuncAnimation<T extends Number> implements Animation {
 				break;
 			}
 		}
-		
+
+		// If it locates "before" the first anchor, ignore this animation for now
+		if (startPoint == null && endPoint == null) return;
+
 		TransitionType transType = startPoint.transType;
 		EaseType easeType = startPoint.easeType;
 
@@ -71,7 +74,7 @@ public class ContinuousFuncAnimation<T extends Number> implements Animation {
 
 		double val = 0;
 		TransitionFuncs transFuncs = transitionFuncs[transType.getValue()];
-		
+
 		switch (easeType) {
 		case IN:
 			val = transFuncs.in(t, b, c, d);
@@ -93,12 +96,12 @@ public class ContinuousFuncAnimation<T extends Number> implements Animation {
 	// TODO Can we place this function inside TransitionFuncs.java ?
 	private static TransitionFuncs[] getTransitionFuncsArray() {
 		TransitionFuncs[] result = new TransitionFuncs[TransitionType.values().length];
-		
+
 		// TODO Is there any way that I can store static function instead instance ?
 		result[TransitionType.LINEAR.getValue()] = new LinearTransitionFuncs();
 		result[TransitionType.SIN.getValue()] = new SinusoidalTransitionFuncs();
 		result[TransitionType.QUADRATIC.getValue()] = new QuadraticTransitionFuncs();
-		
+
 		for (TransitionFuncs func: result) {
 			if (func == null) {
 				throw new AssertionError("Missing transition function!");
@@ -107,7 +110,7 @@ public class ContinuousFuncAnimation<T extends Number> implements Animation {
 			// TODO Find out how to turn assert on
 //			assert func != null;
 		}
-		
+
 		return result;
 	}
 

@@ -300,7 +300,7 @@ public abstract class GameNode {
 
 		gc.save();
 		{
-			gc.setGlobalAlpha(alpha);
+			gc.setGlobalAlpha(gc.getGlobalAlpha() * alpha);
 			gc.translate(offsetX, offsetY);
 			gc.translate(geometry.x, geometry.y);
 			gc.scale(scaleX, scaleY);
