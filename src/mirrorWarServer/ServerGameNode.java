@@ -31,7 +31,6 @@ import javafx.scene.paint.Color;
 import mirrorWar.Constants;
 import mirrorWar.DangerousGlobalVariables;
 import mirrorWar.charger.Charger.ChargerState;
-import mirrorWar.charger.Charger.ChargerState.Animation;
 import mirrorWar.gameReport.GameReport;
 import mirrorWar.gameStatusUpdate.GameStatusUpdate;
 import mirrorWar.gameStatusUpdate.GameStatusUpdate.ServerMessage;
@@ -65,17 +64,17 @@ public class ServerGameNode extends GameNode {
 
 	private DatagramSocket updateOutputSocket;
 	private DatagramPacket updatePacket;
-	
+
 	private GameReportNetGameNode gameReport = new GameReportNetGameNode() {
 		@Override
 		protected void beAttacked() {
 		}
 	};
-	
+
 	public ServerGameNode(ServerSocket serverSocket, List<Socket> playerSockets) throws IOException {
 		this.playerSockets = playerSockets;
-		
-		MapLoader mLoader = new MapLoader("./src/MapLoader/map.json"); 
+
+		MapLoader mLoader = new MapLoader("./src/mirrorWar/map/map.json");
 
 		readPlayerRespawnRegion(mLoader.getObjectLayers().get("respawnArea"));
 
@@ -89,20 +88,20 @@ public class ServerGameNode extends GameNode {
 
 		setupUpdateBoardcastingService();
 		setupWaitsForCommandsService();
-		
+
 		addLaserToGame(mLoader.getObjectLayers().get("lasers"));
 		addMirrorToGame(mLoader.getObjectLayers().get("mirrors"));
 		addChargerToGame(mLoader.getObjectLayers().get("chargers"));
 		addWallToGame(mLoader.getObjectLayers().get("walls"));
-		
+
 		addChild(gameReport);
-		
+
 		Game.canvas.setWidth(1250);
 		Game.canvas.setHeight(750);
 		Game.stage.setWidth(1250);
 		Game.stage.setHeight(750);
 	}
-	
+
 	private void readPlayerRespawnRegion(List<MapObject> respawnRegions) {
 		for (int i = 0; i < respawnRegions.size(); ++i) {
 			MapObject region = respawnRegions.get(i);
@@ -125,7 +124,7 @@ public class ServerGameNode extends GameNode {
 			}
 		});
 	}
-	
+
 	private void addLaserToGame(List<MapObject> laserList) {
 		for (MapObject laser : laserList) {
 			int id = getUniqueObjectId();
@@ -138,7 +137,7 @@ public class ServerGameNode extends GameNode {
 			newLaser.geometry.y = laser.y;
 			newLaser.geometry.width = laser.width;
 			newLaser.geometry.height = laser.height;
-			
+
 			for (LaserState.Direction dir : LaserState.Direction.values()) {
 				if (dir.toString().equals(laser.properties.get("direction"))) {
 					newLaser.currentDir = dir;
@@ -183,7 +182,7 @@ public class ServerGameNode extends GameNode {
 					isCharging = true;
 					gameChargePlayer0();
 				}
-				
+
 				@Override
 				public void chargePlayer1() {
 					isCharging = true;
@@ -203,11 +202,11 @@ public class ServerGameNode extends GameNode {
 			chargers.put(id, newCharger);
 		}
 	}
-	
+
 	private void addWallToGame(List<MapObject> wallList) {
 		for (MapObject wall : wallList) {
 			RectangleGameNode newWall = new RectangleGameNode(wall.x, wall.y, wall.width, wall.height, Color.TRANSPARENT);
-			
+
 			addChild(newWall);
 			Game.currentScene().physicEngine.addStaticNode(newWall);
 		}
@@ -251,11 +250,11 @@ public class ServerGameNode extends GameNode {
 			}
 		}
 	}
-	
+
 	private void sendResultToAllClient(int loseId) {
 		// dirty code
 		int winnerId = (loseId == 0) ? 1: 0;
-		
+
 		playerSockets.forEach(socket -> {
 			try {
 				OutputStream out = socket.getOutputStream();
@@ -398,7 +397,7 @@ public class ServerGameNode extends GameNode {
 
 			updatesBuilder.addUpdates(update);
 		});
-		
+
 		lasers.forEach((laserId, laser) -> {
 			LaserState laserState = laser.getStates();
 			Update.Builder update = Update.newBuilder()
@@ -406,7 +405,7 @@ public class ServerGameNode extends GameNode {
 
 			updatesBuilder.addUpdates(update);
 		});
-		
+
 		{
 			GameReport.Status gameReportStatus = gameReport.getStates();
 			Update.Builder update = Update.newBuilder()

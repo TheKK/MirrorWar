@@ -1,0 +1,74 @@
+{ "frames": [
+   {
+    "filename": "mirrorCharger #Charging 0.ase",
+    "frame": { "x": 0, "y": 0, "w": 50, "h": 50 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 50, "h": 50 },
+    "sourceSize": { "w": 50, "h": 50 },
+    "duration": 100
+   },
+   {
+    "filename": "mirrorCharger #Charging 1.ase",
+    "frame": { "x": 50, "y": 0, "w": 50, "h": 50 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 50, "h": 50 },
+    "sourceSize": { "w": 50, "h": 50 },
+    "duration": 100
+   },
+   {
+    "filename": "mirrorCharger #Charging 2.ase",
+    "frame": { "x": 100, "y": 0, "w": 50, "h": 50 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 50, "h": 50 },
+    "sourceSize": { "w": 50, "h": 50 },
+    "duration": 100
+   },
+   {
+    "filename": "mirrorCharger #Charging 3.ase",
+    "frame": { "x": 0, "y": 50, "w": 50, "h": 50 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 50, "h": 50 },
+    "sourceSize": { "w": 50, "h": 50 },
+    "duration": 100
+   },
+   {
+    "filename": "mirrorCharger #Charging 4.ase",
+    "frame": { "x": 50, "y": 50, "w": 50, "h": 50 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 50, "h": 50 },
+    "sourceSize": { "w": 50, "h": 50 },
+    "duration": 100
+   },
+   {
+    "filename": "mirrorCharger #Charging 5.ase",
+    "frame": { "x": 100, "y": 50, "w": 50, "h": 50 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 50, "h": 50 },
+    "sourceSize": { "w": 50, "h": 50 },
+    "duration": 100
+   },
+   {
+    "filename": "mirrorCharger #Charging 6.ase",
+    "frame": { "x": 0, "y": 100, "w": 50, "h": 50 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 50, "h": 50 },
+    "sourceSize": { "w": 50, "h": 50 },
+    "duration": 100
+   }
+ ],
+ "meta": {
+  "app": "http://www.aseprite.org/",
+  "version": "1.1.12-dev",
+  "image": "/home/kk/Pictures/mine/mirrorChargerCharging.png",
+  "format": "RGBA8888",
+  "size": { "w": 150, "h": 150 },
+  "scale": "1"
+ }
+}

@@ -1,15 +1,23 @@
 package netGameNodeSDK;
 
+import java.io.FileNotFoundException;
+
+import gameEngine.AnimatedSpriteGameNode;
+import gameEngine.Game;
 import gameEngine.GameScene;
-import gameEngine.RectangleGameNode;
-import javafx.scene.paint.Color;
 import mirrorWar.charger.Charger.ChargerState;
 import mirrorWar.charger.Charger.ChargerState.Animation;
 
 public class ChargerNetGameNode extends NetGameNode<ChargerState, Void> {
 	private int id;
 	protected boolean isCharging = false;
+
+	// Client stuff
 	private ChargerState.Animation clientCurrentAnimation = Animation.NORMAL;
+	private AnimatedSpriteGameNode clientStandbySprite;
+	private AnimatedSpriteGameNode clientChargingSprite;
+
+	// Server stuff
 	private ChargerState.Animation serverCurrentAnimation = Animation.NORMAL;
 
 	public ChargerNetGameNode(int id) {
@@ -22,13 +30,25 @@ public class ChargerNetGameNode extends NetGameNode<ChargerState, Void> {
 
 	@Override
 	public void clientInitialize(GameScene scene) {
-		RectangleGameNode rec = new RectangleGameNode(0, 0, 50, 50, Color.BLUE);
+		try {
+			clientStandbySprite = new AnimatedSpriteGameNode(
+					Game.loadImage("./src/mirrorWar/pic/mirrorChargerStandby.png"),
+					"./src/mirrorWar/pic/mirrorChargerStandby.json");
+			addChild(clientStandbySprite);
 
-		addChild(rec);
+			clientChargingSprite = new AnimatedSpriteGameNode(
+					Game.loadImage("./src/mirrorWar/pic/mirrorChargerCharging.png"),
+					"./src/mirrorWar/pic/mirrorChargerCharging.json");
+			addChild(clientChargingSprite);
 
-		updateFunc = (elapse) -> {
-			clientUpdate(elapse);
-		};
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			System.exit(1290);
+		}
+
+		updateFunc = this::clientUpdate;
+
+		setStandby();
 	}
 
 	@Override
@@ -40,9 +60,7 @@ public class ChargerNetGameNode extends NetGameNode<ChargerState, Void> {
 
 		scene.physicEngine.addStaticNode(this);
 
-		updateFunc = (elapse) -> {
-			serverUpdate(elapse);
-		};
+		updateFunc = this::serverUpdate;
 	}
 
 	@Override
@@ -56,7 +74,7 @@ public class ChargerNetGameNode extends NetGameNode<ChargerState, Void> {
 		} else {
 			serverCurrentAnimation = Animation.NORMAL;
 		}
-		
+
 		isCharging = false;
 	}
 
@@ -71,8 +89,17 @@ public class ChargerNetGameNode extends NetGameNode<ChargerState, Void> {
 	@Override
 	public void clientHandleServerUpdate(ChargerState update) {
 		if (clientCurrentAnimation != update.getAnimation()) {
-			// TODO: play animation
+			switch (update.getAnimation()) {
+			case IS_CHARGED:
+				setCharging();
+				break;
+
+			case NORMAL:
+				setStandby();
+				break;
+			}
 		}
+
 		clientCurrentAnimation = update.getAnimation();
 		geometry.x = update.getX();
 		geometry.y = update.getY();
@@ -92,4 +119,19 @@ public class ChargerNetGameNode extends NetGameNode<ChargerState, Void> {
 				.build();
 	}
 
+	private void setStandby() {
+		clientStandbySprite.playFromStart(-1);
+		clientStandbySprite.visible = true;
+
+		clientChargingSprite.autoPlayed = false;
+		clientChargingSprite.visible = false;
+	}
+
+	private void setCharging() {
+		clientChargingSprite.playFromStart(-1);
+		clientChargingSprite.visible = true;
+
+		clientStandbySprite.autoPlayed = false;
+		clientStandbySprite.visible = false;
+	}
 }
