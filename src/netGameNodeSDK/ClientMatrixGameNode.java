@@ -1,5 +1,6 @@
 package netGameNodeSDK;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -15,6 +16,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import com.google.gson.JsonIOException;
+import com.google.gson.JsonSyntaxException;
 import com.google.protobuf.InvalidProtocolBufferException;
 
 import gameEngine.AnimationPlayer;
@@ -24,9 +27,9 @@ import gameEngine.GameNode;
 import gameEngine.LayerGameNode;
 import gameEngine.SimpleGameSceneCamera;
 import gameEngine.TextGameNode;
+import gameEngine.TiledMapGameObject;
 import javafx.application.Platform;
 import javafx.scene.canvas.GraphicsContext;
-
 import mirrorWar.charger.Charger.ChargerState;
 import mirrorWar.handshake.Handshake.ClientHandshake;
 import mirrorWar.handshake.Handshake.ServerHandshake;
@@ -37,7 +40,6 @@ import mirrorWar.mirror.Mirror.MirrorState;
 import mirrorWar.player.Player.PlayerState;
 import mirrorWar.update.UpdateOuterClass.Update;
 import mirrorWar.update.UpdateOuterClass.Updates;
-import sun.net.www.http.Hurryable;
 
 public class ClientMatrixGameNode extends GameNode {
 	private DatagramSocket commandOutputSocket;
@@ -62,31 +64,43 @@ public class ClientMatrixGameNode extends GameNode {
 	public ClientMatrixGameNode(Socket serverSocket) {
 		rootLayer = new LayerGameNode();
 		addChild(rootLayer);
-		
+
+		try {
+			TiledMapGameObject tiledMap = new TiledMapGameObject(
+					"./src/mirrorWar/map/map.json",
+					Game.loadImage("./src/mirrorWar/map/mirrorWarTiles.png"));
+
+			rootLayer.addChild(tiledMap);
+
+		} catch (JsonIOException | JsonSyntaxException | FileNotFoundException e1) {
+			System.err.println(e1.getMessage());
+
+		}
+
 		LayerGameNode hudLayer = new LayerGameNode();
 		addChild(hudLayer);
-		
+
 		TextGameNode player0Info = new TextGameNode("") {
 			@Override
 			public void update(long elapse) {
 				if (gameReport != null) {
 					int life = gameReport.getPlayerLife(0);
 					double energy = gameReport.getChargerEnergy(0);
-					
+
 					text = String.format("Player1 Life: %d\nPlayer Energy: %2f", life, energy);
 				}
 			}
 		};
 		player0Info.geometry.y = 10;
 		hudLayer.addChild(player0Info);
-		
+
 		TextGameNode player1Info = new TextGameNode("") {
 			@Override
 			public void update(long elapse) {
 				if (gameReport != null) {
 					int life = gameReport.getPlayerLife(1);
 					double energy = gameReport.getChargerEnergy(1);
-					
+
 					text = String.format("Player2 Life: %d\nPlayer Energy: %2f", life, energy);
 				}
 			}
@@ -94,7 +108,6 @@ public class ClientMatrixGameNode extends GameNode {
 		player1Info.geometry.y = 10;
 		player1Info.geometry.x = 550;
 		hudLayer.addChild(player1Info);
-		
 
 		try {
 			setupUDPSockets(serverSocket);
