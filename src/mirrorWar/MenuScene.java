@@ -30,6 +30,7 @@ public class MenuScene extends GameScene {
 	private static final String TITLE_IMAGE = "./src/mirrorWar/pic/mirrorTitle.png";
 
 	private MediaPlayer menuHoveredSe;
+	private MediaPlayer bgm;
 
 	private GameNode titleImage;
 	private GameNode joinGameButton, creditsButton, quitButton;
@@ -97,7 +98,13 @@ public class MenuScene extends GameScene {
 		aniPlayer.addAnimation("contiAni", contiAni);
 		aniPlayer.play(-1);
 
-		menuHoveredSe = new MediaPlayer(Game.loadMedia(MENU_HOVERED_SE));
+		loadSeAndPlayBGM();
+	}
+
+	@Override
+	protected void cleanup() {
+		menuHoveredSe.stop();
+		bgm.stop();
 	}
 
 	private GameNode createButton(String textImagePath, Runnable clickCallback) {
@@ -201,5 +208,13 @@ public class MenuScene extends GameScene {
 
 		aniPlayer.addAnimation("moveDown", moveDownAni);
 		aniPlayer.addAnimation("moveUp", moveUpAni);
+	}
+
+	private void loadSeAndPlayBGM() {
+		menuHoveredSe = new MediaPlayer(Game.loadMedia(MENU_HOVERED_SE));
+		bgm = new MediaPlayer(Game.loadMedia("./src/mirrorWar/sounds/menuBGM.wav"));
+
+		bgm.setCycleCount(MediaPlayer.INDEFINITE);
+		bgm.play();
 	}
 }
