@@ -72,6 +72,7 @@ public final class Game extends Application {
 	}
 
 	public static void swapScene(GameScene scene) {
+		gameSceneStack.peek().cleanup();
 		gameSceneStack.pop();
 		gameSceneStack.push(scene);
 
@@ -85,6 +86,7 @@ public final class Game extends Application {
 	}
 
 	public static void popScene() {
+		gameSceneStack.peek().cleanup();
 		gameSceneStack.pop();
 	}
 
@@ -187,7 +189,7 @@ public final class Game extends Application {
 
 			Scene scene = new Scene(root, width, height, Color.BLACK);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-			
+
 			Game.scene = scene;
 			Game.stage = primaryStage;
 

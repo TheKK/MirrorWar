@@ -12,6 +12,7 @@ public abstract class GameScene {
 
 	// Put all initializations to here instead constructor
 	protected void initialize() {}
+	protected void cleanup() {}
 
 	protected boolean onMouseMoved(MouseEvent event) { return true; }
 	protected boolean onMousePressed(MouseEvent event) { return true; }

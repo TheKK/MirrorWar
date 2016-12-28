@@ -21,6 +21,7 @@ import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 
 
@@ -37,6 +38,11 @@ public class JoinGameScene extends GameScene {
 	private String serverIp = "";
 	private final int width = 200;
 	private final int height = 30;
+
+	private MediaPlayer warnningSe;
+	private MediaPlayer bgm;
+	private MediaPlayer keyPressedSe;
+	private MediaPlayer keyDeleteSe;
 
 	@Override
 	protected void initialize() {
@@ -55,6 +61,27 @@ public class JoinGameScene extends GameScene {
 		GameNode text = new TextGameNode(serverIp) {
 			@Override
 			public boolean onKeyPressed(KeyEvent event) {
+				switch (event.getCode()) {
+					case BACK_SPACE:
+						if (serverIp.length() > 0) {
+							keyDeleteSe.stop();
+							keyDeleteSe.play();
+						}
+						break;
+
+					case PERIOD:
+					case DECIMAL:
+						keyPressedSe.stop();
+						keyPressedSe.play();
+						break;
+
+					default:
+						if (event.getCode().isDigitKey()) {
+							keyPressedSe.stop();
+							keyPressedSe.play();
+						}
+				}
+
 				switch (event.getCode()) {
 					case BACK_SPACE:
 						serverIp = cutOffLastWord(serverIp);
@@ -96,6 +123,16 @@ public class JoinGameScene extends GameScene {
 		okBtn.geometry.width = 50;
 		okBtn.geometry.height = height;
 		dialogBackgroud.addChild(okBtn);
+
+		loadSeAndPlayBGM();
+	}
+
+	@Override
+	protected void cleanup() {
+		warnningSe.stop();
+		keyPressedSe.stop();
+		keyDeleteSe.stop();
+		bgm.stop();
 	}
 
 	private CyclicTiledBackground createCyclicTiledBackground() {
@@ -146,6 +183,8 @@ public class JoinGameScene extends GameScene {
 				if (serverSocket != null) {
 					Game.swapScene(new MirrorWarScene(serverSocket));
 				} else {
+					warnningSe.stop();
+					warnningSe.play();
 					messageBoard.showMessage(e.getMessage());
 				}
 			});
@@ -196,11 +235,26 @@ public class JoinGameScene extends GameScene {
 	protected boolean onKeyPressed(KeyEvent event) {
 		switch (currentState) {
 			case USER_INPUT:
+				switch (event.getCode()) {
+				case ESCAPE:
+					Game.swapScene(new MenuScene());
+					break;
+				}
 				return true;
 			case WAITTING_CONNECTION:
 			case WAITTING_FOR_OTHER_PLAYER:
 			default:
 				return false;
 		}
+	}
+
+	private void loadSeAndPlayBGM() {
+		warnningSe = new MediaPlayer(Game.loadMedia("./src/mirrorWar/sounds/joinGameSceneWarnning.wav"));
+		keyPressedSe = new MediaPlayer(Game.loadMedia("./src/mirrorWar/sounds/joinGameSceneKey.wav"));
+		keyDeleteSe = new MediaPlayer(Game.loadMedia("./src/mirrorWar/sounds/joinGameSceneDelete.wav"));
+		bgm = new MediaPlayer(Game.loadMedia("./src/mirrorWar/sounds/joinGameSceneBGM.wav"));
+
+		bgm.setCycleCount(MediaPlayer.INDEFINITE);
+		bgm.play();
 	}
 }

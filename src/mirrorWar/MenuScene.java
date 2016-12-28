@@ -176,22 +176,25 @@ public class MenuScene extends GameScene {
 		double originOffsetX = node.offsetX;
 		double originOffsetY = node.offsetY;
 
+		double nodeMidX = (node.geometry.x + node.geometry.width) / 2;
+		double moveDownOffsetX = ((nodeMidX / Game.canvasWidth()) - 0.5) * -200;
 		double moveDownOffsetY = 30 + 10 * Math.random();
-		double moveUpOffsetY =  1000 + 100 * Math.random();
-		double moveOffsetX = -50 + 100 * Math.random();
 
-		long moveUpTime = duration / 4;
+		double moveUpOffsetX = ((nodeMidX / Game.canvasWidth()) - 0.5) * 1500;
+		double moveUpOffsetY =  2000 + 100 * Math.random();
+
+		long moveUpTime = duration / 5;
 
 		ContinuousFuncAnimation<Double> moveDownAni = new ContinuousFuncAnimation<>(val -> {
-			node.offsetX = originOffsetX + (val * moveOffsetX);
+			node.offsetX = originOffsetX + (val * moveDownOffsetX);
 			node.offsetY = originOffsetY + (val * moveDownOffsetY);
 		});
 		moveDownAni.addAnchor(0, 0., TransitionType.SIN, EaseType.OUT);
 		moveDownAni.addAnchor(moveUpTime, 1., TransitionType.SIN, EaseType.OUT);
 
 		ContinuousFuncAnimation<Double> moveUpAni = new ContinuousFuncAnimation<>(val -> {
-			node.offsetX = originOffsetX + ((1 + val) * moveOffsetX);
-			node.offsetY = originOffsetY + moveDownOffsetY - (val *  moveUpOffsetY);
+			node.offsetX = originOffsetX + moveDownOffsetX + (val * moveUpOffsetX);
+			node.offsetY = originOffsetY + moveDownOffsetY - (val * moveUpOffsetY);
 		});
 		moveUpAni.addAnchor(moveUpTime, 0., TransitionType.SIN, EaseType.IN);
 		moveUpAni.addAnchor(duration, 1., TransitionType.SIN, EaseType.OUT);
