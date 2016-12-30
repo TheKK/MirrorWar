@@ -107,4 +107,12 @@ public class TiledMapGameObject extends GameNode {
 			}
 		}
 	}
+
+	public double mapWidthInPixel() {
+		return mapWidth * tileWidth;
+	}
+
+	public double mapHeightinPixel() {
+		return mapHeight * tileHeight;
+	}
 }

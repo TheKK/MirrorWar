@@ -7,12 +7,12 @@ import java.net.Socket;
 import gameEngine.AnimationPlayer;
 import gameEngine.FunctionTriggerAnimation;
 import gameEngine.Game;
+import gameEngine.GameNode;
 import gameEngine.GameScene;
-import netGameNodeSDK.ClientMatrixGameNode;
 import javafx.scene.paint.Color;
 import mirrorWar.gameStatusUpdate.GameStatusUpdate.GameResult;
-
 import mirrorWar.gameStatusUpdate.GameStatusUpdate.ServerMessage;
+import netGameNodeSDK.ClientMatrixGameNode;
 
 enum GameState {
 	SENDING_READY_MESSAGE, WAIT_FOR_OTHER_PLAYER, START_PLAYING, GAME_OVER
@@ -61,12 +61,17 @@ public class MirrorWarScene extends GameScene {
 			// Handshaking inside ClientMatrixGameNode's initialize method
 			// TODO This is too implicit, make it more clear and straightforward
 			ClientMatrixGameNode clientGameNode = new ClientMatrixGameNode(serverConnSocket);
+			GameNode countdownGameNode = new CountdownGameNode();
+
+			countdownGameNode.geometry.x = (Game.canvasWidth() - countdownGameNode.geometry.width) / 2;
+			countdownGameNode.geometry.y = (Game.canvasHeight() - countdownGameNode.geometry.height) / 2;
 
 			waitForMessageAndDo(in, ServerMessage.Message.GAME_START,
 					() -> {},
 					() -> {});
 
 			rootNode.addChild(clientGameNode);
+			rootNode.addChild(countdownGameNode);
 
 			GameResult result;
 			try {
@@ -87,14 +92,14 @@ public class MirrorWarScene extends GameScene {
 		thread.setDaemon(true);
 		thread.run();
 	}
-	
+
 	private void playerWin() {
 		messageBoard.showMessage("You win!");
 		rootNode.addChild(messageBoard);
 		aniPlayer.play(1);
 		DangerousGlobalVariables.logger.info("win");
 	}
-	
+
 	private void playerLose() {
 		messageBoard.showMessage("You lose!");
 		rootNode.addChild(messageBoard);
@@ -119,7 +124,7 @@ public class MirrorWarScene extends GameScene {
 				otherwise.run();
 			}
 	}
-	
+
 	private void setupAnimationPlayer() {
 		FunctionTriggerAnimation funcAni = new FunctionTriggerAnimation();
 		funcAni.addAnchor(5000, () -> {
@@ -133,7 +138,7 @@ public class MirrorWarScene extends GameScene {
 
 			Game.swapScene(new JoinGameScene());
 		});
-		
+
 		aniPlayer.addAnimation("gameOver", funcAni);
 		rootNode.addChild(aniPlayer);
 	}

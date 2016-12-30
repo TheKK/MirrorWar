@@ -43,6 +43,7 @@ public abstract class GameNode {
 
 	private Optional<GameNode> parent = Optional.empty();
 	private ArrayList<GameNode> children = new ArrayList<GameNode>();
+	private List<GameNode> childrenToBeAdded= new ArrayList<>();
 	private List<GameNode> childrenToBeRemoved = new ArrayList<>();
 
 	public final java.awt.geom.Rectangle2D.Double geometryInGameWorld() {
@@ -268,21 +269,13 @@ public abstract class GameNode {
 	}
 
 	public final void addChild(GameNode node) {
-		if (node.parent.isPresent()) {
-			GameNode parent = node.parent.get();
-			parent.removeChild(node);
-		}
-
-		node.parent = Optional.of(this);
-		children.add(node);
+		childrenToBeAdded.add(node);
 	}
-	public final boolean removeChild(GameNode node) {
-		boolean childExists = children.remove(node);
-		if (childExists) {
-			node.parent = Optional.empty();
-		}
 
-		return childExists;
+	public final boolean removeChild(GameNode node) {
+		childrenToBeRemoved.add(node);
+
+		return children.contains(node);
 	}
 
 	private final double xRotateBy(double x, double y, double degree) {
@@ -334,8 +327,23 @@ public abstract class GameNode {
 		update(elapse);
 		children.forEach(node -> node._update(elapse));
 
-		childrenToBeRemoved.forEach(child -> children.remove(child));
+		childrenToBeRemoved.forEach(child -> {
+			children.remove(child);
+			child.parent = Optional.empty();
+		});
 		childrenToBeRemoved.clear();
+
+
+		childrenToBeAdded.forEach(child -> {
+			if (child.parent.isPresent()) {
+				GameNode parent = child.parent.get();
+				parent.removeChild(child);
+			}
+
+			child.parent = Optional.of(this);
+			children.add(child);
+		});
+		childrenToBeAdded.clear();
 	}
 
 	public void update(long elapse) {}

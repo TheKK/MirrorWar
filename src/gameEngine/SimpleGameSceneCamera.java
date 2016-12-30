@@ -9,11 +9,12 @@ public class SimpleGameSceneCamera extends GameSceneCamera {
 		geometry.setRect(x, y, w, h);
 	}
 
+	@Override
 	public void update(long elapse) {
 		if (!cameraTarget.isPresent()) {
 			return;
 		}
-		
+
 		GameNode target = cameraTarget.get();
 
 		if (target.geometry.getCenterX() > geometry.getCenterX() + 100) {

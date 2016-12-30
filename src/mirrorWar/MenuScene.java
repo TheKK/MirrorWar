@@ -20,8 +20,6 @@ import mirrorWar.TransitionGameNode.Type;
 public class MenuScene extends GameScene {
 	private static final String MENU_HOVERED_SE = "./src/mirrorWar/sounds/menuItemHovered.wav";
 
-	private static final String BACKGROUND_IMAGE = "./src/mirrorWar/pic/miku.jpg";
-
 	private static final String JOIN_GAME_TEXT = "./src/mirrorWar/pic/mirrorJoinGameButton.png";
 	private static final String CREDITS_TEXT = "./src/mirrorWar/pic/mirrorCreditsButton.png";
 	private static final String QUIT_TEXT = "./src/mirrorWar/pic/mirrorQuitButton.png";
@@ -41,8 +39,7 @@ public class MenuScene extends GameScene {
 
 		Game.clearColor = Color.BLACK;
 
-		SpriteGameNode background = new SpriteGameNode(Game.loadImage(BACKGROUND_IMAGE));
-		rootNode.addChild(background);
+		rootNode.addChild(new MenuBackground());
 
 		joinGameButton = this.createButton(
 				JOIN_GAME_TEXT,
