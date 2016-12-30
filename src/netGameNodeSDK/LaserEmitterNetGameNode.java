@@ -215,7 +215,7 @@ public class LaserEmitterNetGameNode extends NetGameNode<LaserState, Void> {
 			int dirNum = tmpDir.getNumber();
 			if (dirNum == LaserState.Direction.Up_VALUE) {
 				//System.out.println("Up");
-				laserlight = new Rectangle.Double(tmpEmiter.x, tmpEmiter.y - 1000 - 1, 50, 1000);
+				laserlight = new Rectangle.Double(tmpEmiter.x, tmpEmiter.y - 2000 - 1, 50, 2000);
 				intersects = physicEngine.getStaticNodesInArea(laserlight);
 				Optional<GameNode> nearestNodeOp = intersects.stream()
 						.max(Comparator.comparing(node -> node.geometry.y));
@@ -263,7 +263,7 @@ public class LaserEmitterNetGameNode extends NetGameNode<LaserState, Void> {
 				}
 			} else if (dirNum == LaserState.Direction.Down_VALUE) {
 				//System.out.println("Down");
-				laserlight = new Rectangle.Double(tmpEmiter.x, tmpEmiter.y + tmpEmiter.height + 1, 50, 1000);
+				laserlight = new Rectangle.Double(tmpEmiter.x, tmpEmiter.y + tmpEmiter.height + 1, 50, 2000);
 				intersects = physicEngine.getStaticNodesInArea(laserlight);
 				Optional<GameNode> nearestNodeOp = intersects.stream()
 						.min(Comparator.comparing(node -> node.geometry.y));
@@ -311,7 +311,7 @@ public class LaserEmitterNetGameNode extends NetGameNode<LaserState, Void> {
 				}
 			} else if (dirNum == LaserState.Direction.Left_VALUE) {
 				//System.out.println("Left");
-				laserlight = new Rectangle.Double(tmpEmiter.x - 1000 - 1, tmpEmiter.y, 1000, 50);
+				laserlight = new Rectangle.Double(tmpEmiter.x - 2000 - 1, tmpEmiter.y, 2000, 50);
 				intersects = physicEngine.getStaticNodesInArea(laserlight);
 				Optional<GameNode> nearestNodeOp = intersects.stream()
 						.max(Comparator.comparing(node -> node.geometry.x));
@@ -359,7 +359,7 @@ public class LaserEmitterNetGameNode extends NetGameNode<LaserState, Void> {
 				}
 			} else if (dirNum == LaserState.Direction.Right_VALUE) {
 				//System.out.println("Right");
-				laserlight = new Rectangle.Double(tmpEmiter.x + tmpEmiter.width + 1, tmpEmiter.y, 1000, 50);
+				laserlight = new Rectangle.Double(tmpEmiter.x + tmpEmiter.width + 1, tmpEmiter.y, 2000, 50);
 				intersects = physicEngine.getStaticNodesInArea(laserlight);
 				Optional<GameNode> nearestNodeOp = intersects.stream()
 						.min(Comparator.comparing(node -> node.geometry.x));
